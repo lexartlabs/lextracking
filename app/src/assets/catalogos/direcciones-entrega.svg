@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="110px" height="110px" viewBox="0 0 110 110" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.1 (33804) - http://www.bohemiancoding.com/sketch -->
+    <title>catalogos/direcciones-entrega</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="55" cy="55" r="55"></circle>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="110" height="110" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="IMM-desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="d.dashboard-c-catalogos" transform="translate(-648.000000, -278.000000)">
+            <g id="catalogos/direcciones-entrega" transform="translate(648.000000, 278.000000)">
+                <use id="Oval-4" stroke="#CCCCCC" mask="url(#mask-2)" stroke-width="4" fill="#FFFFFF" xlink:href="#path-1"></use>
+                <circle id="Oval-4-Copy" fill="#F16945" cx="55" cy="55" r="50"></circle>
+                <g id="Group-5" transform="translate(20.000000, 30.000000)">
+                    <rect id="Rectangle-7" fill="#FFFFFF" x="2" y="0" width="44" height="34" rx="3"></rect>
+                    <path d="M46,32 L2.00079916,32 C0.897816161,32 0,32.8918564 0,33.992017 L0,41.007983 C0,42.0998238 0.895788296,43 2.00079916,43 L67.9992008,43 C69.1021838,43 70,42.1081436 70,41.007983 L70,34.4969578 L70,30.9981014 C70,29.8867064 69.5251049,28.2401678 68.9392921,27.3028674 L61.0607079,14.6971326 C60.4755934,13.7609494 59.1019465,13 57.9941413,13 L48.0058587,13 C46.8970601,13 46,13.8976452 46,15.0049466 L46,32 Z M49,16 L59,16 L66,28 L49,28 L49,16 Z" id="Combined-Shape" fill="#173E51"></path>
+                    <circle id="Oval-8" fill="#0D2332" cx="13" cy="43" r="8"></circle>
+                    <circle id="Oval-8-Copy" fill="#0D2332" cx="53" cy="43" r="8"></circle>
+                    <circle id="Oval-9" fill="#FFFFFF" cx="13" cy="43" r="4"></circle>
+                    <circle id="Oval-9-Copy" fill="#FFFFFF" cx="53" cy="43" r="4"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

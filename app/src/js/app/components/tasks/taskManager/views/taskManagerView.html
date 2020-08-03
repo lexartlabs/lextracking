@@ -1,0 +1,57 @@
+<div class="imm-wa__hdr imm-flex">
+    <div class="imm-flex-5">
+        <h1 class="imm-wa__tit">
+            <a class="imm-bc-item" ui-sref="app.dashboardTasks">{{ 'navigation.tasks' | translate }}</a>
+        </h1>
+        <div class="imm-bc">
+            <a class="imm-bc-item">{{ 'navigation.taskManager' | translate }}</a>
+        </div>
+    </div>
+</div>
+<div class="imm-wa__cnt">  
+    <div style="height:250px;width:100%;">
+        <canvas id="bar" class="chart chart-bar" 
+                chart-data="data" chart-labels="labels"
+                chart-series="series" chart-colors="ColorBar"
+                chart-options="options" chart-dataset-override="DataSetOverride"></canvas>
+    </div>
+    <table>
+        <thead>
+            <tr>
+            	<th>{{ 'projects.project' | translate }}</th>
+                <th>{{ 'projects.client' | translate }}</th>
+                <th>{{ 'taskManager.tasknumber' | translate }}</th>
+                <th class="imm-cstm__grid-5"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input class="field-filter" ng-model="filter.name"></td>
+                <td><input class="field-filter" ng-model="filter.clientName"></td>
+                <td><input class="field-filter" ng-model="filter.tasknumber"></td>
+                <td></td>
+            </tr>
+            <tr ng-repeat="project in projects">
+                <td title="{{project.name}}">{{ project.name | truncateTail:true:30:'...' }}</td>
+                <td title="{{project.clientName}}">{{ project.clientName | truncateTail:true:30:'...' }}</td>
+                <td title="{{project.description}}">{{ project.tasknumber | truncateTail:true:45:'...' }}</td>
+                <td>
+                    <a ui-sref="app.taskManagerEdit({id: project.id})">
+                        <img src="assets/images/icons/pencil-ico.svg">
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<paging
+    ng-show="total>pageSize"
+    page="currentPage"
+    page-size="pageSize"
+    total="total"
+    hide-if-empty="true"
+    show-prev-next="true"
+    show-first-last="true"
+    scroll-top="true"
+    paging-action="pager(page)">
+</paging>

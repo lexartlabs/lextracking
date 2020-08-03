@@ -1,0 +1,168 @@
+<div class="imm-wa__hdr imm-flex">
+  <div class="imm-flex-5">
+    <h1 class="imm-wa__tit">
+      <a class="imm-bc-item" ui-sref="app.bills">{{ 'bills.title' | translate }}</a>
+    </h1>
+    <div class="imm-bc">
+      <a class="imm-bc-item">{{ 'bills.title' | translate }}</a>
+    </div>
+    <div class="imm-bc" ng-if="bank.name">
+      <span class="imm-bc-item imm-bc--head">{{bank.name}}</span>
+    </div>
+  </div>
+</div>
+
+<div class="imm-wa__cnt" ng-init="flag=true" >
+  <div id="print" ng-show="flag">
+
+    <div id="bill-form" style="background-image:url('/assets/images/factura.png');position:relative;background-repeat: no-repeat; height:auto " >
+      <form class="imm-frm imm-frm--center" >
+
+        <div class="box" >
+          <table class="factura">
+            <thead>
+
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+
+                <td  class="billNumber" style="padding-left:28.5%; padding-top:1.5%;"><input class="bill-input"  type="text" ng-model="bill.billNumber" ng-value="bill.billNumber" style="color:#FE2E2E;" /></td>
+              </tr>
+
+              <tr>
+
+                <td   class="rut-print" style="padding-top:3%;" ><input class="bill-input rut-input" type="text" ng-model="bill.rut" ng-value="bill.rut" style="width:60%;  background-color: #F8F8F8;"  /></td>
+                <td  class="date-print" style="padding-top:5.3%; padding-left:25.5%" >
+                  <input type="date" class=" bill-input date-bill" ng-model="bill.date" ng-value="bill.date" style="background-color: #F8F8F8;" />
+                  <input type="text" ng-if="bill.date" class="bill-input date-text-print" ng-value="bill.date|date:'dd/MM/yyyy'" style=" background-color: #F8F8F8;display:none;">
+                </td>
+              </tr>
+              <tr>
+                <td  class="text-print" style="padding-top:5%;" ><input class="bill-input" type="text" ng-model="bill.name"  ng-value="bill.name" style="width:100%;" /></td>
+              </tr>
+              <tr>
+
+                <td  style="padding-top:7%;" ><textarea class="bill-input"  name="name" ng-model="bill.concept" style="width:400px;resize: none;   " >{{bill.concept}}</textarea></td>
+                <td  class="price-print" style="padding-left:31%" ><input type="number" ng-model="bill.price"  ng-value="bill.price"   style="width:85px;  background-color: #F8F8F8;" class="bill-input price-print"/></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td class="parte-izquierda first" style="padding-left:31%; padding-top:12.5%" ><input type="number" ng-model="bill.price"  ng-value="bill.price"   style="width:85px;  background-color: #F8F8F8;" class="bill-input price-print"/></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td  class="parte-izquierda second"  style="padding-left:31%; padding-top:1%" ><input class="bill-input price-bill" type="number" ng-if="bill.price" ng-value="bill.price*0.18" style="width: 86px;height: 19px;  background-color: #F8F8F8;"/></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td class="parte-izquierda third"  style="padding-left:31%; padding-top:2.5%" ><input class="bill-input price-bill" type="number" ng-if="bill.price"   ng-value="bill.price*0.18 + bill.price" style="width: 86px;"/></td>
+              </tr>
+
+
+            </tbody>
+
+
+
+          </table>
+
+          <!-- <div class="imm-frm__fldgrp billNumber" style="padding-left:78%;    width: 200px;">
+            <div class="imm-frm__fld">
+              <input class="bill-input"  type="text" ng-model="bill.billNumber" ng-value="bill.billNumber" style="width:100px;color:#FE2E2E;"/>
+            </div>
+          </div>
+
+
+          <div class="imm-frm__fldgrp rut-print" style="margin-top:2.8%;">
+
+            <div class="imm-frm__fld " style="width:185px;">
+              <input class="bill-input" type="text" ng-model="bill.rut" ng-value="bill.rut" style="width:185px;" />
+            </div>
+
+            <div  class="imm-frm__fld date-print" style="    margin-left: 20%;margin-top: 1.2%;  position: relative;left: 15.5%;">
+              <input type="date" class=" bill-input date-bill" ng-model="bill.date" ng-value="bill.date"  style="width:140px;    height: 19px;"/>
+              <input type="text" ng-if="bill.date" class=" bill-input date-text-print" ng-value="bill.date|date:'dd/MM/yyyy'" style="width:140px;    height: 19px; display:none;">
+            </div>
+
+
+
+          </div>
+
+
+          <div class="imm-frm__fldgrp title-print" style="margin-top:2.8%;">
+            <div class="imm-frm__fld">
+              <input class="bill-input" type="text" ng-model="bill.name"  ng-value="bill.name" style="width:50%"/>
+            </div>
+          </div>
+
+          <div class="imm-frm__fldgrp" style="margin-top:7%">
+
+            <div class="imm-frm__fld">
+            <textarea class="bill-input"  name="name" ng-model="bill.concept" style="width:400px;resize: none; " >{{bill.concept}}</textarea>
+            </div>
+            <div class="imm-frm__fld" style="    margin-left: 7% ; margin-top:-1%;">
+              <input type="number" ng-model="bill.price"  ng-value="bill.price"   style="width:85px" class="bill-input price-print"/>
+            </div>
+            <div class="imm-frm__fld">
+            </div>
+
+          </div>
+
+          <div class="parte-baja" >
+            <div class="imm-frm__fldgrp" >
+              <div class="imm-frm__fld " >
+                <input class="bill-input price-bill" type="number" ng-value="bill.price" style="width: 86px;height: 19px;"/>
+              </div>
+
+            </div>
+
+
+            <div class="imm-frm__fldgrp  price-iva-print" style="margin-top:0%;">
+
+              <div class="imm-frm__fld" >
+                <input class="bill-input price-bill" type="number" ng-if="bill.price" ng-value="bill.price*0.18" style="width: 86px;height: 19px;"/>
+                <input class="bill-input price-bill" type="number" ng-if="!bill.price" ng-value="" style="width: 86px;height: 19px;"/>
+
+              </div>
+
+
+            </div>
+
+            <div class="imm-frm__fldgrp price-total-print" style="margin-top:6%;">
+
+              <div class="imm-frm__fld" >
+                <input class="bill-input price-bill" type="number" ng-if="bill.price"   ng-value="bill.price*0.18 + bill.price" style="width: 86px;height: 19px;"/>
+                <input class="bill-input price-bill" type="number" ng-if="!bill.price"   ng-value="" style="width: 86px;height: 19px;"/>
+              </div>
+
+
+            </div>
+
+          </div>
+
+          <!-- <div class="imm-frm__fldgrp" style="position:relative ; top :95px;margin-top:3em">
+
+            <div class="imm-frm__fld">
+              <input type="date" class="date-bill" ng-model="bill.date" ng-value="bill.date"  style="width:10em;    height: 19px;"/>
+
+            </div>
+
+          </div>
+ -->
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+
+</div>
+
+<div class="imm-wa__actions">
+  <p ng-if="error" class="err-display">{{error}} {{ 'general.cant_be_empty' | translate }}</p>
+  <button class="imm-btn imm-btn--alt" ui-sref="app.bills">{{ 'bills.back' | translate }}</button>
+  <button class="imm-btn" ng-disabled="sendingData" ng-click="save()">{{ 'bills.save' | translate }}</button>
+  <button class="imm-btn" ng-disabled="sendingData" ng-click="print('print');flag=!flag">{{ 'Imprimir' }}</button>
+
+</div>

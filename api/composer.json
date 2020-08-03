@@ -1,0 +1,8 @@
+{
+    "name": "lexart-labs/php-api",
+    "description": "php-api",
+    "type": "project",
+    "require": {
+        "fightbulc/moment": "^1.32"
+    }
+}

@@ -1,0 +1,118 @@
+<div class="imm-wa__hdr imm-flex">
+  <div class="imm-flex-5">
+    <h1 class="imm-wa__tit">
+      <a class="imm-bc-item" ui-sref="app.banks">{{ 'banks.title' | translate }}</a>
+    </h1>
+    <div class="imm-bc">
+      <a class="imm-bc-item">{{ 'banks.title' | translate }}</a>
+    </div>
+    <div class="imm-bc" ng-if="bank.name">
+      <span class="imm-bc-item imm-bc--head">{{bank.name}}</span>
+    </div>
+  </div>
+</div>
+
+<div class="imm-wa__cnt">
+
+
+  <form class="imm-frm imm-frm--center">
+
+    <div class="imm-frm__fldgrp">
+      <div class="imm-frm__fld" ng-if="bank.id">
+        <label class="imm-frm__lbl">
+          <input type="text" ng-value="bank.id" readonly/>
+          <b class="imm-frm__lbl-name">{{ 'ID' }}</b>
+        </label>
+      </div>
+
+      <div class="imm-frm__fld">
+        <label class="imm-frm__lbl">
+          <b class="imm-frm__lbl-name">{{ 'banks.name' | translate }} <span class="required">*</span></b>
+          <input type="text" ng-model="bank.name" />
+        </label>
+      </div>
+
+      <div class="imm-frm__fld">
+        <label class="imm-frm__lbl">
+          <b class="imm-frm__lbl-name">{{ 'banks.account' | translate }} <span class="required">*</span></b>
+          <input type="text" ng-model="bank.account" />
+        </label>
+      </div>
+
+
+    </div>
+
+
+
+    <div class="imm-frm__fldgrp">
+      <div class="imm-frm__fld">
+        <label class="imm-frm__lbl">
+          <input type="text" ng-model="bank.holder" />
+          <b class="imm-frm__lbl-name">{{ 'banks.holder' | translate }} <span class="required">*</span></b>
+        </label>
+      </div>
+      <!-- <div class="imm-frm__fld">
+        <label class="imm-frm__lbl">
+          <input type="number" ng-model="bank.priceUsd" min="0"/>
+          <b class="imm-frm__lbl-name">{{ 'banks.price' | translate }} <span class="required">*</span></b>
+        </label>
+      </div> -->
+
+      <div class="imm-frm__fld">
+        <label class="imm-frm__lbl">
+          <b class="imm-frm__lbl-name">{{ 'banks.currency' | translate }} <span class="required">*</span></b>
+          <select ng-model="bank.currency">
+            <option value="USD">USD</option>
+            <option value="$">$</option>
+
+          </select>
+        </label>
+      </div>
+
+    </div>
+
+
+    <div class="imm-frm__fldgrp">
+      <div class="imm-frm__fld">
+        <label class="imm-frm__lbl">
+          <input type="text" ng-model="bank.identificationCard" />
+          <b class="imm-frm__lbl-name">{{ 'banks.identificationCard' | translate }} <span class="required">*</span></b>
+        </label>
+      </div>
+      <div class="imm-frm__fld">
+        <label class="imm-frm__lbl">
+          <b class="imm-frm__lbl-name">{{ 'banks.type' | translate }} <span class="required">*</span></b>
+          <select ng-model="bank.type">
+            <option value="CAJA_AHORRO">Caja de ahorros</option>
+            <option value="CUENTA_CORRIENTE">Cuenta corriente</option>
+
+          </select>
+
+        </label>
+      </div>
+    </div>
+
+    <div class="imm-frm__fldgrp">
+      <div class="imm-frm__fld">
+        <label class="imm-frm__lbl">
+          <input type="text" ng-model="bank.branchOffice" />
+          <b class="imm-frm__lbl-name">{{ 'banks.branchOffice' | translate }} <span class="required">*</span></b>
+        </label>
+      </div>
+      <div class="imm-frm__fld">
+
+      </div>
+
+
+    </div>
+
+
+
+  </form>
+</div>
+
+<div class="imm-wa__actions">
+  <p ng-if="error" class="err-display">{{error}} {{ 'general.cant_be_empty' | translate }}</p>
+  <button class="imm-btn imm-btn--alt" ui-sref="app.banks">{{ 'banks.back' | translate }}</button>
+  <button class="imm-btn" ng-disabled="sendingData" ng-click="save()">{{ 'banks.save' | translate }}</button>
+</div>

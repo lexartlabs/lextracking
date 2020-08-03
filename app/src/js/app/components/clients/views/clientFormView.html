@@ -1,0 +1,48 @@
+<div class="imm-wa__hdr imm-flex">
+    <div class="imm-flex-5">
+        <h1 class="imm-wa__tit">
+            <a class="imm-bc-item" ui-sref="app.clients">{{ 'clients.title' | translate }}</a>
+        </h1>
+        <div class="imm-bc">
+            <a class="imm-bc-item">{{ 'clients.client' | translate }}</a>
+        </div>
+        <div class="imm-bc" ng-if="client.name">
+            <span class="imm-bc-item imm-bc--head">{{client.name}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="imm-wa__cnt">
+    <form class="imm-frm imm-frm--center">
+
+        <div class="imm-frm__fldgrp">
+            <div class="imm-frm__fld" ng-if="client.id">
+                <label class="imm-frm__lbl">
+                    <input type="text" ng-value="client.id" readonly/>
+                    <b class="imm-frm__lbl-name">{{ 'ID' }}</b>
+                </label>
+            </div>
+
+            <div class="imm-frm__fld">
+                <label class="imm-frm__lbl">
+                    <input type="text" ng-model="client.name"/>
+                    <b class="imm-frm__lbl-name">{{ 'Name' }} <span class="required">*</span></b>
+                </label>
+            </div>        
+
+            <div class="imm-frm__fld">
+                <label class="imm-frm__lbl">
+                    <input type="text" ng-model="client.company"/>
+                    <b class="imm-frm__lbl-name">{{ 'Company' }} <span class="required">*</span></b>
+                </label>
+            </div>   
+        </div>
+
+    </form>
+</div>
+
+<div class="imm-wa__actions">
+    <p ng-if="error" class="err-display">{{error}} {{ 'general.cant_be_empty' | translate }}</p>
+    <button class="imm-btn imm-btn--alt" ui-sref="app.clients">{{ 'clients.back' | translate }}</button>
+    <button class="imm-btn" ng-disabled="sendingData" ng-click="save()">{{ 'clients.save' | translate }}</button>
+</div>

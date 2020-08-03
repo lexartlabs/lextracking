@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41 (35326) - http://www.bohemiancoding.com/sketch -->
+    <title>ringfence-ico</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="IMM-desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="d.dashboard-d" transform="translate(-1157.000000, -405.000000)" fill="#FFB95D">
+            <path d="M1169,412 C1169,415.313708 1166.31371,418 1163,418 C1159.68629,418 1157,415.313708 1157,412 C1157,410.037113 1157.94257,408.294376 1159.39979,407.199719 L1160.59986,408.799813 C1159.62838,409.529584 1159,410.691409 1159,412 C1159,414.209139 1160.79086,416 1163,416 C1165.20914,416 1167,414.209139 1167,412 C1167,410.691409 1166.37162,409.529584 1165.40014,408.799813 L1166.60021,407.199719 C1168.05743,408.294376 1169,410.037113 1169,412 Z M1163,410 L1160,406 L1161,405 L1165,405 L1166,406 L1163,410 Z" id="ringfence-ico"></path>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,500 @@
+{
+  "navigation": {
+    "dashboard"   : "Dashboard",
+    "users"       : "Usuarios",
+    "clients"     : "Clientes",
+    "profiles"    : "Perfiles",
+    "projects"    : "Proyectos",
+    "reports"     : "Reportes",
+    "tasks"       : "Tareas",
+    "tasks_automatic"  : "Tareas Automaticas",
+    "tasks_trello"  : "Tareas Trello",
+    "taskManager"  : "Gestor de Tareas",
+    "profile"     : "Perfil",
+    "budget"      : "Presupuestos",
+    "hour-cost"   : "Costo Hora",
+    "finance"     : "Finanzas",
+    "bank"        : "Cuentas de Banco",
+    "weeklyHour"  : "Carga Horaria Semanal",
+    "sale"        : "Ventas",
+    "bill"        : "Factura",
+
+    "logout"      : "Salir"
+  },
+
+
+  "general": {
+    "cancel"        : "Cancelar",
+    "create"        : "Crear",
+    "edit"          : "Editar",
+    "new"           : "Nuevo",
+    "delete"        : "Borrar",
+    "back"          : "Atras",
+    "cant_be_empty" : "No puede ser vacio",
+    "save"          : "Guardar"
+  },
+
+
+  "shared": {
+    "modal" : {
+      "confirmation"  : "Confirmacion",
+      "are_you_sure"  : "¿Estás seguro?",
+      "confirm_delete": "¿Seguro que quieres borrar este objeto?",
+      "delete"        : "Borrar",
+      "cancel"        : "Cancelar",
+      "accept"        : "Aceptar",
+      "remove"        : "Eliminar",
+      "close"         :  "Cerrar"
+    }
+  },
+
+
+  "dashboard": {
+    "title"             : "Dashboard",
+    "last_tracks"       : "Ultimos tracks",
+    "current_tracks"    : "Trackeando Actualmente",
+    "recent_activity"   : "Actividad Reciente",
+    "project"           : "Proyecto",
+    "task"              : "Tarea",
+    "user"              : "Usuario",
+    "start_time"        : "Fecha Inicio",
+    "end_time"          : "Fecha Fin",
+    "duration"          : "Duración",
+    "active"            : "Activo ?",
+    "yes"               : "Sí",
+    "no"                : "No",
+    "total"             : "Total"
+  },
+
+
+  "users": {
+    "title"         : "Usuarios",
+    "user"          : "Usuario",
+    "id"            : "ID",
+    "name"          : "Nombre",
+    "role"          : "Rol",
+    "email"         : "Email",
+    "delete_user"   : "Borrar usuario",
+    "confirm_delete": "¿Estás seguro?",
+
+    "error_name"    : "Error: Ingrese un Nombre",
+    "error_email"   : "Error: Ingrese un e-mail válido",
+
+    "save"          : "Guardar",
+    "confirm"       : "Confirmar",
+    "cancel"        : "Cancelar",
+    "back"          : "Atrás"
+  },
+
+  "clients": {
+    "title"                 : "Clientes",
+    "client"                : "Cliente",
+    "id"                    : "ID",
+    "name"                  : "Nombre",
+    "company"               : "Empresa",
+
+    "save"                  : "Guardar",
+    "confirm"               : "Confirmar",
+    "cancel"                : "Cancelar",
+    "back"                  : "Atrás"
+  },
+
+  "projects": {
+    "title"                 : "Proyectos",
+    "project"               : "Proyecto",
+    "client"                : "Cliente",
+    "id"                    : "ID",
+    "name"                  : "Nombre",
+    "description"           : "Descripción",
+    "comments"              : "Comentarios",
+    "duration"              : "Duración",
+    "status"                : "Status",
+
+    "tasks"                 : "Tareas",
+    "task"                  : "Tarea",
+    "add_task"              : "Agregar Tarea",
+    "assign"                : "Asignar",
+    "presupuesto"           : "Presupuesto",
+    "totalCost"             : "Costo Total",
+    "tracked"               : "Tiempo Transcurrido"
+  },
+
+  "tasks": {
+    "title"         : "Tareas",
+    "task"          : "Tarea",
+    "id"            : "ID",
+    "name"          : "Nombre",
+    "description"   : "Descripción",
+    "comments"      : "Comentarios",
+    "duration"      : "Duración",
+    "status"        : "Progreso",
+
+    "project"       : "Proyecto",
+    "delete_task"   : "Borrar Tarea",
+    "confirm_delete": "¿Estás seguro?",
+
+    "error_name"    : "Error: Ingrese un Nombre",
+
+    "save"          : "Guardar",
+    "confirm"       : "Confirmar",
+    "cancel"        : "Cancelar",
+    "back"          : "Atrás"
+  },
+
+  "reports": {
+    "title"             : "Reportes Tareas",
+    "project"           : "Proyecto",
+    "projects"          : "Proyectos",
+    "task"              : "Tarea",
+    "user"              : "Usuario",
+    "users"             : "Usuarios",
+    "client"            : "Cliente",
+    "clients"           : "Clientes",
+    "start_time"        : "Fecha Inicio",
+    "end_time"          : "Fecha Fin",
+    "date_from"         : "Desde",
+    "date_to"           : "Hasta",
+    "duration"          : "Duración",
+    "yes"               : "Sí",
+    "no"                : "No",
+    "all"               : "Todos",
+    "total"             : "Total",
+    "sub_total"         : "Subtotal",
+    "search"            : "Buscar",
+    "filter"            : "Filtrar",
+    "clear"             : "Limpiar filtros",
+    "export_excel"      : "Exportar a Excel",
+    "costoporhora"      : "Costo por hora",
+    "titleAuto"         : "Reportes Tareas Automaticas",
+    "titleTrello"       : "Reportes Tareas Trello",
+    "idProject"         : "ID",
+    "description"       : "Descripción",
+    "tracked"           : "Tiempo Transcurrido",
+    "totalCost"         : "Costo Total",
+    "presupuesto"       : "Presupuesto",
+    "trackCost"         : "Costo"
+  },
+
+
+  "budgets": {
+    "title"             : "Presupuestos",
+    "budget"            : "Presupuestos",
+    "id"                : "Id",
+    "idClient"          : "Id Cliente",
+    "concept"           : "Concepto",
+    "amount"            : "Monto",
+    "currency"          : "Moneda",
+    "active"            : "Activo",
+    "date"              : "Fecha",
+    "description"       : "Descripcion",
+    "hoursTotal"        : "Horas Totales",
+    "hoursPayable"      : "Horas Pagables",
+    "status"            : "Estado",
+    "clientName"        : "Nombre Cliente",
+    "client"            : "Cliente",
+    "user"              : "User",
+
+
+
+    "save"              : "Guardar",
+    "confirm"           : "Confirmar",
+    "cancel"            : "Cancelar",
+    "back"              : "Atrás"
+
+  },
+  "weeklyHours": {
+    "title"             : "Cargas Horarias Semanales",
+    "weeklyHour"        : "Carga Horaria Semanal",
+    "id"                : "Id",
+    "costHour"          : "Costo Hora ",
+    "workLoad"          : "Carga Horaria Semanal",
+    "userName"          : "Nombre Usuario",
+    "active"            : "Activo",
+    "date"              : "Fecha",
+    "description"       : "Descripcion",
+    "hoursTotal"        : "Horas Totales",
+    "hoursPayable"      : "Horas Pagables",
+    "status"            : "Estado",
+    "clientName"        : "Nombre Cliente",
+    "user"              : "Usuario",
+
+
+
+
+    "save"              : "Guardar",
+    "confirm"           : "Confirmar",
+    "cancel"            : "Cancelar",
+    "back"              : "Atrás"
+
+  },
+
+  "finances": {
+    "title"             : "Finanzas",
+    "finance"           : "Finanza",
+    "id"                : "Id",
+    "idUser"            : "Id Usuario",
+    "concept"           : "Concepto",
+    "amount"            : "Monto",
+    "currency"          : "Moneda",
+    "active"            : "Activo",
+    "date"              : "Fecha",
+    "description"       : "Descripcion",
+    "type"              : "Tipo",
+    "hoursPayable"      : "Horas Pagables",
+    "status"            : "Estado",
+    "userName"          : "Nombre Usuario",
+    "user"              : "Usuario",
+
+
+    "save"              : "Guardar",
+    "confirm"           : "Confirmar",
+    "cancel"            : "Cancelar",
+    "back"              : "Atrás"
+
+  },
+
+
+
+
+  "sales": {
+    "title"             : "Ventas",
+    "sale"              : "Venta",
+    "id"                : "Id",
+    "idUser"            : "Id Usuario",
+    "concept"           : "Concepto",
+    "amount"            : "Monto",
+    "currency"          : "Moneda",
+    "active"            : "Activo",
+    "date"              : "Fecha",
+    "description"       : "Descripcion",
+    "type"              : "Tipo",
+    "hoursPayable"      : "Horas Pagables",
+    "status"            : "Estado",
+    "userName"          : "Nombre Usuario",
+    "user"              : "Usuario",
+    "client"            : "Cliente",
+
+
+
+    "save"              : "Guardar",
+    "confirm"           : "Confirmar",
+    "cancel"            : "Cancelar",
+    "back"              : "Atrás"
+
+  },
+
+
+  "hours-cost": {
+    "title"             : "Costo Horas",
+    "hour-cost"         : "Costo Hora",
+    "id"                : "Id",
+    "idClient"          : "Id Cliente",
+    "concept"           : "Concepto",
+    "costClient"        : "Costo Cliente",
+    "costUser"          : "Costo Usuario",
+
+    "currencyClient"    : "Moneda Cliente",
+    "currencyUser"      : "Moneda Usuario",
+
+    "active"            : "Activo",
+    "date"              : "Fecha",
+    "description"       : "Descripcion",
+    "hoursTotal"        : "Horas Totales",
+    "hoursPayable"      : "Horas Pagables",
+    "status"            : "Estado",
+    "clientName"        : "Nombre Cliente",
+    "userName"          : "Nombre Usuario",
+    "user"              : "Usuario",
+
+    "client"            : "Cliente",
+
+
+
+
+    "save"              : "Guardar",
+    "confirm"           : "Confirmar",
+    "cancel"            : "Cancelar",
+    "back"              : "Atrás"
+
+  },
+
+  "banks": {
+    "title"               : "Bancos",
+    "bank"                : "Banco",
+    "id"                  : "Id",
+    "name"                : "Nombre",
+    "branchOffice"        : "Sucursal",
+    "account"             : "Cuenta",
+    "holder"              : "Titular",
+    "price"               : "Cotizacion Usd",
+
+    "identificationCard"  : "Cedula",
+    "date"                : "Fecha",
+    "type"                : "Tipo",
+
+    "currency"              : "Moneda",
+
+
+
+
+    "save"                : "Guardar",
+    "confirm"             : "Confirmar",
+    "cancel"              : "Cancelar",
+    "back"                : "Atrás"
+
+  },
+
+
+  "products": {
+    "title"               : "Productos",
+    "product"             : "Producto",
+    "id"                  : "Id",
+    "name"                : "Nombre",
+    "cpu"                 : "CPU",
+    "hdd"                 : "HDD",
+    "transfer"             : "Transferencia",
+    "memory"              : "Memoria",
+
+    "diskSpace"           : "Espacio de Disco",
+    "amountEmails"        : "Cantidad de cuentas de Mails",
+    "amountDataBase"        : "Cantidad de base de datos",
+
+    "type"                : "Tipo",
+
+    "domain"              : "Dominio",
+    "expiration"          : "Vencimiento",
+    "provider"            : "Provedor",
+    "placeAccommodation"  : "Lugar de Alojamiento",
+    "accessData"          : "Datos de Acceso" ,
+    "link"                : "Link",
+    "ip"                  : "IP",
+    "databaseAccess"      : "Acceso a Base de datos",
+    "status"              : "Estado",
+    "price"               : "Precio",
+    "note"                : "Nota",
+
+
+    "save"                : "Guardar",
+    "confirm"             : "Confirmar",
+    "cancel"              : "Cancelar",
+    "back"                : "Atrás"
+
+  },
+
+
+  "hosting": {
+    "title"               : "Hosting",
+    "bank"                : "Banco",
+    "id"                  : "Id",
+    "name"                : "Nombre",
+    "branchOffice"        : "Sucursal",
+    "account"             : "Cuenta",
+    "holder"              : "Titular",
+    "price"               : "Cotizacion Usd",
+    "accountStatus"       : "Estado de la cuenta",
+    "fullname"            : "Nombre completo",
+    "identificationCard"  : "Cedula",
+    "date"                : "Fecha",
+    "type"                : "Tipo",
+    "currency"            : "Moneda",
+    "ownerName"           : "Nombre del titular",
+    "hireDate"            : "Fecha de contratación",
+    "nextExpiration"      : "Próximo vencimiento",
+    "timeRemaining"       : "Dias restante",
+
+    "save"                : "Guardar",
+    "confirm"             : "Confirmar",
+    "cancel"              : "Cancelar",
+    "delete"              : "Eliminar",
+    "back"                : "Atrás"
+
+  },
+
+
+
+
+
+
+  "bills": {
+    "title"               : "Facturas",
+    "bill"                : "Factura",
+    "id"                  : "Id",
+    "name"                : "Nombre",
+    "billNumber"          : "Numero de Factura",
+    "rut"                 : "Rut",
+    "holder"              : "Titular",
+    "date"                : "Fecha",
+
+    "concept"             : "Concepto",
+    "price"               : "Precio",
+    "type"                : "Tipo",
+
+    "expirationDate"      : "Fecha de Vencimiento",
+
+
+
+
+    "save"                : "Guardar",
+    "confirm"             : "Confirmar",
+    "cancel"              : "Cancelar",
+    "back"                : "Atrás"
+
+  },
+
+  "session": {
+    "title"             : "LexTracking",
+    "user"              : "Usuario",
+    "password"          : "Password",
+    "enter"             : "Ingresar",
+    "error_email"       : "Error: email vacío",
+    "error_password"    : "Error: password vacío",
+    "error_email_password"  : "Error: email ó password incorrectos"
+  },
+
+    "taskManager": {
+    "title"             : "Gestor de Tareas",
+    "tasknumber"        : "Tareas",
+    "check"             : "Finalizada"
+  },
+
+  "tasks_automatic": {
+    "title"            : "Tareas Automaticas",
+    "task_automatic"   : "Tarea Automatica",
+    "id"               : "ID",
+    "error"            : "Error",
+    "line"             : "Linea",
+    "column"           : "Columna",
+    "file"             : "Archivo",
+    "origin"           : "Origen",
+    "dateCapture"      : "Fecha Captura",
+    "dateCreate"       : "Fecha Creado",
+    "dateUpdate"       : "Fecha Actualizado",      
+    "url"              : "URL",
+    "status"           : "Estado",
+    "comments"         : "Comentarios",
+    "task"             : "Tarea",
+    
+    "delete_task"   : "Borrar Tarea automatica?",
+    "confirm_delete": "¿Estás seguro?",
+
+    "save"          : "Guardar",
+    "confirm"       : "Confirmar",
+    "cancel"        : "Cancelar",
+    "back"          : "Atrás"
+  },
+
+  "tasks_trello": {
+    "title"       : "Tareas Trello",
+    "id"          : "ID",
+    "name"        : "Nombre",
+    "shortUrl"    : "URL",
+    "comments"    : "comentarios",
+    "idBoard"     : "ID Tablero",
+    "projectName" : "Nombre Proyecto",
+    "sincronized" : "Sincronizado",
+    "status"      : "Status",
+    "task"        : "Tarea",
+    "card_id"     : "ID Card Trello",
+    "description" : "Descripción"
+  }
+}
