@@ -12,6 +12,7 @@
         $scope.usersAux     = {};
         $scope.comments     = [];
         $scope.task         = {};
+		$scope.comment      = {};
         console.log(idTask);
 
 	    UserServices.find(0, '', function(err, users) {
@@ -66,6 +67,7 @@
 		        var arr =$scope.task.comments.split('"comment":');
 		        var arr =($scope.task.comments) ? $scope.task.comments.split('"comment":') : Array();
 		        if (arr[0]=="[{") {
+		          console.log(JSON.parse($scope.task.comments));
 		          $scope.comments=JSON.parse($scope.task.comments);
 		        }else {
 		        $scope.comments=[];
@@ -205,7 +207,6 @@
    			 }
 
 	        $scope.openModalComentario= function () {
-		      $scope.comment ={};
 
 		      ngDialog.open({
 		        template: '/app/components/projects/views/project.task-comment.modal.html',
@@ -231,6 +232,7 @@
 
 	    	$scope.editComments =function (index,comment) {
 			  	$scope.oldComment =angular.copy(comment);
+			      console.log($scope.comment);
 
 			      $scope.comment.comment=angular.copy(comment.comment);
 
@@ -257,6 +259,12 @@
 			          }
 			        }
 			    });
+			}
+
+			$scope.deleteComment = function(index){
+				console.log(index);
+				$scope.comments.splice(index,1);
+				console.log($scope.comments);
 			}
 
 }]);

@@ -218,6 +218,7 @@
 
     $scope.editComments =function (index,comment) {
       $scope.oldComment =angular.copy(comment);
+      console.log($scope.comment);
       $scope.comment.comment=angular.copy(comment.comment);
       $scope.comments.splice(index,1);
       ngDialog.open({

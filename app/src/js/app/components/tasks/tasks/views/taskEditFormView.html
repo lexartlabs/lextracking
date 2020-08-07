@@ -114,6 +114,11 @@
                     <img src="assets/images/icons/pencil-ico.svg">
                   </a>
                 </td>
+                <td>
+                  <a ng-click="deleteComment(index)" ng-if="userRole=='admin'">
+                    <img src="assets/images/icons/delete_entry-ico.svg">
+                  </a>
+                </td>
               </tr>
             </tbody>
           </table>
