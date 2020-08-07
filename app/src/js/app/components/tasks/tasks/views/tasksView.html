@@ -40,7 +40,10 @@
                 <td>{{task.duration}}</td>
                 <td>{{task.status}}</td>
                 <td>
-                    <a href="" ng-click="editTask(index,task)">
+                     <a href="" ng-click="editTask(index,task)" ><img class="img_stop" src="/assets/images/icons/details-ico-blue.svg"></a>
+                </td>
+                <td>
+                    <a ui-sref="app.taskForm({id: task.id})">
                         <img src="assets/images/icons/pencil-ico.svg">
                     </a>
                 </td>

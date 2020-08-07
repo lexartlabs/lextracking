@@ -18,6 +18,7 @@
     $scope.comment      = {};
     $scope.allStatus    = ["To-do","Done","In-Progress","In-Review"];
     $scope.state        = "";
+    $scope.filterTask   = 15;
 
 
 
@@ -306,6 +307,11 @@
       }
       $scope.state=$scope.task.status;
 
+    }
+
+    $scope.taskForm = function (task){
+      console.log("task form::", task);
+      $scope.taskForm = task;
     }
 
   }]);
