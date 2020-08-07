@@ -115,9 +115,25 @@
                 controller: 'TaskCtrl'
             })
             .state('app.taskEdit', {
-                url: '/task/edit/:id',
+                url: '/task/:id',
                 templateUrl: 'app/components/tasks/tasks/views/taskFormView.html',
                 controller: 'TaskCtrl'
+            })
+
+            .state('app.taskForm', {
+                url: '/task/edit/:id',
+                templateUrl: 'app/components/tasks/tasks/views/taskEditFormView.html',
+                controller: "TaskFormCtrl",
+                resolve: {
+                PreviousState: ["$state", function ($state) {
+                    var currentStateData = {
+                        Name: $state.current.name,
+                        Params: $state.params,
+                        URL: $state.href($state.current.name, $state.params)
+                    };
+                    return currentStateData;
+                }]
+                }
             })
             
             .state('app.reports', {

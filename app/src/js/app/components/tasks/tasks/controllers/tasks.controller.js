@@ -18,6 +18,7 @@
     $scope.comment      = {};
     $scope.allStatus    = ["To-do","Done","In-Progress","In-Review"];
     $scope.state        = "";
+    $scope.filterTask   = 15;
 
 
 
@@ -191,8 +192,11 @@
     };
 
     $scope.pager = function(page) {
-      var offset = PAGE_SIZE * (page - 1);
+      var offset = page - 1;
       $scope.tasks = $scope.allTasks.slice(offset, offset + PAGE_SIZE - 1);
+      TasksServices.findByFilter($scope.filterTask, offset, function(err, res){
+
+      })
     };
 
 
@@ -298,6 +302,11 @@
       }
       $scope.state=$scope.task.status;
 
+    }
+
+    $scope.taskForm = function (task){
+      console.log("task form::", task);
+      $scope.taskForm = task;
     }
 
   }]);
