@@ -191,8 +191,16 @@
     };
 
     $scope.pager = function(page) {
+      console.log("page",page-1);
       var offset = PAGE_SIZE * (page - 1);
-      $scope.tasks = $scope.allTasks.slice(offset, offset + PAGE_SIZE - 1);
+       TasksServices.find($scope.currentPage, offset, function(err, tasks, countItems) {
+        if (!err) {
+          console.log('tasks', tasks, countItems);
+          $scope.allTasks = tasks;
+          $scope.tasks = tasks.slice(0, PAGE_SIZE - 1);
+          $scope.total = tasks.length;
+        }
+      });
     };
 
 
