@@ -97,7 +97,7 @@
 
             <div class="imm-frm__fld">
                 <label class="imm-frm__lbl">
-                    <button class="imm-btn" ng-click="addTask()">{{ 'projects.add_task' | translate }}</button>
+                    <button class="imm-btn" ui-sref="app.taskForm({id: project.id})">{{ 'projects.add_task' | translate }}</button>
                 </label>
             </div>
         </div>

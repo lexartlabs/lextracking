@@ -11,6 +11,7 @@
         $scope.allStatus    = ["To-do","Done","In-Progress","In-Review"];
         $scope.usersAux     = {};
         $scope.comments     = [];
+        $scope.task         = {};
         console.log(idTask);
 
 	    UserServices.find(0, '', function(err, users) {
@@ -19,6 +20,32 @@
 	      }
 	    });
 
+	    console.log(PreviousState,$stateParams);
+
+	    if (PreviousState.Params.id == $stateParams.id) {
+	    	$scope.task.idProject = $stateParams.id;
+	    	console.log('Agregar tarea');
+	    	ProjectsServices.findById($scope.task.idProject, function(err, res){
+	    		console.log('by project', err, res);
+	    		$scope.task.projectName = res.name;
+	    	})
+		      $scope.comments= [];
+		      $scope.state="";
+		      $scope.usersAux={};
+
+		      $scope.task.hour = 0;
+		      $scope.task.mins = 0;
+		      $scope.task.secs = 0;
+		      $scope.task.startDate = moment();
+		      $scope.task.endDate = moment().add(1,"month");
+		      console.log("addtask",$scope.task);
+            // if ($scope.task.hour == null || $scope.task.mins == null || $scope.task.secs == null || $scope.task.name == null && $scope.task.hour == undefined || $scope.task.mins == undefined || $scope.task.secs == undefined || $scope.task.name == undefined) {
+            //   if ($scope.task.hour == null || $scope.task.mins == null || $scope.task.secs == null || $scope.task.name == null && $scope.task.hour == undefined || $scope.task.mins == undefined || $scope.task.secs == undefined) {
+            //     var msg = "El campo Duración no puede estar vacio."
+            //   } else if ($scope.task.name === undefined) {
+            //     var msg = "El campo Nombre no puede estar vacio."
+            //   }
+	    } else {
         TaskServices.findById(idTask, function(err, res){
         	$scope.task = res;
 		      console.log("start date find", $scope.task);
@@ -54,6 +81,9 @@
 		      } else {
 		        $scope.task.users = [];
 		      }
+
+		  })
+		}
 
 
 		    $scope.save = function () {
@@ -95,6 +125,7 @@
 		            $scope.task.users = JSON.stringify($scope.task.users);
 
 		            $scope.task.comments =JSON.stringify($scope.comments);
+		            console.log('new task id', $scope.task.id);
 		            if ($scope.task.id) {
 		              if ($scope.task.startDate) {
 		              var arrStart= $scope.task.startDate.split("/");
@@ -228,8 +259,6 @@
 			    });
 			}
 
-
-    })
 }]);
 
 }(angular));

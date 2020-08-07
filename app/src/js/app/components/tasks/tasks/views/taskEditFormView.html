@@ -3,6 +3,9 @@
         <h1 class="imm-wa__tit">
             <a class="imm-bc-item" ui-sref="app.tasks">{{ 'tasks.task' | translate }}</a>
         </h1>
+        <div class="imm-bc" ng-if="task.projectName">
+            <span class="imm-bc-item imm-bc--head">{{task.projectName}}</span>
+        </div>
         <div class="imm-bc" ng-if="task.name">
             <span class="imm-bc-item imm-bc--head">{{task.name}}</span>
         </div>
