@@ -26,7 +26,7 @@
 
             $rootScope.userProfile = $rootScope.url+$rootScope.userId;
             console.log('$state', $state);
-            if($state.current.name == "app.userEdit"){
+            if($state.current.name == "app.userEdit" && $rootScope.userRole == 'developer'){
                 if ($state.params.id != $rootScope.userId) {
                    console.log('$state if', $state);
                    window.localStorage.clear();
