@@ -9,19 +9,10 @@
 	$name 		= $match['name'];
 	
 	$params 	= json_decode(file_get_contents('php://input'), true);
-	var_dump($params);
 
 	if($name == 'project-all'){
 		$response 	= $objUsr->getAllProjects($conn);
 	}
-	
-	if ($params) {
-		if($name == 'task-all'){
-			$response 	= $objTsk->getAllTasks($conn, $params);
-			echo json_encode($response);
-		}
-	}
-
 
 	echo json_encode($response);
 ?>

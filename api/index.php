@@ -65,7 +65,7 @@ define ("ENV", "/lextracking");
 				$router->map('POST','/project/update', 'components/projects/post.php', 'project-update');
 
 			// ALL TASKS
-				$router->map('GET','/project/task/all', 'components/projects/index.php', 'task-all');
+				$router->map('POST','/project/task/all', 'components/projects/post.php', 'task-all');
 				$router->map('GET','/project/task/id-client/[i:id]', 'components/projects/get.php', 'task-by-idclient');
 				// GET PROJECTS BY ID
 				$router->map('GET','/project/task/[i:id]', 'components/projects/get.php', 'task-by-id');

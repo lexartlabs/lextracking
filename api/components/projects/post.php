@@ -10,6 +10,8 @@
 	$params 	= json_decode(file_get_contents('php://input'), true);
 	$name 		= $match['name'];
 
+	var_dump($params);
+
 	if($params){
 		// GET USER BY ID
 		if($name == 'project-new'){
@@ -30,6 +32,11 @@
 		}
 		if($name == 'task-update-status'){
 			$response = $objTsk->updateTaskStatus($conn,$params);
+			echo json_encode($response);
+		}
+
+		if($name == 'task-all'){
+			$response 	= $objTsk->getAllTasks($conn, $params);
 			echo json_encode($response);
 		}
 
