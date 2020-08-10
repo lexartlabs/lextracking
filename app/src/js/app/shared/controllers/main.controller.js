@@ -6,7 +6,8 @@
 
     Module.run(function($rootScope, $state, $window) {
 
-        $rootScope.BASEURL = BASE_URL;
+        $rootScope.BASEURL     = BASE_URL;
+        $rootScope.url         = "http://localhost:8000/#/app/user/edit/";
 
         $rootScope.$on('$stateChangeSuccess', function(evt, toState, toParams, fromState, fromParams) {
             evt.preventDefault();
@@ -22,6 +23,17 @@
                 $rootScope.userRole   = $window.localStorage["userRole"];
                 $rootScope.isAdmin    = $window.localStorage["isAdmin"];
             }
+
+            $rootScope.userProfile = $rootScope.url+$rootScope.userId;
+            console.log('$state', $state);
+            if($state.current.name == "app.userEdit"){
+                if ($state.params.id != $rootScope.userId) {
+                   console.log('$state if', $state);
+                   window.localStorage.clear();
+                   $state.go('login');
+                }
+            }
+
         });
     });
 

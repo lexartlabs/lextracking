@@ -1,9 +1,10 @@
 <div class="imm-wa__hdr imm-flex">
   <div class="imm-flex-5">
     <h1 class="imm-wa__tit">
-      <a class="imm-bc-item" ui-sref="app.users">{{ 'users.title' | translate }}</a>
+      <a class="imm-bc-item" ui-sref="app.users" ng-if="isAdmin == 'true'">{{ 'users.title' | translate }}</a>
+      <a class="imm-bc-item" ng-if="isAdmin == 'false'">{{ 'users.my-profile' | translate }}</a>
     </h1>
-    <div class="imm-bc">
+    <div class="imm-bc" ng-if="isAdmin == 'true'">
       <a class="imm-bc-item">{{ 'users.user' | translate }}</a>
     </div>
     <div class="imm-bc" ng-if="user.name">
@@ -44,11 +45,17 @@
         </label>
       </div>
 
-      <div class="imm-frm__fld">
+      <div class="imm-frm__fld" ng-if="isAdmin == 'true'">
         <label class="imm-frm__lbl">
           <select name="mySelect" id="mySelect"
           ng-options="option for option in ['developer','client','admin','arquitect','pm' ] track by option"
           ng-model="user.role"></select>
+          <b class="imm-frm__lbl-name">{{'Rol'}}</b>
+        </label>
+      </div>
+      <div class="imm-frm__fld" ng-if="userRole == 'developer'">
+        <label class="imm-frm__lbl">
+          <input ng-model="user.role" readonly="">
           <b class="imm-frm__lbl-name">{{'Rol'}}</b>
         </label>
       </div>
@@ -78,8 +85,33 @@
     </div>
 
   </div>
-</form>
 </div>
+<div class="imm-wa__cnt" style="margin-top: -25%; padding: 200px;">
+  <p style="font-size: 14px; font-weight: bold">Vincule su usuario con:</p>
+    <div class="imm-frm__fldgrp">
+      <div class="imm-frm__fld" ng-if="user.id">
+        <label class="imm-frm__lbl">
+          <img src="/assets/images/icons/trello-icon.png" style="width: 100px; height: 100px;"></img>
+          <b class="imm-frm__lbl-name">{{ 'Trello' }}</b>
+        </label>
+      </div>
+
+      <div class="imm-frm__fld">
+        <label class="imm-frm__lbl">
+          <img src="/assets/images/icons/teamwork-icon.png" style="width: 100px; height: 100px;"></img>
+          <b class="imm-frm__lbl-name">{{ 'Teamwork' }}</b>
+        </label>
+      </div>
+
+      <div class="imm-frm__fld">
+        <label class="imm-frm__lbl">
+          <img src="/assets/images/icons/jira-icon.jpg" style="width: 100px; height: 100px;"></img>
+          <b class="imm-frm__lbl-name">{{ 'Jira' }}</b>
+        </label>
+      </div>
+    </div>
+</div>
+</form>
 
 <div class="imm-wa__actions">
   <p ng-if="error" class="err-display">{{error}} {{ 'general.cant_be_empty' | translate }}</p>

@@ -18,7 +18,7 @@
     "weeklyHour"  : "Carga Horaria Semanal",
     "sale"        : "Ventas",
     "bill"        : "Factura",
-
+    "my-profile"  : "Mi perfil",
     "logout"      : "Salir"
   },
 
@@ -83,7 +83,8 @@
     "save"          : "Guardar",
     "confirm"       : "Confirmar",
     "cancel"        : "Cancelar",
-    "back"          : "Atrás"
+    "back"          : "Atrás",
+    "my-profile"    : "Mi Perfil"
   },
 
   "clients": {
