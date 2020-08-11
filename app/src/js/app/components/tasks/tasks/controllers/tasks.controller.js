@@ -18,7 +18,9 @@
     $scope.comment      = {};
     $scope.allStatus    = ["To-do","Done","In-Progress","In-Review"];
     $scope.state        = "";
-    $scope.filterTask   = 15;
+    $scope.filterTask   = {};
+    $scope.filterTask.limit   = 15;
+    $scope.filterTask.offset  = 0;
 
 
 
@@ -36,7 +38,7 @@
     if ($rootScope.isAdmin=='true') {
       $scope.allStatus    =["Done","In-Progress","In-Review"];
 
-      TasksServices.find($scope.currentPage, $scope.query, function(err, tasks, countItems) {
+      TasksServices.findByFilter($scope.filterTask, function(err, tasks, countItems) {
         if (!err) {
           console.log('tasks', tasks, countItems);
           $scope.allTasks = tasks;
@@ -194,11 +196,8 @@
     $scope.pager = function(page) {
       console.log("page",page-1);
       var offset = PAGE_SIZE * (page - 1);
-      var obj = {
-        'offset': offset,
-        'filter': $scope.currentPage
-      }
-       TasksServices.findByFilter(obj, function(err, tasks, countItems) {
+      $scope.filterTask.offset = offset;
+       TasksServices.findByFilter($scope.filterTask, function(err, tasks, countItems) {
         if (!err) {
           console.log('tasks', tasks, countItems);
           $scope.allTasks = tasks;

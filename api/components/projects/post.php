@@ -10,7 +10,6 @@
 	$params 	= json_decode(file_get_contents('php://input'), true);
 	$name 		= $match['name'];
 
-	var_dump($params);
 
 	if($params){
 		// GET USER BY ID
