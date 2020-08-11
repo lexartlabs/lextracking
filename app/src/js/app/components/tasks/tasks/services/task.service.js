@@ -16,8 +16,9 @@
 		      	})
 		    },
 
-		    findByFilter: function(filter, offset, cb){
-		      	RestClient.get(model + "/all?limit=" + filter + "&offset=" + offset , function(err, result, countItems) {
+		    findByFilter: function(obj, cb){
+		    	console.log(obj);
+		      	RestClient.post(model + "/all", obj, function(err, result, countItems) {
 		        	cb(err, result, countItems);
 		      	})
         	},

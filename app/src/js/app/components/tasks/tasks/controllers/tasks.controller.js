@@ -194,7 +194,11 @@
     $scope.pager = function(page) {
       console.log("page",page-1);
       var offset = PAGE_SIZE * (page - 1);
-       TasksServices.findByFilter($scope.currentPage, offset, function(err, tasks, countItems) {
+      var obj = {
+        'offset': offset,
+        'filter': $scope.currentPage
+      }
+       TasksServices.findByFilter(obj, function(err, tasks, countItems) {
         if (!err) {
           console.log('tasks', tasks, countItems);
           $scope.allTasks = tasks;
