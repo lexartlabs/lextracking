@@ -21,7 +21,7 @@
 		      	RestClient.post(model + "/all", obj, function(err, result) {
 		      		console.log("result", result, err);
 		      		var countItems = result.count; 
-		        	cb(err, result, countItems);
+		        	cb(err, result.task, countItems);
 		      	})
         	},
 
