@@ -42,7 +42,7 @@ class Task extends Project {
 
 		// CALLBACK
 		if(!empty($d)){
-			return array("response" => array("task"=>$d, "count"=>$d_count));
+			return array("response" => array("task"=>$d, "count"=>count($d_count)));
 		} else {
 			return array("error" => "Error: no existen tareas.");
 		}
