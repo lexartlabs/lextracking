@@ -7,7 +7,8 @@
     Module.run(function($rootScope, $state, $window) {
 
         $rootScope.BASEURL     = BASE_URL;
-        $rootScope.url         = "http://localhost:8000/#/app/user/edit/";
+        $rootScope.url         = window.location.origin;
+        console.log("$rootScope.url", $rootScope.url);
 
         $rootScope.$on('$stateChangeSuccess', function(evt, toState, toParams, fromState, fromParams) {
             evt.preventDefault();
@@ -24,7 +25,7 @@
                 $rootScope.isAdmin    = $window.localStorage["isAdmin"];
             }
 
-            $rootScope.userProfile = $rootScope.url+$rootScope.userId;
+            $rootScope.userProfile = $rootScope.url + "/#/app/user/edit/" + $rootScope.userId;
             console.log('$state', $state);
             if($state.current.name == "app.userEdit" && $rootScope.userRole == 'developer'){
                 if ($state.params.id != $rootScope.userId) {
@@ -246,6 +247,7 @@
                             $rootScope.currentTrack = {
                                 idUser      : $rootScope.userId,
                                 idTask      : task_automatic.id,
+                                idProyecto  : obj.idProyecto,
                                 taskName    : task_automatic.error,
                                 startTime   : getCurrentDate(),
                                 endTime     : undefined,
@@ -258,6 +260,7 @@
                                     console.log('saved auto task', result);
                                     $rootScope.currentTrack.id = result.id;
                                     $scope.toggleTimer();
+                                    $state.reload();
                                 }
                             });
                           }

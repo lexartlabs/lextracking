@@ -101,6 +101,7 @@
 
                 <th>{{ 'projects.comments' | translate }}</th>
                 <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -132,10 +133,10 @@
             <th>{{ 'projects.id' | translate }}</th>
             <th>{{ 'projects.name' | translate }}</th>
             <th>{{ 'projects.assign' | translate }}</th>
-            <th ng-click="toggleSelectUsers($event)" class="toggleSelectUsersCursor">+</th>
+            <th ng-click="toggleSelectUsers($event)" class="toggleSelectUsersCursor">-</th>
           </tr>
         </thead>
-        <tbody class="toggleSelectUsers">
+        <tbody class="">
           <tr>
             <th></th>
             <th style="width:100%;"><input class="field-filter" ng-model="search.name"></th>
