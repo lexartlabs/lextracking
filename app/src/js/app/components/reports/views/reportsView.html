@@ -107,8 +107,8 @@
             <img class="img_exportExcel" src="/assets/images/exportExcel.png" style="vertical-align: middle; margin: 0 5px;">Exportar</button>
     </a>
     <ul class="imm-tabs" ng-init="itemTab = 1">
-        <!-- <li class="imm-tabs__item" ng-click="itemTab = 1" ng-class="{'imm-tabs__item--selected' : itemTab == 1}">Tabla</li> -->
-        <!-- <li class="imm-tabs__item" style="cursor: not-allowed;" ng-class="{'imm-tabs__item--selected' : itemTab == 2}">Gráficas</li> -->
+        <li class="imm-tabs__item" ng-click="itemTab = 1" ng-class="{'imm-tabs__item--selected' : itemTab == 1}">Tabla</li>
+        <li class="imm-tabs__item" ng-click="itemTab = 2" ng-class="{'imm-tabs__item--selected' : itemTab == 2}">Gráficas</li>
     </ul>
 </div>
 
@@ -576,7 +576,7 @@
                 <div class="imm-frm__fld">
                     <div class="imm-tit">
                         <h2 class="imm-wa__tit">
-                            <a class="imm-bc-item">Total de horas {{total}}</a>
+                            <a class="imm-bc-item">Total de horas {{finalHour}}</a>
                         </h2>
                     </div>
                     <div>
@@ -607,7 +607,7 @@
                 <div class="imm-frm__fld">
                     <div class="imm-tit">
                         <h2 class="imm-wa__tit">
-                            <a class="imm-bc-item">Total de horas {{total}}</a>
+                            <a class="imm-bc-item">Total de horas {{finalHour}}</a>
                         </h2>
                     </div>
                     <canvas id="base" class="chart-base" chart-type="typeClient"

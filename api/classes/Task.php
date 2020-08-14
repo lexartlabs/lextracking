@@ -34,6 +34,8 @@ class Task extends Project {
 		$sql	="SELECT ".$this->model.".*, Projects.name AS projectName FROM ".$this->model." INNER JOIN Projects ON ".$this->model.".idProject = Projects.id WHERE active = 1 ORDER BY projectName ".$query;
 		$d 		= $conn->query($sql);
 
+		var_dump($query);
+
 		// CALLBACK
 		if(!empty($d)){
 			return array("response" => $d);
