@@ -35,7 +35,7 @@
 		}
 
 		if($name == 'task-all'){
-			$response 	= $objTsk->getAllTasks($conn, $params);
+			$response 	= $objTsk->getAllFilterTasks($conn, $params);
 			echo json_encode($response);
 		}
 
