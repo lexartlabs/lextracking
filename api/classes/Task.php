@@ -34,7 +34,7 @@ class Task extends Project {
 
 	public function getAllFilterTasks($conn, $params){
 		$query = "";
-
+		$filter = "";
 		if (!empty($params["limit"]) && isset($params["limit"])) {
 			$query .= " LIMIT ".$params["limit"]; 
 		}
@@ -43,10 +43,23 @@ class Task extends Project {
 			$query .= " OFFSET ".$params["offset"];
 		}
 
-		$sql	="SELECT ".$this->model.".*, Projects.name AS projectName FROM ".$this->model." INNER JOIN Projects ON ".$this->model.".idProject = Projects.id WHERE active = 1 ORDER BY projectName ".$query;
-		$d 		= $conn->query($sql);
+		if (count($params["filter"]) > 0) {
+			foreach ($params["filter"] as $key => $value) {
+				$keyName = array_keys($params["filter"][$key])[0];
+				if($keyName == "projectName"){
+					$filter .= " AND Projects.name LIKE '%".$value[$keyName]."%'";
+				}else if($keyName == "name"){
+					$filter .= " AND ".$this->model.".name LIKE '%".$value[$keyName]."%'";
+				}
+				else if($keyName == "description"){
+					$filter .= " AND ".$this->model.".description LIKE '%".$value[$keyName]."%'";
+				}
+			}
+		}
 
-		$sql_count ="SELECT ".$this->model.".*, Projects.name AS projectName FROM ".$this->model." INNER JOIN Projects ON ".$this->model.".idProject = Projects.id WHERE active = 1";
+		$sql	="SELECT ".$this->model.".*, Projects.name AS projectName FROM ".$this->model." INNER JOIN Projects ON ".$this->model.".idProject = Projects.id WHERE active = 1 ".$filter." ORDER BY projectName ".$query;
+		$d 		= $conn->query($sql);
+		$sql_count ="SELECT ".$this->model.".*, Projects.name AS projectName FROM ".$this->model." INNER JOIN Projects ON ".$this->model.".idProject = Projects.id WHERE active = 1 ".$filter."";
 
 		$d_count = $conn->query($sql_count);
 
