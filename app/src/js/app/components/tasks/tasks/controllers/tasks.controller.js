@@ -21,7 +21,7 @@
     $scope.filterTask   = {};
     $scope.filterTask.limit   = 15;
     $scope.filterTask.offset  = 0;
-
+    $scope.filterTask.filter  = [];
 
 
 
@@ -185,12 +185,27 @@
     };
 
     $scope.filterTasks = function () {
-      $scope.currentPage = 0;
-      $scope.tasks = ($filter('filter')($scope.allTasks, $scope.filter));
-      if ($scope.tasks) {
-        $scope.total = $scope.tasks.length;
-        $scope.tasks = $scope.tasks.slice(0,  PAGE_SIZE - 1);
+      $scope.filterTask.offset = 0;
+      $scope.filterTask.filter = [];
+      if($scope.filter){
+        if($scope.filter.projectName){
+          $scope.filterTask.filter.push({"projectName":$scope.filter.projectName});
+        }
+        if($scope.filter.name){
+          $scope.filterTask.filter.push({"name":$scope.filter.name});
+        }
+        if($scope.filter.description){
+          $scope.filterTask.filter.push({"description":$scope.filter.description});
+        }
       }
+      TasksServices.findByFilter($scope.filterTask, function(err, tasks, countItems) {
+        if (!err) {
+          console.log('tasksFilter', tasks, countItems);
+          $scope.allTasks = tasks;
+          $scope.tasks = tasks.slice(0, PAGE_SIZE - 1);
+          $scope.total = countItems;
+        }
+      });
     };
 
     $scope.pager = function(page) {
