@@ -47,7 +47,7 @@
         }
       });
 
-    }else if ($rootScope.isClient =="true") {
+    } else if ($rootScope.isClient =="true") {
       $scope.allStatus    =["In-Progress","In-Review"];
       TasksServices.findByIdClient($rootScope.userIdClient,function (err,tasks) {
         if (!err) {
@@ -63,16 +63,14 @@
 
     }else  {
       $scope.allStatus    =["In-Progress","In-Review"];
-
       console.log($rootScope.userId);
-      TasksServices.findByIdUser($rootScope.userId,function (err,tasks) {
+      TasksServices.findByIdUser($rootScope.userId, $scope.filterTask, function(err, tasks, countItems) {
         if (!err) {
+          console.log('tasksFilter', tasks, countItems);
           $scope.allTasks = tasks;
           $scope.tasks = tasks.slice(0, PAGE_SIZE - 1);
-          $scope.total = tasks.length;
-
+          $scope.total = countItems;
         }
-
       });
     }
 
@@ -198,14 +196,25 @@
           $scope.filterTask.filter.push({"description":$scope.filter.description});
         }
       }
-      TasksServices.findByFilter($scope.filterTask, function(err, tasks, countItems) {
-        if (!err) {
-          console.log('tasksFilter', tasks, countItems);
-          $scope.allTasks = tasks;
-          $scope.tasks = tasks.slice(0, PAGE_SIZE - 1);
-          $scope.total = countItems;
-        }
-      });
+      if ($rootScope.isAdmin == 'true') {
+        TasksServices.findByFilter($scope.filterTask, function(err, tasks, countItems) {
+          if (!err) {
+            console.log('tasksFilter', tasks, countItems);
+            $scope.allTasks = tasks;
+            $scope.tasks = tasks.slice(0, PAGE_SIZE - 1);
+            $scope.total = countItems;
+          }
+        });
+      } else {
+        TasksServices.findByIdUser($rootScope.userId, $scope.filterTask, function(err, tasks, countItems) {
+          if (!err) {
+            console.log('tasksFilter', tasks, countItems);
+            $scope.allTasks = tasks;
+            $scope.tasks = tasks.slice(0, PAGE_SIZE - 1);
+            $scope.total = countItems;
+          }
+        });
+      }
     };
 
     $scope.pager = function(page) {
