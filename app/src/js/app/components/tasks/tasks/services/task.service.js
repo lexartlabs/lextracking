@@ -38,9 +38,10 @@
 	         })
 	       	},
 
-	        findByIdUser: function(id, cb) {
-	         RestClient.get(model + "/id-user/" + id, function(err, result) {
-	           cb(err, result);
+	        findByIdUser: function(id, obj, cb) {
+	         RestClient.post(model + "/id-user/" + id, obj, function(err, result) {
+	      		var countItems = result.count; 
+	        	cb(err, result.task, countItems);
 	         })
 	       	},
 
