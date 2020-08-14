@@ -38,8 +38,6 @@ class Task extends Project {
 
 		$d_count = $conn->query($sql_count);
 
-		var_dump($query);
-
 		// CALLBACK
 		if(!empty($d)){
 			return array("response" => array("task"=>$d, "count"=>count($d_count)));

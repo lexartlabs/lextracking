@@ -43,7 +43,7 @@
           console.log('tasks', tasks, countItems);
           $scope.allTasks = tasks;
           $scope.tasks = tasks.slice(0, PAGE_SIZE - 1);
-          $scope.total = tasks.length;
+          $scope.total = countItems;
         }
       });
 
@@ -202,7 +202,7 @@
           console.log('tasks', tasks, countItems);
           $scope.allTasks = tasks;
           $scope.tasks = tasks.slice(0, PAGE_SIZE - 1);
-          $scope.total = tasks.length;
+          $scope.total = countItems;
         }
       });
     };

@@ -18,7 +18,9 @@
 
 		    findByFilter: function(obj, cb){
 		    	console.log(obj);
-		      	RestClient.post(model + "/all", obj, function(err, result, countItems) {
+		      	RestClient.post(model + "/all", obj, function(err, result) {
+		      		console.log("result", result, err);
+		      		var countItems = result.count; 
 		        	cb(err, result, countItems);
 		      	})
         	},
