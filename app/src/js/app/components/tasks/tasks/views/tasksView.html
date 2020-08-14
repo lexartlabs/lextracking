@@ -28,11 +28,12 @@
                 <td><input class="field-filter" ng-model="filter.projectName"></td>
                 <td><input class="field-filter" ng-model="filter.name"></td>
                 <td><input class="field-filter" ng-model="filter.description"></td>
-                <td><input class="field-filter" ng-model="filter.duration"></td>
-                <td><input class="field-filter" ng-model="filter.status"></td>
                 <td></td>
                 <td></td>
                 <td></td>
+                <td></td>
+                <td></td>
+
             </tr>
             <tr ng-repeat="(index,task) in tasks" ng-class="{'active-task': currentTrack.idTask == task.id}" ng-style="task.status == 'Done' && {'background-color':'#3b0'}  || task.status == 'In-Review' && {'background-color':'#AE2E2E'} || task.status == 'In-Progress' && {'background-color':'#ccad16'}">
                 <td title="{{task.projectName}}">{{task.projectName | truncateTail:true:30:'...'}}</td>

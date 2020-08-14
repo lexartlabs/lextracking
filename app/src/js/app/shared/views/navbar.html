@@ -18,7 +18,7 @@
         <a ng-if="isAdmin == 'true'" href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.users">
             <i class="imm-icon imm-icon--users-ico"></i> <span ng-show="!thisHide">{{ 'navigation.users' | translate }}</span>
         </a>
-        <a ng-if="userRole == 'developer'" ng-href={{userProfile}} class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected">
+        <a ng-if="userRole == 'developer'" ui-sref="app.userEdit({id:userId})"" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected">
             <i class="imm-icon imm-icon--users-ico"></i> <span ng-show="!thisHide">{{ 'navigation.my-profile' | translate }}</span>
         </a>
         <a ng-if="isAdmin == 'true'" href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.clients">
