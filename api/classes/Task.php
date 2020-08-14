@@ -20,7 +20,19 @@ class Task extends Project {
 	}
 
 	// GET USER BY ID
-	public function getAllTasks($conn, $params){
+	public function getAllTasks($conn){
+		$sql	="SELECT ".$this->model.".*, Projects.name AS projectName FROM ".$this->model." INNER JOIN Projects ON ".$this->model.".idProject = Projects.id WHERE active = 1 ORDER BY projectName ";
+		$d 		= $conn->query($sql);
+
+		// CALLBACK
+		if(!empty($d)){
+			return array("response" => array("task"=>$d, "count"=>count($d_count)));
+		} else {
+			return array("error" => "Error: no existen tareas.");
+		}
+	}
+
+	public function getAllFilterTasks($conn, $params){
 		$query = "";
 
 		if (!empty($params["limit"]) && isset($params["limit"])) {
