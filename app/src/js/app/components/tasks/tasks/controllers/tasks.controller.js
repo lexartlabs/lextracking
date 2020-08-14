@@ -221,6 +221,7 @@
       console.log("page",page-1);
       var offset = PAGE_SIZE * (page - 1);
       $scope.filterTask.offset = offset;
+      if ($rootScope.isAdmin == 'true') {
        TasksServices.findByFilter($scope.filterTask, function(err, tasks, countItems) {
         if (!err) {
           console.log('tasks', tasks, countItems);
@@ -229,6 +230,16 @@
           $scope.total = countItems;
         }
       });
+      }else{
+        TasksServices.findByIdUser($rootScope.userId, $scope.filterTask, function(err, tasks, countItems) {
+          if (!err) {
+            console.log('tasksFilter', tasks, countItems);
+            $scope.allTasks = tasks;
+            $scope.tasks = tasks.slice(0, PAGE_SIZE - 1);
+            $scope.total = countItems;
+          }
+        });
+      }
     };
 
 

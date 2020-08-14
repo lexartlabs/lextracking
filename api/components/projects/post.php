@@ -7,6 +7,7 @@
 	$objUsr		= new Project();
 	$objTsk		= new Task();
 	
+	$params_get = $match['params'];
 	$params 	= json_decode(file_get_contents('php://input'), true);
 	$name 		= $match['name'];
 
@@ -36,6 +37,12 @@
 
 		if($name == 'task-all'){
 			$response 	= $objTsk->getAllFilterTasks($conn, $params);
+			echo json_encode($response);
+		}
+
+		if($name == 'tasks-by-user-filter'){
+			$id 		= $params_get["id"];
+			$response 	= $objTsk->getTasksByUserFilter($conn,$id,$params);
 			echo json_encode($response);
 		}
 

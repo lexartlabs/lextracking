@@ -73,6 +73,8 @@ error_reporting(1);
 				$router->map('GET','/project/task/dev/[i:id]', 'components/projects/get.php', 'project-by-iddeveloper');
 				$router->map('GET','/project/task/id-project/[i:id]', 'components/projects/get.php', 'task-by-idproject');
 				$router->map('GET','/project/task/id-user/[i:id]', 'components/projects/get.php', 'tasks-by-user');
+				//WITH FILTER
+				$router->map('POST','/project/task/id-user/[i:id]', 'components/projects/post.php', 'tasks-by-user-filter');
 				$router->map('GET','/project/task/delete/[i:id]', 'components/projects/get.php', 'tasks-delete');
 
 
