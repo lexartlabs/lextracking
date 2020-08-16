@@ -402,7 +402,7 @@
 <!-- End Table -->
 <div ng-if="itemTab == 1">
 <br>
-<a class="imm-bc-item" ng-if="trelloTracks.length">{{ 'reports.titleTrello' | translate }}</a>
+<a class="imm-bc-item" ng-if="trelloTracks.length > 0">{{ 'reports.titleTrello' | translate }}</a>
 <br><br>
 </div>
 
@@ -542,7 +542,7 @@
     </table> -->
 
 </div>
-<div ng-if="itemTab == 1">
+<div ng-if="itemTab == 1 && tableTrack.length > 0 || tableTrackAuto.length > 0 || tableTrackTrello.length > 0">
 <div style="text-align: left;background-color: rgba(16, 192, 0, 0.4);margin-top: 2%; font-weight: bold;padding-left:73%; padding-top: 6px;font-size: 11px;">TOTAL HORAS:  {{finalHour}}</div>
 <div style="text-align: left;background-color: rgba(16, 192, 0, 0.4); font-weight: bold;padding-left: 73%; padding-bottom: 5px; font-size: 11px;">TOTAL COSTO: ${{totalcost + totalcost2 + totalcost3}}</div>
 <!-- End Table -->

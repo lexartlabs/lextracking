@@ -106,7 +106,14 @@ class taskAutomatic {
 
 
 	public function updateTaskAutomatic($conn, $params){
-		$sql = "UPDATE ".$this->model." SET error = '$params[error]', status = '$params[status]', idProyecto = '$params[idProyecto]' WHERE id='$params[id]'";
+		$sql_project     = "SELECT name, idClient FROM Projects WHERE id = ".$params[idProyecto];
+		$d_project       = $conn->query($sql_project);
+		$sql_clientName  = "SELECT name FROM Clients WHERE id = ".$sql_project[0]['idClient'];
+		$d_clientName    = $conn->query($sql_clientName);
+		$projectName     = $sql_project[0]['name']; 
+		$clientName      = $d_clientName[0];
+
+		$sql = "UPDATE ".$this->model." SET error = '$params[error]', status = '$params[status]', idProyecto = '$params[idProyecto]',client = '".$clientName."' , project = '".$projectName."' WHERE id='$params[id]'";
 		$d 	= $conn->query($sql);
 
 
