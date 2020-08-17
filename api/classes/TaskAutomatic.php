@@ -108,7 +108,7 @@ class taskAutomatic {
 	public function updateTaskAutomatic($conn, $params){
 		$sql_project     = "SELECT name, idClient FROM Projects WHERE id = ".$params[idProyecto];
 		$d_project       = $conn->query($sql_project);
-		$sql_clientName  = "SELECT name FROM Clients WHERE id = ".$sql_project[0]['idClient'];
+		$sql_clientName  = "SELECT name FROM Clients WHERE id = ".$d_project[0]['idClient'];
 		$d_clientName    = $conn->query($sql_clientName);
 		$projectName     = $sql_project[0]['name']; 
 		$clientName      = $d_clientName[0];
