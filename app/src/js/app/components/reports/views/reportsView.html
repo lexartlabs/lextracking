@@ -542,9 +542,9 @@
     </table> -->
 
 </div>
-<div ng-if="itemTab == 1 && tableTrack.length > 0 || tableTrackAuto.length > 0 || tableTrackTrello.length > 0">
-<div style="text-align: left;background-color: rgba(16, 192, 0, 0.4);margin-top: 2%; font-weight: bold;padding-left:73%; padding-top: 6px;font-size: 11px;">TOTAL HORAS:  {{finalHour}}</div>
-<div style="text-align: left;background-color: rgba(16, 192, 0, 0.4); font-weight: bold;padding-left: 73%; padding-bottom: 5px; font-size: 11px;">TOTAL COSTO: ${{totalcost + totalcost2 + totalcost3}}</div>
+<div ng-if="itemTab == 1">
+<div ng-if="tableTrack.length > 0 || tableTrackAuto.length > 0 || tableTrackTrello.length > 0" style="text-align: left;background-color: rgba(16, 192, 0, 0.4);margin-top: 2%; font-weight: bold;padding-left:73%; padding-top: 6px;font-size: 11px;">TOTAL HORAS:  {{finalHour}}</div>
+<div ng-if="tableTrack.length > 0 || tableTrackAuto.length > 0 || tableTrackTrello.length > 0" style="text-align: left;background-color: rgba(16, 192, 0, 0.4); font-weight: bold;padding-left: 73%; padding-bottom: 5px; font-size: 11px;">TOTAL COSTO: ${{totalcost + totalcost2 + totalcost3}}</div>
 <!-- End Table -->
 </div>
 
@@ -552,14 +552,14 @@
     <div ng-if="itemTab == 2">
          <!-- Graph tabs -->
          <div class="imm-frm__fld">
-            <ul class="imm-tabs" ng-init="itemTab = 1">
-                <li class="imm-tabs__item" ng-click="itemTab = 1" ng-class="{'imm-tabs__item--selected' : itemTab == 1}">Usuarios</li>
-                <li class="imm-tabs__item" ng-click="itemTab = 2" ng-class="{'imm-tabs__item--selected' : itemTab == 2}">Clientes</li>
+            <ul class="imm-tabs" ng-init="graphicTab = 1">
+                <li class="imm-tabs__item" ng-click="graphicTab = 1" ng-class="{'imm-tabs__item--selected' : graphicTab == 1}">Usuarios</li>
+                <li class="imm-tabs__item" ng-click="graphicTab = 2" ng-class="{'imm-tabs__item--selected' : graphicTab == 2}">Clientes</li>
             </ul>
         </div>
         <!--End graph tabs-->
         <!-- Bar Graph User-->
-        <div ng-if="itemTab == 1">
+        <div ng-if="graphicTab == 1">
             <div class="imm-frm__fldgrp">
                 <div class="imm-frm__fld">
                     <div class="imm-tit">
@@ -590,7 +590,7 @@
         </div>
 
         <!-- Bar Graph Clients-->
-        <div ng-if="itemTab == 2">
+        <div ng-if="graphicTab == 2">
             <div class="imm-frm__fldgrp">
                 <div class="imm-frm__fld">
                     <div class="imm-tit">

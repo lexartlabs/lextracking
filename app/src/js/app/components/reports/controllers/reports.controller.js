@@ -1057,9 +1057,9 @@
       $scope.dataBarUsers = durationUser;
       $scope.typeBarUser = 'bar';
 
-      var reloadGraphBarUser = $interval(function(){
-        $scope.typeBarUser = $scope.typeBarUser === 'bar' ? 'polarArea' : 'bar';
-      }, 15000);
+      // var reloadGraphBarUser = $interval(function(){
+      //   $scope.typeBarUser = $scope.typeBarUser === 'bar' ? 'polarArea' : 'bar';
+      // }, 15000);
     }
 
 
@@ -1098,9 +1098,9 @@
       $scope.dataBarClients = durationClient;
       $scope.typeBarClient = 'bar';
 
-      var reloadGraphBarClient = $interval(function(){
-        $scope.typeBarClient = $scope.typeBarClient === 'bar' ? 'polarArea' : 'bar';
-      }, 15000);
+      // var reloadGraphBarClient = $interval(function(){
+      //   $scope.typeBarClient = $scope.typeBarClient === 'bar' ? 'polarArea' : 'bar';
+      // }, 15000);
     }
 
     // Round Graph User Controller
@@ -1120,11 +1120,11 @@
       $scope.dataRoundUsers = newHour;
       $scope.typeUser = 'pie';
 
-      var reloadGraphRoundUser = $interval(function(){
-        $scope.typeUser = $scope.typeUser === 'pie' ?
-        'radar' : 'pie';
+      // var reloadGraphRoundUser = $interval(function(){
+      //   $scope.typeUser = $scope.typeUser === 'pie' ?
+      //   'radar' : 'pie';
 
-      },15000);
+      // },15000);
       }  catch (error) {
           console.log("NOT FINALHOUR [0]");
          }
@@ -1147,9 +1147,9 @@
       $scope.dataRoundClients = newHour;
       $scope.typeClient = 'pie';
 
-      var reloadGraphRoundClient = $interval(function(){
-        $scope.typeClient = $scope.typeClient === 'pie' ? 'radar' : 'pie';
-      }, 15000);
+      // var reloadGraphRoundClient = $interval(function(){
+      //   $scope.typeClient = $scope.typeClient === 'pie' ? 'radar' : 'pie';
+      // }, 15000);
 
     } catch (error) {
 
