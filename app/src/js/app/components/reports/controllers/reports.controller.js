@@ -554,6 +554,7 @@
             if(userRole == 'admin'){
               if($scope.tableTrackAuto.length < 1){
                 $scope.tableTrackAuto.push({'idUser':track.idUser,'idProyecto':track.idProyecto,'duration':track.durations,'subTotalCost':parseInt(track.trackCost ? track.trackCost : 0),'tracks':[track]})
+                console.log('Track Automatic',$scope.tableTrackAuto);
               }else{
                     var exist = false;
                     $scope.tableTrackAuto.forEach(function(element){
@@ -567,6 +568,7 @@
                     });
                     if(exist === false){
                       $scope.tableTrackAuto.push({'idUser':track.idUser,'idProyecto':track.idProyecto,'duration':track.durations,'subTotalCost':parseInt(track.trackCost ? track.trackCost : 0),'tracks':[track]})
+                      console.log('Track Automatic',$scope.tableTrackAuto);
                     }
                   }
             }else{

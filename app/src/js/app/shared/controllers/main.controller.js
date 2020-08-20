@@ -242,12 +242,15 @@
                       console.log(obj);
                       if ($scope.selected.value.id != undefined) {
                         tasks_automaticServices.saveTask_Automatic(obj, function(err, result){
-                          console.log("Task automatic actualizada:", err, result);
                           if (!err) {
+                            tasks_automaticServices.findById(obj.id, function(err, result){
+                                console.log('Task automatic actualizada', err, result);
+                            })
+
                             $rootScope.currentTrack = {
                                 idUser      : $rootScope.userId,
                                 idTask      : task_automatic.id,
-                                idProyecto  : obj.idProyecto,
+                                idProyecto  : $scope.selected.value.id,
                                 taskName    : task_automatic.error,
                                 startTime   : getCurrentDate(),
                                 endTime     : undefined,
