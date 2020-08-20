@@ -32,7 +32,7 @@ class taskAutomatic {
 		foreach($d as $value => $dd){
 			$array[$value]['id']          = $dd['id'];
 			$array[$value]['error']       = $dd['error'];
-			$array[$value]['project'] = $dd['project'];
+			$array[$value]['project']     = $dd['project'];
 			$array[$value]['column']      = $dd['column'];
 			$array[$value]['line']        = $dd['line'];
 			$array[$value]['file']        = $dd['file'];
@@ -49,6 +49,7 @@ class taskAutomatic {
 			$array[$value]['status']      = $dd['status'];
 			$array[$value]['client']      = $dd['client'];
 			$array[$value]['idProyecto']  = $dd['idProyecto'];
+			$array[$value]['idClient']    = $dd['idClient'];
 		}
 		//CALLBACK
 		if(!empty($array)){
@@ -110,10 +111,11 @@ class taskAutomatic {
 		$d_project       = $conn->query($sql_project);
 		$sql_clientName  = "SELECT name FROM Clients WHERE id = ".$d_project[0]['idClient'];
 		$d_clientName    = $conn->query($sql_clientName);
-		$projectName     = $sql_project[0]['name']; 
+		$projectName     = $d_project[0]['name']; 
+		$idClient        = $d_project[0]['idClient'];
 		$clientName      = $d_clientName[0];
 
-		$sql = "UPDATE ".$this->model." SET error = '$params[error]', status = '$params[status]', idProyecto = '$params[idProyecto]',client = '".$clientName."' , project = '".$projectName."' WHERE id='$params[id]'";
+		$sql = "UPDATE ".$this->model." SET error = '$params[error]', status = '$params[status]', idProyecto = '$params[idProyecto]', idClient = '".$idClient."', client = '".$clientName."' , project = '".$projectName."' WHERE id='$params[idProyecto]'";
 		$d 	= $conn->query($sql);
 		var_dump($sql_project);
 		var_dump($d_project);
