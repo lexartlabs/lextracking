@@ -85,33 +85,93 @@
     </div>
 
   </div>
+  </form>
+
+  <div class="imm-frm__fld">
+    <ul class="imm-tabs" ng-init="tabUser = 1">
+        <li class="imm-tabs__item" ng-click="tabUser = 1" ng-class="{'imm-tabs__item--selected' : tabUser == 1}">Mi rendimiento</li>
+        <li class="imm-tabs__item" ng-click="tabUser = 2" ng-class="{'imm-tabs__item--selected' : tabUser == 2}">Integraciones</li>
+        <li class="imm-tabs__item" ng-click="tabUser = 3" ng-class="{'imm-tabs__item--selected' : tabUser == 3}">Evaluaciones</li>
+    </ul>
 </div>
-<div class="imm-wa__cnt" style="margin-top: -25%; padding: 200px;">
-  <p style="font-size: 14px; font-weight: bold">Vincule su usuario con:</p>
+
+<div class="imm-wa__cnt" ng-if="tabUser == 1">
+    <table>
+        <thead>
+            <tr>
+                <th>{{ 'users.month' | translate }}</th>
+                <th>{{ 'users.salary' | translate }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input class="field-filter" ng-model="filter.month"></td>
+                <td><input class="field-filter" ng-model="filter.salary"></td>
+            </tr>
+            <tr>
+                <td>Enero</td>
+            </tr>
+            <tr>
+                <td>Febrero</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div ng-if="tabUser == 2" class="imm-wa__cnt" style="text-align: left; margin-right: 70%;">
+  <p style="font-size: 14px; font-weight: bold">Integrar con:</p>
     <div class="imm-frm__fldgrp">
       <div class="imm-frm__fld" ng-if="user.id">
         <label class="imm-frm__lbl">
-          <img src="/assets/images/icons/trello-icon.png" style="width: 100px; height: 100px;cursor: not-allowed"></img>
+          <img src="/assets/images/icons/trello-icon.png" style="width: 60px; height: 60px;cursor: not-allowed"></img>
           <b class="imm-frm__lbl-name">{{ 'Trello' }}</b>
         </label>
       </div>
 
       <div class="imm-frm__fld">
         <label class="imm-frm__lbl">
-          <img src="/assets/images/icons/teamwork-icon.png" style="width: 100px; height: 100px;cursor: not-allowed"></img>
+          <img src="/assets/images/icons/teamwork-icon.png" style="width: 60px; height: 60px;cursor: not-allowed"></img>
           <b class="imm-frm__lbl-name">{{ 'Teamwork' }}</b>
         </label>
       </div>
 
       <div class="imm-frm__fld">
         <label class="imm-frm__lbl">
-          <img src="/assets/images/Jira-PBXDom.png" style="width: 135px; height: 100px;cursor: not-allowed"></img>
+          <img src="/assets/images/Jira-PBXDom.png" style="width: 90px; height: 60px;cursor: not-allowed"></img>
           <b class="imm-frm__lbl-name">{{ 'Jira' }}</b>
         </label>
       </div>
     </div>
 </div>
-</form>
+
+<div class="imm-wa__cnt" ng-if="tabUser == 3">
+    <table>
+        <thead>
+            <tr>
+                <th>{{ 'users.id' | translate }}</th>
+                <th>{{ 'users.user' | translate }}</th>
+                <th>{{ 'users.evaluation' | translate }}</th>
+                <th>{{ 'users.score' | translate }}</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input class="field-filter" ng-model="filter.month"></td>
+                <td><input class="field-filter" ng-model="filter.salary"></td>
+                <td><input class="field-filter" ng-model="filter.evaluation"></td>
+                <td><input class="field-filter" ng-model="filter.score"></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
 
 <div class="imm-wa__actions">
   <p ng-if="error" class="err-display">{{error}} {{ 'general.cant_be_empty' | translate }}</p>

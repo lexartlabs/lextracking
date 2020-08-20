@@ -115,7 +115,15 @@ class taskAutomatic {
 
 		$sql = "UPDATE ".$this->model." SET error = '$params[error]', status = '$params[status]', idProyecto = '$params[idProyecto]',client = '".$clientName."' , project = '".$projectName."' WHERE id='$params[id]'";
 		$d 	= $conn->query($sql);
+		var_dump($sql_project);
+		var_dump($d_project);
+		var_dump($sql_clientName);
+		var_dump($d_clientName);
+		var_dump($projectName);
+		var_dump($clientName);
 		var_dump($sql);
+		var_dump($d);
+
 
 		// CALLBACK
 		if(empty($d)){

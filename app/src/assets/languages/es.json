@@ -84,7 +84,13 @@
     "confirm"       : "Confirmar",
     "cancel"        : "Cancelar",
     "back"          : "Atrás",
-    "my-profile"    : "Mi Perfil"
+    "my-profile"    : "Mi Perfil",
+
+    "month"         : "Mes",
+    "salary"        : "Salario",
+
+    "score"         : "Puntaje",
+    "evaluation"    : "Evaluación"
   },
 
   "clients": {
