@@ -8,11 +8,11 @@ require('config/conn.php');
 //require('server.config/conn_local.php');
 require('classes/AltoRouter.php');
 require('classes/Token.php');
-define ("ENV", "/lextracking-dev");
+//define ("ENV", "/lextracking-dev");
 
 ini_set('display_errors', 'On');
 error_reporting(1);
-//define ("ENV", "/lextracking");
+define ("ENV", "/lextracking/api");
 
 	// CALL OBJS
 	$router 	= new AltoRouter();

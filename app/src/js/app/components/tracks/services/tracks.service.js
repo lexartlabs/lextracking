@@ -84,13 +84,14 @@
 		    	var track = {
 		    		idTask 	  : obj.idTask,
 		    		idUser 	  : obj.idUser,
+		    		idProyecto: obj.idProyecto,
 		    		name 	  : obj.taskName,
 		    		startTime : obj.startTime,
 					endTime	  : obj.endTime,
 					typeTrack : obj.typeTrack
 				}
 	        	RestClient.post(model + "/auto-new", track, function(err, result) {
-					console.log("result2::", result);
+					console.log("result2::", err, result);
 	          		cb(err, result);
 	        	})
 		    },
@@ -106,7 +107,7 @@
 					typeTrack : obj.typeTrack
 				}
 	        	RestClient.post(model + "/track-trello-new", track, function(err, result) {
-					console.log("resultTrello::", result);
+					console.log("resultTrello::", err, result);
 	          		cb(err, result);
 	        	})
 		    },

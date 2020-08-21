@@ -3,7 +3,7 @@
 	require("classes/taskAutomatic.php");
 
 	$conn 		= new Connection();
-	$TaskAuto		= new taskAutomatic();
+	$TaskAuto	= new taskAutomatic();
 	$params 	= $match['params'];
 	$name 		= $match['name'];
 
@@ -13,7 +13,7 @@
 		if($name == 'task_automatic-by-id'){
 			$id 		= $params["id"];
 			$response 	= $TaskAuto->getTaskAutomaticById($conn,$id);
-			echo json_encode($response);
+			echo $response[0];
 		}
 		if($name == 'task_automatic-by-idclient'){
 			$id 		= $params["id"];

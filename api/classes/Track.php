@@ -131,11 +131,11 @@ class Track {
 				WHERE (startTime >= '$startTime') AND (endTime <= '$endTime') AND typeTrack='automatic' AND TaskAutomatic.active = 1 ";
 
 			if ($idClient != '') {
-				$sql .= " AND (Projects.idClient='$idClient')";
+				$sql .= " AND (TaskAutomatic.idClient ='$idClient')";
 			}
 
 			if ($idProject != '') {
-				$sql .= " AND (Projects.id='$idProject')";
+				$sql .= " AND (TaskAutomatic.idProyecto ='$idProject')";
 			}
 
 			if ($idTask != '') {
