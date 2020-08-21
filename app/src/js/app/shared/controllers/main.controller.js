@@ -248,7 +248,7 @@
                                 idUser      : $rootScope.userId,
                                 idTask      : task_automatic.id,
                                 idProyecto  : $scope.selected.value.id,
-                                taskName    : task_automatic.error,
+                                taskName    : obj.error,
                                 startTime   : getCurrentDate(),
                                 endTime     : undefined,
                                 typeTrack   : "automatic"
@@ -445,8 +445,8 @@
             }
             TracksServices.getLastUserTrack($rootScope.userId, function (err, track) {
                 if (!err) {
-                    console.log('track', track);
                     if (track) {
+                        console.log('track', track);
                         if (!track.endTime || track.endTime == '0000-00-00 00:00:00') {
 
                             //Update current track

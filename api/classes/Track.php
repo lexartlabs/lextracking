@@ -296,11 +296,29 @@ class Track {
 	}
 
 	public function getLastTrackByUser($conn,$id){
-		$sql	="SELECT ".$this->model.".*, Projects.name AS projectName, Tasks.name AS taskName, Users.name AS userName, TIMEDIFF( ".$this->model.".endTime, ".$this->model.".startTime ) AS duration FROM ".$this->model."
+		$sqlType = "SELECT ".$this->model.".typeTrack FROM ".$this->model." WHERE idUser='$id' ORDER BY id DESC LIMIT 1";
+		$dType   = $conn->query($sqlType);
+		$dType   = $dType[0]['typeTrack'];
+
+		if ($dType == 'manual') {
+			$sql = "SELECT ".$this->model.".*, Projects.name AS projectName, Tasks.name AS taskName, Users.name AS userName, TIMEDIFF( ".$this->model.".endTime, ".$this->model.".startTime ) AS duration FROM ".$this->model."
 				INNER JOIN Tasks ON ".$this->model.".idTask = Tasks.id
 				INNER JOIN Users ON ".$this->model.".idUser = Users.id
 				INNER JOIN Projects ON Projects.id = Tasks.idProject
-				WHERE idUser='$id' AND Tasks.active = 1 ORDER BY id DESC LIMIT 1";
+				WHERE idUser='$id' AND Tasks.active = 1 ORDER BY id DESC LIMIT 1";		
+		} elseif ($dType == 'automatic') {
+			$sql = "SELECT ".$this->model.".*, Projects.name AS projectName, TaskAutomatic.error AS taskName, Users.name AS userName, 	TIMEDIFF( ".$this->model.".endTime, ".$this->model.".startTime ) AS duration FROM ".$this->model."
+				INNER JOIN TaskAutomatic ON ".$this->model.".idTask = TaskAutomatic.id
+				INNER JOIN Users ON ".$this->model.".idUser = Users.id
+				INNER JOIN Projects ON Projects.id = TaskAutomatic.idProyecto
+				WHERE idUser='$id' AND TaskAutomatic.active = 1 ORDER BY id DESC LIMIT 1";	
+		} elseif ($dType == 'trello'){
+			$sql = "SELECT ".$this->model.".*, Projects.name AS projectName, TrelloTask.name AS taskName, Users.name AS userName, 	TIMEDIFF( ".$this->model.".endTime, ".$this->model.".startTime ) AS duration FROM ".$this->model."
+				INNER JOIN TrelloTask ON ".$this->model.".idTask = TrelloTask.id
+				INNER JOIN Users ON ".$this->model.".idUser = Users.id
+				INNER JOIN Projects ON Projects.id = TrelloTask.idProyecto
+				WHERE idUser='$id' AND TrelloTask.active = 1 ORDER BY id DESC LIMIT 1";				
+		}
 		$d 		= $conn->query($sql);
 
 		// CALLBACK

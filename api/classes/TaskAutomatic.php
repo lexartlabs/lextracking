@@ -83,7 +83,7 @@ class taskAutomatic {
 		}
 	}*/
 	public function insertTaskAutomatic($conn,$params){
-		$paramsR       = str_replace("'", "\'", $params[error]);
+		str_replace("'", "", $params[error]);
 		$paramsD       = str_replace("'", "\'", $params[comments]);
 		$paramsE       = str_replace("'", "\'", $params[duration]);
 		$urlEncoder    = urlencode($params['url']);

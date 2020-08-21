@@ -567,23 +567,9 @@
                             <a class="imm-bc-item">{{ 'reports.users' | translate }}</a>
                         </h2>
                     </div>
-                    <canvas id="base" class="chart-base" chart-type="typeBarUser"
+                    <canvas height="80" id="base" class="chart-base" chart-type="typeBarUser"
                     chart-data="dataBarUsers" chart-labels="labelsBarUsers">
                     </canvas>
-                </div>
-
-                <!-- Round Graph Users -->
-                <div class="imm-frm__fld">
-                    <div class="imm-tit">
-                        <h2 class="imm-wa__tit">
-                            <a class="imm-bc-item">Total de horas {{finalHour}}</a>
-                        </h2>
-                    </div>
-                    <div>
-                        <canvas id="base" class="chart-base" chart-type="typeUser"
-                            chart-data="dataRoundUsers" chart-labels="labelsRoundUsers">
-                        </canvas>
-                    </div>
                 </div>
             </div>
         <!-- Round End Graph -->
@@ -598,20 +584,8 @@
                             <a class="imm-bc-item">{{ 'reports.clients' | translate }}</a>
                         </h2>
                     </div>
-                    <canvas id="base" class="chart-base" chart-type="typeBarClient"
+                    <canvas height="80" id="base" class="chart-base" chart-type="typeBarClient"
                     chart-data="dataBarClients" chart-labels="labelsBarClients">
-                    </canvas>
-                </div>
-
-                <!-- Round Graph Clients -->
-                <div class="imm-frm__fld">
-                    <div class="imm-tit">
-                        <h2 class="imm-wa__tit">
-                            <a class="imm-bc-item">Total de horas {{finalHour}}</a>
-                        </h2>
-                    </div>
-                    <canvas id="base" class="chart-base" chart-type="typeClient"
-                    chart-data="dataRoundClients" chart-labels="labelsRoundClients">
                     </canvas>
                 </div>
             </div>
