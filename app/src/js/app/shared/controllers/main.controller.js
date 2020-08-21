@@ -243,28 +243,26 @@
                       if ($scope.selected.value.id != undefined) {
                         tasks_automaticServices.saveTask_Automatic(obj, function(err, result){
                           if (!err) {
-                            tasks_automaticServices.findById(obj.id, function(err, result){
-                                console.log("Task automatic actualizada:", result);
-                                $rootScope.currentTrack = {
-                                    idUser      : $rootScope.userId,
-                                    idTask      : task_automatic.id,
-                                    idProyecto  : result.idProyecto,
-                                    taskName    : task_automatic.error,
-                                    startTime   : getCurrentDate(),
-                                    endTime     : undefined,
-                                    typeTrack   : "automatic"
-                                };
+                            console.log("Task automatic actualizada:", result);
+                            $rootScope.currentTrack = {
+                                idUser      : $rootScope.userId,
+                                idTask      : task_automatic.id,
+                                idProyecto  : $scope.selected.value.id,
+                                taskName    : task_automatic.error,
+                                startTime   : getCurrentDate(),
+                                endTime     : undefined,
+                                typeTrack   : "automatic"
+                            };
 
-                                TracksServices.createAutoTask($rootScope.currentTrack, function(err, result){
-                                    console.log("resultx::", err, result);
-                                    if (!err) {
-                                        console.log('saved auto task', result);
-                                        $rootScope.currentTrack.id = result.id;
-                                        $scope.toggleTimer();
-                                        $state.go('app.tasks_automatic');
-                                    }
-                                });
-                            })
+                            TracksServices.createAutoTask($rootScope.currentTrack, function(err, result){
+                                console.log("resultx::", err, result);
+                                if (!err) {
+                                    console.log('saved auto task', result);
+                                    $rootScope.currentTrack.id = result.id;
+                                    $scope.toggleTimer();
+                                    $state.go('app.tasks_automatic');
+                                }
+                            });
                           }
                         })
                       }
