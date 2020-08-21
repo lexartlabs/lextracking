@@ -73,6 +73,7 @@ define ("ENV", "/lextracking/api");
 				$router->map('GET','/project/task/dev/[i:id]', 'components/projects/get.php', 'project-by-iddeveloper');
 				$router->map('GET','/project/task/id-project/[i:id]', 'components/projects/get.php', 'task-by-idproject');
 				$router->map('GET','/project/task/id-user/[i:id]', 'components/projects/get.php', 'tasks-by-user');
+				$router->map('GET','/project/task/user-eval/[i:id]', 'components/projects/get.php', 'tasks-by-user-eval');
 				//WITH FILTER
 				$router->map('POST','/project/task/id-user/[i:id]', 'components/projects/post.php', 'tasks-by-user-filter');
 				$router->map('GET','/project/task/delete/[i:id]', 'components/projects/get.php', 'tasks-delete');
@@ -230,15 +231,15 @@ define ("ENV", "/lextracking/api");
 				$router->map('POST','/product/new', 			'components/products/post.php', 'product-new');
 				$router->map('POST','/product/update', 		'components/products/post.php', 'product-update');
 
-
-
+				//Evaluacion
+				$router->map('POST','/evaluate/new', 		'components/evaluate/post.php', 'evaluate-new');
+				$router->map('GET','/evaluate/user/[i:id]', 'components/evaluate/get.php', 'evaluate-user');
 
 
 
 
 			// match current request
 			$match = $router->match();
-
 			if($match) {
 			  require $match['target'];
 			} else {

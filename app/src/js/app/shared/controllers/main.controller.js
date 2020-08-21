@@ -261,7 +261,7 @@
                                         console.log('saved auto task', result);
                                         $rootScope.currentTrack.id = result.id;
                                         $scope.toggleTimer();
-                                        $state.reload();
+                                        $state.go('app.tasks_automatic');
                                     }
                                 });
                             })

@@ -275,7 +275,18 @@ class Task extends Project {
 		}
 	}
 
+	public function getTaskByIdEval ($conn, $id) {
+		$user = '{"idUser":"'.$id.'"}';
+		$sql	= "SELECT ".$this->model.".* FROM ".$this->model." WHERE ".$this->model.".users LIKE '%$user%' AND active = 1";
+		$d 		= $conn->query($sql);
 
+		// CALLBACK
+		if(!empty($d)){
+			return array("response" => $d);
+		} else {
+			return array("error" => "Error: no se encuentra la tarea.");
+		}	
+	}
 
 }
 

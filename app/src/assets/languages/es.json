@@ -22,6 +22,11 @@
     "logout"      : "Salir"
   },
 
+  "evaluate": {
+    "title" : "Evaluación",
+    "user"  : "Usuario"
+  },
+
 
   "general": {
     "cancel"        : "Cancelar",

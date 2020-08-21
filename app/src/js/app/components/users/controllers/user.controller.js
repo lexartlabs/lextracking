@@ -4,7 +4,7 @@
 
     var Module = ng.module('Imm');
 
-    Module.controller('UserCtrl', ['$scope', '$state', '$stateParams', '$filter', 'UserServices','ClientServices', 'ngDialog', function($scope, $state, $stateParams, $filter, UserServices, ClientServices,ngDialog) {
+    Module.controller('UserCtrl', ['$scope', '$state', '$stateParams', '$filter', 'UserServices','ClientServices', 'ngDialog', 'EvaluateServices', function($scope, $state, $stateParams, $filter, UserServices, ClientServices,ngDialog, EvaluateServices) {
 
         $scope.user         = {};
         $scope.sendingData  = false;
@@ -84,6 +84,10 @@
                 }
             });
         }
+
+        EvaluateServices.find(idUser, function(err, result){
+            $scope.evaluacion = result;
+        })
 
     }]);
 

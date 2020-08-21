@@ -228,7 +228,6 @@ class Track {
 				INNER JOIN Projects ON Projects.id = Tasks.idProject
 				WHERE ".$this->model.".id='$id' AND Tasks.active = 1";
 		$d 		= $conn->query($sql);
-
 		// CALLBACK
 		if(!empty($d)){
 			return array("response" => $d[0]);
@@ -242,7 +241,6 @@ class Track {
 				INNER JOIN Users ON ".$this->model.".idUser = Users.id
 				WHERE ".$this->model.".id='$id' AND TaskAutomatic.active = 1";
 		$d 		= $conn->query($sql);
-
 		// CALLBACK
 		if(!empty($d)){
 			return array("response" => $d[0]);
@@ -356,7 +354,6 @@ class Track {
 		$d 		 = $conn->query($sql);
 		// GET LAST INSERT
 		$lastId = $conn->LastId();
-
 		// GET LAST OBJECT
 		$newestTrack = $this->getTrackById($conn, $lastId);
 		$newestTrack = $newestTrack["response"];
@@ -396,7 +393,7 @@ class Track {
 		$sql 	 = $head.$insert.$body;
 		$d 		 = $conn->query($sql);
 		// GET LAST INSERT
-		$lastId = $conn->LastId();
+		$lastId = mysql_insert_id();
 		// GET LAST OBJECT
 		$newestTrack = $this->getAutoTrackById($conn, $lastId);
 		$newestTrack = $newestTrack["response"];

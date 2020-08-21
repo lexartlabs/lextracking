@@ -145,31 +145,34 @@
 </div>
 
 <div class="imm-wa__cnt" ng-if="tabUser == 3">
-    <table>
-        <thead>
-            <tr>
-                <th>{{ 'users.id' | translate }}</th>
-                <th>{{ 'users.user' | translate }}</th>
-                <th>{{ 'users.evaluation' | translate }}</th>
-                <th>{{ 'users.score' | translate }}</th>
-
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><input class="field-filter" ng-model="filter.month"></td>
-                <td><input class="field-filter" ng-model="filter.salary"></td>
-                <td><input class="field-filter" ng-model="filter.evaluation"></td>
-                <td><input class="field-filter" ng-model="filter.score"></td>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="imm-wa__cnt">
+    <div class="imm-flex">
+    <div class='flex-table'>
+        <div class='flex-head'>
+            <div class="flex-item">ID</div>
+            <div class="flex-item">Evaluación</div>
+            <div class="flex-item">Puntaje</div>
+            <div class="flex-item">Evaluador</div>
+            <div style="flex: 5%;width: 5%;"></div>
+        </div>
+        <!-- ORDENADO POR USUARIO -->
+                <!-- TRACKS -->
+                <div ng-repeat="eval in evaluacion track by $index" class='flex-column-wrap' id="datatable">
+                    <div class='flex-row'>
+                        <div class="flex-item">{{eval.id}}</div>
+                        <div class="flex-item">{{eval.evaluacion}}</div>
+                        <div class="flex-item">{{eval.puntaje | truncateTail:true:20:'...'}}</div>
+                        <div class="flex-item">{{eval.admin}}</div>
+                        <div style="flex: 5%;width: 5%;">
+                            <a href="" ng-click="editTrack(track)">
+                                <img src="assets/images/icons/pencil-ico.svg">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+         </div>
+</div>
+</div>
 </div>
 </div>
 

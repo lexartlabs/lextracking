@@ -291,6 +291,20 @@
                 templateUrl: 'app/components/weeklyHours/views/weeklyHourFormView.html',
                 controller: 'WeeklyHourCtrl'
             })
+
+            //EVALUATE
+            .state('app.evaluate', {
+                url: '/evaluate',
+                templateUrl: 'app/components/evaluate/views/evaluateView.html',
+                controller: 'EvalCtrl'
+            })
+            .state('app.evaluateForm', {
+                url: '/evaluate/user/:id',
+                templateUrl: 'app/components/evaluate/views/evaluateFormView.html',
+                controller: 'EvalFormCtrl'
+            })
+
+
             //APPS
             .state('app.apps', {
                 url: '/apps',

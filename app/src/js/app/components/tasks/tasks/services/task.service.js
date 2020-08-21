@@ -39,10 +39,16 @@
 	       	},
 
 	        findByIdUser: function(id, obj, cb) {
-	         RestClient.post(model + "/id-user/" + id, obj, function(err, result) {
+	        	RestClient.post(model + "/id-user/" + id, obj, function(err, result) {
 	      		var countItems = result.count; 
 	        	cb(err, result.task, countItems);
 	         })
+	       	},
+
+	       	findByUserEval:function(id, cb){
+				RestClient.get(model + "/user-eval/" + id, function(err, result) {
+					cb(err, result);
+				})
 	       	},
 
 		   	findAll: function(page, q,  cb) {
