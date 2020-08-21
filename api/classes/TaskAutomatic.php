@@ -7,7 +7,7 @@ error_reporting(1);
 */
 class taskAutomatic {
 
-	private $model = "taskautomatic";
+	private $model = "TaskAutomatic";
 
     public function getStructure($conn,$column){
 		$sql	="SHOW COLUMNS FROM ".$this->model;
