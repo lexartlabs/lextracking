@@ -116,6 +116,7 @@ class taskAutomatic {
 
 		$sql = "UPDATE ".$this->model." SET error = '$params[error]', status = '$params[status]', idProyecto = '$params[idProyecto]', idClient = ".$idClient.", client = '".$clientName."' , project = '".$projectName."' WHERE id='$params[id]'";
 		$d 	= $conn->query($sql);
+
 		// CALLBACK
 		if(empty($d)){
 			return array("response" => 'OK');
