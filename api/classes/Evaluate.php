@@ -17,8 +17,8 @@ class Evaluate {
 	}
 
 	public function getEvaluateByUser($conn, $id) {
-		$sql = "SELECT ".$this->model.".*, users.name AS admin FROM ".$this->model." 
-		INNER JOIN users ON ".$this->model.".idAdmin = users.id WHERE idUser = ".$id;
+		$sql = "SELECT ".$this->model.".*, Users.name AS admin FROM ".$this->model." 
+		INNER JOIN Users ON ".$this->model.".idAdmin = Users.id WHERE idUser = ".$id;
 		$d   = $conn->query($sql);
 
 		if(!empty($d)){
