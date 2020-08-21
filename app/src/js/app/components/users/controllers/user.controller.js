@@ -9,7 +9,9 @@
         $scope.user         = {};
         $scope.sendingData  = false;
         var idUser          = $stateParams.id;
-        $scope.clients=[];
+        $scope.clients      = [];
+        $scope.performance  = {};
+
 
 
         if (idUser) {
@@ -85,9 +87,35 @@
             });
         }
 
-        EvaluateServices.find(idUser, function(err, result){
-            $scope.evaluacion = result;
-        })
+        $scope.tab1 = function (){
+            $scope.performance.months = {
+                0 : {"Month":"Enero", "Sueldo": 0, "Year": "2020", "HourCost": "220"},
+                1 : {"Month":"Febrero", "Sueldo": 0, "Year": "2020", "HourCost": "220"},
+                2 : {"Month":"Marzo", "Sueldo": 0, "Year": "2020", "HourCost": "220"},
+                3 : {"Month":"Abril", "Sueldo": 0, "Year": "2020", "HourCost": "220"},
+                4 : {"Month":"Mayo", "Sueldo": 0, "Year": "2020", "HourCost": "220"},
+                5 : {"Month":"Junio", "Sueldo": 0, "Year": "2020", "HourCost": "220"},
+                6 : {"Month":"Julio", "Sueldo": 0, "Year": "2020", "HourCost": "220"},
+                7 : {"Month":"Agosto", "Sueldo": 0, "Year": "2020", "HourCost": "220"},
+                8 : {"Month":"Septiembre", "Sueldo": 0, "Year": "2020", "HourCost": "220"},
+                9 : {"Month":"Octubre", "Sueldo": 0, "Year": "2020", "HourCost": "220"},
+                10 : {"Month":"Noviembre", "Sueldo": 0, "Year": "2020", "HourCost": "220"},
+                11 : {"Month":"Diciembre", "Sueldo": 0, "Year": "2020", "HourCost": "220"}
+            }
+            console.log($scope.performance.months);
+        }
+
+        $scope.tab2 = function(){
+
+        }
+
+        $scope.tab3 = function(){
+
+            EvaluateServices.find(idUser, function(err, result){
+                $scope.evaluacion = result;
+            })
+            
+        }
 
     }]);
 

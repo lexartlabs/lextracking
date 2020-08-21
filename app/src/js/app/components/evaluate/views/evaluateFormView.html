@@ -89,7 +89,7 @@
                         <div class="flex-item">{{eval.puntaje | truncateTail:true:20:'...'}}</div>
                         <div class="flex-item">{{eval.fecha | truncateTail:true:20:'...'}}</div>
                         <div class="flex-item">{{eval.admin}}</div>
-                        <div style="flex: 5%;width: 5%;">
+                        <div style="flex: 5%;width: 5%;" ng-if="userRole != 'developer'">
                             <a href="" ng-click="editTrack(track)">
                                 <img src="assets/images/icons/pencil-ico.svg">
                             </a>
@@ -102,5 +102,5 @@
 <div class="imm-wa__actions">
     <p ng-if="error" class="err-display">{{error}} {{ 'general.cant_be_empty' | translate }}</p>
     <button class="imm-btn imm-btn--alt" ui-sref="app.evaluate">{{ 'clients.back' | translate }}</button>
-    <button class="imm-btn" ng-disabled="sendingData" ng-click="save(userEval)">{{ 'clients.save' | translate }}</button>
+    <button class="imm-btn" ng-disabled="sendingData" ng-click="save(userEval)" ui-sref="app.evaluate">{{ 'clients.save' | translate }}</button>
 </div>

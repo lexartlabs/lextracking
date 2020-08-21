@@ -26,7 +26,7 @@
       userEval.idAdmin = $rootScope.userId;
       if (userEval.fecha) {
         var month = Number(moment(userEval.fecha).month()) + 1;
-        userEval.fecha = moment(userEval.fecha).year() + "/" + monthº + "/" + moment(userEval.fecha).date();
+        userEval.fecha = moment(userEval.fecha).year() + "/" + month + "/" + moment(userEval.fecha).date();
         console.log (userEval.fecha);
       }
       console.log('userEval',userEval);
