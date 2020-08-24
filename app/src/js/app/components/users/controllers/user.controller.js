@@ -4,14 +4,14 @@
 
     var Module = ng.module('Imm');
 
-    Module.controller('UserCtrl', ['$scope', '$state', '$stateParams', '$filter', 'UserServices','ClientServices', 'ngDialog', 'EvaluateServices', function($scope, $state, $stateParams, $filter, UserServices, ClientServices,ngDialog, EvaluateServices) {
+    Module.controller('UserCtrl', ['$scope', '$state', '$stateParams', '$filter', 'UserServices','ClientServices', 'ngDialog', 'EvaluateServices','TracksServices', 'WeeklyHourServices', function($scope, $state, $stateParams, $filter, UserServices, ClientServices,ngDialog, EvaluateServices, TracksServices, WeeklyHourServices) {
 
         $scope.user         = {};
         $scope.sendingData  = false;
         var idUser          = $stateParams.id;
         $scope.clients      = [];
         $scope.performance  = {};
-
+        $scope.date         = {};
 
 
         if (idUser) {
@@ -88,21 +88,67 @@
         }
 
         $scope.tab1 = function (){
-            $scope.performance.months = {
-                0 : {"Month":"Enero", "Sueldo": 0, "Year": "2020", "HourCost": "220"},
-                1 : {"Month":"Febrero", "Sueldo": 0, "Year": "2020", "HourCost": "220"},
-                2 : {"Month":"Marzo", "Sueldo": 0, "Year": "2020", "HourCost": "220"},
-                3 : {"Month":"Abril", "Sueldo": 0, "Year": "2020", "HourCost": "220"},
-                4 : {"Month":"Mayo", "Sueldo": 0, "Year": "2020", "HourCost": "220"},
-                5 : {"Month":"Junio", "Sueldo": 0, "Year": "2020", "HourCost": "220"},
-                6 : {"Month":"Julio", "Sueldo": 0, "Year": "2020", "HourCost": "220"},
-                7 : {"Month":"Agosto", "Sueldo": 0, "Year": "2020", "HourCost": "220"},
-                8 : {"Month":"Septiembre", "Sueldo": 0, "Year": "2020", "HourCost": "220"},
-                9 : {"Month":"Octubre", "Sueldo": 0, "Year": "2020", "HourCost": "220"},
-                10 : {"Month":"Noviembre", "Sueldo": 0, "Year": "2020", "HourCost": "220"},
-                11 : {"Month":"Diciembre", "Sueldo": 0, "Year": "2020", "HourCost": "220"}
+
+            var actualMonth = moment().month();
+            var pastMonth   = moment().month()-1;
+            var allMonths   = ['Enero','Febrero','Mayo','Abril','Marzo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+            
+            $scope.date.minDate   = moment().subtract(6, 'year'); 
+            $scope.date.maxDate   = moment().add(0, 'year'); 
+            $scope.date.startDate = moment().subtract(1, 'year');
+            $scope.performance.actual = {};
+            $scope.performance.past   = {};
+            $scope.performance.allMonths = {};
+
+            $scope.performance.actual.month = {
+                'idMonth': actualMonth+1,
+                'month'  : allMonths[actualMonth],                
+                'year': 2020,
+                'idUser': idUser
             }
-            console.log($scope.performance.months);
+
+            $scope.performance.past.month = {
+                'idMonth': pastMonth+1,
+                'month'  : allMonths[pastMonth],
+                'year'   : 2020,
+                'idUser' : idUser
+            };
+
+            TracksServices.findByMonth($scope.performance.actual.month, function(err, result){
+                $scope.performance.actual.month.salary = Object.values(result[0])[0];
+                TracksServices.findByMonth($scope.performance.past.month, function (err, result){
+                    $scope.performance.past.month.salary = Object.values(result[0])[0];
+
+                    WeeklyHourServices.verifyUser(idUser, function(err, result){
+                        $scope.performance.actual.month.costHour = result[0].costHour;
+                        UserServices.savePerformance($scope.performance.actual.month, function(err, result){
+                            console.log('save performance', err, result);
+                        })
+                    })
+                })
+            })
+
+            UserServices.getPerformanceById($scope.performance.past.month, function(err,result){
+                $scope.performance.past.month = result[0];
+            })
+
+            $scope.performance.allMonths = {
+                'idUser'   : idUser,
+                'year'     : 2020,
+                'actMonth' : $scope.performance.actual.month.idMonth,
+                'pastMonth': $scope.performance.past.month.idMonth
+            }
+
+            $scope.moreMonths = function(){
+                UserServices.allPerformances($scope.performance.allMonths, function(err, result){
+                    if (!err) {
+                        $scope.performance.allMonths = result;
+                    }
+                })      
+            }
+
+
+
         }
 
         $scope.tab2 = function(){
@@ -115,6 +161,26 @@
                 $scope.evaluacion = result;
             })
             
+            $scope.showEval = function(value){
+               ngDialog.open({
+                  template: '/app/shared/views/alert.modal.html',
+                  showClose: true,
+                  scope: $scope,
+                  disableAnimation: true,
+                  data: {
+                    titleRequired: "Evaluación",
+                    evaluate: value,
+                    confirm: function() {
+                      ngDialog.close(windowIDs[1]);
+                    },
+                    cancel: function() {
+                      var windowIDs = ngDialog.getOpenDialogs();
+
+                      ngDialog.close(windowIDs[1]);
+                    }
+                  }
+                });     
+            }
         }
 
     }]);

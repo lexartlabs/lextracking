@@ -177,9 +177,14 @@
 					console.log("PROJECT BY HOUR", result, err);
 		    		cb(result, err);
 				})	
-			}
-	  	};
+			},
 
+			findByMonth: function(obj,cb) {
+				RestClient.post(model + "/month", obj, function(err, result){
+		    		cb(err, result);
+				})
+			}
+		}
 	  	return factory;
 
 	}]);

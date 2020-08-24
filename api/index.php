@@ -38,6 +38,9 @@ define ("ENV", "/lextracking/api");
 				// INSERT NEW USER
 				$router->map('POST','/user/new', 'components/users/post.php', 'user-new');
 				$router->map('POST','/user/update', 'components/users/post.php', 'user-update');
+				$router->map('POST','/user/save-performance', 'components/users/post.php', 'user-performance');
+				$router->map('POST','/user/performance-id', 'components/users/post.php', 'user-performance-by-id');
+				$router->map('POST','/user/all-performance', 'components/users/post.php', 'performance-all');
 
 			// CLIENTS
 				// ALL CLIENTS
@@ -110,6 +113,7 @@ define ("ENV", "/lextracking/api");
 				$router->map('GET','/track/[i:id]', 'components/tracks/get.php', 'track-by-id');
 
 				$router->map('GET','/track/active', 'components/tracks/get.php', 'track-actives');
+				$router->map('POST','/track/month', 'components/tracks/post.php', 'track-by-month');
 
 				// GET USERS BY ID
 				$router->map('GET','/track/[i:id]/delete', 'components/tracks/get.php', 'delete-track-by-id');
@@ -177,7 +181,7 @@ define ("ENV", "/lextracking/api");
 				//WeeklyHour
 				$router->map('GET','/weeklyHours/all', 			'components/weeklyHours/index.php', 'weeklyHour-all');
 				$router->map('GET','/weeklyHour/[i:id]', 		'components/weeklyHours/get.php', 	'weeklyHour-by-id');
-				$router->map('POST','/weeklyHour/user/[i:id]', 		'components/weeklyHours/post.php', 	'weeklyHour-by-idUser');
+				$router->map('GET','/weeklyHour/user/[i:id]', 		'components/weeklyHours/get.php', 	'weeklyHour-by-idUser');
 				$router->map('POST','/weeklyHour/new', 			'components/weeklyHours/post.php', 'weeklyHour-new');
 				$router->map('POST','/weeklyHour/update', 		'components/weeklyHours/post.php', 'weeklyHour-update');
 
@@ -234,6 +238,7 @@ define ("ENV", "/lextracking/api");
 				//Evaluacion
 				$router->map('POST','/evaluate/new', 		'components/evaluate/post.php', 'evaluate-new');
 				$router->map('GET','/evaluate/user/[i:id]', 'components/evaluate/get.php', 'evaluate-user');
+				$router->map('POST','/evaluate/update', 'components/evaluate/post.php', 'evaluate-update');
 
 
 

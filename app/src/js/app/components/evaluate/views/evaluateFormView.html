@@ -80,22 +80,20 @@
             <div class="flex-item">Evaluador</div>
             <div style="flex: 5%;width: 5%;"></div>
         </div>
-        <!-- ORDENADO POR USUARIO -->
-                <!-- TRACKS -->
-                <div ng-repeat="eval in evaluacion track by $index" class='flex-column-wrap' id="datatable">
-                    <div class='flex-row'>
-                        <div class="flex-item">{{eval.idUser}}</div>
-                        <div class="flex-item">{{eval.evaluacion}}</div>
-                        <div class="flex-item">{{eval.puntaje | truncateTail:true:20:'...'}}</div>
-                        <div class="flex-item">{{eval.fecha | truncateTail:true:20:'...'}}</div>
-                        <div class="flex-item">{{eval.admin}}</div>
-                        <div style="flex: 5%;width: 5%;" ng-if="userRole != 'developer'">
-                            <a href="" ng-click="editTrack(track)">
-                                <img src="assets/images/icons/pencil-ico.svg">
-                            </a>
-                        </div>
-                    </div>
+        <div ng-repeat="eval in evaluacion track by $index" class='flex-column-wrap' id="datatable">
+            <div class='flex-row'>
+                <div class="flex-item">{{eval.idUser}}</div>
+                <div class="flex-item">{{eval.evaluacion}}</div>
+                <div class="flex-item">{{eval.puntaje | truncateTail:true:20:'...'}}</div>
+                <div class="flex-item">{{eval.dia}}/{{eval.mes}}/{{eval.year}}</div>
+                <div class="flex-item">{{eval.admin}}</div>
+                <div style="flex: 5%;width: 5%;" ng-if="userRole != 'developer'">
+                    <a href="" ng-click="evalEdit(eval)">
+                        <img src="assets/images/icons/pencil-ico.svg">
+                    </a>
                 </div>
+            </div>
+        </div>
          </div>
 </div>
 </div>

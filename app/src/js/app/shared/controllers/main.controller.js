@@ -197,6 +197,7 @@
                   });
               } else {
                   $rootScope.currentTrack = {
+                      idProyecto  : task_automatic.idProyecto,
                       idUser      : $rootScope.userId,
                       idTask      : task_automatic.id,
                       taskName    : task_automatic.error,

@@ -22,8 +22,8 @@
         })
       },
 
-      verifyUSer: function (user, cb){
-        RestClient.post(model + "/user/" + user.id, user, function(err, result){
+      verifyUser: function (user, cb){
+        RestClient.get(model + "/user/" + user, function(err, result){
           cb(err,result);
         })
       },

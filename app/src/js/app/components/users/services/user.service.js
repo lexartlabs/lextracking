@@ -44,6 +44,24 @@
 		    	RestClient.delete(model + "/" + id, function(err, result) {
 		        	cb(err, result);
 		      	})
+		    },
+
+		    savePerformance: function(obj, cb){
+		    	RestClient.post(model + "/save-performance", obj, function(err, result){
+		    		cb(err, result);
+		    	})
+		    },
+
+		    getPerformanceById: function(obj, cb){
+		    	RestClient.post(model + "/performance-id", obj, function(err, result){
+		    		cb(err, result);
+		    	})
+		    },
+
+		    allPerformances: function(obj, cb){
+		    	RestClient.post(model + "/all-performance", obj, function(err, result){
+		    		cb(err, result);
+		    	})
 		    }
 	  	};
 

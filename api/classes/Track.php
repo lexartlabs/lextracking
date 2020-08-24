@@ -21,6 +21,18 @@ class Track {
 		return $r;
 	}
 
+	public function getTrackByMonth($conn, $params){
+		
+		$sql = "SELECT SUM(trackCost) AS salary FROM ".$this->model." WHERE month(endTime) = ".$params['idMonth']." AND year(endTime) = ".$params['year']." AND ".$this->model.".idUser = ".$params['idUser']." AND ".$this->model.".trackCost IS NOT NULL";
+		$d   = $conn->query($sql);
+	
+		if(!empty($d)){
+			return array("response" => $d);
+		} else {
+			return array("error" => "Error: no existen tracks.");
+		}
+	}
+
     public function ConvertTimeToDecimal($value){
     	$time = explode(":",$value);
     	$horas = floatval($time[0]);
@@ -371,7 +383,7 @@ class Track {
 		$sql 	 = $head.$insert.$body;
 		$d 		 = $conn->query($sql);
 		// GET LAST INSERT
-		$lastId = $conn->LastId();
+		$lastId = mysql_insert_id();
 		// GET LAST OBJECT
 		$newestTrack = $this->getTrackById($conn, $lastId);
 		$newestTrack = $newestTrack["response"];
@@ -451,7 +463,7 @@ class Track {
 		$sql 	 = $head.$insert.$body;
 		$d 		 = $conn->query($sql);
 		// GET LAST INSERT
-		$lastId = $conn->LastId();
+		$lastId = mysql_insert_id();
 		// GET LAST OBJECT
 		$newestTrack = $this->getTrelloTrackById($conn, $lastId);
 		$newestTrack = $newestTrack["response"];
@@ -477,11 +489,12 @@ class Track {
 	}
 
 	public function updateAutoTrack($conn, $user){
-
-		$sql = "UPDATE ".$this->model." SET idTask = '$user[idTask]', idUser = '$user[idUser]', name = '$user[name]', startTime = '$user[startTime]', endTime = '$user[endTime]' WHERE id='$user[id]'";
+		$sql = "UPDATE ".$this->model." SET idTask = '$user[idTask]', idUser = '$user[idUser]', name = '$user[name]', startTime = '$user[startTime]', endTime = '$user[endTime]', trackCost = '$user[trackCost]' WHERE id='$user[id]'";
 		$d 	= $conn->query($sql);
 		// CALLBACK
 		if(empty($d)){
+			$sqli = "UPDATE Projects SET tracked = '$user[totalTrack]', totalCost = '$user[projCost]' WHERE id = '$user[idProyecto]'";
+			$b    = $conn->query($sqli);
 			return array("response" => 'OK');
 		} else {
 			return array("error" => "Error: al actualizar la tarea.", "sql" => $sql);
@@ -494,6 +507,8 @@ class Track {
 
 		// CALLBACK
 		if(empty($d)){
+			$sqli = "UPDATE Projects SET tracked = '$user[totalTrack]', totalCost = '$user[projCost]' WHERE id = '$user[idProyecto]'";
+			$b    = $conn->query($sqli);
 			return array("response" => 'OK');
 		} else {
 			return array("error" => "Error: al actualizar la tarea.", "sql" => $sql);

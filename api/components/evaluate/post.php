@@ -13,6 +13,11 @@
 			header('Content-Type: application/json');
 			echo json_encode($response);
 		}
+		if($name == 'evaluate-update'){
+			$response = $objUsr->updateEval($conn,$params);
+			header('Content-Type: application/json');
+			echo json_encode($response);
+		}
 	} else {
 		echo json_encode( array("response" => 'err') );
 	}

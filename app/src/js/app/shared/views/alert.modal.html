@@ -18,6 +18,7 @@
           </ui-select>
           <p ng-if="selected.value.id == undefined" style="color:red; font-size: 10px;">La tarea automatica necesita asociarse a un proyecto.</p>
         </div>
+        <textarea ng-if="ngDialogData.evaluate" style="padding:10px; width: 100%;" readonly>{{ngDialogData.evaluate}}</textarea>
     </div>
 
     <div class="imm-modal__actions">

@@ -22,11 +22,7 @@
 			header('Content-Type: application/json');
 			echo json_encode($response);
 		}
-
-		if ($name == 'weeklyHour-by-idUser') {
-			$response == $objUsr->getWeeklyHourByIdUser($conn, $params);
-			echo json_encode($response);
-		}
+		
 	} else {
 		echo json_encode( array("response" => 'err') );
 	}

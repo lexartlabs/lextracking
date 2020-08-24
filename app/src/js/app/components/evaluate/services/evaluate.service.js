@@ -10,9 +10,15 @@
 
 	  	var factory = {
 		    save: function(obj, cb) {
-	        	RestClient.post(model + "/new", obj, function(err, result) {
-	          		cb(err, result);
-	        	})
+		    	if (obj.id) {
+		    		RestClient.post(model + "/update", obj, function(err, result){
+		    			cb(err, result);
+		    		})
+		    	} else {
+		        	RestClient.post(model + "/new", obj, function(err, result) {
+		          		cb(err, result);
+		        	})
+		    	}
 		    },
 
 		    find: function(id, cb) {

@@ -14,6 +14,10 @@
 			$response = $objUsr->insertTrack($conn,$params);
 			echo json_encode($response);
 		}
+		if($name == 'track-by-month'){
+			$response 	= $objUsr->getTrackByMonth($conn,$params);
+			echo json_encode($response);
+		}
 		if($name == 'autoTrack-new'){
 			$response = $objUsr->insertAutoTrack($conn,$params);
 			echo json_encode($response);

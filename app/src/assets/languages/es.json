@@ -95,7 +95,9 @@
     "salary"        : "Salario",
 
     "score"         : "Puntaje",
-    "evaluation"    : "Evaluación"
+    "evaluation"    : "Evaluación",
+    "year"          : "Año",
+    "costhour"      : "Costo hora"
   },
 
   "clients": {

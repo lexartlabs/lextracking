@@ -18,6 +18,12 @@
 			echo json_encode($response);
 		}
 
+		if ($name == 'weeklyHour-by-idUser') {
+			$id 	  = $params["id"];
+			$response = $objUsr->getWeeklyHourByIdUser($conn, $id);
+			echo json_encode($response);
+		}
+
 	} else {
 		header('Content-Type: application/json');
 		echo json_encode( array("response" => 'err') );

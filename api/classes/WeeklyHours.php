@@ -47,16 +47,16 @@ class WeeklyHour {
 		}
 	}
 
-	public function getWeeklyHourByIdUser($conn,$params){
-		$sql	="SELECT * FROM ".$this->model." WHERE idUser='$params[id]'";
+	public function getWeeklyHourByIdUser($conn,$id){
+		$sql	="SELECT * FROM ".$this->model." WHERE idUser=".$id;
 		$d 		= $conn->query($sql);
 
 		// CALLBACK
 		if(!empty($d)){
-			return array("response" => "Usuario con costo por hora ya ingresado.");
+			return array("response" => $d);
 		} else {
-			$sqli = "INSERT INTO ".$this->model." (idUser, userName, costHour, workLoad, borrado) VALUES ($params[id], '$params[name]', 0, 0, 0)";
-			$b    = $conn->query($sqli);
+			//$sqli = "INSERT INTO ".$this->model." (idUser, userName, costHour, workLoad, borrado) VALUES ($params[id], '$params[name]', 0, 0, 0)";
+			//$b    = $conn->query($sqli);
 			return array("error" => "Usuario agregado, valor costo hora: 0$");
 		}
 	}
