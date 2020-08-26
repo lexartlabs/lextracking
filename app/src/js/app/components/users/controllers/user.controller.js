@@ -120,19 +120,16 @@
             $scope.performance.past.month.year = moment().year();
             TracksServices.findByMonth($scope.performance.actual.month, function(err, result){
                 $scope.performance.actual.month.salary = Object.values(result[0])[0];
-                TracksServices.findByMonth($scope.performance.past.month, function (err, result){
-                    $scope.performance.past.month.salary = Object.values(result[0])[0];
-
-                    WeeklyHourServices.verifyUSer(idUser, function(err, result){
-                        $scope.performance.actual.month.costHour = result[0].costHour;
-                        UserServices.savePerformance($scope.performance.actual.month, function(err, result){
-                            console.log('save performance', err, result);
-                        })
+                WeeklyHourServices.verifyUSer(idUser, function(err, result){
+                    $scope.performance.actual.month.costHour = result[0].costHour;
+                    UserServices.savePerformance($scope.performance.actual.month, function(err, result){
+                        console.log('save performance', err, result);
                     })
                 })
             })
 
             UserServices.getPerformanceById($scope.performance.past.month, function(err,result){
+                console.log('Result past month', result, err);
                 $scope.performance.past.month = result[0];
             })
 
