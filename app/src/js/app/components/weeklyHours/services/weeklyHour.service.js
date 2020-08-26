@@ -22,7 +22,7 @@
         })
       },
 
-      verifyUser: function (user, cb){
+      verifyUSer: function (user, cb){
         RestClient.get(model + "/user/" + user, function(err, result){
           cb(err,result);
         })

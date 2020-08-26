@@ -96,30 +96,34 @@
             $scope.date.minDate   = moment().subtract(6, 'year'); 
             $scope.date.maxDate   = moment().add(0, 'year'); 
             $scope.date.startDate = moment().subtract(1, 'year');
-            $scope.performance.actual = {};
-            $scope.performance.past   = {};
+            $scope.date.year      = moment().year();
+            $scope.performance.actual    = {};
+            $scope.performance.past      = {};
             $scope.performance.allMonths = {};
+            $scope.identify = true;
 
             $scope.performance.actual.month = {
                 'idMonth': actualMonth+1,
                 'month'  : allMonths[actualMonth],                
-                'year': 2020,
-                'idUser': idUser
+                'idUser' : idUser,
+                'year'   : moment().year()
             }
 
             $scope.performance.past.month = {
                 'idMonth': pastMonth+1,
                 'month'  : allMonths[pastMonth],
-                'year'   : 2020,
-                'idUser' : idUser
+                'idUser' : idUser,
+                'year'   : moment().year()
             };
 
+            $scope.performance.actual.month.year = moment().year();
+            $scope.performance.past.month.year = moment().year();
             TracksServices.findByMonth($scope.performance.actual.month, function(err, result){
                 $scope.performance.actual.month.salary = Object.values(result[0])[0];
                 TracksServices.findByMonth($scope.performance.past.month, function (err, result){
                     $scope.performance.past.month.salary = Object.values(result[0])[0];
 
-                    WeeklyHourServices.verifyUser(idUser, function(err, result){
+                    WeeklyHourServices.verifyUSer(idUser, function(err, result){
                         $scope.performance.actual.month.costHour = result[0].costHour;
                         UserServices.savePerformance($scope.performance.actual.month, function(err, result){
                             console.log('save performance', err, result);
@@ -132,22 +136,37 @@
                 $scope.performance.past.month = result[0];
             })
 
-            $scope.performance.allMonths = {
-                'idUser'   : idUser,
-                'year'     : 2020,
-                'actMonth' : $scope.performance.actual.month.idMonth,
-                'pastMonth': $scope.performance.past.month.idMonth
-            }
-
             $scope.moreMonths = function(){
+                $scope.performance.allMonths = {
+                    'idUser'   : idUser,
+                    'actMonth' : $scope.performance.actual.month.idMonth,
+                    'pastMonth': $scope.performance.past.month.idMonth,
+                    'year'     : $scope.date.year
+                }
                 UserServices.allPerformances($scope.performance.allMonths, function(err, result){
                     if (!err) {
-                        $scope.performance.allMonths = result;
+                        $scope.performance.moreMonths = result;
                     }
                 })      
             }
 
+            $scope.filterYear = function(year){
+                $scope.performance.allMonths = {};
+                $scope.performance.allMonths.idUser = idUser;
+                $scope.identify = false;
+                $scope.performance.allMonths.year = moment(year).year(); 
+                console.log('$scope.performance::', $scope.performance);
+                $scope.performance.allMonths.actMonth = '';
+                $scope.performance.allMonths.pastMonth = '';
+                UserServices.allPerformances($scope.performance.allMonths, function(err, result){
+                    $scope.performance.allMonths = result;
+                    if ($scope.performance.allMonths[0].year == $scope.performance.actual.month.year) {
+                        $scope.identify = true;
+                    }
+                })
+            }
 
+            console.log('$scope.performance::', $scope.performance);
 
         }
 

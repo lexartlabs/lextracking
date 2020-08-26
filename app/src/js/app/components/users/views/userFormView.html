@@ -96,12 +96,30 @@
 </div>
 
 <div class="imm-wa__cnt" ng-if="tabUser == 1">
-  <label class="imm-frm__lbl">
-    <div moment-picker="performance.month.year" start-view="decade" min-date="date.minDate" max-date="date.maxDate" max-view="decade" start-date="date.startDate">
-      <input ng-model="performance.month.year">
+  <div class="imm-frm imm-frm--center">
+    <div class="imm-frm__fldgrp">
+      <div class="imm-frm__fld">
+        <label class="imm-frm__lbl">
+            <b class="imm-frm__lbl-name">{{'Año'}}</b>  
+            <input  moment-picker="date.year" 
+                    placeholder="Seleccionar año" 
+                    start-view="decade" 
+                    format="YYYY" 
+                    min-date="date.minDate" 
+                    max-date="date.maxDate" 
+                    max-view="decade" 
+                    start-date="date.startDate" 
+                    ng-model="date.year"
+                    >
+        </label>
+      </div>
+      <div class="imm-frm__fld">
+        <button class="imm-btn" ng-click="filterYear(date.year)">{{ 'reports.search' | translate }}</button>
+      </div>
+      <div class="imm-frm__fld">
+      </div>
     </div>
-    <b class="imm-frm__lbl-name">{{'Año'}}</b>
-  </label>
+  </div>
     <table>
         <thead>
             <tr>
@@ -111,7 +129,7 @@
               <th>{{ 'users.costhour' | translate }}</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody ng-if="identify == true">
             <tr ng-repeat="month in performance.actual" style="background-color: lightgreen;">
                 <td>{{month.month}}</td>
                 <td>{{month.year}}</td>
@@ -130,12 +148,20 @@
               <th ng-if="show=='true'"></th>
               <th ng-if="show=='true'"></th>
             </tr>
-            <tr ng-repeat="month in performance.allMonths" ng-if="show=='false'">
+            <tr ng-repeat="month in performance.moreMonths" ng-if="show=='false'">
                 <td>{{month.month}}</td>
                 <td>{{month.year}}</td>
                 <td>{{month.salary}}</td>
                 <td>{{month.costHour}}</td>             
             </tr>
+        </tbody>
+        <tbody ng-if="identify == false">
+          <tr ng-repeat="month in performance.allMonths">
+            <td>{{month.month}}</td>
+            <td>{{month.year}}</td>
+            <td>{{month.salary}}</td>
+            <td>{{month.costHour}}</td>             
+          </tr>
         </tbody>
     </table>
 </div>
