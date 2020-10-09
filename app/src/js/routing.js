@@ -452,6 +452,28 @@
                 templateUrl: 'app/components/tasks/views/dashboardView.html',
                 controller: 'task_trelloCtrl'
             })
+
+            //JIRA
+            .state('app.jira', {
+                url: '/jira',
+                templateUrl: 'app/components/tasks/jira/views/jiraView.html',
+                controller: 'JiraCtrl'
+            })
+            .state('app.jiraTasks', {
+                url: '/jira-tasks/:id',
+                templateUrl: 'app/components/tasks/jira/views/jiraTaskView.html',
+                controller: 'JiraTaskCtrl'
+            })
+            .state('app.jiraTaskForm', {
+                url: '/jira-task/:id',
+                templateUrl: 'app/components/tasks/jira/views/jiraTaskFormView.html',
+                controller: 'JiraTaskFormCtrl'
+            })
+            .state('app.jiraTaskNew', {
+                url: '/jira-new-task/:idboard',
+                templateUrl: 'app/components/tasks/jira/views/jiraTaskFormView.html',
+                controller: 'JiraTaskFormCtrl'
+            })
     }]);
 
 

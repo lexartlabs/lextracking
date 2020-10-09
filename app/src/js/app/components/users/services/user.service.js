@@ -29,6 +29,7 @@
 			},
 
 		    save: function(obj, cb) {
+		    	console.log(obj);
 		    	if (obj.id) {
 		        	RestClient.post(model + "/update" , obj, function(err, result) {
 		          		cb(err, result);

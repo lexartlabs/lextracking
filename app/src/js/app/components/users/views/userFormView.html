@@ -90,10 +90,10 @@
   <div class="imm-frm__fld">
     <ul class="imm-tabs">
         <li class="imm-tabs__item" ng-init="tabUser = 1; tab1()" ng-click="tabUser = 1; tab1()" ng-class="{'imm-tabs__item--selected' : tabUser == 1}">Mi rendimiento</li>
-        <li class="imm-tabs__item" ng-click="tabUser = 2" ng-class="{'imm-tabs__item--selected' : tabUser == 2}">Integraciones</li>
+        <li class="imm-tabs__item" ng-click="tabUser = 2; tab2()" ng-class="{'imm-tabs__item--selected' : tabUser == 2}">Integraciones</li>
         <li class="imm-tabs__item" ng-click="tabUser = 3; tab3()" ng-class="{'imm-tabs__item--selected' : tabUser == 3}">Evaluaciones</li>
     </ul>
-</div>
+  </div>
 
 <div class="imm-wa__cnt" ng-if="tabUser == 1">
   <div class="imm-frm imm-frm--center">
@@ -183,11 +183,12 @@
         </label>
       </div>
 
-      <div class="imm-frm__fld">
+      <div class="imm-frm__fld" ng-click="jiraInt()">
         <label class="imm-frm__lbl">
-          <img src="/assets/images/Jira-PBXDom.png" style="width: 90px; height: 60px;cursor: not-allowed"></img>
+          <img src="/assets/images/Jira-PBXDom.png" style="width: 90px; height: 60px"></img>
           <b class="imm-frm__lbl-name">{{ 'Jira' }}</b>
         </label>
+        <p ng-if="vinculate == true" style="font-size: 10px; color: red">*Usuario ya vinculado</p>
       </div>
     </div>
 </div>

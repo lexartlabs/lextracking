@@ -51,6 +51,13 @@
 				})
 			},
 
+			getJiraTrack: function(filters, cb){
+				RestClient.post("tracks-jira", filters, function(err, result) {
+					cb(err, result);
+				})
+			},
+
+
 			getUserTracks: function(idUser, cb) {
 				RestClient.get(model + "/user/" + idUser, function(err, result) {
 					cb(err, result);
@@ -98,19 +105,36 @@
 
 			createTrelloTask: function(obj, cb) {
 		    	var track = {
-		    		idTask 	  : obj.idTask,
-					idUser 	  : obj.idUser,
-					idProyecto: obj.idProyecto,
-		    		name 	  : obj.taskName,
-		    		startTime : obj.startTime,
-					endTime	  : obj.endTime,
-					typeTrack : obj.typeTrack
-				}
-	        	RestClient.post(model + "/track-trello-new", track, function(err, result) {
-					console.log("resultTrello::", err, result);
-	          		cb(err, result);
-	        	})
-		    },
+		    	idTask 	   : obj.idTask,
+					idUser 	   : obj.idUser,
+					idProyecto : obj.idProyecto,
+		    	name 	     : obj.taskName,
+		    	startTime  : obj.startTime,
+					endTime	   : obj.endTime,
+					typeTrack  : obj.typeTrack
+					}
+					RestClient.post(model + "/track-trello-new", track, function(err, result) {
+						console.log("resultTrello::", err, result);
+						cb(err, result);
+					})
+				},
+				
+				createJiraTask: function(obj, cb){
+		    	var track = {
+						idTask 	   : obj.idTask,
+						idUser 	   : obj.idUser,
+						idProyecto : obj.idProyecto,
+						name 	     : obj.taskName,
+						startTime  : obj.startTime,
+						endTime	   : obj.endTime,
+						typeTrack  : obj.typeTrack
+						}
+						console.log(track);
+						RestClient.post(model + "/track-jira-new", track, function(err, result) {
+							console.log("result Jira Service::", err, result);
+							cb(err, result);
+						})
+				},
 
 		    update: function(obj, cb) {
 				console.log("OBJ::",obj);

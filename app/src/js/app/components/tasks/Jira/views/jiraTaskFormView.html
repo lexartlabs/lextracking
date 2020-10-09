@@ -1,0 +1,143 @@
+<div class="imm-wa__hdr imm-flex">
+    <div class="imm-flex-5">
+        <h1 class="imm-wa__tit">
+            <a class="imm-bc-item" ui-sref="app.tasks">{{ 'tasks.task' | translate }}</a>
+        </h1>
+        <div class="imm-bc" ng-if="task.projectName">
+            <span class="imm-bc-item imm-bc--head">{{task.projectName}}</span>
+        </div>
+        <div class="imm-bc" ng-if="task.name">
+            <span class="imm-bc-item imm-bc--head">{{task.name}}</span>
+        </div>
+    </div>
+</div>
+<div class="imm-wa__cnt">
+    <form class="imm-frm imm-frm--center">
+        <div class="imm-frm__fldgrp">
+            <div class="imm-frm__fld">
+                <label class="imm-frm__lbl">
+                <input ng-model="jiraTask.task.idBoard" readonly>
+                <b class="imm-frm__lbl-name">{{ 'ID Proyecto' }} <span class="required">*</span></b>
+                </label>
+            </div>
+
+            <div class="imm-frm__fld">
+                <label class="imm-frm__lbl">
+                    <input type="text" ng-model="jiraTask.task.name">
+                    <b class="imm-frm__lbl-name">{{ 'Nombre Tarea' }} <span class="required">*</span></b>
+                </label>
+            </div>
+
+            <div class="imm-frm__fld">
+                <label class="imm-frm__lbl">
+                    <input type="text" ng-model="jiraTask.task.keyTask" readonly>
+                    <b class="imm-frm__lbl-name">{{ 'KEY Tarea' }}</b>                   
+                </label>
+            </div>
+
+        </div>
+        <div class="imm-frm__fldgrp">
+            <div class="imm-frm__fld">
+                <label class="imm-frm__lbl">
+                  <input type="text" ng-model="jiraTask.task.status.status" ng-if="!jiraTask.task.id" readonly>
+
+                  <ui-select ng-if="jiraTask.task.id"
+                    ng-model="jiraTask.task.status"
+                    class="imm-select imm-select--input"
+                    theme="selectize"
+                    append-to-body="true"
+                    >
+                    <ui-select-match>
+                      {{$select.selected.status}}
+                    </ui-select-match>
+                    <ui-select-choices repeat="status.id as status in labels">
+                      <div ng-bind-html="status.status | highlight: $select.selected"></div>
+                    </ui-select-choices>
+                  </ui-select>
+
+                  <b class="imm-frm__lbl-name">{{ 'tasks.status' | translate }} <span class="required">*</span></b>
+                </label>
+            </div>
+                <div class="imm-frm__fld">
+                    <label class="imm-frm__lbl">
+                      <ui-select
+                      ng-model="jiraTask.task.priority"
+                      class="imm-select imm-select--input"
+                      theme="selectize"
+                      append-to-body="true"
+                      >
+                      <ui-select-match>
+                        {{$select.selected}}
+                      </ui-select-match>
+                      <ui-select-choices repeat="priorities in priority">
+                        <div ng-bind-html="priorities | highlight: $select.selected"></div>
+                      </ui-select-choices>
+                    </ui-select>                      
+                    <b class="imm-frm__lbl-name">{{ 'Prioridad' }} <span class="required">*</span></b>
+                    </label>
+                </div>
+                <div class="imm-frm__fld">
+                    <label class="imm-frm__lbl">
+                      <input ng-model="jiraTask.task.reporter" readonly>
+                      <b class="imm-frm__lbl-name">{{ 'Reportada por:' }}</b>
+                    </label>
+                </div>
+        </div>
+    <div class="imm-frm__fldgrp">
+      <div class="imm-frm__fld">
+            <label class="imm-frm__lbl">
+                <!--<input type="text" ng-model="project.description">-->
+                <textarea rows="7" cols="50" ng-model="jiraTask.task.description">
+
+                </textarea>
+                <b class="imm-frm__lbl-name">{{ 'tasks.description' | translate }}</b>
+            </label>
+        </div>
+
+        <div class="imm-frm__fld" ng-if="jiraTask.task.id">
+        <button type="button"  class="imm-btn" ng-click="openModalComentario()">Agregar Comentario</button>
+        </div>
+        <div class="imm-frm__fld">
+          <button type="button"  class="imm-btn" ng-click="openModalUsers()">Asignar usuarios</button>
+        </div>
+    </div>
+        <div class="imm-frm__fldgrp">
+            <div class="imm-frm__fld">
+              <table ng-show="jiraTask.task.comments.length>0">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>{{ 'Usuario'}}</th>
+                <th>{{ 'projects.comments' | translate }}</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="(index,comment) in jiraTask.task.comments">
+                <td>{{index+1}}</td>
+                <td>{{comment.author}}</td>
+                <td>{{comment.text}}</td>
+                <td>
+                  <a ng-click="editComments(comment.idComm,comment.text)">
+                    <img src="assets/images/icons/pencil-ico.svg">
+                  </a>
+                </td>
+                <td>
+                  <a ng-click="deleteComment(index)" ng-if="userRole=='admin'">
+                    <img src="assets/images/icons/delete_entry-ico.svg">
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+    </form>
+</div>
+
+<div class="imm-wa__actions">
+    <p ng-if="error" class="err-display">{{error}}</p>
+    <a ui-sref="app.jiraTasks" class="closeForm"><button class="imm-btn imm-btn--alt">{{ 'general.back' | translate }}</button></a>
+    <a class="closeForm"><button class="imm-btn " ng-disabled="sendingData" ng-click="save()">{{ 'general.save' | translate }}</button></a>
+</div>

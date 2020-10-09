@@ -15,13 +15,13 @@
         <a href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.dashboard">
             <i class="imm-icon imm-icon--analytics-ico"></i> <span ng-show="!thisHide">{{ 'navigation.dashboard' | translate }}</span>
         </a>
-        <a ng-if="isAdmin == 'true'" href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.users">
+        <a ng-if="isAdmin == 'true' || userRole == 'pm'" href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.users">
             <i class="imm-icon imm-icon--users-ico"></i> <span ng-show="!thisHide">{{ 'navigation.users' | translate }}</span>
         </a>
         <a ng-if="userRole == 'developer'" ui-sref="app.userEdit({id:userId})"" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected">
             <i class="imm-icon imm-icon--users-ico"></i> <span ng-show="!thisHide">{{ 'navigation.my-profile' | translate }}</span>
         </a>
-        <a ng-if="isAdmin == 'true'" href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.clients">
+        <a ng-if="isAdmin == 'true' || userRole == 'pm' " href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.clients">
             <i class="imm-icon imm-icon--users-ico"></i> <span ng-show="!thisHide">{{ 'navigation.clients' | translate }}</span>
         </a>
         <a href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.projects">

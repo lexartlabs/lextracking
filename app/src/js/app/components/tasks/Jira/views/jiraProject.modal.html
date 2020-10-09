@@ -1,0 +1,26 @@
+<div class="imm-modal imm-modal--medium">
+    <div class="imm-modal__header">
+        <h1 class="imm-modal__title">{{ ngDialogData.titleRequired }}</h1>
+        <a class="imm-modal__close-btn" ng-click="closeThisDialog()"><i class="imm-icon imm-icon--modal-close"></i></a>
+    </div>
+
+    <div class="imm-modal__cnt">
+        <p ng-if="ngDialogData.msg">{{ ngDialogData.msg }}</p>
+        <label>Proyecto:</label><br>
+        <ui-select append-to-body="true" class="imm-select imm-select--input" theme="selectize" ng-model="selected.value">
+         <ui-select-match placeholder="Seleccionar Proyecto">
+             {{$select.selected.name}}
+         </ui-select-match>
+         <ui-select-choices repeat="item in getProjects  track by $index">
+             <span ng-bind="item.name"></span>
+         </ui-select-choices>
+        </ui-select>
+        <p ng-if="selected.value.id == undefined" style="color:red; font-size: 10px;">El tablero necesita asociarse a un proyecto.</p>
+        <p ng-if="ngDialogData.jiraIntegrate">{{ngDialogData.jiraIntegrate}}<a style="color:red" href="https://id.atlassian.com/manage-profile/security/api-tokens">{{ngDialogData.linkJira}}</a>{{ngDialogData.jiraSecondP}}</p>
+        <input ng-if="ngDialogData.jiraIntegrate" type="text" ng-model="jiraUser.jiraToken">
+    </div>
+
+    <div class="imm-modal__actions">
+        <a class="imm-btn" ng-click="ngDialogData.confirm();closeThisDialog()">{{ 'shared.modal.accept' | translate }}</a>
+    </div>
+</div>

@@ -29,9 +29,11 @@ class User {
 		if(empty($d)){
 			$sql_save = "INSERT INTO ".$this->pModel." (`idUser`, `year`, `idMonth`, `month`, `salary`, `costHour`) VALUES ('$params[idUser]', '$params[year]', '$params[idMonth]', '$params[month]', '$params[salary]', '$params[costHour]')";
 			$d_save   = $conn->query($sql_save);
+			return array("response" => "Salario creado correctamente");
 		} else {
 			$sql_update = "UPDATE ".$this->pModel." SET `year`= '$params[year]',`idMonth`='$params[idMonth]',`month`='$params[month]',`salary`='$params[salary]',`costHour`='$params[costHour]' WHERE id = ".$id;
 			$d_update   = $conn->query($sql_update);
+			return array("response" => "Salario actualizado correctamente.");
 		}
 	}
 
@@ -144,7 +146,7 @@ class User {
 	}
 
 	public function updateUser($conn, $user){
-		$sql = "UPDATE ".$this->model." SET name = '$user[name]', email = '$user[email]', password = '$user[password]', role = '$user[role]' WHERE id='$user[id]'";
+		$sql = "UPDATE ".$this->model." SET name = '$user[name]', email = '$user[email]', password = '$user[password]', role = '$user[role]', jiraToken = '$user[jiraToken]' WHERE id='$user[id]'";
 		$d 	= $conn->query($sql);
 
 		// CALLBACK

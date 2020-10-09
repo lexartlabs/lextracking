@@ -30,7 +30,8 @@
     "grunt-webfont": "^1.6.0",
     "jit-grunt": "^0.10.0",
     "load-grunt-config": "^0.19.2",
-    "load-grunt-tasks": "^5.1.0"
+    "load-grunt-tasks": "^5.1.0",
+    "ngrok": "^3.2.7"
   },
   "dependencies": {
     "angular-base64-upload": "^0.1.23",
@@ -40,6 +41,7 @@
     "bower": "^1.8.0",
     "grunt-contrib-uglify-es": "^3.3.0",
     "highcharts-ng": "0.0.13",
+    "node-fetch": "^2.6.0",
     "npm": "^6.14.7"
   }
 }

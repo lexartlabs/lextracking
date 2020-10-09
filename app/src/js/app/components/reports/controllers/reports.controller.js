@@ -27,6 +27,7 @@
     $scope.totalcost      = 0;
     $scope.totalcost2     = 0;
     $scope.totalcost3     = 0;
+    $scope.totalcost4     = 0;
     $scope.sumAll         = 0;
     $scope.finalHour      = "00:00:00";
     $scope.finalTotal     = 0;
@@ -110,7 +111,7 @@
     }
 
     function getTotalCost(ms) {
-      if (userRole == 'admin') {
+      if (userRole == 'admin' || userRole == 'pm') {
         var idHourCost = $rootScope.trackId;
       } else {
         var idHourCost = $rootScope.userId;
@@ -183,7 +184,7 @@
 
 
     function getTotalAutoCost(msc) {
-        if (userRole == 'admin') {
+        if (userRole == 'admin' || userRole == 'pm') {
           var idHourCost = $rootScope.trackId;
         } else {
           var idHourCost = $rootScope.userId;
@@ -224,7 +225,7 @@
     }
 
     function getTotalTrelloCost(mst) {
-        if (userRole == 'admin') {
+        if (userRole == 'admin' || userRole == 'pm') {
           var idHourCost = $rootScope.trackId;
         } else {
           var idHourCost = $rootScope.userId;
@@ -311,7 +312,7 @@
       });
     }
 
-    if (userRole == 'admin') {
+    if (userRole == 'admin' || userRole == 'pm') {
       UserServices.find(0, '', function(err, users) {
         if (!err) {
           users.unshift({ "id": 0, "name": $filter("translate")("reports.all") });
@@ -394,12 +395,15 @@
       $scope.total      = 0;
       $scope.total2     = 0;
       $scope.total3     = 0;
+      $scope.total4     = 0;
       $scope.subtotals  = {};
       $scope.subtotals2 = {};
       $scope.subtotals3 = {};
+      $scope.subtotals4 = {};
       $scope.tableTrack = [];
       $scope.tableTrackTrello = [];
       $scope.tableTrackAuto = [];
+      $scope.tableTrackJira = [];
       $scope.finalHour  = "00:00:00";
 
       TracksServices.getTracks(filters, function (err, tracks){
@@ -412,7 +416,7 @@
             $scope.totalcost = tempTotal;
             //$scope.sumAll += parseInt(tempTotal) ? tempTotal : 0;
             sumTotalcost(tempTotal);
-            if(userRole == 'admin'){
+            if(userRole == 'admin' || userRole == 'pm'){
               if($scope.tableTrack.length < 1){
                 $scope.tableTrack.push({'idUser':track.idUser,'duration':track.duration,'subTotalCost':parseInt(track.trackCost ? track.trackCost : 0),'tracks':[track]})
               }else{
@@ -480,7 +484,7 @@
           _.each(tracks, function (track){
             $rootScope.trackId = track.idUser;
             console.log("UserRole",userRole);
-            if (userRole == 'admin') {
+            if (userRole == 'admin' || userRole == 'pm') {
               if (!$scope.subtotals[track.idUser]) {
               $scope.subtotals[track.idUser] = 0;
               }
@@ -552,7 +556,7 @@
             tracks.forEach(function(track){
               tempTotal += parseInt(track.trackCost ? track.trackCost : 0);
               $scope.totalcost2 = tempTotal;
-            if(userRole == 'admin'){
+            if(userRole == 'admin' || userRole == 'pm'){
               if($scope.tableTrackAuto.length < 1){
                 $scope.tableTrackAuto.push({'idUser':track.idUser,'idProyecto':track.idProyecto,'duration':track.durations,'subTotalCost':parseInt(track.trackCost ? track.trackCost : 0),'tracks':[track]})
                 console.log('Track Automatic',$scope.tableTrackAuto);
@@ -673,7 +677,7 @@
           tracks.forEach(function(track){
             tempTotal += parseInt(track.trackCost ? track.trackCost : 0);
             $scope.totalcost3 = tempTotal;
-            if(userRole == 'admin'){
+            if(userRole == 'admin' || userRole == 'pm'){
               if($scope.tableTrackTrello.length < 1){
                 $scope.tableTrackTrello.push({'idUser':track.idUser,'idProyecto':track.idProyecto,'clientName': track.client,'duration':track.durations,'subTotalCost':parseInt(track.trackCost ? track.trackCost : 0),'tracks':[track]})
               }else{
@@ -783,12 +787,133 @@
               roundgraphClient();
             }
           });
+
+    TracksServices.getJiraTrack(filters, function (err, tracks){
+      console.log('Tareas Jira',tracks,err);
+      if (!err) {
+        $scope.jiraTracks = tracks;
+
+        /* NUEVA FUNCION */
+        var tempTotal = 0;
+          tracks.forEach(function(track){
+            tempTotal += parseInt(track.trackCost ? track.trackCost : 0);
+            $scope.totalcost4 = tempTotal;
+            if(userRole == 'admin' || userRole == 'pm'){
+              if($scope.tableTrackJira.length < 1){
+                $scope.tableTrackJira.push({'idUser':track.idUser,'idProyecto':track.idProyecto,'clientName': track.client,'duration':track.durations,'subTotalCost':parseInt(track.trackCost ? track.trackCost : 0),'tracks':[track]})
+              }else{
+                    var exist = false;
+                    $scope.tableTrackJira.forEach(function(element){
+                      if(element.idUser == track.idUser && exist == false){
+                        exist = true;
+                        element.subTotalCost += parseInt(track.trackCost ? track.trackCost : 0);
+                        element.tracks.push(track);
+                        element.duration = convertTime(moment.duration(element.duration).add(track.durations));
+                      }
+                    });
+                    if(exist === false){
+                      $scope.tableTrackJira.push({'idUser':track.idUser,'idProyecto':track.idProyecto,'clientName': track.client,'duration':track.durations,'subTotalCost':parseInt(track.trackCost ? track.trackCost : 0),'tracks':[track]})
+                    }
+                  }
+            }else{
+              if($scope.tableTrackJira.length < 1){
+                $scope.tableTrackJira.push({'idProyecto':track.idUser,'idProyecto':track.idProyecto,'clientName': track.client,'duration':track.duration,'subTotalCost':parseInt(track.trackCost ? track.trackCost : 0),'tracks':[track]})
+              }else{
+                    var exist = false;
+                    $scope.tableTrackJira.forEach(function(element){
+                      if(element.idProyecto == track.idProyecto && exist == false){
+                        exist = true;
+                        element.subTotalCost += parseInt(track.trackCost ? track.trackCost : 0);
+                        element.tracks.push(track);
+                        element.duration = convertTime(moment.duration(element.duration).add(track.duration));
+                      }
+                    });
+                    if(exist === false){
+                      $scope.tableTrackJira.push({'idProyecto':track.idProyecto,'clientName': track.client,'duration':track.durations,'subTotalCost':parseInt(track.trackCost ? track.trackCost : 0),'tracks':[track]})
+                    }
+                  }
+            }
+
+          })
+          $scope.tableTrackJira.forEach(function(el){
+            el.byProject = []; //aca vamos a ir pusheando cada track
+            el.tracks.forEach(function(track,index){ // recorremos los tracks
+              if(el.byProject.length < 1){  
+                el.byProject.push({'idProyecto':track.idProyecto,'projectName':track.projectName,'duration':track.durations,'subTotalCost':parseInt(track.trackCost ? track.trackCost : 0),'tracks':[track]})
+              }else{
+                var exist = false;
+                el.byProject.forEach(function(element){
+                  if(element.idProyecto == track.idProyecto && exist == false){
+                    exist = true;
+                    element.subTotalCost += parseInt(track.trackCost ? track.trackCost : 0);
+                    element.tracks.push(track);
+                    element.duration = convertTime(moment.duration(element.duration).add(track.durations));
+                  }
+                });
+                if(exist === false){
+                  el.byProject.push({'idProyecto':track.idProyecto,'projectName':track.projectName,'duration':track.durations,'subTotalCost':parseInt(track.trackCost ? track.trackCost : 0),'tracks':[track]})
+                }
+              }
+            })
+          });
+          console.log("RESULT Jira::",$scope.tableTrackJira);
+        /* FIN NUEVA FUNCION */
+
+        //Llamada a graficas de barras
+        bargraphUsers();
+        bargraphClients();
+        var mst  = 0;
+        var now = new Date().getTime();
+        _.each(tracks, function (track){
+          if (!$scope.subtotals4[track.projectName]) {
+            $scope.subtotals4[track.projectName] = 0;
+          }
+          track.startTime = new Date(track.startTime).getTime();
+          track.endTime = new Date(track.endTime).getTime();
+          if (track.durations.indexOf('-') !== -1) {
+            track.durations = getTotalTimeTrello((now - track.startTime)/1000);
+            mst += (now - track.startTime);
+            $scope.subtotals4[track.projectName] += (now - track.startTime);
+          } else {
+            mst += (track.endTime - track.startTime);
+            $scope.subtotals4[track.projectName] += (track.endTime - track.startTime);
+          }
+
+        });
+
+        //Subotales de horas po proyecto
+        for (var k in $scope.subtotals4) {
+          if ($scope.subtotals4.hasOwnProperty(k)) {
+            $scope.subtotals4[k] = getTotalTimeTrello($scope.subtotals4[k]/1000);
+            $scope.sumHoursTrelo.push($scope.subtotals4[k]);
+
+              }
+          }
+
+          for (var i = 0; i < $scope.sumHoursTrelo.length; i++){
+              var th = moment.duration(th).add($scope.sumHoursTrelo[i]);
+              }
+
+              $scope.total4 = convertTime(th);
+
+              $scope.sumHoursTrelo = [];
+
+              //Total tareas trello
+              getTotalTrelloCost(mst);
+
+              getHours($scope.total4);
+
+              //llamada a graficas de tortas
+              roundgraphUser();
+              roundgraphClient();
+            }
+          });
         };
 
-        var sumTotalcost = function (value) {
-          $scope.arrCost.push(value);
-          console.log("All totals",$scope.arrCost);
-        }
+    var sumTotalcost = function (value) {
+      $scope.arrCost.push(value);
+      console.log("All totals",$scope.arrCost);
+    }
 
     function parseTrackTime (date) {
       var arrDate = date.split(" ");
@@ -865,7 +990,7 @@
             var msc = newDuration._milliseconds;
             getNewTotalCost(msc);
             function getNewTotalCost(msc) {
-              if (userRole == 'admin') {
+              if (userRole == 'admin' || userRole == 'pm') {
                 var idHourCost = $rootScope.trackId;
               } else {
                 var idHourCost = $rootScope.userId;
@@ -998,6 +1123,40 @@
         data: {
           confirm: function() {
             var objTrack = angular.copy($scope.trelloTrack);
+            objTrack.startTime = parseTrackTime(objTrack.startTime);
+            objTrack.endTime   = parseTrackTime(objTrack.endTime);
+            TracksServices.update(objTrack, function(err, result){
+              if (!err) {
+                $scope.search();
+                ngDialog.close();
+              } else {
+                $scope.error = err;
+              }
+            });
+          },
+          cancel: function() {
+            ngDialog.close();
+          }
+        }
+      });
+    }
+
+    $scope.editJiraTrack = function(jira){
+      console.log(jira);
+      $scope.error = "";
+      $scope.jiraTrack = angular.copy(jira);
+      $scope.jiraTrack.startTime = moment($scope.jiraTrack.startTime);
+      $scope.jiraTrack.endTime = moment($scope.jiraTrack.endTime);
+      $scope.jiraTrack.trackDuration = $scope.jiraTrack.durations;
+
+      ngDialog.open({
+        template: '/app/components/reports/views/report.jira-task.modal.html',
+        showClose: true,
+        scope: $scope,
+        disableAnimation: true,
+        data: {
+          confirm: function() {
+            var objTrack = angular.copy($scope.jiraTrack);
             objTrack.startTime = parseTrackTime(objTrack.startTime);
             objTrack.endTime   = parseTrackTime(objTrack.endTime);
             TracksServices.update(objTrack, function(err, result){

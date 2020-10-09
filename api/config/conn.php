@@ -1,4 +1,4 @@
-<?
+<?php
 
 // ini_set('display_errors', 'Off');
 // error_reporting(0);
@@ -18,7 +18,7 @@ Class Connection {
 	public function __construct(){
 		$servidor = "localhost";
 		$usuario  = "root";
-		$clave    = "lex123";
+		$clave    = "";
 		$base	  = "lextracking_dev";
 
 		

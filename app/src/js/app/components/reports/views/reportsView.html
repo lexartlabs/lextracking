@@ -32,7 +32,7 @@
             </label>
         </div>
 
-        <div class="imm-frm__fld" ng-if="userRole=='admin'">
+        <div class="imm-frm__fld" ng-if="userRole=='admin' || userRole == 'pm' ">
             <label class="imm-frm__lbl">
                 <b class="imm-frm__lbl-name">{{ 'reports.user' | translate }}</b>
                 <ui-select
@@ -171,7 +171,7 @@
                 </div>   
             </div>
             <!-- SUBTOTAL POR USUARIO -->
-            <div class='flex-column' ng-if="userRole=='admin' && !filter.idUser">
+            <div class='flex-column' ng-if="userRole=='admin' || userRole == 'pm' && !filter.idUser ">
                 <div class='flex-column-wrap'>
                     <div class='flex-row' style='background-color: rgba(60, 144, 190, 0.1);font-weight: bold;'>
                         <div class="flex-item"></div>
@@ -312,7 +312,7 @@
                 </div>   
             </div>
             <!-- SUBTOTAL POR USUARIO -->
-            <div class='flex-column' ng-if="userRole=='admin' && !filter.idUser">
+            <div class='flex-column' ng-if="userRole=='admin' || userRole == 'pm' && !filter.idUser ">
                 <div class='flex-column-wrap'>
                     <div class='flex-row' style='background-color: rgba(60, 144, 190, 0.1);font-weight: bold;'>
                         <div class="flex-item"></div>
@@ -456,7 +456,7 @@
                 </div>   
             </div>
             <!-- SUBTOTAL POR USUARIO -->
-            <div class='flex-column' ng-if="userRole=='admin' && !filter.idUser">
+            <div class='flex-column' ng-if="userRole=='admin' || userRole == 'pm' && !filter.idUser ">
                 <div class='flex-column-wrap'>
                     <div class='flex-row' style='background-color: rgba(60, 144, 190, 0.1);font-weight: bold;'>
                         <div class="flex-item"></div>
@@ -542,10 +542,103 @@
     </table> -->
 
 </div>
+
 <div ng-if="itemTab == 1">
-<div ng-if="tableTrack.length > 0 || tableTrackAuto.length > 0 || tableTrackTrello.length > 0" style="text-align: left;background-color: rgba(16, 192, 0, 0.4);margin-top: 2%; font-weight: bold;padding-left:73%; padding-top: 6px;font-size: 11px;">TOTAL HORAS:  {{finalHour}}</div>
-<div ng-if="tableTrack.length > 0 || tableTrackAuto.length > 0 || tableTrackTrello.length > 0" style="text-align: left;background-color: rgba(16, 192, 0, 0.4); font-weight: bold;padding-left: 73%; padding-bottom: 5px; font-size: 11px;">TOTAL COSTO: ${{totalcost + totalcost2 + totalcost3}}</div>
-<!-- End Table -->
+    <br>
+    <a class="imm-bc-item" ng-if="jiraTracks.length > 0">{{ 'Tareas Jira' }}</a>
+    <br><br>
+</div>
+
+<div class="imm-flex" ng-if="itemTab == 1">
+    <div class='flex-table' ng-if="jiraTracks.length > 0">
+        <div class='flex-head'>
+            <div class="flex-item">{{ 'reports.user' | translate }}</div>
+            <div class="flex-item">{{ 'reports.client' | translate }}</div>
+            <div class="flex-item">{{ 'reports.project' | translate }}</div>
+            <div class="flex-item">{{ 'reports.task' | translate }}</div>
+            <div class="flex-item">{{ 'reports.start_time' | translate }}</div>
+            <div class="flex-item">{{ 'reports.end_time' | translate }}</div>
+            <div class="flex-item">{{ 'reports.duration' | translate }}</div>
+            <div class="flex-item">{{ 'reports.trackCost' | translate }}</div>
+            <div style="flex: 5%;width: 5%;"></div>
+        </div>
+        <!-- ORDENADO POR USUARIO -->
+        <div ng-repeat="tracks in tableTrackJira" class='flex-column' style="color: black;">
+            <!-- ORDENADO POR PROYECTO -->
+            <div ng-repeat="byProject in tracks.byProject" class='flex-column'>
+                <!-- TRACKS AUTOMATICOS -->
+                <div ng-repeat="track in byProject.tracks track by $index" class='flex-column-wrap'>
+                    <div class='flex-row'>
+                        <div class="flex-item">{{track.usersName}}</div>
+                        <div class="flex-item">{{track.client}}</div>
+                        <div class="flex-item">{{track.projectName}}</div>
+                        <div class="flex-item">{{track.name | truncateTail:true:20:'...'}}</div>
+                        <div class="flex-item">{{track.startTime | date:'dd/MM/yyyy HH:mm' }}</div>
+                        <div class="flex-item">{{track.endTime ? track.endTime : '' | date:'dd/MM/yyyy HH:mm' }}</div>
+                        <div class="flex-item">{{track.durations}}</div>
+                        <div class="flex-item">$ {{track.trackCost}}</div>
+                        <div style="flex: 5%;width: 5%;">
+                            <a href="" ng-click="editJiraTrack(track)">
+                                <img src="assets/images/icons/pencil-ico.svg">
+                            </a>
+                        </div>
+                    </div>
+                    <!-- SUBTOTAL POR PROYECTO -->
+                    <div class='flex-row' ng-if='$index == byProject.tracks.length - 1 && !filter.idProject' style='background-color: #ffff0069;font-weight: bold;'>
+                        <div class="flex-item"></div>
+                        <div class="flex-item"></div>
+                        <div class="flex-item"></div>
+                        <div class="flex-item"></div>
+                        <div class="flex-item"></div>
+                        <div class="flex-item">{{byProject.projectName | truncateTail:true:20:'...'}}</div>
+                        <div class="flex-item">{{byProject.duration}}</div>
+                        <div class="flex-item">$ {{byProject.subTotalCost}}</div>
+                        <div style="flex: 5%;width: 5%;">
+                        </div>
+                    </div>
+                </div>   
+            </div>
+            <!-- SUBTOTAL POR USUARIO -->
+            <div class='flex-column' ng-if="userRole=='admin' || userRole == 'pm' && !filter.idUser ">
+                <div class='flex-column-wrap'>
+                    <div class='flex-row' style='background-color: rgba(60, 144, 190, 0.1);font-weight: bold;'>
+                        <div class="flex-item"></div>
+                        <div class="flex-item"></div>
+                        <div class="flex-item"></div>
+                        <div class="flex-item"></div>
+                        <div class="flex-item"></div>
+                        <div class="flex-item">{{ 'reports.sub_total' | translate | uppercase }}</div>
+                        <div class="flex-item">{{tracks.duration}}</div>
+                        <div class="flex-item">$ {{tracks.subTotalCost}}</div>
+                        <div style="flex: 5%;width: 5%;">
+                        </div>
+                    </div>
+                </div>   
+            </div>
+        </div>
+        <div class='flex-column'>
+            <div class='flex-column-wrap'>
+                <div class='flex-row' style='background-color: rgba(59, 144, 190, 0.43);font-weight: bold;'>
+                    <div class="flex-item"></div>
+                    <div class="flex-item"></div>
+                    <div class="flex-item"></div>
+                    <div class="flex-item"></div>
+                    <div class="flex-item"></div>
+                    <div class="flex-item">{{ 'reports.total' | translate | uppercase }}</div>
+                    <div class="flex-item">{{total4}}</div>
+                    <div class="flex-item">$ {{totalcost4}}</div>
+                    <div style="flex: 5%;width: 5%;">
+                    </div>
+                </div>
+            </div>   
+        </div>
+    </div>
+</div>
+
+<div ng-if="itemTab == 1">
+    <div ng-if="tableTrack.length > 0 || tableTrackAuto.length > 0 || tableTrackTrello.length > 0 || tableTrackJira.length > 0" style="text-align: left;background-color: rgba(16, 192, 0, 0.4);margin-top: 2%; font-weight: bold;padding-left:73%; padding-top: 6px;font-size: 11px;">TOTAL HORAS:  {{finalHour}}</div>
+    <div ng-if="tableTrack.length > 0 || tableTrackAuto.length > 0 || tableTrackTrello.length > 0 || tableTrackJira.length > 0" style="text-align: left;background-color: rgba(16, 192, 0, 0.4); font-weight: bold;padding-left: 73%; padding-bottom: 5px; font-size: 11px;">TOTAL COSTO: ${{totalcost + totalcost2 + totalcost3 + totalcost4}}</div>
+    <!-- End Table -->
 </div>
 
 <div class="imm-cstm__grid-90">

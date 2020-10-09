@@ -107,8 +107,12 @@ define ("ENV", "/lextracking/api");
 				$router->map('POST','/tracks', 'components/tracks/post.php', 'tracks');
 				$router->map('POST','/tracks-auto', 'components/tracks/post.php', 'tracks-auto');
 				$router->map('POST','/tracks-trello', 'components/tracks/post.php', 'tracks-trello');
+				$router->map('POST','/tracks-jira', 'components/tracks/post.php', 'tracks-jira');
 			 	$router->map('POST','/track/track-trello-new', 'components/tracks/post.php', 'track-trello-new');
-      	$router->map('POST','/track/track-trello-update', 'components/tracks/post.php', 'track-trello-update');
+				$router->map('POST','/track/track-trello-update', 'components/tracks/post.php', 'track-trello-update');
+				$router->map('POST','/track/track-jira-new', 'components/tracks/post.php', 'track-jira-new');
+
+
 				// GET USERS BY ID
 				$router->map('GET','/track/[i:id]', 'components/tracks/get.php', 'track-by-id');
 
@@ -240,9 +244,18 @@ define ("ENV", "/lextracking/api");
 				$router->map('GET','/evaluate/user/[i:id]', 'components/evaluate/get.php', 'evaluate-user');
 				$router->map('POST','/evaluate/update', 'components/evaluate/post.php', 'evaluate-update');
 
+				//JIRA
+				$router->map('POST','/jira/all-dashboards', 'components/jira/index.php', 'all-dashboards');
+				$router->map('POST','/jira/dashboard-issues', 'components/jira/post.php', 'issues-by-board');
+				$router->map('POST','/jira/save-dashboards', 'components/jira/post.php', 'save-dashboards');
+				$router->map('POST','/jira/issue', 'components/jira/post.php', 'get-issue');
+				$router->map('POST','/jira/add-comment', 'components/jira/post.php', 'add-comment');
+				$router->map('POST','/jira/save-issue', 'components/jira/post.php', 'save-issue');
+				$router->map('POST','/jira/update-issue', 'components/jira/post.php', 'update-issue');
+				$router->map('POST','/jira/delete-issues', 'components/jira/post.php', 'delete-issues');
 
 
-
+				
 			// match current request
 			$match = $router->match();
 			if($match) {

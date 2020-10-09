@@ -8,8 +8,7 @@
 
         $rootScope.BASEURL     = BASE_URL;
         $rootScope.url         = window.location.origin;
-        console.log("$rootScope.url", $rootScope.url);
-
+        
         $rootScope.$on('$stateChangeSuccess', function(evt, toState, toParams, fromState, fromParams) {
             evt.preventDefault();
 
@@ -309,6 +308,40 @@
                 });
             }
         };
+
+        $scope.startJiraTrack = function(jira){
+            if ($rootScope.currentTrack.id) {
+                $rootScope.currentTrack.endTime = getCurrentDate();
+                TracksServices.update($rootScope.currentTrack, function(err, result){
+                    if (!err) {
+                        console.log('saved jira task', result);
+                        $scope.toggleTimer();
+                    }
+                });
+            } else {
+                console.log(jira);
+                    $rootScope.currentTrack = {
+                        idTask      : jira.idTask,
+                        idUser      : $rootScope.userId,
+                        idBoard     : jira.idBoard,
+                        idProyecto  : jira.idProyecto,
+                        taskName    : jira.name,
+                        startTime   : getCurrentDate(),
+                        endTime     : undefined,
+                        typeTrack   : "jira"
+                    };
+
+                console.log("jiraTrack::", $rootScope.currentTrack);
+                TracksServices.createJiraTask($rootScope.currentTrack, function(err, result){
+                    console.log("result jira::", result);
+                    if (!err) {
+                        $rootScope.currentTrack.id = result[0].id;
+                        $scope.toggleTimer();
+                        console.log('saved id jiratask', $rootScope.currentTrack.id);
+                    }
+                });
+            }
+        }
 
         $scope.projectsTracked = [];
         $rootScope.currentTrack.trackCost = {};

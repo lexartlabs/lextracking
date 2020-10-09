@@ -19,7 +19,8 @@
     "sale"        : "Ventas",
     "bill"        : "Factura",
     "my-profile"  : "Mi perfil",
-    "logout"      : "Salir"
+    "logout"      : "Salir",
+    "jira"        : "Tareas Jira"
   },
 
   "evaluate": {
@@ -511,5 +512,13 @@
     "task"        : "Tarea",
     "card_id"     : "ID Card Trello",
     "description" : "Descripción"
+  },
+
+  "jira":{
+    "title"       : "Tareas Jira",
+    "idProject"   : "ID Proyecto",
+    "name"        : "Nombre",
+    "projectKey"  : "KEY Proyecto",
+    "url"         : "URL"
   }
 }

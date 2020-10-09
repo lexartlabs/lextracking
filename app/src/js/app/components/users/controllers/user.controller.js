@@ -4,7 +4,7 @@
 
     var Module = ng.module('Imm');
 
-    Module.controller('UserCtrl', ['$scope', '$state', '$stateParams', '$filter', 'UserServices','ClientServices', 'ngDialog', 'EvaluateServices','TracksServices', 'WeeklyHourServices', function($scope, $state, $stateParams, $filter, UserServices, ClientServices,ngDialog, EvaluateServices, TracksServices, WeeklyHourServices) {
+    Module.controller('UserCtrl', ['$scope', '$state', '$stateParams', '$filter', 'UserServices','ClientServices', 'ngDialog', 'EvaluateServices','TracksServices', 'WeeklyHourServices', '$rootScope', function($scope, $state, $stateParams, $filter, UserServices, ClientServices,ngDialog, EvaluateServices, TracksServices, WeeklyHourServices, $rootScope) {
 
         $scope.user         = {};
         $scope.sendingData  = false;
@@ -12,6 +12,8 @@
         $scope.clients      = [];
         $scope.performance  = {};
         $scope.date         = {};
+        $rootScope.jiraUser = {};
+        $scope.vinculate    = false;
 
 
         if (idUser) {
@@ -19,6 +21,7 @@
                 if (!err) {
                     console.log('user', user);
                     $scope.user = angular.copy(user);
+                    $rootScope.jiraUser = user;
                 }
             });
         }
@@ -169,6 +172,35 @@
 
         $scope.tab2 = function(){
 
+            if ($scope.user.jiraToken != null) {
+                $scope.vinculate = true;
+            } else {
+                $scope.jiraInt = function(){
+                    if ($scope.user.jiraToken == null) {
+                        ngDialog.open({
+                          template: '/app/shared/views/alert.modal.html',
+                          showClose: true,
+                          scope: $scope,
+                          disableAnimation: true,
+                          data: {
+                            titleRequired: "Integración usuario con Jira.",
+                            jiraIntegrate: "Para integrar su usuario con Jira es necesario ingresar al link: ",
+                            linkJira: "https://id.atlassian.com/manage-profile/security/api-tokens",
+                            jiraSecondP: " y 'Crear TOKEN API'. Luego de obtener el token ingresarlo aquí:",
+                            confirm: function() {
+                                console.log($rootScope.jiraUser);
+                                UserServices.save($rootScope.jiraUser, function(err, result){
+                                    console.log("Jira token guardado correctamente");
+                                })
+                            },
+                            cancel: function() {
+
+                            }
+                          }
+                        }); 
+                    }
+                }
+            }
         }
 
         $scope.tab3 = function(){

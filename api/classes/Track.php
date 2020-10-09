@@ -233,6 +233,59 @@ class Track {
 		}
 	}
 
+	public function getJiraTracks($conn, $idClient, $idProject, $idTask, $idUser, $startTime, $endTime){
+
+		$sql ="SELECT ".$this->model.".*,
+				Users.name AS usersName,
+				jiratasks.name AS taskName,
+				jiratasks.project AS projectName,
+				Clients.name AS client,
+				TIMEDIFF( ".$this->model.".endTime, ".$this->model.".startTime ) AS durations
+				FROM ".$this->model."
+				INNER JOIN Users ON ".$this->model.".idUser = Users.id
+				INNER JOIN jiratasks ON ".$this->model.".idTask = jiratasks.idTask
+				INNER JOIN Projects ON Projects.id = jiratasks.idProyecto
+				INNER JOIN Clients ON Clients.id = Projects.idClient
+				WHERE (startTime >= '$startTime') AND (endTime <= '$endTime') AND typeTrack='jira' AND jiratasks.active = 1 ";
+
+			if ($idClient != '') {
+				$sql .= " AND (Projects.idClient='$idClient')";
+			}
+
+			if ($idProject != '') {
+				$sql .= " AND (Projects.id='$idProject')";
+			}
+
+			if ($idTask != '') {
+				$sql .= " AND (idTask='$idTask')";
+			}
+
+			if ($idUser != '') {
+				$sql .= " AND (idUser='$idUser')";
+			}
+
+		$sql .= 'ORDER BY taskName ASC, startTime DESC';
+		
+		$d = $conn->query($sql);
+
+		for ($i=0; $i < count($d); $i++) {
+			$sql_cost	= "SELECT costHour FROM WeeklyHours WHERE idUser='".$d[$i]['idUser']."'";
+			$d_cost 		= $conn->query($sql_cost);
+			if(!empty($d_cost)){
+				$cost = $d_cost[0]['costHour'];
+				$costDecimal = $this->ConvertTimeToDecimal($d[$i]['durations']);
+				$d[$i]['trackCost'] = round($costDecimal * intval($cost)) ? round($costDecimal * intval($cost)) : 0 ;
+			}
+		}
+
+		// CALLBACK
+		if(!empty($d)){
+			return array("response" => $d);
+		} else {
+			return array("error" => "Error: no se encontraron tracks con estos filtros.");
+		}
+	}
+
 	public function getTrackById($conn,$id){
 		$sql	="SELECT ".$this->model.".*, Projects.name AS projectName, Tasks.name AS taskName, Users.name AS userName, TIMEDIFF( ".$this->model.".endTime, ".$this->model.".startTime ) AS duration FROM ".$this->model."
 				INNER JOIN Tasks ON ".$this->model.".idTask = Tasks.id
@@ -266,6 +319,20 @@ class Track {
 				INNER JOIN TrelloTask ON ".$this->model.".idTask = TrelloTask.card_id
 				INNER JOIN Users ON ".$this->model.".idUser = Users.id
 				WHERE ".$this->model.".id='$id' AND TrelloTask.active = 1";
+		$d 		= $conn->query($sql);
+		// CALLBACK
+		if(!empty($d)){
+			return array("response" => $d);
+		} else {
+			return array("error" => "Error: no se encuentra el track.");
+		}
+	}
+
+	public function getJiraTrackById($conn,$id){
+		$sql	="SELECT ".$this->model.".*, jiratasks.name AS taskName, Users.name AS userName, TIMEDIFF( ".$this->model.".endTime, ".$this->model.".startTime ) AS duration FROM ".$this->model."
+				INNER JOIN jiratasks ON ".$this->model.".idTask = jiratasks.idTask
+				INNER JOIN Users ON ".$this->model.".idUser = Users.id
+				WHERE ".$this->model.".id='$id' AND jiratasks.active = 1";
 		$d 		= $conn->query($sql);
 		// CALLBACK
 		if(!empty($d)){
@@ -426,6 +493,46 @@ class Track {
 		$lastId = mysql_insert_id();
 		// GET LAST OBJECT
 		$newestTrack = $this->getAutoTrackById($conn, $lastId);
+		$newestTrack = $newestTrack["response"];
+		// CALLBACK
+		if(empty($d)){
+			return array("response" => $newestTrack);
+		} else {
+			return array("error" => "Error: al ingresar el Autotrack.", "sql" => $sql);
+		}
+	}
+
+	public function insertJiraTrack($conn,$user){
+		$userPreg   = preg_replace('~[\\\\/;()*?"|]~', ' ', $user);
+
+		$md   	 = $this->model;
+		$head 	 ="INSERT INTO ".$this->model;
+		$insert .="(";
+		$body 	.=" VALUES (";
+		$last 	 = count($userPreg);
+
+		$ind 	 = 1;
+		foreach ($userPreg as $key => $vle) {
+			if($this->getStructure($conn,$key)){
+				if($ind==$last){
+					$insert .=$key;
+					$body 	.="'".$vle."'";
+				} else {
+					$insert .=$key.", ";
+					$body 	.="'".$vle."', ";
+				}
+			}
+			$ind++;
+		}
+
+		$insert .=")";
+		$body 	.=")";
+		$sql 	 = $head.$insert.$body;
+		$d 		 = $conn->query($sql);
+		// GET LAST INSERT
+		$lastId = mysql_insert_id();
+		// GET LAST OBJECT
+		$newestTrack = $this->getJiraTrackById($conn, $lastId);
 		$newestTrack = $newestTrack["response"];
 		// CALLBACK
 		if(empty($d)){
