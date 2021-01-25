@@ -176,6 +176,13 @@
         <button class="imm-btn" ng-if="tracks.length" ng-click="exportToCSV()">
           Descargar CSV
         </button>
+        <button
+          class="imm-btn"
+          ng-if="tracks.length"
+          ng-click="exportToExcel('#exportReport')"
+        >
+          Descargar Excel
+        </button>
       </div>
     </div>
     <div class="imm-wa__cnt">
@@ -198,11 +205,11 @@
             class="flex-column"
             style="color: black"
           >
-            <!-- ORDENADO POR PROYECTO -->
-            <div ng-repeat="byProject in tracks.byProject" class="flex-column">
+            <!-- ORDENADO POR TAREA -->
+            <div ng-repeat="byTask in tracks.byTask" class="flex-column">
               <!-- TRACKS -->
               <div
-                ng-repeat="track in byProject.tracks track by $index"
+                ng-repeat="track in byTask.tracks track by $index"
                 class="flex-column-wrap"
                 id="datatable"
               >
@@ -230,26 +237,61 @@
                     </a>
                   </div>
                 </div>
-                <!-- SUBTOTAL POR PROYECTO -->
+                <!-- ADD FEATURE: SUBTOTAL POR TAREAS -->
                 <div
                   class="flex-row"
-                  ng-if="$index == byProject.tracks.length - 1 && !filter.idProject"
-                  style="background-color: #ffff0069; font-weight: bold"
+                  ng-if="$index == byTask.tracks.length - 1 && !filter.idTask"
+                  style="
+                    background-color: rgba(225, 56, 107, 0.1);
+                    font-weight: bold;
+                  "
                 >
                   <div class="flex-item"></div>
                   <div class="flex-item"></div>
                   <div class="flex-item"></div>
                   <div class="flex-item"></div>
-                  <div class="flex-item"></div>
+                  <div class="flex-item">TAREA</div>
                   <div class="flex-item">
-                    {{byProject.projectName | truncateTail:true:20:'...'}}
+                    {{byTask.taskName | truncateTail:true:20:'...'}}
                   </div>
-                  <div class="flex-item">{{byProject.duration}}</div>
-                  <div class="flex-item">$ {{byProject.subTotalCost}}</div>
+                  <div class="flex-item">{{byTask.duration}}</div>
+                  <div class="flex-item">$ {{byTask.subTotalCost}}</div>
                   <div style="flex: 5%; width: 5%"></div>
                 </div>
               </div>
             </div>
+            <!-- SUBTOTAL POR PROYECTO -->
+            <div ng-repeat="byProject in tracks.byProject" class="flex-column">
+              <div
+                ng-repeat="track in byProject.tracks track by $index"
+                class="flex-column-wrap"
+                id="datatable"
+              >
+                <div class="flex-column-wrap">
+                  <div
+                    ng-if="$index == byProject.tracks.length - 1 && !filter.idTask"
+                    class="flex-row"
+                    style="
+                      background-color: rgb(255, 243, 115);
+                      font-weight: bold;
+                    "
+                  >
+                    <div class="flex-item"></div>
+                    <div class="flex-item"></div>
+                    <div class="flex-item"></div>
+                    <div class="flex-item"></div>
+                    <div class="flex-item">PROYECTO</div>
+                    <div class="flex-item">
+                      {{ byProject.projectName | truncateTail:true:20:'...' }}
+                    </div>
+                    <div class="flex-item">{{byProject.duration}}</div>
+                    <div class="flex-item">$ {{byProject.subTotalCost}}</div>
+                    <div style="flex: 5%; width: 5%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- </div> -->
             <!-- SUBTOTAL POR USUARIO -->
             <div
               class="flex-column"
@@ -302,56 +344,71 @@
             </div>
           </div>
         </div>
-        <!-- <table ng-if="tracks.length" id="datatable">
-        <thead>
+        <table ng-if="tracks.length" id="exportReport" style="display: none">
+          <thead>
             <tr>
-                <th>{{ 'reports.user' | translate }}</th>
-                <th>{{ 'reports.client' | translate }}</th>
-                <th>{{ 'reports.project' | translate }}</th>
-                <th>{{ 'reports.task' | translate }}</th>
-                <th>{{ 'reports.start_time' | translate }}</th>
-                <th>{{ 'reports.end_time' | translate }}</th>
-                <th>{{ 'reports.duration' | translate }}</th>
-                <th>{{ 'reports.trackCost' | translate }}</th>
-                <th class="imm-cstm__grid-5"></th>
+              <th>{{ 'reports.user' | translate }}</th>
+              <th>{{ 'reports.client' | translate }}</th>
+              <th>{{ 'reports.project' | translate }}</th>
+              <th>{{ 'reports.task' | translate }}</th>
+              <th>{{ 'reports.start_time' | translate }}</th>
+              <th>{{ 'reports.end_time' | translate }}</th>
+              <th>{{ 'reports.duration' | translate }}</th>
+              <th>{{ 'reports.trackCost' | translate }}</th>
+              <th class="imm-cstm__grid-5"></th>
             </tr>
-        </thead>
-        <tbody ng-repeat="tracks in tableTrack track by $index">
-            <tr ng-repeat="track in tracks.tracks"
-                ng-class="{'active-task': track.type != 'projectInfo' && !track.endTime || track.endTime == '0000-00-00 00:00:00'}"
-                >
-                <td>{{track.userName + track.projectSubtotal.name}}</td>
-                <td>{{track.clientName}}</td>
-                <td>{{track.projectName | truncateTail:true:20:'...'}}</td>
-                <td>{{track.taskName | truncateTail:true:20:'...'}}</td>
-                <td>{{track.startTime | date:'dd/MM/yyyy HH:mm' }}</td>
-                <td>{{track.endTime ? track.endTime : '' | date:'dd/MM/yyyy HH:mm' }}</td>
-                <td>{{track.duration}}</td>
-                <td>$ {{track.trackCost}}</td>
-                <td>
-                    <a href="" ng-click="editTrack(track)">
-                        <img src="assets/images/icons/pencil-ico.svg">
-                    </a>
-                </td>
+          </thead>
+          <tbody ng-repeat="tracks in tableTrack track by $index">
+            <tr
+              ng-repeat="track in tracks.tracks"
+              ng-class="{'active-task': track.type != 'projectInfo' && !track.endTime || track.endTime == '0000-00-00 00:00:00'}"
+            >
+              <td>{{track.userName + track.projectSubtotal.name}}</td>
+              <td>{{track.clientName}}</td>
+              <td>{{track.projectName | truncateTail:true:20:'...'}}</td>
+              <td>{{track.taskName | truncateTail:true:20:'...'}}</td>
+              <td>{{track.startTime | date:'dd/MM/yyyy HH:mm' }}</td>
+              <td>
+                {{track.endTime ? track.endTime : '' | date:'dd/MM/yyyy HH:mm'
+                }}
+              </td>
+              <td>{{track.duration}}</td>
+              <td>$ {{track.trackCost}}</td>
+              <td>
+                <a href="" ng-click="editTrack(track)">
+                  <img src="assets/images/icons/pencil-ico.svg" />
+                </a>
+              </td>
             </tr>
-            <tr style="background-color: rgba(60, 144, 190, 0.1); font-weight: bold;">
-                <td colspan="5"></td>
-                <td>{{ 'reports.sub_total' | translate | uppercase }}</td>
-                <td>{{tracks.duration}}</td>
-                <td>$ {{tracks.subTotalCost}}</td >
-                <td></td>
+
+            <tr
+              style="
+                background-color: rgba(60, 144, 190, 0.1);
+                font-weight: bold;
+              "
+            >
+              <td colspan="5"></td>
+              <td>{{ 'reports.sub_total' | translate | uppercase }}</td>
+              <td>{{tracks.duration}}</td>
+              <td>$ {{tracks.subTotalCost}}</td>
+              <td></td>
             </tr>
-        </tbody>
-        <tbody>
-            <tr style="background-color: rgba(104, 149, 191, 0.4); font-weight: bold;">
-                <td colspan="5"></td>
-                <td>{{ 'reports.total' | translate | uppercase }}</td>
-                <td>{{total}}</td>
-                <td>$ {{totalcost}}</td>
-                <td></td>
+          </tbody>
+          <tbody>
+            <tr
+              style="
+                background-color: rgba(104, 149, 191, 0.4);
+                font-weight: bold;
+              "
+            >
+              <td colspan="5"></td>
+              <td>{{ 'reports.total' | translate | uppercase }}</td>
+              <td>{{total}}</td>
+              <td>$ {{totalcost}}</td>
+              <td></td>
             </tr>
-        </tbody>
-    </table> -->
+          </tbody>
+        </table>
       </div>
       <div ng-if="itemTab == 1">
         <br />

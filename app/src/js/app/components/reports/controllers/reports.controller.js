@@ -70,6 +70,7 @@
       $scope.mssArr = [];
       $scope.verifyMss = [];
       $scope.arrCost = [];
+      $scope.filter.idTask = 0;
 
       var userId = $rootScope.userId;
       var userRole = $rootScope.userRole;
@@ -463,6 +464,10 @@
         if ($scope.filter.idProject) {
           filters.idProject = $scope.filter.idProject;
         }
+        // ADD FEATURE
+        if ($scope.filter.idTask) {
+          filters.idTask = $scope.filter.idTask;
+        }
 
         $scope.total = 0;
         $scope.total2 = 0;
@@ -564,8 +569,10 @@
                 }
               }
             });
+            // Subtotal by Project
             $scope.tableTrack.forEach(function (el) {
               el.byProject = []; //aca vamos a ir pusheando cada track
+              el.byTask = [];
               el.tracks.forEach(function (track, index) {
                 // recorremos los tracks
                 if (el.byProject.length < 1) {
@@ -607,7 +614,48 @@
                     });
                   }
                 }
+                // ADD FEATURE BY TASK
+                if (el.byTask.length < 1) {
+                  el.byTask.push({
+                    idTask: track.idTask,
+                    taskName: track.taskName,
+                    duration: track.duration,
+                    idProyecto: track.idProyecto, 
+                    subTotalCost: parseInt(
+                      track.trackCost ? track.trackCost : 0
+                    ),
+                    tracks: [track],
+                  });
+                } else {
+                  var exist2 = false;
+                  el.byTask.forEach(function (element) {
+                    if (element.idTask == track.idTask && exist2 == false) {
+                      exist2 = true;
+                      element.subTotalCost += parseInt(
+                        track.trackCost ? track.trackCost : 0
+                      );
+                      element.tracks.push(track);
+                      element.duration = convertTime(
+                        moment.duration(element.duration).add(track.duration)
+                      );
+                    }
+                  });
+                  if (exist2 === false) {
+                    el.byTask.push({
+                      idTask: track.idTask,
+                      taskName: track.taskName,
+                      duration: track.duration,
+                      idProyecto: track.idProyecto,
+                      subTotalCost: parseInt(
+                        track.trackCost ? track.trackCost : 0
+                      ),
+                      tracks: [track],
+                    });
+                  }
+                }
               });
+              console.log('ADD FEATURE byTask: ', el.byTask);
+              console.log('ADD FEATURE byProject: ', el.byProject);
             });
 
             console.log('RESULT::', $scope.tableTrack, $scope.tracks);
@@ -1744,13 +1792,42 @@
 
         var encodedUri = encodeURI(csvContent);
         // window.open(encodedUri);
-        var encodedUri = encodeURI(csvContent);
         var link = document.createElement('a');
         link.setAttribute('href', encodedUri);
         link.setAttribute('download', 'Report.csv');
         document.body.appendChild(link);
 
         link.click(); // This will download the data file named "Report.csv".
+      };
+
+      // EXPORT TO EXCEL
+      $scope.exportToExcel = function (tableId) {
+        var uri = 'data:application/vnd.ms-excel;base64,';
+        var template =
+          '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>';
+        var base64 = function (s) {
+          return btoa(unescape(encodeURIComponent(s)));
+        };
+        var format = function (s, c) {
+          return s.replace(/{(\w+)}/g, function (m, p) {
+            return c[p];
+          });
+        };
+        var tableToExcel = function (tableId, worksheetName) {
+          var table = $(tableId);
+          var control = { worksheet: worksheetName, table: table.html() };
+          var href = uri + base64(format(template, control));
+          return href;
+        };
+
+        var encodedUri = tableToExcel(tableId, 'DataSheet');
+
+        var link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', 'Report.xlsx');
+        document.body.appendChild(link);
+
+        link.click();
       };
     },
   ]);
