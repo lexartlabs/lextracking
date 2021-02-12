@@ -5,6 +5,8 @@
 
 # Node artifact files
 node_modules/
+app/bower_components/
+app/node_modules/
 dist/
 
 # Compiled Java class files
