@@ -188,7 +188,8 @@
     "tracked"           : "Tiempo Transcurrido",
     "totalCost"         : "Costo Total",
     "presupuesto"       : "Presupuesto",
-    "trackCost"         : "Costo"
+    "trackCost"         : "Costo",
+    "currency"          : "Moneda"
   },
 
 
@@ -233,6 +234,7 @@
     "status"            : "Estado",
     "clientName"        : "Nombre Cliente",
     "user"              : "Usuario",
+    "currency"          : "Moneda",
 
 
 
