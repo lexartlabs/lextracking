@@ -18,6 +18,7 @@
 
         <th>{{ 'weeklyHours.costHour' | translate }}</th>
         <th>{{ 'weeklyHours.workLoad' | translate }}</th>
+        <th>{{'weeklyHours.currency' | translate}}</th>
         <th class="imm-cstm__grid-5"></th>
       </tr>
     </thead>
@@ -27,6 +28,7 @@
         <td><input class="field-filter" ng-model="filter.userName"></td>
         <td><input class="field-filter" ng-model="filter.costHour"></td>
         <td><input class="field-filter" ng-model="filter.workLoad"></td>
+        <td><input class="field-filter" ng-model="filter.currency"></td>
         <td></td>
       </tr>
       <tr ng-repeat="weeklyHour in weeklyHours | filter: filter">
@@ -35,6 +37,7 @@
 
         <td>{{weeklyHour.costHour}}</td>
         <td>{{weeklyHour.workLoad}}</td>
+        <td>{{weeklyHour.currency}}</td>
         <td>
           <a ui-sref="app.weeklyHourEdit({id: weeklyHour.id})">
             <img src="assets/images/icons/pencil-ico.svg">
