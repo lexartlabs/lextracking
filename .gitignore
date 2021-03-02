@@ -7,6 +7,10 @@
 node_modules/
 dist/
 bower_components/
+# Node artifact files
+app/node_modules/
+app/dist/
+app/bower_components/
 # Compiled Java class files
 *.class
 
@@ -48,4 +52,5 @@ Thumbs.db
 *.mov
 *.wmv
 
-env.js
+app/env.js
+api/conn.php
