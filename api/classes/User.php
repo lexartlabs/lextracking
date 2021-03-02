@@ -97,7 +97,7 @@ class User {
 		// $user["password"] 	= $conn->escapeString($user["password"]);
   //       $user["password"] 	=  $this->cryptoPsw($user["password"].$user["email"]);
 
-		$sql	="SELECT * FROM ".$this->model." WHERE email='$user[email]' AND password = '$user[password]'";
+		$sql	="SELECT * FROM ".$this->model." WHERE email='$user[email]' AND password = MD5('$user[password]')";
 		$d 		= $conn->query($sql);
 		
 		// CALLBACK
@@ -120,11 +120,19 @@ class User {
 
 		$ind 	 = 1;
 		foreach ($user as $key => $vle) {
+			
 			if($this->getStructure($conn,$key)){
-				if($ind==$last){
+				
+				if($ind==$last && $key=="password"){
+					$insert .=$key;
+					$body 	.="MD5('".$vle."')";
+				} elseif ($ind==$last && $key!="password") {
 					$insert .=$key;
 					$body 	.="'".$vle."'";
-				} else {
+				}elseif ($key=="password") {
+					$insert .=$key.", ";
+					$body 	.="MD5('".$vle."'), ";
+				}else {
 					$insert .=$key.", ";
 					$body 	.="'".$vle."', ";
 				}
@@ -146,14 +154,27 @@ class User {
 	}
 
 	public function updateUser($conn, $user){
-		$sql = "UPDATE ".$this->model." SET name = '$user[name]', email = '$user[email]', password = '$user[password]', role = '$user[role]', jiraToken = '$user[jiraToken]' WHERE id='$user[id]'";
-		$d 	= $conn->query($sql);
+		$sql0 = "SELECT * FROM $this->model WHERE id='$user[id]'";
+		$res0 = $conn->query($sql0);
 
-		// CALLBACK
-		if(empty($d)){
-			return array("response" => 'OK', "sql" => $sql);
-		} else {
-			return array("error" => "Error: al actualizar el usuario.", "sql" => $sql);
+		if ($res0[0]["password"] != $user[password]){
+			$sql = "UPDATE ".$this->model." SET name = '$user[name]', email = '$user[email]', password = MD5('$user[password]'), role = '$user[role]' WHERE id='$user[id]'";
+			$d 	= $conn->query($sql);
+			// CALLBACK
+			if(empty($d)){
+				return array("response" => 'OK', "sql" => $sql);
+			} else {
+				return array("error" => "Error: al actualizar el usuario.", "sql" => $sql);
+			}
+		}else{
+			$sql = "UPDATE ".$this->model." SET name = '$user[name]', email = '$user[email]', role = '$user[role]' WHERE id='$user[id]'";
+			$d 	= $conn->query($sql);
+			// CALLBACK
+			if(empty($d)){
+				return array("response" => 'OK', "sql" => $sql);
+			} else {
+				return array("error" => "Error: al actualizar el usuario.", "sql" => $sql);
+			}
 		}
 	}
 }
