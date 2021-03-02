@@ -95,11 +95,16 @@
                 </label>
             </div>
 
-            <div class="imm-frm__fld">
+            <div class="imm-frm__fld" ng-if="project.id">
                 <label class="imm-frm__lbl">
-                    <button class="imm-btn" ng-click="addTask()">{{ 'projects.add_task' | translate }}</button>
+                    <button class="imm-btn" ui-sref="app.taskForm({id: project.id})">{{ 'projects.add_task' | translate }}</button>
                 </label>
             </div>
+        </div>
+        <div ng-if="!project.id" class="imm-frm__fld">
+            <label class="imm-frm__lbl">
+                <p style="color: red; font-weight: bold; font-size: 12px">*Debe crear un proyecto para luego agregar tareas.</p>
+            </label>
         </div>
 
         <div class="imm-frm__fldgrp" ng-if="tasks.length">
@@ -116,6 +121,7 @@
                         <th class="imm-cstm__grid-5"></th>
                         <th></th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -124,7 +130,10 @@
                         <td title="{{task.description}}">{{task.description | truncateTail:true:50:'...'}}</td>
                         <td>{{task.duration}}</td>
                         <td>
-                            <a href="" ng-click="editTask(index,task)">
+                             <a href="" ng-click="editTask(index,task)" ><img class="img_stop" src="/assets/images/icons/details-ico-blue.svg"></a>
+                        </td>
+                        <td>
+                            <a ui-sref="app.taskForm({id: task.id})">
                                 <img src="assets/images/icons/pencil-ico.svg">
                             </a>
                         </td>

@@ -7,6 +7,7 @@
 class User {
 
 	private $model = "Users";
+	private $pModel = "Performance";
 
 	public function getStructure($conn,$column){
 		$sql	="SHOW COLUMNS FROM ".$this->model;
@@ -19,6 +20,43 @@ class User {
 			}
 		}
 		return $r;
+	}
+
+	public function savePerformance($conn, $params){
+		$sql = "SELECT * FROM ".$this->pModel." WHERE idMonth = '$params[idMonth]' AND year = '$params[year]' AND idUser = '$params[idUser]'";
+		$d   = $conn->query($sql);
+		$id  = $d[0]['id'];
+		if(empty($d)){
+			$sql_save = "INSERT INTO ".$this->pModel." (`idUser`, `year`, `idMonth`, `month`, `salary`, `costHour`) VALUES ('$params[idUser]', '$params[year]', '$params[idMonth]', '$params[month]', '$params[salary]', '$params[costHour]')";
+			$d_save   = $conn->query($sql_save);
+			return array("response" => "Salario creado correctamente");
+		} else {
+			$sql_update = "UPDATE ".$this->pModel." SET `year`= '$params[year]',`idMonth`='$params[idMonth]',`month`='$params[month]',`salary`='$params[salary]',`costHour`='$params[costHour]' WHERE id = ".$id;
+			$d_update   = $conn->query($sql_update);
+			return array("response" => "Salario actualizado correctamente.");
+		}
+	}
+
+	public function getPerformanceById($conn, $params){
+		$sql = "SELECT * FROM ".$this->pModel." WHERE idMonth = '$params[idMonth]' AND year = '$params[year]' AND idUser = '$params[idUser]'";
+		$d   = $conn->query($sql);
+
+		if(!empty($d)){
+			return array("response" => $d);
+		} else {
+			return array("error" => "Error: no existen usuarios.");
+		}
+	}
+
+	public function getAllPerformance($conn, $params){
+		$sql = "SELECT * FROM ".$this->pModel." WHERE year = '$params[year]' AND idUser = '$params[idUser]' AND NOT idMonth = '$params[actMonth]' AND NOT idMonth = '$params[pastMonth]'";
+		$d   = $conn->query($sql);
+
+		if(!empty($d)){
+			return array("response" => $d);
+		} else {
+			return array("error" => "Error: no existen usuarios.");
+		}		
 	}
 
 	// CRYPTO FUNCTION
@@ -59,7 +97,7 @@ class User {
 		// $user["password"] 	= $conn->escapeString($user["password"]);
   //       $user["password"] 	=  $this->cryptoPsw($user["password"].$user["email"]);
 
-		$sql	="SELECT * FROM ".$this->model." WHERE email='$user[email]' AND password = '$user[password]'";
+		$sql	="SELECT * FROM ".$this->model." WHERE email='$user[email]' AND password = MD5('$user[password]')";
 		$d 		= $conn->query($sql);
 		
 		// CALLBACK
@@ -82,11 +120,19 @@ class User {
 
 		$ind 	 = 1;
 		foreach ($user as $key => $vle) {
+			
 			if($this->getStructure($conn,$key)){
-				if($ind==$last){
+				
+				if($ind==$last && $key=="password"){
+					$insert .=$key;
+					$body 	.="MD5('".$vle."')";
+				} elseif ($ind==$last && $key!="password") {
 					$insert .=$key;
 					$body 	.="'".$vle."'";
-				} else {
+				}elseif ($key=="password") {
+					$insert .=$key.", ";
+					$body 	.="MD5('".$vle."'), ";
+				}else {
 					$insert .=$key.", ";
 					$body 	.="'".$vle."', ";
 				}
@@ -108,14 +154,27 @@ class User {
 	}
 
 	public function updateUser($conn, $user){
-		$sql = "UPDATE ".$this->model." SET name = '$user[name]', email = '$user[email]', password = '$user[password]', role = '$user[role]' WHERE id='$user[id]'";
-		$d 	= $conn->query($sql);
+		$sql0 = "SELECT * FROM $this->model WHERE id='$user[id]'";
+		$res0 = $conn->query($sql0);
 
-		// CALLBACK
-		if(empty($d)){
-			return array("response" => 'OK', "sql" => $sql);
-		} else {
-			return array("error" => "Error: al actualizar el usuario.", "sql" => $sql);
+		if ($res0[0]["password"] != $user[password]){
+			$sql = "UPDATE ".$this->model." SET name = '$user[name]', email = '$user[email]', password = MD5('$user[password]'), role = '$user[role]' WHERE id='$user[id]'";
+			$d 	= $conn->query($sql);
+			// CALLBACK
+			if(empty($d)){
+				return array("response" => 'OK', "sql" => $sql);
+			} else {
+				return array("error" => "Error: al actualizar el usuario.", "sql" => $sql);
+			}
+		}else{
+			$sql = "UPDATE ".$this->model." SET name = '$user[name]', email = '$user[email]', role = '$user[role]' WHERE id='$user[id]'";
+			$d 	= $conn->query($sql);
+			// CALLBACK
+			if(empty($d)){
+				return array("response" => 'OK', "sql" => $sql);
+			} else {
+				return array("error" => "Error: al actualizar el usuario.", "sql" => $sql);
+			}
 		}
 	}
 }

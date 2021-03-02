@@ -14,12 +14,20 @@
 			$response = $objUsr->insertTrack($conn,$params);
 			echo json_encode($response);
 		}
+		if($name == 'track-by-month'){
+			$response 	= $objUsr->getTrackByMonth($conn,$params);
+			echo json_encode($response);
+		}
 		if($name == 'autoTrack-new'){
 			$response = $objUsr->insertAutoTrack($conn,$params);
 			echo json_encode($response);
 		}
 		if($name == 'track-trello-new'){
 			$response = $objUsr->insertTrelloTrack($conn,$params);
+			echo json_encode($response);
+		}
+		if($name == 'track-jira-new'){
+			$response = $objUsr->insertJiraTrack($conn,$params);
 			echo json_encode($response);
 		}
 		if($name == 'track-update'){
@@ -63,6 +71,19 @@
 
 			echo json_encode($response);
 		}
+
+		if($name == 'tracks-jira'){
+			$idClient 	= $params["idClient"];
+			$idProject 	= $params["idProject"];
+			//$idTask 	= $params["idTask"];
+			$idUser 	= $params["idUser"];
+			$startTime 	= $params["startTime"];
+			$endTime 	= $params["endTime"];
+			$response 	= $objUsr->getJiraTracks($conn, $idClient, $idProject, $idTask, $idUser, $startTime, $endTime);
+
+			echo json_encode($response);
+		}
+
 		if ($name == 'track-trello-update'){
 			$response = $objUsr->updateTrelloTrack($conn, $params);
 			echo json_encode($response);

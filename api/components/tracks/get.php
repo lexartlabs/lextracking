@@ -15,6 +15,7 @@
 			$response 	= $objUsr->getTrackById($conn,$id);
 			echo json_encode($response);
 		}
+
 		if($name == 'delete-track-by-id'){
 			$id 		= $params["id"];
 			$response 	= $objUsr->deleteTrackById($conn,$id);

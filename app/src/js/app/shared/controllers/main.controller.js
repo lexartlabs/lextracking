@@ -6,8 +6,9 @@
 
     Module.run(function($rootScope, $state, $window) {
 
-        $rootScope.BASEURL = BASE_URL;
-
+        $rootScope.BASEURL     = BASE_URL;
+        $rootScope.url         = window.location.origin;
+        
         $rootScope.$on('$stateChangeSuccess', function(evt, toState, toParams, fromState, fromParams) {
             evt.preventDefault();
 
@@ -22,6 +23,17 @@
                 $rootScope.userRole   = $window.localStorage["userRole"];
                 $rootScope.isAdmin    = $window.localStorage["isAdmin"];
             }
+
+            $rootScope.userProfile = $rootScope.url + "/#/app/user/edit/" + $rootScope.userId;
+            console.log('$state', $state);
+            if($state.current.name == "app.userEdit" && $rootScope.userRole == 'developer'){
+                if ($state.params.id != $rootScope.userId) {
+                   console.log('$state if', $state);
+                   window.localStorage.clear();
+                   $state.go('login');
+                }
+            }
+
         });
     });
 
@@ -184,6 +196,7 @@
                   });
               } else {
                   $rootScope.currentTrack = {
+                      idProyecto  : task_automatic.idProyecto,
                       idUser      : $rootScope.userId,
                       idTask      : task_automatic.id,
                       taskName    : task_automatic.error,
@@ -229,23 +242,25 @@
                       console.log(obj);
                       if ($scope.selected.value.id != undefined) {
                         tasks_automaticServices.saveTask_Automatic(obj, function(err, result){
-                          console.log("Task automatic actualizada:", err, result);
                           if (!err) {
+                            console.log("Task automatic actualizada:", result);
                             $rootScope.currentTrack = {
                                 idUser      : $rootScope.userId,
                                 idTask      : task_automatic.id,
-                                taskName    : task_automatic.error,
+                                idProyecto  : $scope.selected.value.id,
+                                taskName    : obj.error,
                                 startTime   : getCurrentDate(),
                                 endTime     : undefined,
                                 typeTrack   : "automatic"
                             };
 
                             TracksServices.createAutoTask($rootScope.currentTrack, function(err, result){
-                                console.log("resultx::", result);
+                                console.log("resultx::", err, result);
                                 if (!err) {
                                     console.log('saved auto task', result);
                                     $rootScope.currentTrack.id = result.id;
                                     $scope.toggleTimer();
+                                    $state.go('app.tasks_automatic');
                                 }
                             });
                           }
@@ -293,6 +308,40 @@
                 });
             }
         };
+
+        $scope.startJiraTrack = function(jira){
+            if ($rootScope.currentTrack.id) {
+                $rootScope.currentTrack.endTime = getCurrentDate();
+                TracksServices.update($rootScope.currentTrack, function(err, result){
+                    if (!err) {
+                        console.log('saved jira task', result);
+                        $scope.toggleTimer();
+                    }
+                });
+            } else {
+                console.log(jira);
+                    $rootScope.currentTrack = {
+                        idTask      : jira.idTask,
+                        idUser      : $rootScope.userId,
+                        idBoard     : jira.idBoard,
+                        idProyecto  : jira.idProyecto,
+                        taskName    : jira.name,
+                        startTime   : getCurrentDate(),
+                        endTime     : undefined,
+                        typeTrack   : "jira"
+                    };
+
+                console.log("jiraTrack::", $rootScope.currentTrack);
+                TracksServices.createJiraTask($rootScope.currentTrack, function(err, result){
+                    console.log("result jira::", result);
+                    if (!err) {
+                        $rootScope.currentTrack.id = result[0].id;
+                        $scope.toggleTimer();
+                        console.log('saved id jiratask', $rootScope.currentTrack.id);
+                    }
+                });
+            }
+        }
 
         $scope.projectsTracked = [];
         $rootScope.currentTrack.trackCost = {};
@@ -430,8 +479,8 @@
             }
             TracksServices.getLastUserTrack($rootScope.userId, function (err, track) {
                 if (!err) {
-                    console.log('track', track);
                     if (track) {
+                        console.log('track', track);
                         if (!track.endTime || track.endTime == '0000-00-00 00:00:00') {
 
                             //Update current track

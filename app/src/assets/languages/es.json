@@ -18,8 +18,14 @@
     "weeklyHour"  : "Carga Horaria Semanal",
     "sale"        : "Ventas",
     "bill"        : "Factura",
+    "my-profile"  : "Mi perfil",
+    "logout"      : "Salir",
+    "jira"        : "Tareas Jira"
+  },
 
-    "logout"      : "Salir"
+  "evaluate": {
+    "title" : "Evaluación",
+    "user"  : "Usuario"
   },
 
 
@@ -83,7 +89,16 @@
     "save"          : "Guardar",
     "confirm"       : "Confirmar",
     "cancel"        : "Cancelar",
-    "back"          : "Atrás"
+    "back"          : "Atrás",
+    "my-profile"    : "Mi Perfil",
+
+    "month"         : "Mes",
+    "salary"        : "Salario",
+
+    "score"         : "Puntaje",
+    "evaluation"    : "Evaluación",
+    "year"          : "Año",
+    "costhour"      : "Costo hora"
   },
 
   "clients": {
@@ -138,7 +153,8 @@
     "save"          : "Guardar",
     "confirm"       : "Confirmar",
     "cancel"        : "Cancelar",
-    "back"          : "Atrás"
+    "back"          : "Atrás",
+    "projectName"   : "Nombre proyecto"
   },
 
   "reports": {
@@ -172,7 +188,8 @@
     "tracked"           : "Tiempo Transcurrido",
     "totalCost"         : "Costo Total",
     "presupuesto"       : "Presupuesto",
-    "trackCost"         : "Costo"
+    "trackCost"         : "Costo",
+    "currency"          : "Moneda"
   },
 
 
@@ -217,6 +234,7 @@
     "status"            : "Estado",
     "clientName"        : "Nombre Cliente",
     "user"              : "Usuario",
+    "currency"          : "Moneda",
 
 
 
@@ -496,5 +514,13 @@
     "task"        : "Tarea",
     "card_id"     : "ID Card Trello",
     "description" : "Descripción"
+  },
+
+  "jira":{
+    "title"       : "Tareas Jira",
+    "idProject"   : "ID Proyecto",
+    "name"        : "Nombre",
+    "projectKey"  : "KEY Proyecto",
+    "url"         : "URL"
   }
 }

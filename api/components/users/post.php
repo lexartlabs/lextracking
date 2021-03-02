@@ -22,6 +22,18 @@
 			$response = $objUsr->login($conn,$params);
 			echo json_encode($response);
 		}
+		if($name == 'user-performance'){
+			$response = $objUsr->savePerformance($conn,$params);
+			echo json_encode($response);
+		}
+		if($name == 'user-performance-by-id'){
+			$response 	= $objUsr->getPerformanceById($conn,$params);
+			echo json_encode($response);
+		}
+		if($name == 'performance-all'){
+			$response 	= $objUsr->getAllPerformance($conn,$params);
+			echo json_encode($response);
+		}
 	} else {
 		echo json_encode( array("response" => 'err') );
 	}

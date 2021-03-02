@@ -4,12 +4,16 @@
 
     var Module = ng.module('Imm');
 
-    Module.controller('UserCtrl', ['$scope', '$state', '$stateParams', '$filter', 'UserServices','ClientServices', 'ngDialog', function($scope, $state, $stateParams, $filter, UserServices, ClientServices,ngDialog) {
+    Module.controller('UserCtrl', ['$scope', '$state', '$stateParams', '$filter', 'UserServices','ClientServices', 'ngDialog', 'EvaluateServices','TracksServices', 'WeeklyHourServices', '$rootScope', function($scope, $state, $stateParams, $filter, UserServices, ClientServices,ngDialog, EvaluateServices, TracksServices, WeeklyHourServices, $rootScope) {
 
         $scope.user         = {};
         $scope.sendingData  = false;
         var idUser          = $stateParams.id;
-        $scope.clients=[];
+        $scope.clients      = [];
+        $scope.performance  = {};
+        $scope.date         = {};
+        $rootScope.jiraUser = {};
+        $scope.vinculate    = false;
 
 
         if (idUser) {
@@ -17,6 +21,7 @@
                 if (!err) {
                     console.log('user', user);
                     $scope.user = angular.copy(user);
+                    $rootScope.jiraUser = user;
                 }
             });
         }
@@ -83,6 +88,147 @@
                     }
                 }
             });
+        }
+
+        $scope.tab1 = function (){
+
+            var actualMonth = moment().month();
+            var pastMonth   = moment().month()-1;
+            var allMonths   = ['Enero','Febrero','Mayo','Abril','Marzo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+            
+            $scope.date.minDate   = moment().subtract(6, 'year'); 
+            $scope.date.maxDate   = moment().add(0, 'year'); 
+            $scope.date.startDate = moment().subtract(1, 'year');
+            $scope.date.year      = moment().year();
+            $scope.performance.actual    = {};
+            $scope.performance.past      = {};
+            $scope.performance.allMonths = {};
+            $scope.identify = true;
+
+            $scope.performance.actual.month = {
+                'idMonth': actualMonth+1,
+                'month'  : allMonths[actualMonth],                
+                'idUser' : idUser,
+                'year'   : moment().year()
+            }
+
+            $scope.performance.past.month = {
+                'idMonth': pastMonth+1,
+                'month'  : allMonths[pastMonth],
+                'idUser' : idUser,
+                'year'   : moment().year()
+            };
+
+            $scope.performance.actual.month.year = moment().year();
+            $scope.performance.past.month.year = moment().year();
+            TracksServices.findByMonth($scope.performance.actual.month, function(err, result){
+                $scope.performance.actual.month.salary = Object.values(result[0])[0];
+                WeeklyHourServices.verifyUSer(idUser, function(err, result){
+                    $scope.performance.actual.month.costHour = result[0].costHour;
+                    UserServices.savePerformance($scope.performance.actual.month, function(err, result){
+                        console.log('save performance', err, result);
+                    })
+                })
+            })
+
+            UserServices.getPerformanceById($scope.performance.past.month, function(err,result){
+                console.log('Result past month', result, err);
+                $scope.performance.past.month = result[0];
+            })
+
+            $scope.moreMonths = function(){
+                $scope.performance.allMonths = {
+                    'idUser'   : idUser,
+                    'actMonth' : $scope.performance.actual.month.idMonth,
+                    'pastMonth': $scope.performance.past.month.idMonth,
+                    'year'     : $scope.date.year
+                }
+                UserServices.allPerformances($scope.performance.allMonths, function(err, result){
+                    if (!err) {
+                        $scope.performance.moreMonths = result;
+                    }
+                })      
+            }
+
+            $scope.filterYear = function(year){
+                $scope.performance.allMonths = {};
+                $scope.performance.allMonths.idUser = idUser;
+                $scope.identify = false;
+                $scope.performance.allMonths.year = moment(year).year(); 
+                console.log('$scope.performance::', $scope.performance);
+                $scope.performance.allMonths.actMonth = '';
+                $scope.performance.allMonths.pastMonth = '';
+                UserServices.allPerformances($scope.performance.allMonths, function(err, result){
+                    $scope.performance.allMonths = result;
+                    if ($scope.performance.allMonths[0].year == $scope.performance.actual.month.year) {
+                        $scope.identify = true;
+                    }
+                })
+            }
+
+            console.log('$scope.performance::', $scope.performance);
+
+        }
+
+        $scope.tab2 = function(){
+
+            if ($scope.user.jiraToken != null) {
+                $scope.vinculate = true;
+            } else {
+                $scope.jiraInt = function(){
+                    if ($scope.user.jiraToken == null) {
+                        ngDialog.open({
+                          template: '/app/shared/views/alert.modal.html',
+                          showClose: true,
+                          scope: $scope,
+                          disableAnimation: true,
+                          data: {
+                            titleRequired: "Integración usuario con Jira.",
+                            jiraIntegrate: "Para integrar su usuario con Jira es necesario ingresar al link: ",
+                            linkJira: "https://id.atlassian.com/manage-profile/security/api-tokens",
+                            jiraSecondP: " y 'Crear TOKEN API'. Luego de obtener el token ingresarlo aquí:",
+                            confirm: function() {
+                                console.log($rootScope.jiraUser);
+                                UserServices.save($rootScope.jiraUser, function(err, result){
+                                    console.log("Jira token guardado correctamente");
+                                })
+                            },
+                            cancel: function() {
+
+                            }
+                          }
+                        }); 
+                    }
+                }
+            }
+        }
+
+        $scope.tab3 = function(){
+
+            EvaluateServices.find(idUser, function(err, result){
+                $scope.evaluacion = result;
+            })
+            
+            $scope.showEval = function(value){
+               ngDialog.open({
+                  template: '/app/shared/views/alert.modal.html',
+                  showClose: true,
+                  scope: $scope,
+                  disableAnimation: true,
+                  data: {
+                    titleRequired: "Evaluación",
+                    evaluate: value,
+                    confirm: function() {
+                      ngDialog.close(windowIDs[1]);
+                    },
+                    cancel: function() {
+                      var windowIDs = ngDialog.getOpenDialogs();
+
+                      ngDialog.close(windowIDs[1]);
+                    }
+                  }
+                });     
+            }
         }
 
     }]);

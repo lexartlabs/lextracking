@@ -13,9 +13,9 @@
         <div class="imm-frm__fldgrp">
           <div class="imm-frm__fld">
             <label class="imm-frm__lbl">
-              <input type="text" ng-model="task.name">
+              <input type="text" ng-model="task.name" readonly>
 
-              <b class="imm-frm__lbl-name">{{ 'projects.name' | translate }} <span class="required">*</span></b>
+              <b class="imm-frm__lbl-name">{{ 'projects.name' | translate }} <span class="required" >*</span></b>
             </label>
           </div>
 
@@ -23,7 +23,7 @@
             <label class="imm-frm__lbl">
               <!--<input type="text" ng-model="task.duration">-->
            <!--    <span style="width: 10px;"><input type="number" min="0" class="f-hour" " placeholder="hhhh" string-to-number ng-model="duration.hours" ng-if="isAdmin=='false' && isClient=='false'" readonly  ><input type="number" min="0" max="59" class="f-minute"  " placeholder="mm"  ng-model="duration.minutes" ng-if="isAdmin=='false' && isClient=='false'" readonly><input type="number" min="0" max="59" class="f-second"  " placeholder="ss"  ng-model="duration.seconds" ng-if="isAdmin=='false' && isClient=='false'" readonly ></span> -->
-              <span style="width: 10px;"><input type="number" placeholder="Horas" min="0" class="f-hour" string-to-number ng-model="task.hour" ><input type="number" placeholder="Minutos" min="0" max="59" class="f-minute" ng-model="task.mins"><input type="number" placeholder="Segundos" min="0" max="59" class="f-second" ng-model="task.secs"></span>
+              <span style="width: 10px;"><input readonly type="number" placeholder="Horas" min="0" class="f-hour" string-to-number ng-model="task.hour" ><input readonly type="number" placeholder="Minutos" min="0" max="59" class="f-minute" ng-model="task.mins"><input type="number" placeholder="Segundos" min="0" max="59" class="f-second" ng-model="task.secs" readonly></span>
 
               <b class="imm-frm__lbl-name">{{ 'projects.duration' | translate }}</b>
             </label>
@@ -34,31 +34,30 @@
           <div class="imm-frm__fld">
             <label class="imm-frm__lbl">
               <!--<input type="text" ng-model="task.description">-->
-              <textarea rows="7" cols="50" ng-model="task.description">
+              <textarea rows="7" cols="50" ng-model="task.description" readonly>
 
               </textarea>
               <b class="imm-frm__lbl-name">{{ 'projects.description' | translate }}</b>
             </label>
           </div>
-          <div class="imm-frm__fld">
+          <div class="imm-frm__fld" >
             <label class="imm-frm__lbl">
-              <input type="text" ng-model="task.status" ng-if="isAdmin=='false' && task.status=='Done'" readonly>
+              <input type="text" ng-model="task.status" readonly>
 
-            <ui-select
+<!--             <ui-select
             ng-model="task.status"
             class="imm-select imm-select--input"
             theme="selectize"
             append-to-body="true"
             ng-change="changeStatus()"
-
-            >
-            <ui-select-match>
+            readonly>
+            <ui-select-match readonly>
               {{$select.selected}}
             </ui-select-match>
-            <ui-select-choices repeat="client in allStatus ">
-              <div ng-bind-html="client | highlight: $select.selected"></div>
+            <ui-select-choices repeat="client in allStatus " readonly>
+              <div ng-bind-html="client | highlight: $select.selected" readonly></div>
             </ui-select-choices>
-          </ui-select>
+          </ui-select> -->
 
           <b class="imm-frm__lbl-name">{{ 'projects.status' | translate }} <span class="required">*</span></b>
         </label>
@@ -70,10 +69,8 @@
     <div class="imm-frm__fldgrp">
       <div class="imm-frm__fld">
         <label class="imm-frm__lbl">
-
-
           <div moment-picker="task.startDate">
-            <input ng-model="task.startDate">
+            <input ng-model="task.startDate" readonly>
           </div>
           <b class="imm-frm__lbl-name">{{ 'Fecha Inicio'  }} <span class="required">*</span></b>
 
@@ -81,10 +78,8 @@
       </div>
       <div class="imm-frm__fld">
         <label class="imm-frm__lbl">
-
-
           <div moment-picker="task.endDate">
-            <input ng-model="task.endDate">
+            <input ng-model="task.endDate" readonly>
           </div>
           <b class="imm-frm__lbl-name">{{ 'Fecha Fin' }} <span class="required">*</span></b>
 
@@ -93,7 +88,7 @@
       </div>
 
     </div>
-    <div class="imm-frm__fldgrp">
+<!--     <div class="imm-frm__fldgrp">
 
 
       <div class="imm-frm__fld">
@@ -132,8 +127,8 @@
         </tbody>
       </table>
 
-    </div>
-
+    </div> -->
+<!-- 
     <div class="imm-frm__fldgrp">
       <table>
         <thead>
@@ -163,7 +158,7 @@
         </tbody>
       </table>
     </div>
-
+ -->
 
 
   </form>
@@ -173,6 +168,6 @@
 <div class="imm-modal__actions">
   <p class="err-display">{{error}}</p>
   <a class="imm-btn imm-btn--alt" ng-click="ngDialogData.cancel()">{{ 'shared.modal.cancel' | translate }}</a>
-  <a class="imm-btn" ng-disabled="sendingData || !task.name" ng-click="ngDialogData.confirm()">{{ 'shared.modal.accept' | translate }}</a>
+  <a class="imm-btn" ng-disabled="sendingData || !task.name" ng-click="ngDialogData.cancel()">{{ 'shared.modal.accept' | translate }}</a>
 </div>
 </div>

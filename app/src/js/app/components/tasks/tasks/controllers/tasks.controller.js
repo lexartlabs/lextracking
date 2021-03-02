@@ -18,7 +18,10 @@
     $scope.comment      = {};
     $scope.allStatus    = ["To-do","Done","In-Progress","In-Review"];
     $scope.state        = "";
-
+    $scope.filterTask   = {};
+    $scope.filterTask.limit   = 15;
+    $scope.filterTask.offset  = 0;
+    $scope.filterTask.filter  = [];
 
 
 
@@ -35,16 +38,16 @@
     if ($rootScope.isAdmin=='true') {
       $scope.allStatus    =["Done","In-Progress","In-Review"];
 
-      TasksServices.find($scope.currentPage, $scope.query, function(err, tasks, countItems) {
+      TasksServices.findByFilter($scope.filterTask, function(err, tasks, countItems) {
         if (!err) {
           console.log('tasks', tasks, countItems);
           $scope.allTasks = tasks;
           $scope.tasks = tasks.slice(0, PAGE_SIZE - 1);
-          $scope.total = tasks.length;
+          $scope.total = countItems;
         }
       });
 
-    }else if ($rootScope.isClient =="true") {
+    } else if ($rootScope.isClient =="true") {
       $scope.allStatus    =["In-Progress","In-Review"];
       TasksServices.findByIdClient($rootScope.userIdClient,function (err,tasks) {
         if (!err) {
@@ -60,16 +63,14 @@
 
     }else  {
       $scope.allStatus    =["In-Progress","In-Review"];
-
       console.log($rootScope.userId);
-      TasksServices.findByIdUser($rootScope.userId,function (err,tasks) {
+      TasksServices.findByIdUser($rootScope.userId, $scope.filterTask, function(err, tasks, countItems) {
         if (!err) {
+          console.log('tasksFilter', tasks, countItems);
           $scope.allTasks = tasks;
           $scope.tasks = tasks.slice(0, PAGE_SIZE - 1);
-          $scope.total = tasks.length;
-
+          $scope.total = countItems;
         }
-
       });
     }
 
@@ -182,17 +183,63 @@
     };
 
     $scope.filterTasks = function () {
-      $scope.currentPage = 0;
-      $scope.tasks = ($filter('filter')($scope.allTasks, $scope.filter));
-      if ($scope.tasks) {
-        $scope.total = $scope.tasks.length;
-        $scope.tasks = $scope.tasks.slice(0,  PAGE_SIZE - 1);
+      $scope.filterTask.offset = 0;
+      $scope.filterTask.filter = [];
+      if($scope.filter){
+        if($scope.filter.projectName){
+          $scope.filterTask.filter.push({"projectName":$scope.filter.projectName});
+        }
+        if($scope.filter.name){
+          $scope.filterTask.filter.push({"name":$scope.filter.name});
+        }
+        if($scope.filter.description){
+          $scope.filterTask.filter.push({"description":$scope.filter.description});
+        }
+      }
+      if ($rootScope.isAdmin == 'true') {
+        TasksServices.findByFilter($scope.filterTask, function(err, tasks, countItems) {
+          if (!err) {
+            console.log('tasksFilter', tasks, countItems);
+            $scope.allTasks = tasks;
+            $scope.tasks = tasks.slice(0, PAGE_SIZE - 1);
+            $scope.total = countItems;
+          }
+        });
+      } else {
+        TasksServices.findByIdUser($rootScope.userId, $scope.filterTask, function(err, tasks, countItems) {
+          if (!err) {
+            console.log('tasksFilter', tasks, countItems);
+            $scope.allTasks = tasks;
+            $scope.tasks = tasks.slice(0, PAGE_SIZE - 1);
+            $scope.total = countItems;
+          }
+        });
       }
     };
 
     $scope.pager = function(page) {
+      console.log("page",page-1);
       var offset = PAGE_SIZE * (page - 1);
-      $scope.tasks = $scope.allTasks.slice(offset, offset + PAGE_SIZE - 1);
+      $scope.filterTask.offset = offset;
+      if ($rootScope.isAdmin == 'true') {
+       TasksServices.findByFilter($scope.filterTask, function(err, tasks, countItems) {
+        if (!err) {
+          console.log('tasks', tasks, countItems);
+          $scope.allTasks = tasks;
+          $scope.tasks = tasks.slice(0, PAGE_SIZE - 1);
+          $scope.total = countItems;
+        }
+      });
+      }else{
+        TasksServices.findByIdUser($rootScope.userId, $scope.filterTask, function(err, tasks, countItems) {
+          if (!err) {
+            console.log('tasksFilter', tasks, countItems);
+            $scope.allTasks = tasks;
+            $scope.tasks = tasks.slice(0, PAGE_SIZE - 1);
+            $scope.total = countItems;
+          }
+        });
+      }
     };
 
 
@@ -209,6 +256,7 @@
 
     $scope.editComments =function (index,comment) {
       $scope.oldComment =angular.copy(comment);
+      console.log($scope.comment);
       $scope.comment.comment=angular.copy(comment.comment);
       $scope.comments.splice(index,1);
       ngDialog.open({
@@ -298,6 +346,11 @@
       }
       $scope.state=$scope.task.status;
 
+    }
+
+    $scope.taskForm = function (task){
+      console.log("task form::", task);
+      $scope.taskForm = task;
     }
 
   }]);

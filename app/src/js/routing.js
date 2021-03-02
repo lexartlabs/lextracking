@@ -115,9 +115,25 @@
                 controller: 'TaskCtrl'
             })
             .state('app.taskEdit', {
-                url: '/task/edit/:id',
+                url: '/task/:id',
                 templateUrl: 'app/components/tasks/tasks/views/taskFormView.html',
                 controller: 'TaskCtrl'
+            })
+
+            .state('app.taskForm', {
+                url: '/task/edit/:id',
+                templateUrl: 'app/components/tasks/tasks/views/taskEditFormView.html',
+                controller: "TaskFormCtrl",
+                resolve: {
+                PreviousState: ["$state", function ($state) {
+                    var currentStateData = {
+                        Name: $state.current.name,
+                        Params: $state.params,
+                        URL: $state.href($state.current.name, $state.params)
+                    };
+                    return currentStateData;
+                }]
+                }
             })
             
             .state('app.reports', {
@@ -275,6 +291,20 @@
                 templateUrl: 'app/components/weeklyHours/views/weeklyHourFormView.html',
                 controller: 'WeeklyHourCtrl'
             })
+
+            //EVALUATE
+            .state('app.evaluate', {
+                url: '/evaluate',
+                templateUrl: 'app/components/evaluate/views/evaluateView.html',
+                controller: 'EvalCtrl'
+            })
+            .state('app.evaluateForm', {
+                url: '/evaluate/user/:id',
+                templateUrl: 'app/components/evaluate/views/evaluateFormView.html',
+                controller: 'EvalFormCtrl'
+            })
+
+
             //APPS
             .state('app.apps', {
                 url: '/apps',
@@ -421,6 +451,28 @@
                 url: '/dashboard/tareas',
                 templateUrl: 'app/components/tasks/views/dashboardView.html',
                 controller: 'task_trelloCtrl'
+            })
+
+            //JIRA
+            .state('app.jira', {
+                url: '/jira',
+                templateUrl: 'app/components/tasks/jira/views/jiraView.html',
+                controller: 'JiraCtrl'
+            })
+            .state('app.jiraTasks', {
+                url: '/jira-tasks/:id',
+                templateUrl: 'app/components/tasks/jira/views/jiraTaskView.html',
+                controller: 'JiraTaskCtrl'
+            })
+            .state('app.jiraTaskForm', {
+                url: '/jira-task/:id',
+                templateUrl: 'app/components/tasks/jira/views/jiraTaskFormView.html',
+                controller: 'JiraTaskFormCtrl'
+            })
+            .state('app.jiraTaskNew', {
+                url: '/jira-new-task/:idboard',
+                templateUrl: 'app/components/tasks/jira/views/jiraTaskFormView.html',
+                controller: 'JiraTaskFormCtrl'
             })
     }]);
 

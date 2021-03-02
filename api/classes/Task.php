@@ -21,12 +21,51 @@ class Task extends Project {
 
 	// GET USER BY ID
 	public function getAllTasks($conn){
-		$sql	="SELECT ".$this->model.".*, Projects.name AS projectName FROM ".$this->model." INNER JOIN Projects ON ".$this->model.".idProject = Projects.id WHERE active = 1 ORDER BY projectName";
+		$sql	="SELECT ".$this->model.".*, Projects.name AS projectName FROM ".$this->model." INNER JOIN Projects ON ".$this->model.".idProject = Projects.id WHERE active = 1 ORDER BY projectName ";
 		$d 		= $conn->query($sql);
 
 		// CALLBACK
 		if(!empty($d)){
-			return array("response" => $d);
+			return array("response" => array("task"=>$d, "count"=>count($d_count)));
+		} else {
+			return array("error" => "Error: no existen tareas.");
+		}
+	}
+
+	public function getAllFilterTasks($conn, $params){
+		$query = "";
+		$filter = "";
+		if (!empty($params["limit"]) && isset($params["limit"])) {
+			$query .= " LIMIT ".$params["limit"]; 
+		}
+
+		if (!empty($params["offset"]) && isset($params["offset"])) {
+			$query .= " OFFSET ".$params["offset"];
+		}
+
+		if (count($params["filter"]) > 0) {
+			foreach ($params["filter"] as $key => $value) {
+				$keyName = array_keys($params["filter"][$key])[0];
+				if($keyName == "projectName"){
+					$filter .= " AND Projects.name LIKE '%".$value[$keyName]."%'";
+				}else if($keyName == "name"){
+					$filter .= " AND ".$this->model.".name LIKE '%".$value[$keyName]."%'";
+				}
+				else if($keyName == "description"){
+					$filter .= " AND ".$this->model.".description LIKE '%".$value[$keyName]."%'";
+				}
+			}
+		}
+
+		$sql	="SELECT ".$this->model.".*, Projects.name AS projectName FROM ".$this->model." INNER JOIN Projects ON ".$this->model.".idProject = Projects.id WHERE active = 1 ".$filter." ORDER BY projectName ".$query;
+		$d 		= $conn->query($sql);
+		$sql_count ="SELECT ".$this->model.".*, Projects.name AS projectName FROM ".$this->model." INNER JOIN Projects ON ".$this->model.".idProject = Projects.id WHERE active = 1 ".$filter."";
+
+		$d_count = $conn->query($sql_count);
+
+		// CALLBACK
+		if(!empty($d)){
+			return array("response" => array("task"=>$d, "count"=>count($d_count)));
 		} else {
 			return array("error" => "Error: no existen tareas.");
 		}
@@ -175,11 +214,51 @@ class Task extends Project {
 
 	public function getTasksByUser($conn,$iduser){
 		$user = '{"idUser":"'.$iduser.'"}';
-		$sql	="SELECT ".$this->model.".*, Projects.name AS projectName FROM ".$this->model." INNER JOIN Projects ON ".$this->model.".idProject = Projects.id WHERE ".$this->model.".users LIKE '%$user%' AND active = 1 ORDER BY projectName";
+		$sql	="SELECT ".$this->model.".*, Projects.name AS projectName FROM ".$this->model." INNER JOIN Projects ON ".$this->model.".idProject = Projects.id WHERE ".$this->model.".users LIKE '%$user%' AND active = 1 ORDER BY projectName ";
 		$d 		= $conn->query($sql);
 		// CALLBACK
 		if(!empty($d)){
 			return array("response" => $d);
+		} else {
+			return array("error" => "Error: no existen tareas.");
+		}
+	}
+
+	public function getTasksByUserFilter($conn,$iduser,$params){
+		$query = "";
+		$filter = "";
+		if (!empty($params["limit"]) && isset($params["limit"])) {
+			$query .= " LIMIT ".$params["limit"]; 
+		}
+
+		if (!empty($params["offset"]) && isset($params["offset"])) {
+			$query .= " OFFSET ".$params["offset"];
+		}
+
+		if (count($params["filter"]) > 0) {
+			foreach ($params["filter"] as $key => $value) {
+				$keyName = array_keys($params["filter"][$key])[0];
+				if($keyName == "projectName"){
+					$filter .= " AND Projects.name LIKE '%".$value[$keyName]."%'";
+				}else if($keyName == "name"){
+					$filter .= " AND ".$this->model.".name LIKE '%".$value[$keyName]."%'";
+				}
+				else if($keyName == "description"){
+					$filter .= " AND ".$this->model.".description LIKE '%".$value[$keyName]."%'";
+				}
+			}
+		}
+
+		$user = '{"idUser":"'.$iduser.'"}';
+		$sql	="SELECT ".$this->model.".*, Projects.name AS projectName FROM ".$this->model." INNER JOIN Projects ON ".$this->model.".idProject = Projects.id WHERE ".$this->model.".users LIKE '%$user%' AND active = 1 ".$filter." ORDER BY projectName ".$query;
+		$d 		= $conn->query($sql);
+
+		$sql_count	="SELECT ".$this->model.".*, Projects.name AS projectName FROM ".$this->model." INNER JOIN Projects ON ".$this->model.".idProject = Projects.id WHERE ".$this->model.".users LIKE '%$user%' AND active = 1 ".$filter." ORDER BY projectName";
+		$d_count    = $conn->query($sql_count);
+		
+		// CALLBACK
+		if(!empty($d)){
+			return array("response" => array("task"=>$d, "count"=>count($d_count)));
 		} else {
 			return array("error" => "Error: no existen tareas.");
 		}
@@ -196,7 +275,18 @@ class Task extends Project {
 		}
 	}
 
+	public function getTaskByIdEval ($conn, $id) {
+		$user = '{"idUser":"'.$id.'"}';
+		$sql	= "SELECT ".$this->model.".* FROM ".$this->model." WHERE ".$this->model.".users LIKE '%$user%' AND active = 1";
+		$d 		= $conn->query($sql);
 
+		// CALLBACK
+		if(!empty($d)){
+			return array("response" => $d);
+		} else {
+			return array("error" => "Error: no se encuentra la tarea.");
+		}	
+	}
 
 }
 

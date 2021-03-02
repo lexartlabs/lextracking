@@ -32,7 +32,7 @@ class taskAutomatic {
 		foreach($d as $value => $dd){
 			$array[$value]['id']          = $dd['id'];
 			$array[$value]['error']       = $dd['error'];
-			$array[$value]['project'] = $dd['project'];
+			$array[$value]['project']     = $dd['project'];
 			$array[$value]['column']      = $dd['column'];
 			$array[$value]['line']        = $dd['line'];
 			$array[$value]['file']        = $dd['file'];
@@ -49,6 +49,7 @@ class taskAutomatic {
 			$array[$value]['status']      = $dd['status'];
 			$array[$value]['client']      = $dd['client'];
 			$array[$value]['idProyecto']  = $dd['idProyecto'];
+			$array[$value]['idClient']    = $dd['idClient'];
 		}
 		//CALLBACK
 		if(!empty($array)){
@@ -60,12 +61,11 @@ class taskAutomatic {
 	}
 
 	public function getTaskAutomaticById($conn,$id){
-		$sql	="SELECT ".$this->model.".*, TaskAutomatic.error AS TaskAutomaticError FROM ".$this->model." INNER JOIN TaskAutomatic ON ".$this->model.".id = TaskAutomatic.id WHERE ".$this->model.".id='$id' AND active = 1";
+		$sql	="SELECT ".$this->model.".* FROM ".$this->model." WHERE ".$this->model.".id='$id' AND active = 1";
 		$d 		= $conn->query($sql);
-
 		// CALLBACK
 		if(!empty($d)){
-			return array("response" => $d[0]);
+			return array("response" => $d);
 		} else {
 			return array("error" => "Error: no se encuentra la tarea automatica.");
 		}
@@ -83,7 +83,7 @@ class taskAutomatic {
 		}
 	}*/
 	public function insertTaskAutomatic($conn,$params){
-		$paramsR       = str_replace("'", "\'", $params[error]);
+		str_replace("'", "", $params[error]);
 		$paramsD       = str_replace("'", "\'", $params[comments]);
 		$paramsE       = str_replace("'", "\'", $params[duration]);
 		$urlEncoder    = urlencode($params['url']);
@@ -106,9 +106,16 @@ class taskAutomatic {
 
 
 	public function updateTaskAutomatic($conn, $params){
-		$sql = "UPDATE ".$this->model." SET error = '$params[error]', status = '$params[status]', idProyecto = '$params[idProyecto]' WHERE id='$params[id]'";
-		$d 	= $conn->query($sql);
+		$sql_project     = "SELECT name, idClient FROM Projects WHERE id = ".$params[idProyecto];
+		$d_project       = $conn->query($sql_project);
+		$sql_clientName  = "SELECT name FROM Clients WHERE id = ".$d_project[0]['idClient'];
+		$d_clientName    = $conn->query($sql_clientName);
+		$projectName     = $d_project[0]['name']; 
+		$idClient        = $d_project[0]['idClient'];
+		$clientName      = $d_clientName[0]["name"];
 
+		$sql = "UPDATE ".$this->model." SET error = '$params[error]', status = '$params[status]', idProyecto = '$params[idProyecto]', idClient = ".$idClient.", client = '".$clientName."' , project = '".$projectName."' WHERE id='$params[id]'";
+		$d 	= $conn->query($sql);
 
 		// CALLBACK
 		if(empty($d)){

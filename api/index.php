@@ -38,6 +38,9 @@ define ("ENV", "/lextracking");
 				// INSERT NEW USER
 				$router->map('POST','/user/new', 'components/users/post.php', 'user-new');
 				$router->map('POST','/user/update', 'components/users/post.php', 'user-update');
+				$router->map('POST','/user/save-performance', 'components/users/post.php', 'user-performance');
+				$router->map('POST','/user/performance-id', 'components/users/post.php', 'user-performance-by-id');
+				$router->map('POST','/user/all-performance', 'components/users/post.php', 'performance-all');
 
 			// CLIENTS
 				// ALL CLIENTS
@@ -65,7 +68,7 @@ define ("ENV", "/lextracking");
 				$router->map('POST','/project/update', 'components/projects/post.php', 'project-update');
 
 			// ALL TASKS
-				$router->map('GET','/project/task/all', 'components/projects/index.php', 'task-all');
+				$router->map('POST','/project/task/all', 'components/projects/post.php', 'task-all');
 				$router->map('GET','/project/task/id-client/[i:id]', 'components/projects/get.php', 'task-by-idclient');
 				// GET PROJECTS BY ID
 				$router->map('GET','/project/task/[i:id]', 'components/projects/get.php', 'task-by-id');
@@ -73,6 +76,9 @@ define ("ENV", "/lextracking");
 				$router->map('GET','/project/task/dev/[i:id]', 'components/projects/get.php', 'project-by-iddeveloper');
 				$router->map('GET','/project/task/id-project/[i:id]', 'components/projects/get.php', 'task-by-idproject');
 				$router->map('GET','/project/task/id-user/[i:id]', 'components/projects/get.php', 'tasks-by-user');
+				$router->map('GET','/project/task/user-eval/[i:id]', 'components/projects/get.php', 'tasks-by-user-eval');
+				//WITH FILTER
+				$router->map('POST','/project/task/id-user/[i:id]', 'components/projects/post.php', 'tasks-by-user-filter');
 				$router->map('GET','/project/task/delete/[i:id]', 'components/projects/get.php', 'tasks-delete');
 
 
@@ -101,12 +107,17 @@ define ("ENV", "/lextracking");
 				$router->map('POST','/tracks', 'components/tracks/post.php', 'tracks');
 				$router->map('POST','/tracks-auto', 'components/tracks/post.php', 'tracks-auto');
 				$router->map('POST','/tracks-trello', 'components/tracks/post.php', 'tracks-trello');
+				$router->map('POST','/tracks-jira', 'components/tracks/post.php', 'tracks-jira');
 			 	$router->map('POST','/track/track-trello-new', 'components/tracks/post.php', 'track-trello-new');
-      	$router->map('POST','/track/track-trello-update', 'components/tracks/post.php', 'track-trello-update');
+				$router->map('POST','/track/track-trello-update', 'components/tracks/post.php', 'track-trello-update');
+				$router->map('POST','/track/track-jira-new', 'components/tracks/post.php', 'track-jira-new');
+
+
 				// GET USERS BY ID
 				$router->map('GET','/track/[i:id]', 'components/tracks/get.php', 'track-by-id');
 
 				$router->map('GET','/track/active', 'components/tracks/get.php', 'track-actives');
+				$router->map('POST','/track/month', 'components/tracks/post.php', 'track-by-month');
 
 				// GET USERS BY ID
 				$router->map('GET','/track/[i:id]/delete', 'components/tracks/get.php', 'delete-track-by-id');
@@ -174,7 +185,7 @@ define ("ENV", "/lextracking");
 				//WeeklyHour
 				$router->map('GET','/weeklyHours/all', 			'components/weeklyHours/index.php', 'weeklyHour-all');
 				$router->map('GET','/weeklyHour/[i:id]', 		'components/weeklyHours/get.php', 	'weeklyHour-by-id');
-				$router->map('POST','/weeklyHour/user/[i:id]', 		'components/weeklyHours/post.php', 	'weeklyHour-by-idUser');
+				$router->map('GET','/weeklyHour/user/[i:id]', 		'components/weeklyHours/get.php', 	'weeklyHour-by-idUser');
 				$router->map('POST','/weeklyHour/new', 			'components/weeklyHours/post.php', 'weeklyHour-new');
 				$router->map('POST','/weeklyHour/update', 		'components/weeklyHours/post.php', 'weeklyHour-update');
 
@@ -228,15 +239,25 @@ define ("ENV", "/lextracking");
 				$router->map('POST','/product/new', 			'components/products/post.php', 'product-new');
 				$router->map('POST','/product/update', 		'components/products/post.php', 'product-update');
 
+				//Evaluacion
+				$router->map('POST','/evaluate/new', 		'components/evaluate/post.php', 'evaluate-new');
+				$router->map('GET','/evaluate/user/[i:id]', 'components/evaluate/get.php', 'evaluate-user');
+				$router->map('POST','/evaluate/update', 'components/evaluate/post.php', 'evaluate-update');
+
+				//JIRA
+				$router->map('POST','/jira/all-dashboards', 'components/jira/index.php', 'all-dashboards');
+				$router->map('POST','/jira/dashboard-issues', 'components/jira/post.php', 'issues-by-board');
+				$router->map('POST','/jira/save-dashboards', 'components/jira/post.php', 'save-dashboards');
+				$router->map('POST','/jira/issue', 'components/jira/post.php', 'get-issue');
+				$router->map('POST','/jira/add-comment', 'components/jira/post.php', 'add-comment');
+				$router->map('POST','/jira/save-issue', 'components/jira/post.php', 'save-issue');
+				$router->map('POST','/jira/update-issue', 'components/jira/post.php', 'update-issue');
+				$router->map('POST','/jira/delete-issues', 'components/jira/post.php', 'delete-issues');
 
 
-
-
-
-
+				
 			// match current request
 			$match = $router->match();
-
 			if($match) {
 			  require $match['target'];
 			} else {

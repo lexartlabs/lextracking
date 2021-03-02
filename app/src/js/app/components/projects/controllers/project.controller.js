@@ -491,10 +491,6 @@
     $scope.save = function () {
       $scope.error = '';
       console.log('project to save', $scope.duration.hours);
-      // if ($scope.duration.hours == undefined || $scope.duration.minutes == undefined || $scope.duration.seconds == undefined || $scope.project.name == undefined) {
-      //   if ($scope.duration.hours == undefined || $scope.duration.minutes == undefined || $scope.duration.seconds == undefined) {
-      //     var msg = "El campo Duración no puede estar vacio."
-      //   } else 
       if ($scope.project.name === undefined || $scope.project.idClient === undefined) {
         if ($scope.project.name === undefined) {
           var msg = "El campo Nombre no puede estar vacio."
@@ -548,17 +544,11 @@
               if (userEmail.idUser== user.id) {
                 console.log("MANDAR MAIL",task);
                 sendEmail (task,user);
-
-
               }
-
-
             })
-
-
           })
         })
-        $state.go('app.projects');
+        $state.go('app.tasks');
       }
     });
   } else {

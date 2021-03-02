@@ -28,6 +28,12 @@
 			echo json_encode($response);
 		}
 
+		if($name == 'tasks-by-user-eval'){
+			$id 		= $params["id"];
+			$response 	= $objTsk->getTaskByIdEval($conn,$id);
+			echo json_encode($response);
+		}
+
 		if($name == 'project-by-idUser'){
 			$id 		= $params["id"];
 			$response 	= $objUsr->getProjectsByIdUser($conn,$id);
