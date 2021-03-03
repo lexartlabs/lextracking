@@ -1,22 +1,22 @@
 (function (ng) {
-  'use strict';
+  "use strict";
 
-  var Module = ng.module('Imm');
+  var Module = ng.module("Imm");
 
-  Module.controller('ReportsCtrl', [
-    '$scope',
-    '$interval',
-    '$state',
-    '$rootScope',
-    '$filter',
-    '$timeout',
-    'UserServices',
-    'ClientServices',
-    'ProjectsServices',
-    'TracksServices',
-    'ngDialog',
-    'WeeklyHourServices',
-    'TasksServices',
+  Module.controller("ReportsCtrl", [
+    "$scope",
+    "$interval",
+    "$state",
+    "$rootScope",
+    "$filter",
+    "$timeout",
+    "UserServices",
+    "ClientServices",
+    "ProjectsServices",
+    "TracksServices",
+    "ngDialog",
+    "WeeklyHourServices",
+    "TasksServices",
     function (
       $scope,
       $interval,
@@ -55,7 +55,7 @@
       $scope.totalcost3 = 0;
       $scope.totalcost4 = 0;
       $scope.sumAll = 0;
-      $scope.finalHour = '00:00:00';
+      $scope.finalHour = "00:00:00";
       $scope.finalTotal = 0;
       var cost = [];
       var res = [];
@@ -77,21 +77,21 @@
 
       function createExcel() {
         var date = moment().format();
-        var newDate = date.split('T');
+        var newDate = date.split("T");
         var day = newDate[0];
-        var splitDate = newDate[1].split('-');
+        var splitDate = newDate[1].split("-");
         var time = splitDate[0];
         var name = $rootScope.userName;
-        var end = name + '_' + day + '_' + time;
+        var end = name + "_" + day + "_" + time;
         return end;
       }
 
       $scope.excelName = createExcel();
-      console.log('excelTime', createExcel());
+      console.log("excelTime", createExcel());
 
       function checkTime(i) {
         i = i < 1 ? 0 : i;
-        if (i < 10) i = '0' + i;
+        if (i < 10) i = "0" + i;
         return i;
       }
 
@@ -105,47 +105,47 @@
 
         if (d > 0) {
           d = d * 24;
-          console.log('DIAS A HORAS', d);
+          console.log("DIAS A HORAS", d);
         }
         if (h <= 9) {
-          h = '0' + h;
+          h = "0" + h;
         }
         if (m <= 9) {
-          m = '0' + m;
+          m = "0" + m;
         }
         if (s <= 9) {
-          s = '0' + s;
+          s = "0" + s;
         }
         if (d > 0) {
           h = Number(d) + Number(h);
         }
-        var finalTracked = h + ':' + m + ':' + s;
-        console.log('finaltracked', finalTracked);
+        var finalTracked = h + ":" + m + ":" + s;
+        console.log("finaltracked", finalTracked);
         return finalTracked;
       };
 
       //funciones getHours(3) esperan que esten los 3 resultados de horas trackeadas para sumarse.
       function getHours(value) {
-        if (userRole != 'client') {
+        if (userRole != "client") {
           $scope.finalHour = convertTime(
             moment.duration($scope.finalHour).add(value)
           );
-          console.log('Final hour', value, $scope.finalHour);
+          console.log("Final hour", value, $scope.finalHour);
         } else {
           ProjectsServices.getProjectsByUser(userId, function (err, res) {
             $scope.userCost = Object.entries(res);
-            $scope.finalHour = $scope.userCost[0][1]['tracked'];
+            $scope.finalHour = $scope.userCost[0][1]["tracked"];
           });
         }
       }
 
       function getTotalCost(ms) {
-        if (userRole == 'admin' || userRole == 'pm') {
+        if (userRole == "admin" || userRole == "pm") {
           var idHourCost = $rootScope.trackId;
         } else {
           var idHourCost = $rootScope.userId;
         }
-        console.log('Check id', $rootScope.trackId);
+        console.log("Check id", $rootScope.trackId);
         console.log(idHourCost);
         WeeklyHourServices.find(
           $scope.currentPage,
@@ -154,12 +154,12 @@
             if (!err) {
               angular.forEach(weeklyHours, function (value, key) {
                 if (value.idUser == idHourCost) {
-                  console.log(value.costHour, weeklyHours, 'costo hora idUser');
+                  console.log(value.costHour, weeklyHours, "costo hora idUser");
                   var costo = parseInt(value.costHour);
-                  console.log('costo', costo);
-                  console.log(ms, 'ms');
+                  console.log("costo", costo);
+                  console.log(ms, "ms");
                   var result = (ms / 3600 / 1000) * costo;
-                  console.log('total cost iduser', result);
+                  console.log("total cost iduser", result);
                   result = Math.ceil(result);
                   $scope.arrSubtotal.push(result);
                   // $scope.totalcost = result;
@@ -167,7 +167,7 @@
                   if (cost.value != undefined) {
                     $scope.finalTotal = cost.value;
                   } else {
-                    console.log('COSTO TAREA en error', cost.value.result);
+                    console.log("COSTO TAREA en error", cost.value.result);
                   }
                 }
               });
@@ -181,7 +181,7 @@
       //Calcular hora y costo de automaticas y Trello.
 
       function getSubTotalCost(mss) {
-        console.log('MSS::', mss);
+        console.log("MSS::", mss);
         $scope.mssArr.push(mss.mss);
         WeeklyHourServices.find(
           $scope.currentPage,
@@ -191,12 +191,12 @@
               //for (var i = 0; i < $scope.mssArr.length; i++) {
               angular.forEach(weeklyHours, function (value, key) {
                 if (value.idUser == mss.idUser) {
-                  console.log('MSS::', value.idUser, mss.idUser);
-                  console.log('MSS COSTO USER::', value.costHour);
+                  console.log("MSS::", value.idUser, mss.idUser);
+                  console.log("MSS COSTO USER::", value.costHour);
                   var costo = parseInt(value.costHour);
-                  console.log('MSS COSTO::', costo);
+                  console.log("MSS COSTO::", costo);
                   var result = (mss.mss / 3600 / 1000) * costo;
-                  console.log('MSS TOTAL COSTO::', result);
+                  console.log("MSS TOTAL COSTO::", result);
                   result = Math.ceil(result);
                   $scope.subTotalCost.push(result);
                   //proyectSubTotal($scope.subTotalCost);
@@ -210,17 +210,17 @@
       }
 
       function getTotalTime(ms, cost) {
-        console.log('otros ms', ms);
+        console.log("otros ms", ms);
         var h = checkTime(Math.floor(ms / 3600));
         ms = Math.floor(ms % 3600);
         var m = checkTime(Math.floor(ms / 60));
         ms = Math.floor(ms % 60);
         var s = checkTime(Math.floor(ms));
-        return h + ':' + m + ':' + s;
+        return h + ":" + m + ":" + s;
       }
 
       function getTotalAutoCost(msc) {
-        if (userRole == 'admin' || userRole == 'pm') {
+        if (userRole == "admin" || userRole == "pm") {
           var idHourCost = $rootScope.trackId;
         } else {
           var idHourCost = $rootScope.userId;
@@ -233,19 +233,19 @@
             if (!err) {
               angular.forEach(weeklyHours, function (value, key) {
                 if (value.idUser == idHourCost) {
-                  console.log(value.costHour, 'costo hora idUser');
+                  console.log(value.costHour, "costo hora idUser");
                   var costo = parseInt(value.costHour);
-                  console.log('costo', costo);
-                  console.log(msc, 'msc');
+                  console.log("costo", costo);
+                  console.log(msc, "msc");
                   var result2 = (msc / 3600 / 1000) * costo;
-                  console.log('total auto cost', result2);
+                  console.log("total auto cost", result2);
                   result2 = Math.ceil(result2);
                   var cost = { value: result2 };
                   if (cost.value != undefined) {
                     $scope.finalTotal = cost.value;
                   } else {
                     console.log(
-                      'COSTO TAREA AUTOMATICA en error',
+                      "COSTO TAREA AUTOMATICA en error",
                       cost.value.result2
                     );
                   }
@@ -259,17 +259,17 @@
       }
 
       function getTotalTimeAuto(msc, cost) {
-        console.log('otros ms', msc);
+        console.log("otros ms", msc);
         var h = checkTime(Math.floor(msc / 3600));
         msc = Math.floor(msc % 3600);
         var m = checkTime(Math.floor(msc / 60));
         msc = Math.floor(msc % 60);
         var s = checkTime(Math.floor(msc));
-        return h + ':' + m + ':' + s;
+        return h + ":" + m + ":" + s;
       }
 
       function getTotalTrelloCost(mst) {
-        if (userRole == 'admin' || userRole == 'pm') {
+        if (userRole == "admin" || userRole == "pm") {
           var idHourCost = $rootScope.trackId;
         } else {
           var idHourCost = $rootScope.userId;
@@ -282,20 +282,20 @@
             if (!err) {
               angular.forEach(weeklyHours, function (value, key) {
                 if (value.idUser == idHourCost) {
-                  console.log(value.costHour, 'costo hora idUser');
+                  console.log(value.costHour, "costo hora idUser");
                   var costo = parseInt(value.costHour);
-                  console.log('costo', costo);
-                  console.log(mst, 'mst');
+                  console.log("costo", costo);
+                  console.log(mst, "mst");
                   var result3 = (mst / 3600 / 1000) * costo;
-                  console.log('total trello cost', result3);
+                  console.log("total trello cost", result3);
                   result3 = Math.ceil(result3);
                   var cost = { value: result3 };
-                  console.log('COSTO TAREA trello', cost);
+                  console.log("COSTO TAREA trello", cost);
                   if (cost.value != undefined) {
                     $scope.finalTotal = cost.value;
                   } else {
                     console.log(
-                      'COSTO TAREA trello en error',
+                      "COSTO TAREA trello en error",
                       cost.value.result3
                     );
                   }
@@ -310,27 +310,27 @@
       }
 
       function getTotalTimeTrello(mst, cost) {
-        console.log('otros ms', mst);
+        console.log("otros ms", mst);
         var h = checkTime(Math.floor(mst / 3600));
         mst = Math.floor(mst % 3600);
         var m = checkTime(Math.floor(mst / 60));
         mst = Math.floor(mst % 60);
         var s = checkTime(Math.floor(mst));
-        return h + ':' + m + ':' + s;
+        return h + ":" + m + ":" + s;
       }
 
       function parseDate(date) {
         if (date) {
-          var arrDate = String(date).split('/');
-          return arrDate[2] + '-' + arrDate[1] + '-' + arrDate[0];
+          var arrDate = String(date).split("/");
+          return arrDate[2] + "-" + arrDate[1] + "-" + arrDate[0];
         } else {
-          return '';
+          return "";
         }
       }
 
       $scope.filter = {
-        startTime: moment().startOf('day'),
-        endTime: moment().endOf('day'),
+        startTime: moment().startOf("day"),
+        endTime: moment().endOf("day"),
       };
 
       var timeout;
@@ -339,12 +339,12 @@
         $scope.search();
       }, 250);
 
-      if ($rootScope.isClient == 'false') {
-        ClientServices.find(0, '', function (err, clients) {
+      if ($rootScope.isClient == "false") {
+        ClientServices.find(0, "", function (err, clients) {
           if (!err) {
             clients.unshift({
               id: 0,
-              name: $filter('translate')('reports.all'),
+              name: $filter("translate")("reports.all"),
             });
             $scope.clients = clients;
             $scope.filter.idClient = 0;
@@ -365,16 +365,16 @@
         );
       }
 
-      if (userRole == 'admin' || userRole == 'pm') {
-        UserServices.find(0, '', function (err, users) {
+      if (userRole == "admin" || userRole == "pm") {
+        UserServices.find(0, "", function (err, users) {
           if (!err) {
-            users.unshift({ id: 0, name: $filter('translate')('reports.all') });
+            users.unshift({ id: 0, name: $filter("translate")("reports.all") });
             $scope.users = users;
             $scope.filter.idUser = 0;
-            console.log('reports user');
+            console.log("reports user");
           }
         });
-      } else if (userRole == 'client') {
+      } else if (userRole == "client") {
         $scope.filter.idUser = 0;
       } else {
         $scope.filter.idUser = userId;
@@ -388,7 +388,7 @@
               if (!err) {
                 projects.unshift({
                   id: 0,
-                  name: $filter('translate')('reports.all'),
+                  name: $filter("translate")("reports.all"),
                 });
                 $scope.projects = projects;
                 $scope.filter.idProject = 0;
@@ -396,11 +396,11 @@
             }
           );
         } else {
-          ProjectsServices.find(0, '', function (err, projects) {
+          ProjectsServices.find(0, "", function (err, projects) {
             if (!err) {
               projects.unshift({
                 id: 0,
-                name: $filter('translate')('reports.all'),
+                name: $filter("translate")("reports.all"),
               });
               $scope.projects = projects;
             }
@@ -410,7 +410,7 @@
 
       //Mostrar Proyectos en el Tab Reportes Proyectos.
 
-      ProjectsServices.find(0, '', function (err, projects) {
+      ProjectsServices.find(0, "", function (err, projects) {
         if (!err) {
           $scope.allProjectsTab = projects;
           $scope.projectsTab = projects.slice(0, PAGE_SIZE - 1);
@@ -423,34 +423,34 @@
       // DATE FILTER
       $scope.filter.startDate = {};
       $scope.filter.endDate = {};
-      $scope.$watch('filter.startTime', function (newValue, oldValue) {
+      $scope.$watch("filter.startTime", function (newValue, oldValue) {
         console.log(newValue);
         $scope.filter.startDate.maxDate = moment();
         console.log(
-          'test',
+          "test",
           moment(),
-          moment($scope.filter.startTime, 'DD/MM/YYYY'),
-          moment($scope.filter.startTime, 'DD/MM/YYYY').diff(moment(), 'month')
+          moment($scope.filter.startTime, "DD/MM/YYYY"),
+          moment($scope.filter.startTime, "DD/MM/YYYY").diff(moment(), "month")
         );
         if (
-          moment($scope.filter.startTime, 'DD/MM/YYYY').diff(
+          moment($scope.filter.startTime, "DD/MM/YYYY").diff(
             moment(),
-            'month'
+            "month"
           ) == 0
         ) {
-          $scope.filter.endDate.maxDate = moment().add(0, 'days');
+          $scope.filter.endDate.maxDate = moment().add(0, "days");
         } else {
-          $scope.filter.endDate.maxDate = moment(newValue, 'DD/MM/YYYY').add(
+          $scope.filter.endDate.maxDate = moment(newValue, "DD/MM/YYYY").add(
             1,
-            'month'
+            "month"
           );
         }
       });
 
       $scope.search = function () {
         var filters = {
-          startTime: parseDate($scope.filter.startTime) + ' 00:00:00',
-          endTime: parseDate($scope.filter.endTime) + ' 23:59:59',
+          startTime: parseDate($scope.filter.startTime) + " 00:00:00",
+          endTime: parseDate($scope.filter.endTime) + " 23:59:59",
         };
 
         if ($scope.filter.idUser) {
@@ -481,41 +481,88 @@
         $scope.tableTrackTrello = [];
         $scope.tableTrackAuto = [];
         $scope.tableTrackJira = [];
-        $scope.finalHour = '00:00:00';
+        $scope.finalHour = "00:00:00";
 
         TracksServices.getTracks(filters, function (err, tracks) {
           if (!err) {
             $scope.tracks = tracks;
-            console.log('Tracks tareas', tracks);
+            console.log("Tracks tareas", tracks);
             var tempTotal = 0;
-            tracks.forEach(function (track) {
+            tracks.forEach(function (track, index) {
               tempTotal += parseInt(track.trackCost ? track.trackCost : 0);
               $scope.totalcost = tempTotal;
               //$scope.sumAll += parseInt(tempTotal) ? tempTotal : 0;
               sumTotalcost(tempTotal);
-              if (userRole == 'admin' || userRole == 'pm') {
+              if (userRole == "admin" || userRole == "pm") {
                 if ($scope.tableTrack.length < 1) {
+                  WeeklyHourServices.find(
+                    $scope.currentPage,
+                    $scope.query,
+                    function (err, weeklyHours, countItems) {
+                      if (!err) {
+                        var object = weeklyHours.find(function (value) {
+                          return track.idUser == value.idUser;
+                        });
+                        track.currency = object.currency;
+                        $scope.tableTrack[index].currency = object.currency;
+                        // console.log(track);
+                      }
+                    }
+                  );
                   $scope.tableTrack.push({
                     idUser: track.idUser,
                     duration: track.duration,
                     subTotalCost: parseInt(
                       track.trackCost ? track.trackCost : 0
                     ),
+                    currency: track.currency,
                     tracks: [track],
+                    // currency: track.currency,
                   });
                 } else {
+                  WeeklyHourServices.find(
+                    $scope.currentPage,
+                    $scope.query,
+                    function (err, weeklyHours, countItems) {
+                      if (!err) {
+                        var object = weeklyHours.find(function (value) {
+                          return track.idUser == value.idUser;
+                        });
+                        track.currency = object.currency;
+                        $scope.tableTrack[index].currency = object.currency;
+                        // console.log(track);
+                      }
+                    }
+                  );
                   var exist = false;
-                  $scope.tableTrack.forEach(function (element) {
+                  console.log(track);
+                  $scope.tableTrack.forEach(function (element, index) {
                     if (element.idUser == track.idUser && exist == false) {
                       exist = true;
                       element.subTotalCost += parseInt(
                         track.trackCost ? track.trackCost : 0
                       );
+                      console.log(element);
+
+                      WeeklyHourServices.find(
+                        $scope.currentPage,
+                        $scope.query,
+                        function (err, weeklyHours, countItems) {
+                          if (!err) {
+                            var object = weeklyHours.find(function (value) {
+                              return track.idUser == value.idUser;
+                            });
+                            // track.currency = object.currency;
+                            element.currency = object.currency;
+                            // console.log(track);
+                          }
+                        }
+                      );
                       element.tracks.push(track);
                       element.duration = convertTime(
                         moment.duration(element.duration).add(track.duration)
                       );
-                      console.log('Total horas Element:', element.duration);
+                      console.log("Total horas Element:", element.duration);
                     }
                   });
                   if (exist === false) {
@@ -531,6 +578,20 @@
                 }
               } else {
                 if ($scope.tableTrack.length < 1) {
+                  WeeklyHourServices.find(
+                    $scope.currentPage,
+                    $scope.query,
+                    function (err, weeklyHours, countItems) {
+                      if (!err) {
+                        var object = weeklyHours.find(function (value) {
+                          return track.idUser == value.idUser;
+                        });
+                        track.currency = object.currency;
+                        $scope.tableTrack[index].currency = object.currency;
+                        // console.log(track);
+                      }
+                    }
+                  );
                   $scope.tableTrack.push({
                     idProyecto: track.idProyecto,
                     duration: track.duration,
@@ -549,6 +610,20 @@
                       exist = true;
                       element.subTotalCost += parseInt(
                         track.trackCost ? track.trackCost : 0
+                      );
+                      WeeklyHourServices.find(
+                        $scope.currentPage,
+                        $scope.query,
+                        function (err, weeklyHours, countItems) {
+                          if (!err) {
+                            var object = weeklyHours.find(function (value) {
+                              return track.idUser == value.idUser;
+                            });
+                            // track.currency = object.currency;
+                            element.currency = object.currency;
+                            // console.log(track);
+                          }
+                        }
                       );
                       element.tracks.push(track);
                       element.duration = convertTime(
@@ -576,6 +651,20 @@
               el.tracks.forEach(function (track, index) {
                 // recorremos los tracks
                 if (el.byProject.length < 1) {
+                  WeeklyHourServices.find(
+                    $scope.currentPage,
+                    $scope.query,
+                    function (err, weeklyHours, countItems) {
+                      if (!err) {
+                        var object = weeklyHours.find(function (value) {
+                          return track.idUser == value.idUser;
+                        });
+                        console.log(object);
+                        // el.byProject = object.currency;
+                        console.log(track);
+                      }
+                    }
+                  );
                   el.byProject.push({
                     idProyecto: track.idProyecto,
                     projectName: track.projectName,
@@ -654,11 +743,11 @@
                   }
                 }
               });
-              console.log('ADD FEATURE byTask: ', el.byTask);
-              console.log('ADD FEATURE byProject: ', el.byProject);
+              console.log("ADD FEATURE byTask: ", el.byTask);
+              console.log("ADD FEATURE byProject: ", el.byProject);
             });
 
-            console.log('RESULT::', $scope.tableTrack, $scope.tracks);
+            console.log("RESULT::", $scope.tableTrack, $scope.tracks);
             //Llamada a graficas de barras
             bargraphUsers();
             bargraphClients();
@@ -666,14 +755,14 @@
             var now = new Date().getTime();
             _.each(tracks, function (track) {
               $rootScope.trackId = track.idUser;
-              console.log('UserRole', userRole);
-              if (userRole == 'admin' || userRole == 'pm') {
+              console.log("UserRole", userRole);
+              if (userRole == "admin" || userRole == "pm") {
                 if (!$scope.subtotals[track.idUser]) {
                   $scope.subtotals[track.idUser] = 0;
                 }
                 track.startTime = new Date(track.startTime).getTime();
                 track.endTime = new Date(track.endTime).getTime();
-                if (track.duration.indexOf('-') !== -1) {
+                if (track.duration.indexOf("-") !== -1) {
                   track.duration = getTotalTime((now - track.startTime) / 1000);
                   ms += now - track.startTime;
                   $scope.subtotals[track.idUser] += now - track.startTime;
@@ -689,7 +778,7 @@
                 }
                 track.startTime = new Date(track.startTime).getTime();
                 track.endTime = new Date(track.endTime).getTime();
-                if (track.duration.indexOf('-') !== -1) {
+                if (track.duration.indexOf("-") !== -1) {
                   track.duration = getTotalTime((now - track.startTime) / 1000);
                   ms += now - track.startTime;
                   $scope.subtotals[track.idProject] += now - track.startTime;
@@ -741,13 +830,27 @@
         TracksServices.getAutoTracks(filters, function (err, tracks) {
           if (!err) {
             $scope.autoTracks = tracks;
-            console.log('filters', filters, tracks);
+            console.log("filters", filters, tracks);
             var tempTotal = 0;
             tracks.forEach(function (track) {
               tempTotal += parseInt(track.trackCost ? track.trackCost : 0);
               $scope.totalcost2 = tempTotal;
-              if (userRole == 'admin' || userRole == 'pm') {
+              if (userRole == "admin" || userRole == "pm") {
                 if ($scope.tableTrackAuto.length < 1) {
+                  WeeklyHourServices.find(
+                    $scope.currentPage,
+                    $scope.query,
+                    function (err, weeklyHours, countItems) {
+                      if (!err) {
+                        var object = weeklyHours.find(function (value) {
+                          return track.idUser == value.idUser;
+                        });
+                        track.currency = object.currency;
+                        $scope.tableTrack[index].currency = object.currency;
+                        console.log(track);
+                      }
+                    }
+                  );
                   $scope.tableTrackAuto.push({
                     idUser: track.idUser,
                     idProyecto: track.idProyecto,
@@ -755,9 +858,11 @@
                     subTotalCost: parseInt(
                       track.trackCost ? track.trackCost : 0
                     ),
+                    currency: track.currency,
                     tracks: [track],
                   });
-                  console.log('Track Automatic', $scope.tableTrackAuto);
+                  console.log(track);
+                  console.log("Track Automatic", $scope.tableTrackAuto);
                 } else {
                   var exist = false;
                   $scope.tableTrackAuto.forEach(function (element) {
@@ -766,14 +871,28 @@
                       element.subTotalCost += parseInt(
                         track.trackCost ? track.trackCost : 0
                       );
+                      WeeklyHourServices.find(
+                        $scope.currentPage,
+                        $scope.query,
+                        function (err, weeklyHours, countItems) {
+                          if (!err) {
+                            var object = weeklyHours.find(function (value) {
+                              return track.idUser == value.idUser;
+                            });
+                            // track.currency = object.currency;
+                            element.currency = object.currency;
+                            // console.log(track);
+                          }
+                        }
+                      );
                       element.tracks.push(track);
                       element.duration = convertTime(
                         moment.duration(element.duration).add(track.durations)
                       );
-                      console.log('Total horas Element:', element.duration);
+                      console.log("Total horas Element:", element.duration);
                     }
                   });
-                  console.log('TableTrack::', $scope.tableTrackAuto);
+                  console.log("TableTrack::", $scope.tableTrackAuto);
 
                   if (exist === false) {
                     $scope.tableTrackAuto.push({
@@ -874,7 +993,7 @@
               });
             });
 
-            console.log('RESULT::', $scope.tableTrackAuto);
+            console.log("RESULT::", $scope.tableTrackAuto);
             //Llamada a graficas de barras
             bargraphUsers();
             bargraphClients();
@@ -886,7 +1005,7 @@
               }
               track.startTime = new Date(track.startTime).getTime();
               track.endTime = new Date(track.endTime).getTime();
-              if (track.durations.indexOf('-') !== -1) {
+              if (track.durations.indexOf("-") !== -1) {
                 track.durations = getTotalTimeAuto(
                   (now - track.startTime) / 1000
                 );
@@ -936,7 +1055,7 @@
             tracks.forEach(function (track) {
               tempTotal += parseInt(track.trackCost ? track.trackCost : 0);
               $scope.totalcost3 = tempTotal;
-              if (userRole == 'admin' || userRole == 'pm') {
+              if (userRole == "admin" || userRole == "pm") {
                 if ($scope.tableTrackTrello.length < 1) {
                   $scope.tableTrackTrello.push({
                     idUser: track.idUser,
@@ -1063,7 +1182,7 @@
                 }
               });
             });
-            console.log('RESULT trello::', $scope.tableTrackTrello);
+            console.log("RESULT trello::", $scope.tableTrackTrello);
             /* FIN NUEVA FUNCION */
 
             //Llamada a graficas de barras
@@ -1077,7 +1196,7 @@
               }
               track.startTime = new Date(track.startTime).getTime();
               track.endTime = new Date(track.endTime).getTime();
-              if (track.durations.indexOf('-') !== -1) {
+              if (track.durations.indexOf("-") !== -1) {
                 track.durations = getTotalTimeTrello(
                   (now - track.startTime) / 1000
                 );
@@ -1120,7 +1239,7 @@
         });
 
         TracksServices.getJiraTrack(filters, function (err, tracks) {
-          console.log('Tareas Jira', tracks, err);
+          console.log("Tareas Jira", tracks, err);
           if (!err) {
             $scope.jiraTracks = tracks;
 
@@ -1129,7 +1248,7 @@
             tracks.forEach(function (track) {
               tempTotal += parseInt(track.trackCost ? track.trackCost : 0);
               $scope.totalcost4 = tempTotal;
-              if (userRole == 'admin' || userRole == 'pm') {
+              if (userRole == "admin" || userRole == "pm") {
                 if ($scope.tableTrackJira.length < 1) {
                   $scope.tableTrackJira.push({
                     idUser: track.idUser,
@@ -1256,7 +1375,7 @@
                 }
               });
             });
-            console.log('RESULT Jira::', $scope.tableTrackJira);
+            console.log("RESULT Jira::", $scope.tableTrackJira);
             /* FIN NUEVA FUNCION */
 
             //Llamada a graficas de barras
@@ -1270,7 +1389,7 @@
               }
               track.startTime = new Date(track.startTime).getTime();
               track.endTime = new Date(track.endTime).getTime();
-              if (track.durations.indexOf('-') !== -1) {
+              if (track.durations.indexOf("-") !== -1) {
                 track.durations = getTotalTimeTrello(
                   (now - track.startTime) / 1000
                 );
@@ -1315,20 +1434,20 @@
 
       var sumTotalcost = function (value) {
         $scope.arrCost.push(value);
-        console.log('All totals', $scope.arrCost);
+        console.log("All totals", $scope.arrCost);
       };
 
       function parseTrackTime(date) {
-        var arrDate = date.split(' ');
+        var arrDate = date.split(" ");
         var date = parseDate(arrDate[0]);
-        var hour = arrDate[1] + ':00';
-        return date + ' ' + hour;
+        var hour = arrDate[1] + ":00";
+        return date + " " + hour;
       }
 
       $scope.updateTrackDuration = function (track) {
         if (
-          typeof track.startTime === 'string' &&
-          typeof track.endTime === 'string'
+          typeof track.startTime === "string" &&
+          typeof track.endTime === "string"
         ) {
           var startTime = parseTrackTime(track.startTime);
           startTime = new Date(startTime).getTime();
@@ -1341,8 +1460,8 @@
 
       $scope.updateAutoTrackDuration = function (autoTrack) {
         if (
-          typeof autoTrack.startTime === 'string' &&
-          typeof autoTrack.endTime === 'string'
+          typeof autoTrack.startTime === "string" &&
+          typeof autoTrack.endTime === "string"
         ) {
           var startTime = parseTrackTime(autoTrack.startTime);
           startTime = new Date(startTime).getTime();
@@ -1355,7 +1474,7 @@
 
       var timeoutb;
       $scope.$watch(
-        'filtername',
+        "filtername",
         function () {
           $timeout.cancel(timeoutb);
           timeoutb = $timeout(function () {
@@ -1367,7 +1486,7 @@
 
       $scope.filterProjects = function () {
         $scope.currentPage = 0;
-        $scope.projectsTab = $filter('filter')(
+        $scope.projectsTab = $filter("filter")(
           $scope.allProjectsTab,
           $scope.filtername
         );
@@ -1387,16 +1506,16 @@
 
       //Edit track
       $scope.editTrack = function (track) {
-        $scope.error = '';
+        $scope.error = "";
         $scope.track = angular.copy(track);
-        console.log('INVALID DATE', $scope.track, track);
+        console.log("INVALID DATE", $scope.track, track);
         $scope.track.startTime = moment($scope.track.startTime);
         $scope.track.endTime = moment($scope.track.endTime);
         $scope.track.trackDuration = $scope.track.duration;
-        console.log('INVALID DATE moment', $scope.track);
+        console.log("INVALID DATE moment", $scope.track);
 
         ngDialog.open({
-          template: '/app/components/reports/views/report.task.modal.html',
+          template: "/app/components/reports/views/report.task.modal.html",
           showClose: true,
           scope: $scope,
           disableAnimation: true,
@@ -1409,7 +1528,7 @@
               var msc = newDuration._milliseconds;
               getNewTotalCost(msc);
               function getNewTotalCost(msc) {
-                if (userRole == 'admin' || userRole == 'pm') {
+                if (userRole == "admin" || userRole == "pm") {
                   var idHourCost = $rootScope.trackId;
                 } else {
                   var idHourCost = $rootScope.userId;
@@ -1512,7 +1631,7 @@
         });
       };
       $scope.editAutoTrack = function (autoTrack) {
-        $scope.error = '';
+        $scope.error = "";
         $scope.autoTrack = angular.copy(autoTrack);
 
         $scope.autoTrack.startTime = moment($scope.autoTrack.startTime);
@@ -1520,7 +1639,7 @@
         $scope.autoTrack.trackDuration = $scope.autoTrack.durations;
 
         ngDialog.open({
-          template: '/app/components/reports/views/report.auto-task.modal.html',
+          template: "/app/components/reports/views/report.auto-task.modal.html",
           showClose: true,
           scope: $scope,
           disableAnimation: true,
@@ -1546,7 +1665,7 @@
       };
 
       $scope.editTrelloTrack = function (trelloTrack) {
-        $scope.error = '';
+        $scope.error = "";
         $scope.trelloTrack = angular.copy(trelloTrack);
         $scope.trelloTrack.startTime = moment($scope.trelloTrack.startTime);
         $scope.trelloTrack.endTime = moment($scope.trelloTrack.endTime);
@@ -1554,7 +1673,7 @@
 
         ngDialog.open({
           template:
-            '/app/components/reports/views/report.trello-task.modal.html',
+            "/app/components/reports/views/report.trello-task.modal.html",
           showClose: true,
           scope: $scope,
           disableAnimation: true,
@@ -1581,14 +1700,14 @@
 
       $scope.editJiraTrack = function (jira) {
         console.log(jira);
-        $scope.error = '';
+        $scope.error = "";
         $scope.jiraTrack = angular.copy(jira);
         $scope.jiraTrack.startTime = moment($scope.jiraTrack.startTime);
         $scope.jiraTrack.endTime = moment($scope.jiraTrack.endTime);
         $scope.jiraTrack.trackDuration = $scope.jiraTrack.durations;
 
         ngDialog.open({
-          template: '/app/components/reports/views/report.jira-task.modal.html',
+          template: "/app/components/reports/views/report.jira-task.modal.html",
           showClose: true,
           scope: $scope,
           disableAnimation: true,
@@ -1615,8 +1734,8 @@
 
       $scope.updateTrelloTrackDuration = function (trelloTrack) {
         if (
-          typeof trelloTrack.startTime === 'string' &&
-          typeof trelloTrack.endTime === 'string'
+          typeof trelloTrack.startTime === "string" &&
+          typeof trelloTrack.endTime === "string"
         ) {
           var startTime = parseTrackTime(trelloTrack.startTime);
           startTime = new Date(startTime).getTime();
@@ -1636,14 +1755,14 @@
         var nameUser = [];
 
         for (var i in $scope.tracks) {
-          var durations = $scope.tracks[i]['duration'].split(':');
+          var durations = $scope.tracks[i]["duration"].split(":");
           var hour, min, sec;
           hour = parseFloat(durations[0]);
           min = parseFloat(durations[1] / 60);
           sec = parseFloat(durations[2] / 3600);
           var durationParse = parseFloat(hour + min + sec);
           var newDuration = parseFloat(Number(durationParse).toFixed(2));
-          var name = $scope.tracks[i]['userName'];
+          var name = $scope.tracks[i]["userName"];
           if (!graphUser[name] && newDuration > -1) {
             graphUser[name] = newDuration;
           } else if (newDuration > -1) {
@@ -1660,7 +1779,7 @@
 
         $scope.labelsBarUsers = nameUser;
         $scope.dataBarUsers = durationUser;
-        $scope.typeBarUser = 'bar';
+        $scope.typeBarUser = "bar";
 
         // var reloadGraphBarUser = $interval(function(){
         //   $scope.typeBarUser = $scope.typeBarUser === 'bar' ? 'polarArea' : 'bar';
@@ -1674,8 +1793,8 @@
         var durationClient = [];
 
         for (var i in $scope.tracks) {
-          var durations = $scope.tracks[i]['duration'].split(':');
-          var durationParse = parseFloat(durations[0] + '.' + durations[1]);
+          var durations = $scope.tracks[i]["duration"].split(":");
+          var durationParse = parseFloat(durations[0] + "." + durations[1]);
           var hour, min, sec;
           hour = parseFloat(durations[0]);
           min = parseFloat(durations[1] / 60);
@@ -1699,7 +1818,7 @@
 
         $scope.labelsBarClients = nameClient;
         $scope.dataBarClients = durationClient;
-        $scope.typeBarClient = 'bar';
+        $scope.typeBarClient = "bar";
 
         // var reloadGraphBarClient = $interval(function(){
         //   $scope.typeBarClient = $scope.typeBarClient === 'bar' ? 'polarArea' : 'bar';
@@ -1709,8 +1828,8 @@
       // Round Graph User Controller
       function roundgraphUser() {
         try {
-          var hourSplit = $scope.finalHour[0].split(':');
-          var hourParse = parseFloat(hourSplit[0] + '.' + hourSplit[0]);
+          var hourSplit = $scope.finalHour[0].split(":");
+          var hourParse = parseFloat(hourSplit[0] + "." + hourSplit[0]);
           var newHour = [];
           for (var i = 0; i < $scope.userDuration.length; i++) {
             var duration = $scope.userDuration[i];
@@ -1721,7 +1840,7 @@
 
           $scope.labelsRoundUsers = $scope.userName;
           $scope.dataRoundUsers = newHour;
-          $scope.typeUser = 'pie';
+          $scope.typeUser = "pie";
 
           // var reloadGraphRoundUser = $interval(function(){
           //   $scope.typeUser = $scope.typeUser === 'pie' ?
@@ -1729,15 +1848,15 @@
 
           // },15000);
         } catch (error) {
-          console.log('NOT FINALHOUR [0]');
+          console.log("NOT FINALHOUR [0]");
         }
       }
 
       // Round Graph Client Controller
       function roundgraphClient() {
         try {
-          var hourSplit = $scope.finalHour[0].split(':');
-          var hourParse = parseFloat(hourSplit[0] + '.' + hourSplit[0]);
+          var hourSplit = $scope.finalHour[0].split(":");
+          var hourParse = parseFloat(hourSplit[0] + "." + hourSplit[0]);
           var newHour = [];
           for (var i = 0; i < $scope.clientDuration.length; i++) {
             var duration = $scope.clientDuration[i];
@@ -1748,7 +1867,7 @@
 
           $scope.labelsRoundClients = $scope.clientName;
           $scope.dataRoundClients = newHour;
-          $scope.typeClient = 'pie';
+          $scope.typeClient = "pie";
 
           // var reloadGraphRoundClient = $interval(function(){
           //   $scope.typeClient = $scope.typeClient === 'pie' ? 'radar' : 'pie';
@@ -1760,41 +1879,41 @@
       $scope.exportToCSV = function () {
         function convertToCSV(objArray) {
           var array =
-            typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
-          var str = '';
+            typeof objArray != "object" ? JSON.parse(objArray) : objArray;
+          var str = "";
           var header = Object.keys(array[0]);
-          var headerLine = '';
+          var headerLine = "";
 
           for (var index = 0; index < header.length; index++) {
             if (index == header.length - 1) {
               headerLine += header[index];
             } else {
-              headerLine += header[index] + '|';
+              headerLine += header[index] + "|";
             }
           }
 
-          str += headerLine + '\r\n';
+          str += headerLine + "\r\n";
 
           for (var index2 = 0; index2 < array.length; index2++) {
-            var line = '';
+            var line = "";
             for (var index3 in array[index2]) {
-              if (line != '') line += '|';
+              if (line != "") line += "|";
               line += array[index2][index3];
             }
-            str += line + '\r\n';
+            str += line + "\r\n";
           }
 
           return str;
         }
 
         var text = convertToCSV($scope.tracks);
-        var csvContent = 'data:text/csv;charset=utf-8,' + text + '\r\n';
+        var csvContent = "data:text/csv;charset=utf-8," + text + "\r\n";
 
         var encodedUri = encodeURI(csvContent);
         // window.open(encodedUri);
-        var link = document.createElement('a');
-        link.setAttribute('href', encodedUri);
-        link.setAttribute('download', 'Report.csv');
+        var link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "Report.csv");
         document.body.appendChild(link);
 
         link.click(); // This will download the data file named "Report.csv".
@@ -1802,7 +1921,7 @@
 
       // EXPORT TO EXCEL
       $scope.exportToExcel = function (tableId) {
-        var uri = 'data:application/vnd.ms-excel;base64,';
+        var uri = "data:application/vnd.ms-excel;base64,";
         var template =
           '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>';
         var base64 = function (s) {
@@ -1820,11 +1939,11 @@
           return href;
         };
 
-        var encodedUri = tableToExcel(tableId, 'DataSheet');
+        var encodedUri = tableToExcel(tableId, "DataSheet");
 
-        var link = document.createElement('a');
-        link.setAttribute('href', encodedUri);
-        link.setAttribute('download', 'Report.xlsx');
+        var link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "Report.xlsx");
         document.body.appendChild(link);
 
         link.click();

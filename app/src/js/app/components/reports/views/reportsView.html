@@ -230,7 +230,7 @@
                     HH:mm' }}
                   </div>
                   <div class="flex-item">{{track.duration}}</div>
-                  <div class="flex-item">$ {{track.trackCost}}</div>
+                  <div class="flex-item">{{track.currency}} {{track.trackCost}}</div>
                   <div style="flex: 5%; width: 5%">
                     <a href="" ng-click="editTrack(track)">
                       <img src="assets/images/icons/pencil-ico.svg" />
@@ -255,7 +255,7 @@
                     {{byTask.taskName | truncateTail:true:20:'...'}}
                   </div>
                   <div class="flex-item">{{byTask.duration}}</div>
-                  <div class="flex-item">$ {{byTask.subTotalCost}}</div>
+                  <div class="flex-item">{{tracks.currency}} {{byTask.subTotalCost}}</div>
                   <div style="flex: 5%; width: 5%"></div>
                 </div>
               </div>
@@ -285,7 +285,7 @@
                       {{ byProject.projectName | truncateTail:true:20:'...' }}
                     </div>
                     <div class="flex-item">{{byProject.duration}}</div>
-                    <div class="flex-item">$ {{byProject.subTotalCost}}</div>
+                    <div class="flex-item">{{tracks.currency}} {{byProject.subTotalCost}}</div>
                     <div style="flex: 5%; width: 5%"></div>
                   </div>
                 </div>
@@ -314,7 +314,7 @@
                     {{ 'reports.sub_total' | translate | uppercase }}
                   </div>
                   <div class="flex-item">{{tracks.duration}}</div>
-                  <div class="flex-item">$ {{tracks.subTotalCost}}</div>
+                  <div class="flex-item">{{tracks.currency}} {{tracks.subTotalCost}}</div>
                   <div style="flex: 5%; width: 5%"></div>
                 </div>
               </div>
