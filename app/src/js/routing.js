@@ -107,7 +107,17 @@
             .state('app.tasks', {
                 url: '/tasks',
                 templateUrl: 'app/components/tasks/tasks/views/tasksView.html',
-                controller: 'TasksCtrl'
+                controller: 'TasksCtrl',
+                resolve: {
+                PreviousState: ["$state", function ($state) {
+                    var currentStateData = {
+                        Name: $state.current.name,
+                        Params: $state.params,
+                        URL: $state.href($state.current.name, $state.params)
+                    };
+                    return currentStateData;
+                }]
+                }
             })
             .state('app.taskNew', {
                 url: '/task/new',

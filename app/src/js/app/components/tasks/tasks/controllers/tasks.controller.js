@@ -4,7 +4,7 @@
 
   var Module = ng.module('Imm');  
 
-  Module.controller('TasksCtrl', ['$scope','$rootScope', '$timeout', '$filter', 'TasksServices', 'ProjectsServices', 'UserServices', 'ngDialog', function($scope,$rootScope, $timeout, $filter, TasksServices, ProjectsServices, UserServices, ngDialog) {
+  Module.controller('TasksCtrl', ['$scope','$rootScope', '$timeout', '$filter', 'TasksServices', 'ProjectsServices', 'UserServices', 'ngDialog', 'PreviousState', function($scope,$rootScope, $timeout, $filter, TasksServices, ProjectsServices, UserServices, ngDialog, PreviousState) {
 
     $scope.tasks        = [];
     $scope.task         = {};
@@ -37,7 +37,14 @@
     }, true);
     if ($rootScope.isAdmin=='true') {
       $scope.allStatus    =["Done","In-Progress","In-Review"];
-
+      
+      // console.log("VER PREVIUS STATE :: ", PreviousState.Name);
+      // if(PreviousState.Name=='app.dashboardTasks'){
+      //   //'project/task/all' -- TasksServices.findByFilter
+      // }else if (PreviousState.Name=='app.users') {
+      //   //'project/task/id-user/id' -- TasksServices.findByIdUser
+      // }
+      
       TasksServices.findByFilter($scope.filterTask, function(err, tasks, countItems) {
         if (!err) {
           console.log('tasks', tasks, countItems);

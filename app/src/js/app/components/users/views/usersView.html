@@ -29,7 +29,7 @@
             </tr>
             <tr ng-repeat="user in users | filter: filter">
                 <td>{{user.id}}</td>
-                <td>{{user.name}}</td>
+                <td><a ui-sref="app.tasks" target="_blank">{{user.name | truncateTail:true:30:'...'}}</a></td>
                 <td>{{user.email}}</td>
                 <td>{{user.role}}</td>
                 <td>
