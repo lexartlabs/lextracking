@@ -119,6 +119,21 @@
                 }]
                 }
             })
+            .state('app.tasks-user', {
+                url: '/tasks/user/:id',
+                templateUrl: 'app/components/tasks/tasks/views/tasksView.html',
+                controller: 'TasksCtrl',
+                resolve: {
+                PreviousState: ["$state", function ($state) {
+                    var currentStateData = {
+                        Name: $state.current.name,
+                        Params: $state.params,
+                        URL: $state.href($state.current.name, $state.params)
+                    };
+                    return currentStateData;
+                }]
+                }
+            })
             .state('app.taskNew', {
                 url: '/task/new',
                 templateUrl: 'app/components/tasks/tasks/views/taskFormView.html',
