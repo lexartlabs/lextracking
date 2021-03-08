@@ -216,9 +216,8 @@
                 <div class="flex-row">
                   <div class="flex-item">{{track.userName}}</div>
                   <div class="flex-item">{{track.clientName}}</div>
-                  <div class="flex-item">
-                    {{track.projectName | truncateTail:true:20:'...'}}
-                  </div>
+                  <div class="flex-item" ng-if="userRole != 'admin'">{{track.projectName | truncateTail:true:20:'...'}}</div>
+                  <div class="flex-item"><a ng-if="userRole == 'admin'" ui-sref="app.projectEdit({id: track.idProyecto})" target="_blank">{{track.projectName | truncateTail:true:20:'...'}}</a></div>
                   <div class="flex-item">
                     {{track.taskName | truncateTail:true:20:'...'}}
                   </div>

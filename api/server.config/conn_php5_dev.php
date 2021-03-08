@@ -10,6 +10,7 @@ Class Connection {
 	public function __construct(){
 		$servidor = "localhost";
 		$usuario  = "root";
+		//$clave    = "root"; // lex123
 		$clave    = ""; // lex123
 		$base	  = "lextracking_dev";
 		$this->conexion = mysql_connect($servidor, $usuario, $clave)
