@@ -8,6 +8,7 @@
 
     $scope.tracks   = [];
     $scope.allTasks = [];
+    $scope.developerTracks = [];
     $scope.total    = '';
     var userId      = $rootScope.userId;
     var userRole    = $rootScope.userRole;
@@ -70,7 +71,38 @@
         }
       });
 
-    } else {
+    }else if (userRole=='developer') {
+      TracksServices.findActives( function (err, tracks) {
+
+        if (!err) {
+          console.log('DEVELOPER TRACKS DASH', tracks);
+          $scope.developerTracks = tracks;
+          $scope.developerTracks.forEach(function (track,index) {
+              if (track.idUser==userId) {
+                $scope.tracks.push(track);
+                return false;
+              }
+          })
+
+          var ms = 0;
+          _.each(tracks, function (track){
+            track.startTime = new Date(track.startTime).getTime();
+            track.endTime = new Date(track.endTime).getTime();
+            if (track.duration.indexOf('-') !== -1) {
+              track.duration = '';
+            } else {
+              ms += (track.endTime - track.startTime);
+              console.log('ms: ' + ms);
+            }
+          });
+          $scope.total = getTotalTime(ms/1000);
+
+
+        }
+
+      });
+
+    }else {
       TracksServices.getUserTracks(userId, function (err, tracks){
         if (!err) {
           console.log('tracks', tracks);
