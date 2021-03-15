@@ -18,8 +18,8 @@ Class Connection {
 	public function __construct(){
 		$servidor = "localhost";
 		$usuario  = "root";
-		//$clave    = "root";
-		$clave    = "";
+		$clave    = "root";
+		//$clave    = "";
 		$base	  = "lextracking_dev";
 
 		
