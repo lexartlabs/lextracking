@@ -156,14 +156,12 @@
                 if (value.idUser == idHourCost) {
 
                   console.log(value.costHour, weeklyHours, 'costo hora idUser');
-                  //var costo = parseInt(value.costHour);
                   var costo = value.costHour;
                   console.log('costo', costo);
                   console.log(ms, 'ms');
                   var result = (ms / 3600 / 1000) * costo;
                   console.log('total cost iduser', result);
-                  //result = Math.ceil(result);
-
+                  
                   $scope.arrSubtotal.push(result);
                   // $scope.totalcost = result;
                   var cost = { value: result };
@@ -197,12 +195,10 @@
 
                   console.log('MSS::', value.idUser, mss.idUser);
                   console.log('MSS COSTO USER::', value.costHour);
-                  //var costo = parseInt(value.costHour);
                   var costo = (value.costHour);
                   console.log('MSS COSTO::', costo);
                   var result = (mss.mss / 3600 / 1000) * costo;
                   console.log('MSS TOTAL COSTO::', result);
-                  //result = Math.ceil(result);
                   
                   $scope.subTotalCost.push(result);
                   //proyectSubTotal($scope.subTotalCost);
@@ -496,7 +492,6 @@
             var tempTotal = 0;
 
             tracks.forEach(function (track) {
-              // tempTotal += parseInt(track.trackCost ? track.trackCost : 0);
               tempTotal += (track.trackCost ? track.trackCost : 0);
 
               $scope.totalcost = tempTotal;
@@ -521,9 +516,6 @@
                   $scope.tableTrack.push({
                     idUser: track.idUser,
                     duration: track.duration,
-                    // subTotalCost: parseInt(
-                    //   track.trackCost ? track.trackCost : 0
-                    // ),
                     subTotalCost: (
                       track.trackCost ? track.trackCost : 0
                     ),
@@ -551,9 +543,6 @@
                   $scope.tableTrack.forEach(function (element, index) {
                     if (element.idUser == track.idUser && exist == false) {
                       exist = true;
-                      // element.subTotalCost += parseInt(
-                      //   track.trackCost ? track.trackCost : 0
-                      // );
                       element.subTotalCost += (
                         track.trackCost ? track.trackCost : 0
                       );
@@ -584,9 +573,6 @@
                     $scope.tableTrack.push({
                       idUser: track.idUser,
                       duration: track.duration,
-                      // subTotalCost: parseInt(
-                      //   track.trackCost ? track.trackCost : 0
-                      // ),
                       subTotalCost: (
                         track.trackCost ? track.trackCost : 0
                       ),
@@ -613,9 +599,6 @@
                   $scope.tableTrack.push({
                     idProyecto: track.idProyecto,
                     duration: track.duration,
-                    // subTotalCost: parseInt(
-                    //   track.trackCost ? track.trackCost : 0
-                    // ),
                     subTotalCost: (
                       track.trackCost ? track.trackCost : 0
                     ),
@@ -629,9 +612,6 @@
                       exist == false
                     ) {
                       exist = true;
-                      // element.subTotalCost += parseInt(
-                      //   track.trackCost ? track.trackCost : 0
-                      // );
                       element.subTotalCost += (
                         track.trackCost ? track.trackCost : 0
                       );
@@ -659,9 +639,6 @@
                     $scope.tableTrack.push({
                       idProyecto: track.idProyecto,
                       duration: track.duration,
-                      // subTotalCost: parseInt(
-                      //   track.trackCost ? track.trackCost : 0
-                      // ),
                       subTotalCost: (
                         track.trackCost ? track.trackCost : 0
                       ),
@@ -696,9 +673,6 @@
                     idProyecto: track.idProyecto,
                     projectName: track.projectName,
                     duration: track.duration,
-                    // subTotalCost: parseInt(
-                    //   track.trackCost ? track.trackCost : 0
-                    // ),
                     subTotalCost: (
                       track.trackCost ? track.trackCost : 0
                     ),
@@ -712,9 +686,6 @@
                       exist == false
                     ) {
                       exist = true;
-                      // element.subTotalCost += parseInt(
-                      //   track.trackCost ? track.trackCost : 0
-                      // );
                       element.subTotalCost += (
                         track.trackCost ? track.trackCost : 0
                       );
@@ -729,9 +700,6 @@
                       idProyecto: track.idProyecto,
                       projectName: track.projectName,
                       duration: track.duration,
-                      // subTotalCost: parseInt(
-                      //   track.trackCost ? track.trackCost : 0
-                      // ),
                       subTotalCost: (
                         track.trackCost ? track.trackCost : 0
                       ),
@@ -746,9 +714,6 @@
                     taskName: track.taskName,
                     duration: track.duration,
                     idProyecto: track.idProyecto,
-                    // subTotalCost: parseInt(
-                    //   track.trackCost ? track.trackCost : 0
-                    // ),
                     subTotalCost: (
                       track.trackCost ? track.trackCost : 0
                     ),
@@ -759,9 +724,6 @@
                   el.byTask.forEach(function (element) {
                     if (element.idTask == track.idTask && exist2 == false) {
                       exist2 = true;
-                      // element.subTotalCost += parseInt(
-                      //   track.trackCost ? track.trackCost : 0
-                      // );
                       element.subTotalCost += (
                         track.trackCost ? track.trackCost : 0
                       );
@@ -777,9 +739,6 @@
                       taskName: track.taskName,
                       duration: track.duration,
                       idProyecto: track.idProyecto,
-                      // subTotalCost: parseInt(
-                      //   track.trackCost ? track.trackCost : 0
-                      // ),
                       subTotalCost: (
                         track.trackCost ? track.trackCost : 0
                       ),
