@@ -228,11 +228,9 @@
                     {{track.endTime ? track.endTime : '' | date:'dd/MM/yyyy
                     HH:mm' }}
                   </div> -->
-                  
                   <div class="flex-item">
                     {{track.endTime ? track.endTime : '' | date:'dd/MM/yyyy HH:mm'}}
                   </div>
-
                   <div class="flex-item">{{track.duration}}</div>
                   <div class="flex-item">{{track.currency}} {{track.trackCost.toFixed(2)}}</div>
                   <!-- <div class="flex-item">$ {{track}}</div> -->
@@ -290,7 +288,7 @@
                       {{ byProject.projectName | truncateTail:true:20:'...' }}
                     </div>
                     <div class="flex-item">{{byProject.duration}}</div>
-                    <div class="flex-item">$ {{byProject.subTotalCost.toFixed(2)}}</div>
+                    <div class="flex-item">{{tracks.currency}} {{byProject.subTotalCost.toFixed(2)}}</div>
                     <div style="flex: 5%; width: 5%"></div>
                   </div>
                 </div>
@@ -319,7 +317,7 @@
                     {{ 'reports.sub_total' | translate | uppercase }}
                   </div>
                   <div class="flex-item">{{tracks.duration}}</div>
-                  <div class="flex-item">$ {{tracks.subTotalCost.toFixed(2)}}</div>
+                  <div class="flex-item">{{tracks.currency}} {{tracks.subTotalCost.toFixed(2)}}</div>
                   <div style="flex: 5%; width: 5%"></div>
                 </div>
               </div>
