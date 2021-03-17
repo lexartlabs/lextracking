@@ -224,12 +224,16 @@
                   <div class="flex-item">
                     {{track.startTime | date:'dd/MM/yyyy HH:mm' }}
                   </div>
-                  <div class="flex-item">
+                  <!-- <div class="flex-item">
                     {{track.endTime ? track.endTime : '' | date:'dd/MM/yyyy
                     HH:mm' }}
+                  </div> -->
+                  <div class="flex-item">
+                    {{track.endTime ? track.endTime : '' | date:'dd/MM/yyyy HH:mm'}}
                   </div>
                   <div class="flex-item">{{track.duration}}</div>
-                  <div class="flex-item">{{track.currency}} {{track.trackCost}}</div>
+                  <div class="flex-item">{{track.currency}} {{track.trackCost.toFixed(2)}}</div>
+                  <!-- <div class="flex-item">$ {{track}}</div> -->
                   <div style="flex: 5%; width: 5%">
                     <a href="" ng-click="editTrack(track)">
                       <img src="assets/images/icons/pencil-ico.svg" />
@@ -254,7 +258,7 @@
                     {{byTask.taskName | truncateTail:true:20:'...'}}
                   </div>
                   <div class="flex-item">{{byTask.duration}}</div>
-                  <div class="flex-item">{{tracks.currency}} {{byTask.subTotalCost}}</div>
+                  <div class="flex-item">{{tracks.currency}} {{byTask.subTotalCost.toFixed(2)}}</div>
                   <div style="flex: 5%; width: 5%"></div>
                 </div>
               </div>
@@ -284,7 +288,7 @@
                       {{ byProject.projectName | truncateTail:true:20:'...' }}
                     </div>
                     <div class="flex-item">{{byProject.duration}}</div>
-                    <div class="flex-item">{{tracks.currency}} {{byProject.subTotalCost}}</div>
+                    <div class="flex-item">{{tracks.currency}} {{byProject.subTotalCost.toFixed(2)}}</div>
                     <div style="flex: 5%; width: 5%"></div>
                   </div>
                 </div>
@@ -313,7 +317,7 @@
                     {{ 'reports.sub_total' | translate | uppercase }}
                   </div>
                   <div class="flex-item">{{tracks.duration}}</div>
-                  <div class="flex-item">{{tracks.currency}} {{tracks.subTotalCost}}</div>
+                  <div class="flex-item">{{tracks.currency}} {{tracks.subTotalCost.toFixed(2)}}</div>
                   <div style="flex: 5%; width: 5%"></div>
                 </div>
               </div>
@@ -337,7 +341,7 @@
                   {{ 'reports.total' | translate | uppercase }}
                 </div>
                 <div class="flex-item">{{total}}</div>
-                <div class="flex-item">$ {{totalcost}}</div>
+                <div class="flex-item">$ {{totalcost.toFixed(2)}}</div>
                 <div style="flex: 5%; width: 5%"></div>
               </div>
             </div>
@@ -453,7 +457,7 @@
                 <td colspan="5"></td>
                 <td>{{ 'reports.total' | translate | uppercase }}</td>
                 <td>{{total}}</td>
-                <td>$ {{totalcost}}</td>
+                <td>$ {{totalcost.toFixed(2)}}</td>
                 <td></td>
               </tr>
             </tfoot>
@@ -578,7 +582,7 @@
                 <div class="flex-item"></div>
                 <div class="flex-item"></div>
                 <div class="flex-item">
-                  {{ 'reports.total' | translate | uppercase }}
+                  {{ 'reports.total.toFixed(2)' | translate | uppercase }}
                 </div>
                 <div class="flex-item">{{total2}}</div>
                 <div class="flex-item">$ {{totalcost2}}</div>
@@ -976,7 +980,7 @@
             font-size: 11px;
           "
         >
-          TOTAL COSTO: ${{totalcost + totalcost2 + totalcost3 + totalcost4}}
+          TOTAL COSTO: $ {{(totalcost + totalcost2 + totalcost3 + totalcost4).toFixed(2)}}
         </div>
         <!-- End Table -->
       </div>

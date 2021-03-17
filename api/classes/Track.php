@@ -117,7 +117,7 @@ class Track {
 			if(!empty($d_cost)){
 				$cost = $d_cost[0]['costHour'];
 				$costDecimal = $this->ConvertTimeToDecimal($d[$i]['duration']);
-				$d[$i]['trackCost'] = round($costDecimal * intval($cost)) ? round($costDecimal * intval($cost)) : 0 ;
+				$d[$i]['trackCost'] = round(($costDecimal * ($cost)), 2) ? round(($costDecimal * ($cost)), 2) : 0 ;
 			}
 		}
 
