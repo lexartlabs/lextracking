@@ -192,6 +192,7 @@
             <div class="flex-item">{{ 'reports.user' | translate }}</div>
             <div class="flex-item">{{ 'reports.client' | translate }}</div>
             <div class="flex-item">{{ 'reports.project' | translate }}</div>
+            <div ng-if="userRole != 'admin'" class="flex-item"> </div>
             <div class="flex-item">{{ 'reports.task' | translate }}</div>
             <div class="flex-item">{{ 'reports.start_time' | translate }}</div>
             <div class="flex-item">{{ 'reports.end_time' | translate }}</div>
@@ -232,7 +233,7 @@
                     {{track.endTime ? track.endTime : '' | date:'dd/MM/yyyy HH:mm'}}
                   </div>
                   <div class="flex-item">{{track.duration}}</div>
-                  <div class="flex-item">{{track.currency}} {{track.trackCost.toFixed(2)}}</div>
+                  <div class="flex-item">{{tracks.currency}} {{track.trackCost.toFixed(2)}}</div>
                   <!-- <div class="flex-item">$ {{track}}</div> -->
                   <div style="flex: 5%; width: 5%">
                     <a href="" ng-click="editTrack(track)">
@@ -253,6 +254,7 @@
                   <div class="flex-item"></div>
                   <div class="flex-item"></div>
                   <div class="flex-item"></div>
+                  <div ng-if="userRole!='admin'" class="flex-item"></div>
                   <div class="flex-item">TAREA</div>
                   <div class="flex-item">
                     {{byTask.taskName | truncateTail:true:20:'...'}}
@@ -341,7 +343,7 @@
                   {{ 'reports.total' | translate | uppercase }}
                 </div>
                 <div class="flex-item">{{total}}</div>
-                <div class="flex-item">$ {{totalcost.toFixed(2)}}</div>
+                <div class="flex-item"> $ {{totalcost.toFixed(2)}}</div>
                 <div style="flex: 5%; width: 5%"></div>
               </div>
             </div>

@@ -71,7 +71,7 @@
       $scope.verifyMss = [];
       $scope.arrCost = [];
       $scope.filter.idTask = 0;
-
+      $scope.CurrTotalCost = '';
       var userId = $rootScope.userId;
       var userRole = $rootScope.userRole;
 
@@ -154,7 +154,7 @@
             if (!err) {
               angular.forEach(weeklyHours, function (value, key) {
                 if (value.idUser == idHourCost) {
-
+                  //$scope.CurrTotalCost = value.currency;
                   console.log(value.costHour, weeklyHours, 'costo hora idUser');
                   var costo = value.costHour;
                   console.log('costo', costo);
