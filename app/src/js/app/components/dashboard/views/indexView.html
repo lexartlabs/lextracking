@@ -4,8 +4,8 @@
             <a class="imm-bc-item">{{ 'dashboard.title' | translate }}</a>
         </h1>
         <div class="imm-bc" ng-if="tracks.length">
-            <a class="imm-bc-item" ng-if="userRole == 'admin'">{{ 'dashboard.current_tracks' | translate }}</a>
-            <a class="imm-bc-item" ng-if="userRole == 'developer'">{{ 'dashboard.recent_activity' | translate }}</a>
+            <a class="imm-bc-item" ng-if="userRole == 'admin' || userRole == 'developer'">{{ 'dashboard.current_tracks' | translate }}</a>
+            <!-- <a class="imm-bc-item" ng-if="userRole == 'developer'">{{ 'dashboard.recent_activity' | translate }}</a> -->
         </div>
     </div>
 </div>
@@ -23,7 +23,8 @@
         <tbody>
             <tr ng-repeat="track in tracks" ng-if="!track.endTime || track.endTime == '0000-00-00 00:00:00'">
                 <td>{{track.userName}}</td>
-            	  <td>{{track.projectName}}</td>
+                <td><a ng-if="userRole == 'admin'" ui-sref="app.projectEdit({id: track.idProyecto})" target="_blank">{{track.projectName | truncateTail:true:30:'...'}}</a></td>
+            	<td ng-if="userRole != 'admin'">{{track.projectName}}</td>
                 <td>{{track.taskName}}</td>
                 <td>{{track.startTime | date:'dd/MM/yyyy HH:mm' }}</td>
                 <td></td>
@@ -37,8 +38,8 @@
                 <th>{{ 'dashboard.project' | translate }}</th>
                 <th>{{ 'dashboard.task' | translate }}</th>
                 <th>{{ 'dashboard.start_time' | translate }}</th>
-                <th>{{ 'dashboard.end_time' | translate }}</th>
-                <th>{{ 'dashboard.duration' | translate }}</th>
+                <!-- <th>{{ 'dashboard.end_time' | translate }}</th>
+                <th>{{ 'dashboard.duration' | translate }}</th> -->
                 <th class="imm-cstm__grid-5"></th>
             </tr>
         </thead>
@@ -47,8 +48,8 @@
                 <td>{{track.projectName}}</td>
                 <td>{{track.taskName}}</td>
                 <td>{{track.startTime | date:'dd/MM/yyyy HH:mm' }}</td>
-                <td>{{track.endTime ? track.endTime : '' | date:'dd/MM/yyyy HH:mm' }}</td>
-                <td>{{track.duration}}</td>
+                <!-- <td>{{track.endTime ? track.endTime : '' | date:'dd/MM/yyyy HH:mm' }}</td>
+                <td>{{track.duration}}</td> -->
                 <td></td>
             </tr>
 <!--             <tr style="background-color: rgba(60, 144, 190, 0.1); font-weight: bold;">

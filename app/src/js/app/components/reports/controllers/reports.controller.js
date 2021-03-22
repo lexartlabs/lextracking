@@ -154,13 +154,14 @@
             if (!err) {
               angular.forEach(weeklyHours, function (value, key) {
                 if (value.idUser == idHourCost) {
-                  console.log(value.costHour, weeklyHours, "costo hora idUser");
-                  var costo = parseInt(value.costHour);
-                  console.log("costo", costo);
-                  console.log(ms, "ms");
+
+                  console.log(value.costHour, weeklyHours, 'costo hora idUser');
+                  var costo = value.costHour;
+                  console.log('costo', costo);
+                  console.log(ms, 'ms');
                   var result = (ms / 3600 / 1000) * costo;
-                  console.log("total cost iduser", result);
-                  result = Math.ceil(result);
+                  console.log('total cost iduser', result);
+                  
                   $scope.arrSubtotal.push(result);
                   // $scope.totalcost = result;
                   var cost = { value: result };
@@ -191,13 +192,14 @@
               //for (var i = 0; i < $scope.mssArr.length; i++) {
               angular.forEach(weeklyHours, function (value, key) {
                 if (value.idUser == mss.idUser) {
-                  console.log("MSS::", value.idUser, mss.idUser);
-                  console.log("MSS COSTO USER::", value.costHour);
-                  var costo = parseInt(value.costHour);
-                  console.log("MSS COSTO::", costo);
+
+                  console.log('MSS::', value.idUser, mss.idUser);
+                  console.log('MSS COSTO USER::', value.costHour);
+                  var costo = (value.costHour);
+                  console.log('MSS COSTO::', costo);
                   var result = (mss.mss / 3600 / 1000) * costo;
-                  console.log("MSS TOTAL COSTO::", result);
-                  result = Math.ceil(result);
+                  console.log('MSS TOTAL COSTO::', result);
+                  
                   $scope.subTotalCost.push(result);
                   //proyectSubTotal($scope.subTotalCost);
                 }
@@ -488,8 +490,10 @@
             $scope.tracks = tracks;
             console.log("Tracks tareas", tracks);
             var tempTotal = 0;
-            tracks.forEach(function (track, index) {
-              tempTotal += parseInt(track.trackCost ? track.trackCost : 0);
+
+            tracks.forEach(function (track) {
+              tempTotal += (track.trackCost ? track.trackCost : 0);
+
               $scope.totalcost = tempTotal;
               //$scope.sumAll += parseInt(tempTotal) ? tempTotal : 0;
               sumTotalcost(tempTotal);
@@ -512,7 +516,7 @@
                   $scope.tableTrack.push({
                     idUser: track.idUser,
                     duration: track.duration,
-                    subTotalCost: parseInt(
+                    subTotalCost: (
                       track.trackCost ? track.trackCost : 0
                     ),
                     currency: track.currency,
@@ -539,7 +543,7 @@
                   $scope.tableTrack.forEach(function (element, index) {
                     if (element.idUser == track.idUser && exist == false) {
                       exist = true;
-                      element.subTotalCost += parseInt(
+                      element.subTotalCost += (
                         track.trackCost ? track.trackCost : 0
                       );
                       console.log(element);
@@ -569,7 +573,7 @@
                     $scope.tableTrack.push({
                       idUser: track.idUser,
                       duration: track.duration,
-                      subTotalCost: parseInt(
+                      subTotalCost: (
                         track.trackCost ? track.trackCost : 0
                       ),
                       tracks: [track],
@@ -595,7 +599,7 @@
                   $scope.tableTrack.push({
                     idProyecto: track.idProyecto,
                     duration: track.duration,
-                    subTotalCost: parseInt(
+                    subTotalCost: (
                       track.trackCost ? track.trackCost : 0
                     ),
                     tracks: [track],
@@ -608,7 +612,7 @@
                       exist == false
                     ) {
                       exist = true;
-                      element.subTotalCost += parseInt(
+                      element.subTotalCost += (
                         track.trackCost ? track.trackCost : 0
                       );
                       WeeklyHourServices.find(
@@ -635,7 +639,7 @@
                     $scope.tableTrack.push({
                       idProyecto: track.idProyecto,
                       duration: track.duration,
-                      subTotalCost: parseInt(
+                      subTotalCost: (
                         track.trackCost ? track.trackCost : 0
                       ),
                       tracks: [track],
@@ -669,7 +673,7 @@
                     idProyecto: track.idProyecto,
                     projectName: track.projectName,
                     duration: track.duration,
-                    subTotalCost: parseInt(
+                    subTotalCost: (
                       track.trackCost ? track.trackCost : 0
                     ),
                     tracks: [track],
@@ -682,7 +686,7 @@
                       exist == false
                     ) {
                       exist = true;
-                      element.subTotalCost += parseInt(
+                      element.subTotalCost += (
                         track.trackCost ? track.trackCost : 0
                       );
                       element.tracks.push(track);
@@ -696,7 +700,7 @@
                       idProyecto: track.idProyecto,
                       projectName: track.projectName,
                       duration: track.duration,
-                      subTotalCost: parseInt(
+                      subTotalCost: (
                         track.trackCost ? track.trackCost : 0
                       ),
                       tracks: [track],
@@ -710,7 +714,7 @@
                     taskName: track.taskName,
                     duration: track.duration,
                     idProyecto: track.idProyecto,
-                    subTotalCost: parseInt(
+                    subTotalCost: (
                       track.trackCost ? track.trackCost : 0
                     ),
                     tracks: [track],
@@ -720,7 +724,7 @@
                   el.byTask.forEach(function (element) {
                     if (element.idTask == track.idTask && exist2 == false) {
                       exist2 = true;
-                      element.subTotalCost += parseInt(
+                      element.subTotalCost += (
                         track.trackCost ? track.trackCost : 0
                       );
                       element.tracks.push(track);
@@ -735,7 +739,7 @@
                       taskName: track.taskName,
                       duration: track.duration,
                       idProyecto: track.idProyecto,
-                      subTotalCost: parseInt(
+                      subTotalCost: (
                         track.trackCost ? track.trackCost : 0
                       ),
                       tracks: [track],

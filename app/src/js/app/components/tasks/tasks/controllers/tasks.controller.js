@@ -4,7 +4,7 @@
 
   var Module = ng.module('Imm');  
 
-  Module.controller('TasksCtrl', ['$scope','$rootScope', '$timeout', '$filter', 'TasksServices', 'ProjectsServices', 'UserServices', 'ngDialog', function($scope,$rootScope, $timeout, $filter, TasksServices, ProjectsServices, UserServices, ngDialog) {
+  Module.controller('TasksCtrl', ['$scope','$rootScope', '$timeout', '$filter', 'TasksServices', 'ProjectsServices', 'UserServices', 'ngDialog', 'PreviousState', '$stateParams', function($scope,$rootScope, $timeout, $filter, TasksServices, ProjectsServices, UserServices, ngDialog, PreviousState, $stateParams) {
 
     $scope.tasks        = [];
     $scope.task         = {};
@@ -22,11 +22,7 @@
     $scope.filterTask.limit   = 15;
     $scope.filterTask.offset  = 0;
     $scope.filterTask.filter  = [];
-
-
-
-
-
+    var idUser          = $stateParams.id;
 
     var timeout;
     $scope.$watch('filter', function() {
@@ -35,9 +31,9 @@
         $scope.filterTasks();
       }, 250);
     }, true);
-    if ($rootScope.isAdmin=='true') {
+    if ($rootScope.isAdmin=='true'&& PreviousState.Name!='app.users') {
       $scope.allStatus    =["Done","In-Progress","In-Review"];
-
+            
       TasksServices.findByFilter($scope.filterTask, function(err, tasks, countItems) {
         if (!err) {
           console.log('tasks', tasks, countItems);
@@ -47,7 +43,19 @@
         }
       });
 
-    } else if ($rootScope.isClient =="true") {
+    }else if ($rootScope.isAdmin=='true'&& PreviousState.Name=='app.users') {
+      $scope.allStatus    =["Done","In-Progress","In-Review"];
+      
+      TasksServices.findByIdUser(idUser, $scope.filterTask, function(err, tasks, countItems) {
+        if (!err) {
+          console.log('tasks', tasks, countItems);
+          $scope.allTasks = tasks;
+          $scope.tasks = tasks.slice(0, PAGE_SIZE - 1);
+          $scope.total = countItems;
+        }
+      });
+
+    }else if ($rootScope.isClient =="true") {
       $scope.allStatus    =["In-Progress","In-Review"];
       TasksServices.findByIdClient($rootScope.userIdClient,function (err,tasks) {
         if (!err) {
@@ -55,11 +63,8 @@
           $scope.tasks = tasks.slice(0, PAGE_SIZE - 1);
           $scope.total = tasks.length;
           console.log($scope.allTasks);
-
         }
-
       });
-
 
     }else  {
       $scope.allStatus    =["In-Progress","In-Review"];
@@ -196,33 +201,10 @@
           $scope.filterTask.filter.push({"description":$scope.filter.description});
         }
       }
-      if ($rootScope.isAdmin == 'true') {
-        TasksServices.findByFilter($scope.filterTask, function(err, tasks, countItems) {
-          if (!err) {
-            console.log('tasksFilter', tasks, countItems);
-            $scope.allTasks = tasks;
-            $scope.tasks = tasks.slice(0, PAGE_SIZE - 1);
-            $scope.total = countItems;
-          }
-        });
-      } else {
-        TasksServices.findByIdUser($rootScope.userId, $scope.filterTask, function(err, tasks, countItems) {
-          if (!err) {
-            console.log('tasksFilter', tasks, countItems);
-            $scope.allTasks = tasks;
-            $scope.tasks = tasks.slice(0, PAGE_SIZE - 1);
-            $scope.total = countItems;
-          }
-        });
-      }
-    };
-
-    $scope.pager = function(page) {
-      console.log("page",page-1);
-      var offset = PAGE_SIZE * (page - 1);
-      $scope.filterTask.offset = offset;
-      if ($rootScope.isAdmin == 'true') {
-       TasksServices.findByFilter($scope.filterTask, function(err, tasks, countItems) {
+      if ($rootScope.isAdmin=='true'&& PreviousState.Name!='app.users') {
+      $scope.allStatus    =["Done","In-Progress","In-Review"];
+      
+      TasksServices.findByFilter($scope.filterTask, function(err, tasks, countItems) {
         if (!err) {
           console.log('tasks', tasks, countItems);
           $scope.allTasks = tasks;
@@ -230,16 +212,99 @@
           $scope.total = countItems;
         }
       });
-      }else{
-        TasksServices.findByIdUser($rootScope.userId, $scope.filterTask, function(err, tasks, countItems) {
-          if (!err) {
-            console.log('tasksFilter', tasks, countItems);
-            $scope.allTasks = tasks;
-            $scope.tasks = tasks.slice(0, PAGE_SIZE - 1);
-            $scope.total = countItems;
-          }
-        });
-      }
+
+    }else if ($rootScope.isAdmin=='true'&& PreviousState.Name=='app.users') {
+      $scope.allStatus    =["Done","In-Progress","In-Review"];
+      console.log("PREVIUS STATE app.users :: ", PreviousState.Name);
+      
+      TasksServices.findByIdUser(idUser, $scope.filterTask, function(err, tasks, countItems) {
+        if (!err) {
+          console.log('tasks', tasks, countItems);
+          $scope.allTasks = tasks;
+          $scope.tasks = tasks.slice(0, PAGE_SIZE - 1);
+          $scope.total = countItems;
+        }
+      });
+
+    }else if ($rootScope.isClient =="true") {
+      $scope.allStatus    =["In-Progress","In-Review"];
+      TasksServices.findByIdClient($rootScope.userIdClient,function (err,tasks) {
+        if (!err) {
+          $scope.allTasks = tasks;
+          $scope.tasks = tasks.slice(0, PAGE_SIZE - 1);
+          $scope.total = tasks.length;
+          console.log($scope.allTasks);
+        }
+      });
+
+    }else  {
+      $scope.allStatus    =["In-Progress","In-Review"];
+      console.log($rootScope.userId);
+      TasksServices.findByIdUser($rootScope.userId, $scope.filterTask, function(err, tasks, countItems) {
+        if (!err) {
+          console.log('tasksFilter', tasks, countItems);
+          $scope.allTasks = tasks;
+          $scope.tasks = tasks.slice(0, PAGE_SIZE - 1);
+          $scope.total = countItems;
+        }
+      });
+    }
+
+    };
+
+    $scope.pager = function(page) {
+      console.log("page",page-1);
+      var offset = PAGE_SIZE * (page - 1);
+      $scope.filterTask.offset = offset;
+      if ($rootScope.isAdmin=='true'&& PreviousState.Name!='app.users') {
+      $scope.allStatus    =["Done","In-Progress","In-Review"];
+      
+      TasksServices.findByFilter($scope.filterTask, function(err, tasks, countItems) {
+        if (!err) {
+          console.log('tasks', tasks, countItems);
+          $scope.allTasks = tasks;
+          $scope.tasks = tasks.slice(0, PAGE_SIZE - 1);
+          $scope.total = countItems;
+        }
+      });
+
+    }else if ($rootScope.isAdmin=='true'&& PreviousState.Name=='app.users') {
+      $scope.allStatus    =["Done","In-Progress","In-Review"];
+      console.log("PREVIUS STATE app.users :: ", PreviousState.Name);
+      
+      TasksServices.findByIdUser(idUser, $scope.filterTask, function(err, tasks, countItems) {
+        if (!err) {
+          console.log('tasks', tasks, countItems);
+          $scope.allTasks = tasks;
+          $scope.tasks = tasks.slice(0, PAGE_SIZE - 1);
+          $scope.total = countItems;
+        }
+      });
+
+    }else if ($rootScope.isClient =="true") {
+      $scope.allStatus    =["In-Progress","In-Review"];
+      TasksServices.findByIdClient($rootScope.userIdClient,function (err,tasks) {
+        if (!err) {
+          $scope.allTasks = tasks;
+          $scope.tasks = tasks.slice(0, PAGE_SIZE - 1);
+          $scope.total = tasks.length;
+          console.log($scope.allTasks);
+        }
+      });
+
+    }else  {
+      $scope.allStatus    =["In-Progress","In-Review"];
+      console.log($rootScope.userId);
+      TasksServices.findByIdUser($rootScope.userId, $scope.filterTask, function(err, tasks, countItems) {
+        if (!err) {
+          console.log('tasksFilter', tasks, countItems);
+          $scope.allTasks = tasks;
+          $scope.tasks = tasks.slice(0, PAGE_SIZE - 1);
+          $scope.total = countItems;
+        }
+      });
+    }
+    
     };
 
 

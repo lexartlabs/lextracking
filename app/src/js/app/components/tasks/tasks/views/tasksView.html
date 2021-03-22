@@ -36,7 +36,8 @@
 
             </tr>
             <tr ng-repeat="(index,task) in tasks" ng-class="{'active-task': currentTrack.idTask == task.id}" ng-style="task.status == 'Done' && {'background-color':'#3b0'}  || task.status == 'In-Review' && {'background-color':'#AE2E2E'} || task.status == 'In-Progress' && {'background-color':'#ccad16'}">
-                <td title="{{task.projectName}}">{{task.projectName | truncateTail:true:30:'...'}}</td>
+                <td ng-if="userRole != 'admin'" title="{{task.projectName}}">{{task.projectName | truncateTail:true:30:'...'}}</td>
+                <td><a ng-if="userRole == 'admin'" ui-sref="app.projectEdit({id: task.idProject})" target="_blank">{{task.projectName | truncateTail:true:30:'...'}}</a></td>
                 <td title="{{task.name}}">{{task.name | truncateTail:true:30:'...'}}</td>
                 <td title="{{task.description}}">{{task.description | truncateTail:true:45:'...'}}</td>
                 <td>{{task.duration}}</td>
