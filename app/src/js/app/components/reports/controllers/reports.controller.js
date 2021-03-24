@@ -533,8 +533,11 @@
                           return track.idUser == value.idUser;
                         });
                         track.currency = object.currency;
-                        $scope.tableTrack[index].currency = object.currency;
-                        // console.log(track);
+                        //if($scope.tableTrack[index]!==""||$scope.tableTrack[index]!==null||$scope.tableTrack[index]!=='null'){
+                        if($scope.tableTrack[index]!== undefined){
+                          $scope.tableTrack[index].currency = object.currency;
+                          // console.log(track);
+                        }
                       }
                     }
                   );
