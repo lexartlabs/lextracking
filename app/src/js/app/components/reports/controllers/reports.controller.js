@@ -508,8 +508,10 @@
                           return track.idUser == value.idUser;
                         });
                         track.currency = object.currency;
-                        $scope.tableTrack[index].currency = object.currency;
-                        // console.log(track);
+                        if (typeof index !== 'undefined') {
+                          $scope.tableTrack[index].currency = object.currency;
+                          // console.log(track);
+                        }
                       }
                     }
                   );
@@ -533,8 +535,7 @@
                           return track.idUser == value.idUser;
                         });
                         track.currency = object.currency;
-                        //if($scope.tableTrack[index]!==""||$scope.tableTrack[index]!==null||$scope.tableTrack[index]!=='null'){
-                        if($scope.tableTrack[index]!== undefined){
+                        if (typeof index !== 'undefined') {
                           $scope.tableTrack[index].currency = object.currency;
                           // console.log(track);
                         }
