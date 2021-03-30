@@ -286,7 +286,7 @@
                 });
             } else {
                     $rootScope.currentTrack = {
-                        idTask      : tasks_trello.card_id,
+                        idTask      : tasks_trello.id,
                         idUser      : $rootScope.userId,
                         idBoard     : tasks_trello.idboard,
                         id_project  : tasks_trello.id_project,

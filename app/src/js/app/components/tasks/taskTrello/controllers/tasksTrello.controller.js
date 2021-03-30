@@ -94,7 +94,7 @@
       })
 
       ngDialog.open({
-        template: '/app/components/taskTrello/views/createTable.modal.html',
+        template: '/app/components/tasks/taskTrello/views/createTable.modal.html',
         showClose: true,
         scope: $scope,
         disableAnimation: true,
@@ -113,9 +113,46 @@
               $state.reload();
           }
         }
-
       })
     };
+
+    $scope.editBoard = function (board) {
+      console.log(board);
+      $scope.selected = {};
+      ProjectsServices.find($scope.currentPage, $scope.query, function(err, projects, countItems) {
+      if (!err) {
+          $scope.getProjects    = projects;
+          $scope.selected.value =  $scope.getProjects.find(function(element) {return element.id == board.proyecto_id} );
+        }
+      });
+      tasks_trelloServices.getBoards(function(resp){
+        $scope.boards       = resp;
+        $scope.selected.url =  $scope.boards.find(function(element) {return element.id == board.tablero_id} )
+      })
+
+      ngDialog.open({
+        template: '/app/components/tasks/taskTrello/views/createTable.modal.html',
+        showClose: true,
+        scope: $scope,
+        disableAnimation: true,
+        data: {
+          confirm: function(){
+            var trelloObj = {
+              id      : board.id,
+              idBoard : $scope.selected.url.id,
+              url     : $scope.selected.url.url,
+              project : $scope.selected.value.id
+            }
+            tasks_trelloServices.updateBoard(trelloObj, function(res, err){
+            });
+            $state.reload();
+          },
+          cancel: function() {
+            ngDialog.close();
+          }
+        }
+      });
+    }
 
     $scope.deleteBoardTrello = function (id) {
       console.log("Board trello", id);
@@ -229,7 +266,20 @@
 
       }
       $scope.state=$scope.task_trello.status;
+    }
 
+    $scope.deleteBoard = function(board){
+      tasks_trelloServices.deleteBoardTrello(board.id, function(res, err){
+        tasks_trelloServices.find($scope.currentPage, $scope.query, function(err, tasks_trello, countItems) {
+          if (!err) {
+            $scope.allTasks_trello = tasks_trello;
+            if (tasks_trello) {
+              $scope.tasks_trello = tasks_trello.slice(0, PAGE_SIZE - 1);
+              $scope.total = tasks_trello.length;
+            }
+          }
+        });
+      })
     }
 
     // TUTORIAL WIZARD
@@ -276,7 +326,7 @@
 
 
         ngDialog.open({
-          template: '/app/components/taskTrello/views/tutorialBot.modal.html',
+          template: '/app/components/tasks/taskTrello/views/tutorialBot.modal.html',
           showClose: true,
           scope: $scope,
           disableAnimation: true,
