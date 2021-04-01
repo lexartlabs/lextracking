@@ -448,8 +448,16 @@
           );
         }
       });
+      
+      function deshabilitar_btnBuscar(){
+        setTimeout(function() {
+        document.getElementById("buscar").disabled = false;
+        }, 3000);
+        document.getElementById("buscar").disabled = true;
+      };
 
       $scope.search = function () {
+        deshabilitar_btnBuscar();     
         var filters = {
           startTime: parseDate($scope.filter.startTime) + " 00:00:00",
           endTime: parseDate($scope.filter.endTime) + " 23:59:59",
