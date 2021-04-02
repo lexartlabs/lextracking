@@ -104,12 +104,13 @@
 		    },
 
 			createTrelloTask: function(obj, cb) {
+				console.log(obj);
 		    	var track = {
-		    	idTask 	   : obj.idTask,
+		    		idTask 	   : obj.idTask,
 					idUser 	   : obj.idUser,
 					idProyecto : obj.idProyecto,
-		    	name 	     : obj.taskName,
-		    	startTime  : obj.startTime,
+					name 	   : obj.taskName,
+		    		startTime  : obj.startTime,
 					endTime	   : obj.endTime,
 					typeTrack  : obj.typeTrack
 					}

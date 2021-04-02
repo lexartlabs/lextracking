@@ -117,7 +117,7 @@ class Track {
 			if(!empty($d_cost)){
 				$cost = $d_cost[0]['costHour'];
 				$costDecimal = $this->ConvertTimeToDecimal($d[$i]['duration']);
-				$d[$i]['trackCost'] = round(($costDecimal * ($cost)), 2) ? round(($costDecimal * ($cost)), 2) : 0 ;
+				$d[$i]['trackCost'] = round($costDecimal * intval($cost)) ? round($costDecimal * intval($cost)) : 0 ;
 			}
 		}
 
@@ -181,7 +181,6 @@ class Track {
 	}
 
 	public function getTrelloTracks($conn, $idClient, $idProject, $idTask, $idUser, $startTime, $endTime){
-
 		$sql ="SELECT ".$this->model.".*,
 				Users.name AS usersName,
 				TrelloTask.name AS taskName,
@@ -190,7 +189,7 @@ class Track {
 				TIMEDIFF( ".$this->model.".endTime, ".$this->model.".startTime ) AS durations
 				FROM ".$this->model."
 				INNER JOIN Users ON ".$this->model.".idUser = Users.id
-				INNER JOIN TrelloTask ON ".$this->model.".idTask = TrelloTask.card_id
+				INNER JOIN TrelloTask ON ".$this->model.".idTask = TrelloTask.id
 				INNER JOIN Projects ON Projects.id = TrelloTask.idProyecto
 				INNER JOIN Clients ON Clients.id = Projects.idClient
 				WHERE (startTime >= '$startTime') AND (endTime <= '$endTime') AND typeTrack='trello' AND TrelloTask.active = 1 ";
@@ -212,7 +211,6 @@ class Track {
 			}
 
 		$sql .= 'ORDER BY taskName ASC, startTime DESC';
-		
 		$d = $conn->query($sql);
 
 		for ($i=0; $i < count($d); $i++) {
@@ -316,7 +314,7 @@ class Track {
 
 	public function getTrelloTrackById($conn,$id){
 		$sql	="SELECT ".$this->model.".*, TrelloTask.project AS projectName, TrelloTask.name AS taskName, Users.name AS userName, TIMEDIFF( ".$this->model.".endTime, ".$this->model.".startTime ) AS duration FROM ".$this->model."
-				INNER JOIN TrelloTask ON ".$this->model.".idTask = TrelloTask.card_id
+				INNER JOIN TrelloTask ON ".$this->model.".idTask = TrelloTask.id
 				INNER JOIN Users ON ".$this->model.".idUser = Users.id
 				WHERE ".$this->model.".id='$id' AND TrelloTask.active = 1";
 		$d 		= $conn->query($sql);
