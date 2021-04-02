@@ -12,7 +12,6 @@ require('classes/Token.php');
 
 ini_set('display_errors', 'On');
 error_reporting(1);
-//define ("ENV", "/lextracking");
 define ("ENV", "/lextracking/api");
 
 	// CALL OBJS
@@ -144,6 +143,7 @@ define ("ENV", "/lextracking/api");
 				$router->map('GET','/taskTrello/id-card', 'components/trelloTasks/index.php', 'get-card-id');
 				$router->map('GET','/taskTrello/remove-trello-task/[i:id]', 'components/trelloTasks/get.php', 'remove-trelloTask');
 				$router->map('GET','/taskTrello/remove-board/[i:id]', 'components/trelloTasks/get.php', 'remove-trelloBoard');
+				$router->map('POST','/taskTrello/update-board', 'components/trelloTasks/post.php', 'board-edit');
 
 
 			// HOURS
