@@ -22,6 +22,10 @@ error_reporting(E_WARNING);
 			$response = $Trello->insertTrelloCard($conn,$params);
 			echo json_encode($response);
 		}
+		if($name == 'board-edit'){
+			$response = $Trello->editTrelloBoard($conn,$params);
+			echo json_encode($response);
+		}
 
 	} else {
 		echo json_encode( array("response" => 'err') );

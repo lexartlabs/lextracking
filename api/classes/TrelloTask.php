@@ -71,7 +71,7 @@ class TrelloTask {
 	}
 
 	public function getByIdCard($conn) {
-		$sql = "SELECT card_id FROM ".$this->modelB." WHERE active= 1";
+		$sql = "SELECT * FROM ".$this->modelB." WHERE active= 1";
 		$d   = $conn->query($sql);
 		if(!empty($d)) {
 			return array("response" => $d);
@@ -93,18 +93,18 @@ class TrelloTask {
 	}*/
 	public function insertTrelloTasks($conn,$params){
 		$url  = urlencode($params['url']);
-		$sqli = "SELECT * FROM ".$this->model." WHERE proyecto_id = $params[project]";
+		$sqli = "SELECT * FROM ".$this->model." WHERE proyecto_id = $params[project] AND active = 1";
 		$d    = $conn->query($sqli);
-		$sqly = "SELECT * FROM ".$this->model." WHERE tablero_id='$params[idBoard]'";
+		$sqly = "SELECT * FROM ".$this->model." WHERE tablero_id='$params[idBoard]' AND active = 1";
 		$q    = $conn->query($sqly);
 		$sql  = "INSERT INTO ".$this->model." (tablero_id, proyecto_id, url, activo, dateCreate, dateUpdate) VALUES ('$params[idBoard]', $params[project], '$url', 1, NOW(), NOW())";
 		if(!empty($d)){
-			return array("response" => $sqli);
+			return array("response" => $d);
 		} elseif (!empty($q)) {
-			return array("response" => $sqly);
+			return array("response" => $q);
 		} else {
 			$b = $conn->query($sql);
-			return array("response" => $sql);
+			return array("response" => $b);
 		}
 	}
 
@@ -118,7 +118,7 @@ class TrelloTask {
 			return array("response" => "OK");
 		} else {
 			$b = $conn->query($sql);
-			return array("response" => "ERROR");
+			return array("response" => $b);
 		}
 	}
 
@@ -164,7 +164,25 @@ class TrelloTask {
 	public function removeTrelloBoard($conn,$id){
 		$sql	="UPDATE ".$this->model." SET active = 0 WHERE id = '$id'";
 		$d 		= $conn->query($sql);
+		var_dump($sql);
+		// CALLBACK
 
+		if(empty($d)){
+			return array("response" => $d);
+		} else {
+			return array("error" => "Error: no se encuentran las tareas automaticas para este proyecto.");
+		}
+	}
+
+	public function editTrelloBoard ($conn, $params){
+		$originalProject = "SELECT * FROM  ".$this->model." WHERE id = ".$params['id'];
+		$a      = $conn->query($originalProject);
+		$getOriginalProject = "SELECT * FROM projects WHERE id = ".$a[0]['proyecto_id'];
+		$b      = $conn->query($getOriginalProject);
+		$sql	= "UPDATE ".$this->model." SET tablero_id = '".$params['idBoard']."', url = '".$params['url']."', proyecto_id = ".$params['project']." WHERE id = ".$params['id'];
+		$c 		= $conn->query($sql);
+		$sqli   = "UPDATE ".$this->modelB." SET id_project = ".$params['project'].", idProyecto = ".$params['project'].", project = '".$a['name']."' WHERE idProyecto = ".$b[0]['id'];
+		$d      = $conn->query($sqli);
 		// CALLBACK
 
 		if(!empty($d)){

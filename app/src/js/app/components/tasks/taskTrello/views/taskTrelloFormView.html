@@ -17,18 +17,17 @@
 <div class="imm-wa__cnt" style="margin-top:10px;">
     <form class="imm-frm imm-frm--center">
 
-        <div class="imm-frm__fldgrp" ng-if="task_trello.length">
+        <div class="imm-frm__fldgrp">
             <table class="imm-table">
                 <thead>
                     <tr>
-                        <th colspan="6" style="text-align:center">Lista Cards</th>
+                        <th colspan="5" style="text-align:center">Lista Cards</th>
                         <th></th>
                         <th></th>
                     </tr>
                     <tr>
                         <th>{{ 'tasks_trello.id' | translate }}</th>
                         <th>{{ 'tasks_trello.task' | translate }}</th>
-                        <th>{{ 'tasks_trello.sincronized' | translate }}</th>
                         <th>{{ 'tasks_trello.status' | translate }}</th>
                         <th class="imm-cstm__grid-5"></th>
                         <th></th>
@@ -38,21 +37,22 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="(index,tasks_trello) in tasks track by $index">
-                        <td title="{{tasks_trello.longIdCard}}">{{tasks_trello.longIdCard| truncateTail:true:50:'...'}}</td>
-                        <td title="{{tasks_trello.projectName}}">{{tasks_trello.name | truncateTail:true:50:'...'}}</td>
-                        <td></td>
+                        <td title="{{tasks_trello.id}}">{{tasks_trello.id| truncateTail:true:50:'...'}}</td>
+                        <td title="{{tasks_trello.name}}">{{tasks_trello.name | truncateTail:true:50:'...'}}</td>
                         <td>{{tasks_trello.status}}</td>
                         <td>
-                            <a href="" ng-click="editTrello(index,tasks_trello)">
+                            <a href="" ng-click="editTrello(tasks_trello)">
                                 <img src="assets/images/icons/pencil-ico.svg">
                             </a>
                         </td>
                         <td></td>
                         <td></td>
 
-                        <td ng-if="tasks_trello.status != 'Done' && tasks_trello.status != 'In-Review' && isClient=='false' ">
-                            <a href ng-click="stopTrack()" ng-if="currentTrack.idTask == tasks_trello.card_id"><img class="img_stop" src="/assets/images/stop.png"></a>
-                            <a href ng-click="startTrackTrello(tasks_trello)" ng-if="currentTrack.idTask != tasks_trello.card_id"><img class="img_play" src="/assets/images/play.png"></a>
+                        <td>
+                            <div ng-if="!tasks_trello.status.includes('Done') && !tasks_trello.includes('In-Review') && isClient=='false' ">
+                                <a href ng-click="stopTrack()" ng-if="currentTrack.idTask == tasks_trello.id"><img class="img_stop" src="/assets/images/stop.png"></a>
+                                <a href ng-click="startTrackTrello(tasks_trello)" ng-if="currentTrack.idTask != tasks_trello.id"><img class="img_play" src="/assets/images/play.png"></a>    
+                            </div>
                         </td>
                     </tr>
                 </tbody>
