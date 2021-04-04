@@ -1061,7 +1061,7 @@
             roundgraphClient();
           }
         });
-
+        console.log(filters);
         TracksServices.getTrelloTrack(filters, function (err, tracks) {
           if (!err) {
             $scope.trelloTracks = tracks;

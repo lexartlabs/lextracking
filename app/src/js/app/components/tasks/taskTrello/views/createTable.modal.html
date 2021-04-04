@@ -11,8 +11,8 @@
         <ui-select-match placeholder="Seleccionar Proyecto">
             {{$select.selected.name}}
         </ui-select-match>
-        <ui-select-choices repeat="item in getProjects  track by $index">
-            <span ng-bind="item.name"></span>
+        <ui-select-choices repeat="item in getProjects | filter: $select.search">
+            <span ng-bind-html="item.name | highlight: $select.search" ></span>
         </ui-select-choices>
       </ui-select>
        <label>Board Trello:</label><br>
@@ -20,8 +20,8 @@
         <ui-select-match placeholder="Seleccionar Tablero">
             {{$select.selected.name}}
         </ui-select-match>
-        <ui-select-choices repeat="board in boards track by $index">
-            <span ng-bind="board.name"></span>
+        <ui-select-choices repeat="board in boards | filter: $select.search">
+            <span ng-bind-html="board.name | highlight: $select.search"></span>
         </ui-select-choices>
       </ui-select>
       </form>

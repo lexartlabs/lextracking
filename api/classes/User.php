@@ -120,21 +120,13 @@ class User {
 
 		$ind 	 = 1;
 		foreach ($user as $key => $vle) {
-			
 			if($this->getStructure($conn,$key)){
-				
-				if($ind==$last && $key=="password"){
+				if($ind==$last){
 					$insert .=$key;
-					$body 	.="MD5('".$vle."')";
-				} elseif ($ind==$last && $key!="password") {
-					$insert .=$key;
-					$body 	.="'".$vle."'";
-				}elseif ($key=="password") {
+					$body 	.="MD5('".$vle."'), ";
+				} else {
 					$insert .=$key.", ";
 					$body 	.="MD5('".$vle."'), ";
-				}else {
-					$insert .=$key.", ";
-					$body 	.="'".$vle."', ";
 				}
 			}
 			$ind++;
@@ -154,27 +146,14 @@ class User {
 	}
 
 	public function updateUser($conn, $user){
-		$sql0 = "SELECT * FROM $this->model WHERE id='$user[id]'";
-		$res0 = $conn->query($sql0);
+		$sql = "UPDATE ".$this->model." SET name = '$user[name]', email = '$user[email]', password = '$user[password]', role = '$user[role]', jiraToken = '$user[jiraToken]' WHERE id='$user[id]'";
+		$d 	= $conn->query($sql);
 
-		if ($res0[0]["password"] != $user[password]){
-			$sql = "UPDATE ".$this->model." SET name = '$user[name]', email = '$user[email]', password = MD5('$user[password]'), role = '$user[role]' WHERE id='$user[id]'";
-			$d 	= $conn->query($sql);
-			// CALLBACK
-			if(empty($d)){
-				return array("response" => 'OK', "sql" => $sql);
-			} else {
-				return array("error" => "Error: al actualizar el usuario.", "sql" => $sql);
-			}
-		}else{
-			$sql = "UPDATE ".$this->model." SET name = '$user[name]', email = '$user[email]', role = '$user[role]' WHERE id='$user[id]'";
-			$d 	= $conn->query($sql);
-			// CALLBACK
-			if(empty($d)){
-				return array("response" => 'OK', "sql" => $sql);
-			} else {
-				return array("error" => "Error: al actualizar el usuario.", "sql" => $sql);
-			}
+		// CALLBACK
+		if(empty($d)){
+			return array("response" => 'OK', "sql" => $sql);
+		} else {
+			return array("error" => "Error: al actualizar el usuario.", "sql" => $sql);
 		}
 	}
 }
