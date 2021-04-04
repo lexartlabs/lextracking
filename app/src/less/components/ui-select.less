@@ -1,0 +1,178 @@
+.imm-select {
+
+  &.ui-select-container {
+
+    min-width: 70px;
+
+    .selectize-input {
+      border-bottom: 1px solid @color-fields-gray;
+      color: @color-black;
+      padding: .25rem 0;
+      resize: none;
+      min-width: 50%;
+      font-size: 1rem;
+      line-height: 1.5rem;
+      transition: all .2s ease-in;
+      background-color: white;
+    }
+
+    .selectize-input.disabled {
+      background-color: rgb(239,239,239) !important;
+    }
+
+    span {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      display: inline-block;
+    }
+
+    .selectize-input:after {
+      border-top-color: @color-light-gray;
+      margin-top: -1px;
+      border-width: 4px 4px 0 4px;
+      right: 8px;
+    }
+
+  }
+
+  .ui-select-dropdown {
+    background: @color-white;
+    color: @color-gray;
+    border-radius: 3px;
+    border: 1px solid @color-light-gray;
+    .box-shadow(0 3px 4px rgba(0,0,0,.25));
+    max-height: 200px;
+    overflow: scroll;
+  }
+
+  .ui-select-dropdown:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: -4px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 5px 8px 5px;
+    border-color: transparent transparent @color-white transparent;
+    z-index: -1;
+  }
+
+  .ui-select-dropdown .active {
+    background: rgba(255,255,255,.2);
+    color: @color-gray;
+  }
+
+  // esto arregla el pico del dialogo cuando el dropdown se muestra desde abajo
+  .ui-select-dropdown[style*="top"]:before {
+    top: auto;
+    bottom: -6px;
+    border-width: 8px 5px 0 5px;
+    border-color: @color-white transparent transparent transparent;
+  }
+
+  .ui-select-choices-content {
+    border-radius: 2px;
+    overflow-y: scroll;
+    overflow-x: auto;
+  }
+
+  .ui-select-choices-row {
+    padding: .275rem 1rem;
+    font-size: .75rem;
+    line-height: 1.125rem;
+    cursor: pointer;
+
+  }
+
+  .ui-select-choices-row:hover {
+    background: @primary-color;
+    color: @color-white;
+
+    .ui-select-choices-row-inner {
+      color: @color-white;
+    }
+  }
+
+  .ui-select-search {
+    border-bottom: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+}
+
+.imm-select .ui-select-dropdown {
+
+}
+
+// autocomplete
+.imm-select.imm-select--input {
+
+  .selectize-input {
+
+  }
+
+  span {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    display: inline-block;
+  }
+
+  .selectize-input:before {
+    //content: '\f002';
+    //display: inline-block;
+    //margin-right: .5rem;
+    //font-family: 'FontAwesome';
+    //position: absolute;
+    //left: .75rem;
+  }
+
+  .selectize-input:after {
+    display: none;
+  }
+
+
+  .selectize-input.open,
+  .selectize-input.focus {
+    border-color: @primary-color;
+
+    &:before {
+      color: @primary-color;
+    }
+  }
+
+
+}
+
+// append to body fix over dialogs
+.imm-select.ui-select-container {
+  z-index: 10000;
+}
+.ui-select-search-hidden,
+.ui-select-offscreen {
+  clip: rect(0px 0px 0px 0px);
+  width: 1px;
+  height: 1px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  border-width: 0px !important;
+  border-style: initial !important;
+  border-color: initial !important;
+  border-image: initial !important;
+  margin: 0px !important;
+  padding: 0px !important;
+  overflow: hidden !important;
+  outline: 0px !important;
+}
+.ui-select-choices-row-inner {
+  color: #666;
+}

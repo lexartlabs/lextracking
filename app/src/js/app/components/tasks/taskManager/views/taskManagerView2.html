@@ -1,0 +1,57 @@
+<div class="imm-wa__hdr imm-flex">
+    <div class="imm-flex-5">
+        <h1 class="imm-wa__tit">
+            <a class="imm-bc-item" ui-sref="app.projects">{{ 'projects.title' | translate }}</a>
+        </h1>
+        <div class="imm-btn__right">
+            <a ui-sref="app.projectNew" class="imm-btn imm-btn--round" ng-if="isAdmin=='true'">&#43; {{ 'projects.project' | translate }}</a>
+        </div>
+    </div>
+</div>
+<div class="imm-wa__cnt">
+    <table>
+        <thead>
+            <tr>
+                <th>{{ 'projects.client' | translate }}</th>
+                <th>{{ 'projects.project' | translate }}</th>
+                <th>{{ 'projects.description' | translate }}</th>
+                <th>{{ 'projects.comments' | translate }}</th>
+                <th>{{ 'projects.duration' | translate }}</th>
+                <th class="imm-cstm__grid-5"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input class="field-filter" ng-model="filter.clientName"></td>
+                <td><input class="field-filter" ng-model="filter.name"></td>
+                <td><input class="field-filter" ng-model="filter.description"></td>
+                <td><input class="field-filter" ng-model="filter.comments"></td>
+                <td><input class="field-filter" ng-model="filter.duration"></td>
+                <td></td>
+            </tr>
+            <tr ng-repeat="project in projects">
+                <td title="{{project.clientName}}">{{ project.clientName | truncateTail:true:30:'...' }}</td>
+                <td title="{{project.name}}">{{ project.name | truncateTail:true:30:'...' }}</td>
+                <td title="{{project.description}}">{{ project.description | truncateTail:true:45:'...' }}</td>
+                <td title="{{project.comments}}">{{ project.comments | truncateTail:true:45:'...'}}</td>
+                <td>{{ project.duration }}</td>
+                <td>
+                    <a ui-sref="app.taskManagerEdit({id: project.id})">
+                        <img src="assets/images/icons/pencil-ico.svg">
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<paging
+    ng-show="total>pageSize"
+    page="currentPage"
+    page-size="pageSize"
+    total="total"
+    hide-if-empty="true"
+    show-prev-next="true"
+    show-first-last="true"
+    scroll-top="true"
+    paging-action="pager(page)">
+</paging>

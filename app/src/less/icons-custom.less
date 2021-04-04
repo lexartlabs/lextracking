@@ -1,0 +1,189 @@
+// ICONS
+
+.imm-icon {
+  background-size: cover;
+  position: relative;
+}
+
+//
+//.imm-icon--presupuesto {
+//  background: url('/assets/images/presupuesto-ico.svg');
+//  width: 20px;
+//  height: 20px;
+//  line-height: inherit;
+//  margin-right: .25rem;
+//  margin-top: -2px;
+//}
+//
+//.imm-icon--proyectos {
+//  background: url('/assets/images/proyectos-ico.svg');
+//  width: 20px;
+//  height: 20px;
+//  line-height: inherit;
+//  margin-right: .25rem;
+//  margin-top: -2px;
+//}
+//
+//.imm-icon--catalogos {
+//  background: url('/assets/images/catalogos-ico.svg');
+//  width: 20px;
+//  height: 20px;
+//  line-height: inherit;
+//  margin-right: .25rem;
+//  margin-top: -2px;
+//}
+//
+//.imm-icon--cierre {
+//  background: url('/assets/images/cierre-ico.svg');
+//  width: 20px;
+//  height: 20px;
+//  line-height: inherit;
+//  margin-right: .25rem;
+//  margin-top: -2px;
+//}
+//
+//.imm-icon--reportes {
+//  background: url('/assets/images/reportes-ico.svg');
+//  width: 20px;
+//  height: 20px;
+//  line-height: inherit;
+//  margin-right: .25rem;
+//  margin-top: -2px;
+//}
+//
+//.imm-icon--notificaciones {
+//  background: url('/assets/images/notificaciones-ico.svg');
+//  width: 20px;
+//  height: 20px;
+//  line-height: inherit;
+//  margin-right: .25rem;
+//  margin-top: -2px;
+//  position: relative;
+//}
+
+.imm-icon__notification-count {
+  display: inline-block;
+  width: .9125rem;
+  height: .9125rem;
+  line-height: .9125rem;
+  font-size: .725rem;
+  text-align: center;
+  font-weight: 600;
+  .box-shadow(0 1px 2px @color-black);
+  position: absolute;
+  right: -3px;
+  top: -4px;
+  background: @color-red;
+  color: @color-white;
+  letter-spacing: -1px;
+  text-indent: -1px;
+}
+
+//.imm-icon--change-profile {
+//  background: url('/assets/images/change-profile.svg');
+//  width: 30px;
+//  height: 18.5px;
+//  line-height: inherit;
+//}
+//
+//.imm-icon--close-session {
+//  background: url('/assets/images/close-session.svg');
+//  width: 30px;
+//  height: 31.5px;
+//  line-height: inherit;
+//}
+//
+//.imm-icon--modal-close {
+//  background: url('/assets/images/close-modal.svg');
+//  width: 17px;
+//  height: 17px;
+//  line-height: inherit;
+//  cursor: pointer;
+//}
+//
+//.imm-icon--close-big {
+//  background: url('/assets/images/close-big-ico.svg');
+//  width: 18px;
+//  height: 18px;
+//  line-height: inherit;
+//}
+//
+//.imm-icon--thumbs-up {
+//  background: url('/assets/images/thumbsup-ico.svg');
+//  width: 18px;
+//  height: 18px;
+//  line-height: inherit;
+//}
+//
+
+.imm-icon--thumbsdown-ico {
+  &:before {
+    content:"\f114";
+  }
+  transform: rotate(180deg);
+}
+
+//.imm-icon--excel {
+//  background: url('/assets/images/excel-download.svg');
+//  width: 15px;
+//  height: 15px;
+//  cursor: pointer;
+//}
+//
+//.imm-icon--filters {
+//  background: url('/assets/images/filters.svg');
+//  width: 17px;
+//  height: 15px;
+//  cursor: pointer;
+//}
+//
+//.imm-icon--eye {
+//  background: url('/assets/images/details-ico.svg');
+//  width: 17px;
+//  height: 13px;
+//  margin-right: .25rem;
+//  cursor: pointer;
+//}
+//
+.imm-icon--pencil {
+  background: url('/assets/images/icons/pencil-ico.svg');
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+}
+//
+//.imm-icon--zoom {
+//  background: url('/assets/images/zoom-ico.svg');
+//  width: 14px;
+//  height: 14px;
+//  cursor: pointer;
+//}
+
+* + .imm-icon--zoom {
+  margin-left: .25rem;
+}
+
+.imm-icon--triangle-down {
+  line-height: inherit;
+  padding: 0 5px;
+  &:after {
+    content: "";
+    display: inline-block;
+    .triangle(bottom, 5px, 5px, @color-gray);
+  }
+}
+
+.imm-icon--tree {
+  line-height: inherit;
+  padding: 0 10px;
+
+  &:after {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 22px;
+    background: url(/assets/images/tree-ico.png) no-repeat;
+    position: relative;
+    top: -8px;
+  }
+}

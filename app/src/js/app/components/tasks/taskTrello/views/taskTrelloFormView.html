@@ -1,0 +1,62 @@
+<div class="imm-wa__hdr imm-flex">
+    <div class="imm-flex-5">
+        <h1 class="imm-wa__tit">
+            <a class="imm-bc-item" ui-sref="app.tasks_trello">{{ 'tasks_trello.title' | translate }}</a>
+        </h1>
+        <div class="imm-bc" ng-if="trelloname">
+            <span class="imm-bc-item imm-bc--head">{{trelloname}}</span>
+        </div>
+    </div>
+</div>
+
+    <div>
+    <button style="float: right;background-color: steelblue; color: white; cursor: pointer;cursor: pointer;" ng-click="tutorial()">¿Como agregar un estado de tarea a Trello?</button>
+    <button style="float: right;background-color: steelblue; color: white; cursor: pointer;cursor: pointer;margin-right: 10px;" ng-click="tutorialBot()">¿Como agregar lexart.brain al tablero de Trello?</button>
+    </div>
+<a style="text-align: left; margin-left: 3px; color: blue; text-decoration: underline;" target="_blank" ng-href="{{urlBoard}}">Ver Tablero</a>
+<div class="imm-wa__cnt" style="margin-top:10px;">
+    <form class="imm-frm imm-frm--center">
+
+        <div class="imm-frm__fldgrp">
+            <table class="imm-table">
+                <thead>
+                    <tr>
+                        <th colspan="5" style="text-align:center">Lista Cards</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <th>{{ 'tasks_trello.id' | translate }}</th>
+                        <th>{{ 'tasks_trello.task' | translate }}</th>
+                        <th>{{ 'tasks_trello.status' | translate }}</th>
+                        <th class="imm-cstm__grid-5"></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="(index,tasks_trello) in tasks track by $index">
+                        <td title="{{tasks_trello.id}}">{{tasks_trello.id| truncateTail:true:50:'...'}}</td>
+                        <td title="{{tasks_trello.name}}">{{tasks_trello.name | truncateTail:true:50:'...'}}</td>
+                        <td>{{tasks_trello.status}}</td>
+                        <td>
+                            <a href="" ng-click="editTrello(tasks_trello)">
+                                <img src="assets/images/icons/pencil-ico.svg">
+                            </a>
+                        </td>
+                        <td></td>
+                        <td></td>
+
+                        <td>
+                            <div ng-if="!tasks_trello.status.includes('Done') && !tasks_trello.includes('In-Review') && isClient=='false' ">
+                                <a href ng-click="stopTrack()" ng-if="currentTrack.idTask == tasks_trello.id"><img class="img_stop" src="/assets/images/stop.png"></a>
+                                <a href ng-click="startTrackTrello(tasks_trello)" ng-if="currentTrack.idTask != tasks_trello.id"><img class="img_play" src="/assets/images/play.png"></a>    
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>

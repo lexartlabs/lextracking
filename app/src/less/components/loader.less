@@ -1,0 +1,43 @@
+.imm-loader {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: block;
+  height: 140px;
+}
+
+.imm-loader:before {
+  content: "Cargando...";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  padding-top: 80px;
+  font-size: .875rem;
+  line-height: 25px;
+  text-transform: uppercase;
+  color: @color-gray;
+  font-family: @font-serif;
+  margin: 0 auto;
+  text-align: center;
+  transform: translateY(-40px);
+  text-indent: .5rem;
+  text-shadow: 1px 1px 1px @color-white;
+}
+
+.imm-loader:after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 80px;
+  background: url('/assets/images/ring-alt.svg');
+  background-size: cover;
+  position: absolute;
+  top: 50%;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 10;
+}

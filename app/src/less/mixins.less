@@ -1,0 +1,139 @@
+/* VARIABLES */
+
+
+//@primary-color: red; // blue
+
+@font-sans-serif: 'Open Sans', sans-serif;
+@font-serif: 'Open Sans', sans-serif;
+@font-size-body: 16px;
+@color-black: #000000;
+@color-white: #ffffff;
+@color-blue: #203678;
+@color-green: #33C098;
+@color-light-gray: #F8F8F8;
+@color-gray: #333333;
+@color-mid-gray: #8c8c8c;
+@color-dark-gray: #F95C33;
+@color-navigation-gray: #181A1C;
+@color-fields-gray: #EEEEEE;
+@color-disabled-gray: #DDDDDD;
+@color-btn-gray: #E5E5E5;
+@color-btn-gray-text: #666666;
+@color-hollow-label: #73808E;
+@color-hollow-input: #D8D8D8;
+
+@primary-color: #181A1C;
+
+@navbar-width: 200px;
+
+/* Warning messages colors */
+@color-red: #FF2020;
+@color-light-red: #F67878;
+
+/* Status colors */
+@color-light-green: #79DB74;
+//@color-green: #4EE24A;
+@color-yellow: #FFEC79;
+
+/* project chart colors */
+@color-available-rf: #BDBDBD;
+@color-forecast-rf: #EEEEEE;
+@color-forecast: #F8D21C;
+@color-available: #4EE24A;
+
+
+@import (optional) "var.less";
+
+
+/* BASE64 PATTERNS */
+
+@form-select-triangle: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAFCAYAAACXU8ZrAAAAL0lEQVQIW2PcsGHDfwYCgBEkj09hQEAAI1gRLoUgBSA5uCJ0hTAFGIpgCpEVgMQA9LkTFUnWvw0AAAAASUVORK5CYII=';
+@form-select-triangle-blue: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAFCAYAAACXU8ZrAAAAL0lEQVQIW2P0mvDoPwMBwAiSx6dwW4EcI1gRLoUgBSA5uCJ0hTAFGIpgCpEVgMQAoxUSwYpHYMMAAAAASUVORK5CYII=';
+
+/* MIXINS */
+
+.border-radius(@val) {
+  -webkit-border-radius: @val;
+  -moz-border-radius: @val;
+  border-radius: @val;
+}
+
+.box-shadow(@val) {
+  -webkit-box-shadow: @val;
+  -moz-box-shadow: @val;
+  box-shadow: @val;
+}
+
+.appearance(@val) {
+  -webkit-appearance:@val;
+  -moz-appearance:@val;
+  appearance:@val;
+}
+
+.user-select (@val) {
+  -webkit-touch-callout:  @val;
+  -webkit-user-select:    @val;
+  -khtml-user-select:     @val;
+  -moz-user-select:       @val;
+  -ms-user-select:        @val;
+  user-select:            @val;
+}
+
+// Triangle mixin
+
+.triangle-base() {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  -moz-transform: scale(.9999);
+}
+
+.triangle(@direction, @sizeH, @sizeV, @color) when (@direction = top) {
+  .triangle-base();
+  border-width: 0 @sizeV @sizeH @sizeV;
+  border-color: transparent transparent @color transparent;
+}
+
+.triangle(@direction, @sizeH, @sizeV, @color) when (@direction = bottom) {
+  .triangle-base();
+  border-width: @sizeV @sizeH 0 @sizeV;
+  border-color: @color transparent transparent transparent;
+}
+
+.triangle(@direction, @sizeH, @sizeV, @color) when (@direction = left) {
+  .triangle-base();
+  border-width: @sizeV @sizeH @sizeV 0;
+  border-color: transparent @color transparent transparent;
+}
+
+.triangle(@direction, @sizeH, @sizeV, @color) when (@direction = right) {
+  .triangle-base();
+  border-width: @sizeV 0 @sizeV @sizeH;
+  border-color: transparent transparent transparent @color;
+}
+
+.triangle(@direction, @sizeH, @sizeV, @color) when (@direction = topright) {
+  .triangle-base();
+  border-width: 0 @sizeH @sizeV 0;
+  border-color: transparent @color transparent transparent;
+}
+
+.triangle(@direction, @sizeH, @sizeV, @color) when (@direction = bottomright) {
+  .triangle-base();
+  border-width: 0 0 @sizeH @sizeV;
+  border-color: transparent transparent @color transparent;
+}
+
+.triangle(@direction, @sizeH, @sizeV, @color) when (@direction = bottomleft) {
+  .triangle-base();
+  border-width: @sizeH 0 0 @sizeV;
+  border-color: transparent transparent transparent @color;
+}
+
+.triangle(@direction, @sizeH, @sizeV, @color) when (@direction = topleft) {
+  .triangle-base();
+  border-width: @sizeH @sizeV 0 0;
+  border-color: @color transparent transparent transparent;
+}

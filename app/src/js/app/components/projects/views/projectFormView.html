@@ -1,0 +1,157 @@
+<div class="imm-wa__hdr imm-flex">
+    <div class="imm-flex-5">
+        <h1 class="imm-wa__tit">
+            <a class="imm-bc-item" ui-sref="app.projects">{{ 'projects.title' | translate }}</a>
+        </h1>
+        <div class="imm-bc">
+            <a class="imm-bc-item">{{ 'projects.project' | translate }}</a>
+        </div>
+        <div class="imm-bc" ng-if="project.name">
+            <span class="imm-bc-item imm-bc--head">{{project.name}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="imm-wa__cnt">
+    <form class="imm-frm imm-frm--center">
+        <div class="imm-frm__fldgrp">
+            <div class="imm-frm__fld">
+                <label class="imm-frm__lbl">
+                    <ui-select
+                            ng-model="project.idClient"
+                            class="imm-select imm-select--input"
+                            theme="selectize"
+                            append-to-body="true"
+                    >
+                        <ui-select-match>
+                            {{$select.selected.name}}
+                        </ui-select-match>
+                        <ui-select-choices repeat="client.id as client in clients | filter: { name: $select.search }">
+                            <div ng-bind-html="client.name | highlight: $select.selected.name"></div>
+                        </ui-select-choices>
+                    </ui-select>
+<!--                     <ui-select
+                            ng-model="project.idClient"
+                            class="imm-select imm-select--input"
+                            theme="selectize"
+                            append-to-body="true"
+                            ng-show="isAdmin=='false'"
+
+                    >
+                        <ui-select-match>
+                            {{$select.selected.name}}
+                        </ui-select-match>
+                        <ui-select-choices  ui-disable-choice="project.idClient ==client.id" repeat="client.id as client in clients | filter: { name: $select.search }">
+                            <div ng-bind-html="client.name | highlight: $select.selected.name"></div>
+                        </ui-select-choices>
+                    </ui-select> -->
+                    <b class="imm-frm__lbl-name">{{ 'projects.client' | translate }} <span class="required">*</span></b>
+                </label>
+            </div>
+
+            <div class="imm-frm__fld">
+                <label class="imm-frm__lbl">
+                    <input type="text" ng-model="project.name">
+                    <b class="imm-frm__lbl-name">{{ 'projects.name' | translate }} <span class="required">*</span></b>
+                </label>
+            </div>
+
+            <div class="imm-frm__fld">
+                <label class="imm-frm__lbl">
+                    <!--<input type="text" ng-model="project.duration">-->
+                    <span style="width: 10px;"><input type="number" placeholder="Horas" min="0" class="f-hour" string-to-number ng-model="duration.hours" ><input type="number" placeholder="Minutos" min="0" max="59" class="f-minute" ng-model="duration.minutes"><input type="number" placeholder="Segundos" min="0" max="59" class="f-second" ng-model="duration.seconds"></span>
+                    <b class="imm-frm__lbl-name">{{ 'projects.duration' | translate }} <span class="required">*</span></b>
+                </label>
+            </div>
+
+        </div>
+        <div class="imm-frm__fldgrp">
+            <div class="imm-frm__fld">
+                <label class="imm-frm__lbl">
+                    <!--<input type="text" ng-model="project.description">-->
+                    <input rows="7" ng-model="project.presupuesto">
+
+                    </input>
+                    <b class="imm-frm__lbl-name">{{ 'projects.presupuesto' | translate }}</b>
+                </label>
+            </div>
+            <div class="imm-frm__fld">
+                <label class="imm-frm__lbl">
+                    <!--<input type="text" ng-model="project.description">-->
+                    <textarea rows="7" cols="50" ng-model="project.description">
+
+                    </textarea>
+                    <b class="imm-frm__lbl-name">{{ 'projects.description' | translate }}</b>
+                </label>
+            </div>
+
+            <div class="imm-frm__fld">
+                <label class="imm-frm__lbl">
+                    <!--<input type="text" ng-model="project.comments">-->
+                    <textarea rows="7" cols="50" ng-model="project.comments">
+
+                    </textarea>
+                    <b class="imm-frm__lbl-name">{{ 'projects.comments' | translate }}</b>
+                </label>
+            </div>
+
+            <div class="imm-frm__fld" ng-if="project.id">
+                <label class="imm-frm__lbl">
+                    <button class="imm-btn" ui-sref="app.taskForm({id: project.id})">{{ 'projects.add_task' | translate }}</button>
+                </label>
+            </div>
+        </div>
+        <div ng-if="!project.id" class="imm-frm__fld">
+            <label class="imm-frm__lbl">
+                <p style="color: red; font-weight: bold; font-size: 12px">*Debe crear un proyecto para luego agregar tareas.</p>
+            </label>
+        </div>
+
+        <div class="imm-frm__fldgrp" ng-if="tasks.length">
+            <table class="imm-table">
+                <thead>
+                    <tr>
+                        <th>{{ 'projects.tasks' | translate }}</th>
+                        <th colspan="5"></th>
+                    </tr>
+                    <tr>
+                        <th>{{ 'projects.name' | translate }}</th>
+                        <th>{{ 'projects.description' | translate }}</th>
+                        <th>{{ 'projects.duration' | translate }}</th>
+                        <th class="imm-cstm__grid-5"></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="(index,task) in tasks track by $index">
+                        <td title="{{task.name}}">{{task.name | truncateTail:true:50:'...'}}</td>
+                        <td title="{{task.description}}">{{task.description | truncateTail:true:50:'...'}}</td>
+                        <td>{{task.duration}}</td>
+                        <td>
+                             <a href="" ng-click="editTask(index,task)" ><img class="img_stop" src="/assets/images/icons/details-ico-blue.svg"></a>
+                        </td>
+                        <td>
+                            <a ui-sref="app.taskForm({id: task.id})">
+                                <img src="assets/images/icons/pencil-ico.svg">
+                            </a>
+                        </td>
+                        <td>
+                          <a ng-click="deleteTask($index,task.id)" ng-if="userRole=='admin'">
+                            <img src="assets/images/icons/delete_entry-ico.svg">
+                          </a>
+                        </td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>
+
+<div class="imm-wa__actions">
+    <p ng-if="error" class="err-display">{{error}}</p>
+    <button class="imm-btn imm-btn--alt" ui-sref="app.projects">{{ 'general.back' | translate }}</button>
+    <button class="imm-btn" ng-disabled="sendingData" ng-click="save()">{{ 'general.save' | translate }}</button>
+</div>

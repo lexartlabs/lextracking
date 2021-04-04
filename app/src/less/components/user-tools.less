@@ -1,0 +1,99 @@
+.imm-user {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  text-align: center;
+  color: @color-white;
+  .user-select(none);
+}
+
+.imm-user__pic {
+  display: inline-block;
+  .border-radius(50%);
+  margin-bottom: 10px;
+}
+
+.imm-user {
+  transform: translateY(110px);
+  transition: transform .15s ease-out;
+
+  &.active {
+    transform: translateY(0);
+
+    .imm-user__toggle:after {
+      .triangle(top, 5px, 5px, @color-white);
+    }
+  }
+}
+
+.imm-user__toggle {
+  padding: 0 26px 22px;
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+
+  &:after {
+    .triangle(bottom, 5px, 5px, @color-white);
+    position: absolute;
+    right: 22px;
+    top: 16px;
+  }
+
+}
+
+.imm-user__name {
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.imm-user__profile {
+  font-size: 11px;
+  line-height: 14px;
+}
+
+.imm-user__cnt {
+  background-image: url("/assets/images/bg-menu.svg");
+  background-position: center 20px;
+  background-repeat: no-repeat;
+  // background-size: 165px 75px;
+}
+
+.imm-user__options {
+  display: table;
+  width: 100%;
+}
+
+.imm-user__options-btn {
+  float: left;
+  max-width: 50%;
+  width: 100px;
+  height: 100px;
+  background: #181A1C;
+  font-size: 10px;
+  text-transform: uppercase;
+  line-height: 14px;
+  padding: 70px 5px 16px;
+  position: relative;
+  transition: background-color .15s ease-in;
+  cursor: pointer;
+  .box-shadow(0 0 5px rgba(0,0,0,.5) inset);
+
+  .imm-icon {
+    position: absolute;
+    top: 24px;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    font-size: 1.875rem;
+  }
+
+  .imm-icon--change-profile {
+    top: 32px;
+  }
+}
+
+.imm-user__options-btn:hover {
+  background-color: @primary-color;
+}

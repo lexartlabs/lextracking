@@ -1,0 +1,115 @@
+<div class="imm-wa__hdr imm-flex">
+    <div class="imm-flex-5">
+        <h1 class="imm-wa__tit">
+            <a class="imm-bc-item" ui-sref="app.taskManager">{{ 'taskManager.title' | translate }}</a>
+        </h1>
+        <div class="imm-bc">
+            <a class="imm-bc-item">{{ 'projects.project' | translate }}</a>
+        </div>
+        <div class="imm-bc" ng-if="project.name">
+            <span class="imm-bc-item imm-bc--head">{{project.name}} - {{project.count}}</span>
+        </div>
+    </div>
+</div>
+ <div class="col" id="columna-proyecto">
+        <h2>{{ 'projects.description' | translate }} </h2>
+        <label>{{project.description}}</label>
+</div>
+<div class='my-legend' id="pielenged">
+    <div class='legend-title'>Estado de las Tareas</div>
+    <div class='legend-scale'>
+      <ul class='legend-labels'>
+        <li><span style='background:#1A36C6;'></span>To-Do</li>
+        <li><span style='background:#ccad16;'></span>In-Progress</li>
+        <li><span style='background:#AE2E2E;'></span>In-Review</li>
+        <li><span style='background:#3b0;'></span>Done</li>
+      </ul>
+    </div>
+    <div id="piecontainer">  
+         <canvas id="pie" class="chart chart-pie"
+          chart-data="data" chart-colors="colours" chart-labels="labels" chart-options="options">
+        </canvas>
+    </div>
+</div>
+
+<div class="imm-wa__cnt">
+    <div class="row"> 
+        <div class="col">
+            <h2>{{ 'projects.comments' | translate }} </h2>
+            <textarea id="textarea-comentarios" ng-model="project.comments">{{project.comments}}</textarea>
+        </div>
+        <div class="imm-frm__fld" ng-if="userRole != 'developer'">
+            <button type="button" class="imm-btn" ng-click="actualizarComentario()">Actualizar Comentario</button>
+            <button class="imm-btn ng-binding" ng-click="addTask()">Agregar Tarea</button>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>{{ 'tasks.name' | translate }}</th>
+                <th>{{ 'tasks.duration' | translate }}</th>
+                <th>{{ 'projects.status' | translate }}</th>
+                <th>{{ 'tasks.comments' | translate }}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input class="field-filter" ng-model="filter.name"></td>
+                <td><input class="field-filter" ng-model="filter.duration"></td>
+                <td><input class="field-filter" ng-model="filter.status"></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr ng-repeat="(index,task) in tasks" ng-class="{'active-task': currentTrack.idTask == task.id}" ng-style="task.status == 'Done' && {'background-color':'#3b0'}  || task.status == 'In-Review' && {'background-color':'#AE2E2E'} || task.status == 'In-Progress' && {'background-color':'#ccad16'}">
+                <td>{{task.name | truncateTail:true:30:'...' }}</td>
+                <td>{{task.duration | truncateTail:true:30:'...' }}</td>
+                <td>
+                   <ui-select   
+                                id = "select-status"
+                                ng-model="task.status" 
+                                class="imm-select imm-select--input" 
+                                theme="selectize" 
+                                append-to-body="true"
+                                on-select="checktask($index)"
+                    >  
+                  <!-- <ui-select ng-model="task.status" theme="selectize" style="width: 20em;margin-right:-6em;" on-select="checktask($index)"> -->
+                    <ui-select-match placeholder="{{task.status}}">
+                      {{$select.selected}}
+                    </ui-select-match>
+                    <ui-select-choices repeat="client in allStatus | filter: $select.search">
+                      <div ng-bind-html="client | highlight: $select.selected"></div>
+                    </ui-select-choices>
+                  </ui-select>
+                </td>
+                <td>
+                    <a href="" ng-click="editTask($index,task)">
+                        <img src="assets/images/icons/details-ico-blue.svg">
+                    </a>
+                </td>
+                <td ng-if="task.status != 'Done' && task.status != 'In-Review' && isClient=='false' ">
+                    <a href ng-click="stopTrack()" ng-if="currentTrack.idTask == task.id"><img class="img_stop" src="/assets/images/stop.png"></a>
+                    <a href ng-click="startTrack(task)" ng-if="currentTrack.idTask != task.id"><img class="img_play" src="/assets/images/play.png"></a>
+                </td>
+                <td ng-if="task.status == 'Done' || task.status == 'In-Review' && isClient=='false'"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<paging
+    ng-show="total>pageSize"
+    page="currentPage"
+    page-size="pageSize"
+    total="total"
+    hide-if-empty="true"
+    show-prev-next="true"
+    show-first-last="true"
+    scroll-top="true"
+    paging-action="pager(page)">
+</paging>
+
+<div class="imm-wa__actions">
+    <p ng-if="error" class="err-display">{{error}}</p>
+    <button class="imm-btn imm-btn--alt" ui-sref="app.taskManager">{{ 'general.back' | translate }}</button>
+</div>
