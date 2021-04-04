@@ -97,7 +97,7 @@ class User {
 		// $user["password"] 	= $conn->escapeString($user["password"]);
   //       $user["password"] 	=  $this->cryptoPsw($user["password"].$user["email"]);
 
-		$sql	="SELECT * FROM ".$this->model." WHERE email='$user[email]' AND password = '$user[password]'";
+		$sql	="SELECT * FROM ".$this->model." WHERE email='$user[email]' AND password = MD5('$user[password]')";
 		$d 		= $conn->query($sql);
 		
 		// CALLBACK
