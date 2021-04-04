@@ -11,6 +11,9 @@ bower_components/
 app/node_modules/
 app/dist/
 app/bower_components/
+app/src/env.js
+# API
+api/config/conn.php
 # Compiled Java class files
 *.class
 
