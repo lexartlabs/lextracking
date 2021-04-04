@@ -11,6 +11,8 @@
 // ini_set('display_errors', E_ALL);
 // error_reporting(-1);
 
+define ("ENV", "/lextracking-dev");
+
 Class Connection {
 
 	private $conexion;

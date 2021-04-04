@@ -123,10 +123,10 @@ class User {
 			if($this->getStructure($conn,$key)){
 				if($ind==$last){
 					$insert .=$key;
-					$body 	.="'".$vle."'";
+					$body 	.="MD5('".$vle."'), ";
 				} else {
 					$insert .=$key.", ";
-					$body 	.="'".$vle."', ";
+					$body 	.="MD5('".$vle."'), ";
 				}
 			}
 			$ind++;
