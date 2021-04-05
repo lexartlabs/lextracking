@@ -29,7 +29,7 @@
             </tr>
             <tr ng-repeat="user in users | filter: filter">
                 <td>{{user.id}}</td>
-                <td><a ng-if="userRole == 'admin'" ui-sref="app.tasks-user({id: user.id})" >{{user.name | truncateTail:true:30:'...'}}</a></td>
+                <td><a ng-if="userRole == 'admin'" style="color: #4a90e2; text-decoration: underline" ui-sref="app.tasks-user({id: user.id})" >{{user.name | truncateTail:true:30:'...'}}</a></td>
                 <td ng-if="userRole != 'admin'">{{user.name}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.role}}</td>

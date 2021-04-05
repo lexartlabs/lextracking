@@ -82,7 +82,6 @@
 
     UserServices.find(0, '', function(err, users) {
       if (!err) {
-        console.log('users', users);
         $scope.users = users;
       }
     });

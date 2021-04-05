@@ -71,7 +71,7 @@
       $scope.verifyMss = [];
       $scope.arrCost = [];
       $scope.filter.idTask = 0;
-
+      $scope.CurrTotalCost = '';
       var userId = $rootScope.userId;
       var userRole = $rootScope.userRole;
 
@@ -154,7 +154,7 @@
             if (!err) {
               angular.forEach(weeklyHours, function (value, key) {
                 if (value.idUser == idHourCost) {
-
+                  //$scope.CurrTotalCost = value.currency;
                   console.log(value.costHour, weeklyHours, 'costo hora idUser');
                   var costo = value.costHour;
                   console.log('costo', costo);
@@ -448,8 +448,16 @@
           );
         }
       });
+      
+      function deshabilitar_btnBuscar(){
+        setTimeout(function() {
+        document.getElementById("buscar").disabled = false;
+        }, 3000);
+        document.getElementById("buscar").disabled = true;
+      };
 
       $scope.search = function () {
+        deshabilitar_btnBuscar();     
         var filters = {
           startTime: parseDate($scope.filter.startTime) + " 00:00:00",
           endTime: parseDate($scope.filter.endTime) + " 23:59:59",
@@ -508,8 +516,10 @@
                           return track.idUser == value.idUser;
                         });
                         track.currency = object.currency;
-                        $scope.tableTrack[index].currency = object.currency;
-                        // console.log(track);
+                        if (typeof index !== 'undefined') {
+                          $scope.tableTrack[index].currency = object.currency;
+                          // console.log(track);
+                        }
                       }
                     }
                   );
@@ -533,8 +543,10 @@
                           return track.idUser == value.idUser;
                         });
                         track.currency = object.currency;
-                        $scope.tableTrack[index].currency = object.currency;
-                        // console.log(track);
+                        if (typeof index !== 'undefined') {
+                          $scope.tableTrack[index].currency = object.currency;
+                          // console.log(track);
+                        }
                       }
                     }
                   );
