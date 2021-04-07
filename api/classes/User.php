@@ -146,7 +146,7 @@ class User {
 	}
 
 	public function updateUser($conn, $user){
-		$sql = "UPDATE ".$this->model." SET name = '$user[name]', email = '$user[email]', password = '$user[password]', role = '$user[role]', jiraToken = '$user[jiraToken]' WHERE id='$user[id]'";
+		$sql = "UPDATE ".$this->model." SET name = '$user[name]', email = '$user[email]', password = MD5('$user[password]'), role = '$user[role]' WHERE id='$user[id]'";
 		$d 	= $conn->query($sql);
 
 		// CALLBACK
