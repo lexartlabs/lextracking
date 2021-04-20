@@ -20,9 +20,27 @@ error_reporting(1);
 	if($_SERVER["HTTP_TOKEN"]){
 		$token 	= $_SERVER["HTTP_TOKEN"];
 		$access = $objToken->checkToken($conn, $token);
+		$permission = $access["role"];
 		$access = $access["find_token"];
-		if($access){
+		//TRAE EL PERMISO Y SI EL TOKEN ES CORRECTO, A PARTIR DE LA FUNCIÓN 'CHECKTOCKEN'
+		if($access && $permission == "developer"){        	//TODAS LAS RUTAS ACEPTADAS A DEVELOPERS DEBERIAN IR EN ESTE IF
+			$router->map('GET','/track/all', 'components/tracks/index.php', 'track-all');
+			$router->map('POST','/tracks', 'components/tracks/post.php', 'tracks');
+			$router->map('POST','/tracks-auto', 'components/tracks/post.php', 'tracks-auto');
+			$router->map('POST','/tracks-trello', 'components/tracks/post.php', 'tracks-trello');
+			$router->map('POST','/tracks-jira', 'components/tracks/post.php', 'tracks-jira');
+			 $router->map('POST','/track/track-trello-new', 'components/tracks/post.php', 'track-trello-new');
+			$router->map('POST','/track/track-trello-update', 'components/tracks/post.php', 'track-trello-update');
+			$router->map('POST','/track/track-jira-new', 'components/tracks/post.php', 'track-jira-new');
 
+			$match = $router->match();
+			if($match) {
+			  require $match['target'];
+			} else {
+				echo json_encode( array("error" => "Error: token incorrecto.") );
+			}
+		} elseif($access  && $permission == "admin"){
+			//EN ADMIN VAN TODAS LAS RUTAS
 			// CRYPTO ALGORITHM
 			$router->map('GET','/crypto/[a:psw]', 'components/crypto/index.php', 'crypto');
 
