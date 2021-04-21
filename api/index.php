@@ -23,7 +23,49 @@ error_reporting(1);
 		$permission = $access["role"];
 		$access = $access["find_token"];
 		//TRAE EL PERMISO Y SI EL TOKEN ES CORRECTO, A PARTIR DE LA FUNCIÓN 'CHECKTOCKEN'
-		if($access && $permission == "developer"){        	//TODAS LAS RUTAS ACEPTADAS A DEVELOPERS DEBERIAN IR EN ESTE IF
+		if($access && $permission == "developer"){        	
+		//TODAS LAS RUTAS ACEPTADAS A DEVELOPERS DEBERIAN IR EN ESTE IF
+			// CRYPTO ALGORITHM
+			$router->map('GET','/crypto/[a:psw]', 'components/crypto/index.php', 'crypto');
+			// GET USERS BY ID
+			$router->map('GET','/user/[i:id]', 'components/users/get.php', 'user-by-id');
+			// INSERT NEW USER
+			$router->map('POST','/user/update', 'components/users/post.php', 'user-update');
+			$router->map('POST','/user/save-performance', 'components/users/post.php', 'user-performance');
+			$router->map('POST','/user/performance-id', 'components/users/post.php', 'user-performance-by-id');
+			$router->map('POST','/user/all-performance', 'components/users/post.php', 'performance-all');
+			// PROJECTS
+			// ALL PROJECTS
+			$router->map('GET','/project/all', 'components/projects/index.php', 'project-all');
+			$router->map('GET','/project/user/[i:id]', 'components/projects/get.php', 'project-by-idUser');
+			// GET PROJECTS BY ID
+			$router->map('GET','/project/[i:id]', 'components/projects/get.php', 'project-by-id');
+			// GET PROJECTS BY ID
+			$router->map('GET','/project/client/[i:id]', 'components/projects/get.php', 'project-by-idclient');
+			// ALL TASKS
+			$router->map('POST','/project/task/all', 'components/projects/post.php', 'task-all');
+			// GET PROJECTS BY ID
+			$router->map('GET','/project/task/[i:id]', 'components/projects/get.php', 'task-by-id');
+			$router->map('GET','/project/task/[i:id]/[i:iduser]', 'components/projects/get.php', 'task-by-idproject-and-iduser');
+			$router->map('GET','/project/task/dev/[i:id]', 'components/projects/get.php', 'project-by-iddeveloper');
+			$router->map('GET','/project/task/id-project/[i:id]', 'components/projects/get.php', 'task-by-idproject');
+			$router->map('GET','/project/task/id-user/[i:id]', 'components/projects/get.php', 'tasks-by-user');
+			$router->map('GET','/project/task/user-eval/[i:id]', 'components/projects/get.php', 'tasks-by-user-eval');
+			//WITH FILTER
+			$router->map('POST','/project/task/id-user/[i:id]', 'components/projects/post.php', 'tasks-by-user-filter');
+			$router->map('GET','/project/task/delete/[i:id]', 'components/projects/get.php', 'tasks-delete');
+			// INSERT NEW PROJECT
+			$router->map('POST','/project/task/new', 'components/projects/post.php', 'task-new');
+			$router->map('POST','/project/task/update', 'components/projects/post.php', 'task-update');
+
+			//MARK TASK AS COMPLETE
+			$router->map('POST','/project/task/update/status', 'components/projects/post.php', 'task-update-status');
+
+			// AUTOMATIC TASKS
+			$router->map('GET', '/taskAutomatic/all', 'components/tasksAutomatic/index.php', 'task_automatic-all');
+			$router->map('GET', '/taskAutomatic/[i:id]', 'components/tasksAutomatic/get.php', 'task_automatic-by-id');
+			$router->map('POST', '/taskAutomatic/update/[i:id]', 'components/tasksAutomatic/post.php', 'task_automatic-update');
+			$router->map('GET', '/taskAutomatic/delete/[i:id]', 'components/tasksAutomatic/get.php', 'task_automatic-delete');
 			$router->map('GET','/track/all', 'components/tracks/index.php', 'track-all');
 			$router->map('POST','/tracks', 'components/tracks/post.php', 'tracks');
 			$router->map('POST','/tracks-auto', 'components/tracks/post.php', 'tracks-auto');
@@ -32,6 +74,28 @@ error_reporting(1);
 			 $router->map('POST','/track/track-trello-new', 'components/tracks/post.php', 'track-trello-new');
 			$router->map('POST','/track/track-trello-update', 'components/tracks/post.php', 'track-trello-update');
 			$router->map('POST','/track/track-jira-new', 'components/tracks/post.php', 'track-jira-new');
+			// GET USERS BY ID
+			$router->map('POST','/track/month', 'components/tracks/post.php', 'track-by-month');
+			// GET USERS BY ID
+			$router->map('GET','/track/task/[i:id]', 'components/tracks/get.php', 'track-by-idtask');
+			//Trello tasks
+			$router->map('GET','/taskTrello/all', 'components/trelloTasks/index.php', 'trello-all');
+			$router->map('GET','/taskTrello/[i:id]', 'components/trelloTasks/get.php', 'trello-by-id');
+			$router->map('POST','/taskTrello/new-card', 'components/trelloTasks/post.php', 'card-new');
+			$router->map('GET','/taskTrello/id-card', 'components/trelloTasks/index.php', 'get-card-id');
+			$router->map('GET','/taskTrello/remove-trello-task/[i:id]', 'components/trelloTasks/get.php', 'remove-trelloTask');
+			$router->map('GET','/taskTrello/remove-board/[i:id]', 'components/trelloTasks/get.php', 'remove-trelloBoard');
+			$router->map('POST','/taskTrello/update-board', 'components/trelloTasks/post.php', 'board-edit');
+			//JIRA
+			$router->map('POST','/jira/all-dashboards', 'components/jira/index.php', 'all-dashboards');
+			$router->map('POST','/jira/dashboard-issues', 'components/jira/post.php', 'issues-by-board');
+			$router->map('POST','/jira/save-dashboards', 'components/jira/post.php', 'save-dashboards');
+			$router->map('POST','/jira/issue', 'components/jira/post.php', 'get-issue');
+			$router->map('POST','/jira/add-comment', 'components/jira/post.php', 'add-comment');
+			$router->map('POST','/jira/save-issue', 'components/jira/post.php', 'save-issue');
+			$router->map('POST','/jira/update-issue', 'components/jira/post.php', 'update-issue');
+			$router->map('POST','/jira/delete-issues', 'components/jira/post.php', 'delete-issues');
+
 
 			$match = $router->match();
 			if($match) {
