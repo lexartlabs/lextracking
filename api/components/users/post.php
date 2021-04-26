@@ -34,6 +34,10 @@
 			$response 	= $objUsr->getAllPerformance($conn,$params);
 			echo json_encode($response);
 		}
+		if($name == 'user-persistence'){
+			$response = $objUsr->userpersistence($conn,$params);
+			echo json_encode($response);
+		}
 	} else {
 		echo json_encode( array("response" => 'err') );
 	}
