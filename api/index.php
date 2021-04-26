@@ -27,6 +27,8 @@ error_reporting(1);
 		//TODAS LAS RUTAS ACEPTADAS A DEVELOPERS DEBERIAN IR EN ESTE IF
 			// CRYPTO ALGORITHM
 			$router->map('GET','/crypto/[a:psw]', 'components/crypto/index.php', 'crypto');
+			// PERSISTENCE
+			$router->map('POST','/persistence', 'components/users/post.php', 'user-persistence');
 			// GET USERS BY ID
 			$router->map('GET','/user/[i:id]', 'components/users/get.php', 'user-by-id');
 			// INSERT NEW USER
@@ -107,7 +109,8 @@ error_reporting(1);
 			//EN ADMIN VAN TODAS LAS RUTAS
 			// CRYPTO ALGORITHM
 			$router->map('GET','/crypto/[a:psw]', 'components/crypto/index.php', 'crypto');
-
+			// PERSISTENCE
+			$router->map('POST','/persistence', 'components/users/post.php', 'user-persistence');
 			// USERS
 				// ALL USERS
 				$router->map('GET','/user/all', 'components/users/index.php', 'users-all');

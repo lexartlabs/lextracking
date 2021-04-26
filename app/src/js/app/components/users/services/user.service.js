@@ -4,7 +4,7 @@
 
     var Module = ng.module('Imm');
 
-    Module.factory('UserServices', ['RestClient', function(RestClient){
+    Module.factory('UserServices', ['RestClient', '$window', function(RestClient, $window){
 	  	
 	  	var model = "user";
 	  
@@ -63,6 +63,15 @@
 		    	RestClient.post(model + "/all-performance", obj, function(err, result){
 		    		cb(err, result);
 		    	})
+		    },
+
+		    //persistence: function(obj, cb) {
+		    persistence: function(cb) {
+		    	var obj = {"token": $window.localStorage['lextracking-web-token']}
+		    	RestClient.post("persistence" , obj, function(err, result) {
+		        	cb(err, result);
+		        console.log("Persistence Service :: ", err, result);
+		        })
 		    }
 	  	};
 
