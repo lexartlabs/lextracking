@@ -158,22 +158,21 @@ class User {
 	}
 
 	public function userpersistence($conn, $token){
-		$sql = "SELECT password, email, role FROM Users";
+		$sql = "SELECT * FROM Users";
 		$d 	 = $conn->query($sql);
 		$cnt = count($d);
 		$var1 = $token['token'];
 		$var2 = '';
 		$find= false;
+		$user = null;
 		for ($i=0; $i < $cnt; $i++) {
 			$var2 = $this->cryptoPsw($d[$i]["password"].$d[$i]["email"]);
 			if(strcmp($var1, $var2) == 0){
-					$find = true;
-					$role = $d[$i]['role'];
-					$email = $d[$i]['email'];
-					break;
-				}
+				$user = $d[$i];
+				$user['token'] = $var1;
+				return array("response" => $user);
+			}
 		}
-		return array("find_token" => $find, "role"=>$role, "email"=>$email);
 	}
 }
 

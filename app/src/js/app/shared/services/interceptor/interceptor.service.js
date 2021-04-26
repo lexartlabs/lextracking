@@ -4,29 +4,36 @@
 
     var Module = ng.module('Imm');
     
-    Module.factory('myHttpInterceptor', ['$injector', function ($injector, $q) {
+    Module.factory('myHttpInterceptor', ['$injector', '$window', function ($injector, $window, $q) {
         return {
             response: function (response) {
                 // do something on success
                 if(response.headers()['content-type'] == "application/json"){
                     if(response.status == 200){
-                        if (typeof response.data.response !== 'undefined') {
-                        if (!response.data.response.token && !response.data.response.email) {
-                           console.log("IF :: ", response);
-                           var rest = $injector.get('UserServices');
-                           //rest.persistence({"token": "C3190BF40F8B78E2EF0ED89C2718D3E60B05968B"}, function(response, error){console.log(response,error)});
-                           rest.persistence('', function(response, error){console.log(response,error)});
-                           
-                        }else {
-                            console.log("ELSE :: " ,response);
-                            
+                        if (typeof response.data !== 'undefined') {
+                            if (response.data && response.data.response &&  !response.data.response.token && !response.data.response.email) {
+                                var rest = $injector.get('UserServices');
+                                rest.persistence( function(error, response){
+                                    var user = angular.copy(response);
+                                    console.log("SETEA LOCALSTORE::", user)
+                                    $window.localStorage[TOKEN_KEY]   = user.token;
+                                    $window.localStorage["userId"]    = user.id;
+                                    $window.localStorage["userName"]  = user.name;
+                                    $window.localStorage["userEmail"] = user.email;
+                                    $window.localStorage["userRole"]  = user.role;
+                                    $window.localStorage["isAdmin"]   = user.role == 'admin';
+                                    $window.localStorage["isClient"]  = user.role == 'client';
+                                    $window.localStorage["isDeveloper"]  = user.role == 'developer';
+                                    $window.localStorage["idUserClient"]  =user.idClient;
+                                    return;
+                                });
+                            } else if(response.data.code === 401){
+                                console.log("LIMPIA LOCALSTORE")
+                                $window.localStorage.clear();
+                            }
                         }
-                    }
-                    }
-                    // Validate response, if not ok reject
-                   
+                    }                   
                 }
-                //console.log("INTERCEPTOR :: ",response)
                 return response;
             },
             responseError: function (response) {

@@ -70,7 +70,6 @@
 		    	var obj = {"token": $window.localStorage['lextracking-web-token']}
 		    	RestClient.post("persistence" , obj, function(err, result) {
 		        	cb(err, result);
-		        console.log("Persistence Service :: ", err, result);
 		        })
 		    }
 	  	};

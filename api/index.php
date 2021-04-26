@@ -25,9 +25,11 @@ define ("ENV", "/lextracking/api");
 		$permission = $access["role"];
 		$access = $access["find_token"];
 		//TRAE EL PERMISO Y SI EL TOKEN ES CORRECTO, A PARTIR DE LA FUNCIÓN 'CHECKTOCKEN'
-		if($access){        
+
+		if($access){       
 			if($permission == "developer") {
 				//TODAS LAS RUTAS ACEPTADAS A DEVELOPERS DEBERIAN IR EN ESTE IF
+				$router->map('POST', '/persistence', 'components/users/post.php', 'user-persistence'); 
 				// CRYPTO ALGORITHM
 				$router->map('GET','/crypto/[a:psw]', 'components/crypto/index.php', 'crypto');
 				// GET USERS BY ID
@@ -108,6 +110,8 @@ define ("ENV", "/lextracking/api");
 				}
 			} elseif ($permission == "admin"){
 				//EN ADMIN VAN TODAS LAS RUTAS
+				$router->map('POST', '/persistence', 'components/users/post.php', 'user-persistence'); 
+
 				// CRYPTO ALGORITHM
 				$router->map('GET','/crypto/[a:psw]', 'components/crypto/index.php', 'crypto');
 	
@@ -349,7 +353,7 @@ define ("ENV", "/lextracking/api");
 				}
 			} 
 		} else {
-			echo json_encode( array("error" => "Error: token incorrecto.") );
+			echo json_encode( array("error" => "Error: token incorrecto.", "code" => 401) );
 		}
 	} else {
 		// MATCH ROUTING - DEFAULT
