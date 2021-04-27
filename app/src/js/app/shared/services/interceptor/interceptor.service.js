@@ -4,7 +4,7 @@
 
     var Module = ng.module('Imm');
     
-    Module.factory('myHttpInterceptor', ['$injector', '$window', function ($injector, $window, $q) {
+    Module.factory('myHttpInterceptor', ['$injector', '$window', '$rootScope', function ($injector, $window, $rootScope, $q) {
         return {
             response: function (response) {
                 // do something on success
@@ -12,21 +12,31 @@
                     if(response.status == 200){
                         if (typeof response.data !== 'undefined') {
                             if (response.data && response.data.response &&  !response.data.response.token && !response.data.response.email) {
-                                var rest = $injector.get('UserServices');
-                                rest.persistence( function(error, response){
-                                    var user = angular.copy(response);
-                                    console.log("SETEA LOCALSTORE::", user)
-                                    $window.localStorage[TOKEN_KEY]   = user.token;
-                                    $window.localStorage["userId"]    = user.id;
-                                    $window.localStorage["userName"]  = user.name;
-                                    $window.localStorage["userEmail"] = user.email;
-                                    $window.localStorage["userRole"]  = user.role;
-                                    $window.localStorage["isAdmin"]   = user.role == 'admin';
-                                    $window.localStorage["isClient"]  = user.role == 'client';
-                                    $window.localStorage["isDeveloper"]  = user.role == 'developer';
-                                    $window.localStorage["idUserClient"]  =user.idClient;
-                                    return;
-                                });
+                                
+                                var state = $injector.get('$state');
+                                $rootScope.$watch('state', function(newState, oldState){
+                                    if($window.localStorage["userId"] != $rootScope.userId || $window.localStorage["userName"] != $rootScope.userName || $window.localStorage["userEmail"] != $rootScope.userEmail || $window.localStorage["userRole"] != $rootScope.userRole){
+                                        $window.localStorage.clear();
+                                        
+                                    }else{
+                                        var rest = $injector.get('UserServices');
+                                        rest.persistence( function(error, response){
+                                            var user = angular.copy(response);
+                                            console.log("SETEA LOCALSTORE::", user)
+                                            $window.localStorage[TOKEN_KEY]   = user.token;
+                                            $window.localStorage["userId"]    = user.id;
+                                            $window.localStorage["userName"]  = user.name;
+                                            $window.localStorage["userEmail"] = user.email;
+                                            $window.localStorage["userRole"]  = user.role;
+                                            $window.localStorage["isAdmin"]   = user.role == 'admin';
+                                            $window.localStorage["isClient"]  = user.role == 'client';
+                                            $window.localStorage["isDeveloper"]  = user.role == 'developer';
+                                            $window.localStorage["idUserClient"]  =user.idClient;
+                                            return;
+                                        });
+                                    }
+                                }, true);
+                                
                             } else if(response.data.code === 401){
                                 console.log("LIMPIA LOCALSTORE")
                                 $window.localStorage.clear();
