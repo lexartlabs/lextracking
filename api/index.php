@@ -34,6 +34,8 @@ define ("ENV", "/lextracking/api");
 				$router->map('GET','/crypto/[a:psw]', 'components/crypto/index.php', 'crypto');
 				// GET USERS BY ID
 				$router->map('GET','/user/[i:id]', 'components/users/get.php', 'user-by-id');
+				// ALL USERS
+				$router->map('GET','/user/all', 'components/users/index.php', 'users-all');
 				// INSERT NEW USER
 				$router->map('POST','/user/update', 'components/users/post.php', 'user-update');
 				$router->map('POST','/user/save-performance', 'components/users/post.php', 'user-performance');
@@ -83,6 +85,11 @@ define ("ENV", "/lextracking/api");
 				$router->map('POST','/track/month', 'components/tracks/post.php', 'track-by-month');
 				// GET USERS BY ID
 				$router->map('GET','/track/task/[i:id]', 'components/tracks/get.php', 'track-by-idtask');
+				$router->map('GET','/track/active', 'components/tracks/get.php', 'track-actives');
+				// GET USERS BY ID
+					$router->map('GET','/track/user/[i:id]/last', 'components/tracks/get.php', 'tracklast-by-iduser');
+				// ALL CLIENTS
+				$router->map('GET','/client/all', 'components/clients/index.php', 'clients-all');
 				//Trello tasks
 				$router->map('GET','/taskTrello/all', 'components/trelloTasks/index.php', 'trello-all');
 				$router->map('GET','/taskTrello/[i:id]', 'components/trelloTasks/get.php', 'trello-by-id');
@@ -100,7 +107,9 @@ define ("ENV", "/lextracking/api");
 				$router->map('POST','/jira/save-issue', 'components/jira/post.php', 'save-issue');
 				$router->map('POST','/jira/update-issue', 'components/jira/post.php', 'update-issue');
 				$router->map('POST','/jira/delete-issues', 'components/jira/post.php', 'delete-issues');
-
+				//WeeklyHour
+				$router->map('GET','/weeklyHours/all', 			'components/weeklyHours/index.php', 'weeklyHour-all');
+				$router->map('GET','/weeklyHour/user/[i:id]', 		'components/weeklyHours/get.php', 	'weeklyHour-by-idUser');
 
 				$match = $router->match();
 				if($match) {
