@@ -40,7 +40,7 @@
                                     $window.localStorage["idUserClient"]  =user.idClient;
                                     return;
                                 });
-                            } else if(response.data.code === 401){
+                            } else if(response.data.code === 401 ||response.data.code === 403 ){
                                 $window.localStorage.clear();
                                 state.go("login")                            
                             }
