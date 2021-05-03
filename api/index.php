@@ -349,6 +349,11 @@ error_reporting(1);
 					$router->map('POST','/jira/save-issue', 'components/jira/post.php', 'save-issue');
 					$router->map('POST','/jira/update-issue', 'components/jira/post.php', 'update-issue');
 					$router->map('POST','/jira/delete-issues', 'components/jira/post.php', 'delete-issues');
+
+					//Biller
+					$router->map('POST','/biller/comprobantes/crear', 'components/biller/post.php', 'crear');
+					$router->map('POST','/biller/comprobantes/obtener', 'components/biller/post.php', 'obtener');
+					$router->map('POST','/biller/comprobantes/pdf', 'components/biller/post.php', 'pdf');
 	
 	
 					
