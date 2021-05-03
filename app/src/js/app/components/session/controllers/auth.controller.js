@@ -27,19 +27,16 @@
             $scope.authenticate = function() {
                 RestClient.post('login', $scope.user, function(err, result) {
                     if (result == null) {
-                        console.log("err = ",err);
                         if (typeof callback === 'function') {
                             callback(err, result);
                         }
 
                         $scope.error = $filter('translate')('session.error_email_password');
-                        console.log($scope.error);
                     }
                     else {
                         // LOCAL STORAGE
 
 
-                        console.log("result = ",result);
 
                         var user = result;
 
@@ -69,18 +66,11 @@
                         }
 
 
-                        console.log("logged = ",$rootScope);
 
                         if (typeof callback === 'function') {
                             callback(err, result);
                         }
-                        WeeklyHourServices.verifyUSer(user, function(err, result) {
-                            console.log("USER VERIFY");
-                            console.log("verify hourcost",err, result);
-                        })
-
                         $state.go('app.dashboard');
-
                     }
                 });
             };

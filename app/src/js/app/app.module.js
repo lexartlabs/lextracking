@@ -32,9 +32,8 @@ var Imm = Imm || {};
         'mgo-angular-wizard'
 
     ]).config(['$httpProvider', '$translateProvider', function ($httpProvider, $translateProvider) {
-        
+
         $httpProvider.useApplyAsync(true);
-        
         $translateProvider
             .useStaticFilesLoader({
                 prefix: 'assets/languages/',
@@ -44,6 +43,8 @@ var Imm = Imm || {};
             .useMissingTranslationHandler('CustomTranslateErrorHandlerFactory');
 
         $translateProvider.useSanitizeValueStrategy('sanitizeParameters');
+
+        $httpProvider.interceptors.push('myHttpInterceptor');
 
     }]).config(['momentPickerProvider', function (momentPickerProvider) {
         momentPickerProvider.options({

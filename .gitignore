@@ -55,5 +55,5 @@ Thumbs.db
 *.mov
 *.wmv
 
-app/env.js
+app/src/env.js
 api/conn.php
