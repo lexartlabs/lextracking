@@ -39,21 +39,21 @@ class Biller {
     }
 
 	public function crear($conn, $params){
-        $response = $this->postQuery($params, "/crear");
+        $response = $this->postQuery($params, "/comprobantes/crear");
         return array("response" => $response);
 	}
     public function obtener($conn, $params){
-        $url = "/obtener?";
-        !empty($params['id']) ? $url."id=".$params['id'] : "" ;
-        !empty($params['sucursal']) ? $url."sucursal=".$params['sucursal'] : "" ;
-        !empty($params['desde']) ? $url."desde=".$params['desde'] : "" ;
-        !empty($params['hasta']) ? $url."hasta=".$params['hasta'] : "" ;
+        $url = "/comprobantes/obtener?";
+        !empty($params['id']) ? $url = $url."id=".$params['id'] : "" ;
+        !empty($params['sucursal']) ? $url = $url."sucursal=".$params['sucursal'] : "" ;
+        !empty($params['desde']) ? $url = $url."desde=".$params['desde'] : "" ;
+        !empty($params['hasta']) ? $url = $url."hasta=".$params['hasta'] : "" ;
         $response = $this->getQuery($url);
         return array("response" => $response);
 	}
-    public function pdf($conn){
-        $url = "/pdf";
-        !empty($params['id']) ? $url."?id=".$params['id'] : "" ;
+    public function pdf($conn, $params){
+        $url = "/comprobantes/pdf";
+        !empty($params['id']) ? $url = $url."?id=".$params['id'] : "" ;
         $response = $this->getQuery($url);
         return array("response" => $response);
 	}
