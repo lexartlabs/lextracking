@@ -51,7 +51,7 @@
                         <td>
                             <div ng-if="!tasks_trello.status.includes('Done') && !tasks_trello.includes('In-Review') && isClient=='false' ">
                                 <a href ng-click="stopTrack()" ng-if="currentTrack.idTask == tasks_trello.id"><img class="img_stop" src="/assets/images/stop.png"></a>
-                                <a href ng-click="startTrackTrello(tasks_trello)" ng-if="currentTrack.idTask != tasks_trello.id"><img class="img_play" src="/assets/images/play.png"></a>    
+                                <a href ng-click="startTrackTrello(tasks_trello)" ng-disabled="inprogress" ng-if="currentTrack.idTask != tasks_trello.id"><img class="img_play" src="/assets/images/play.png"></a>    
                             </div>
                         </td>
                     </tr>
