@@ -87,6 +87,12 @@ error_reporting(1);
 				$router->map('GET','/track/active', 'components/tracks/get.php', 'track-actives');
 				// GET USERS BY ID
 					$router->map('GET','/track/user/[i:id]/last', 'components/tracks/get.php', 'tracklast-by-iduser');
+
+				// INSERT NEW USER
+					$router->map('POST','/track/new', 'components/tracks/post.php', 'track-new');
+					$router->map('POST','/track/auto-new', 'components/tracks/post.php', 'autoTrack-new');
+					$router->map('POST','/track/update', 'components/tracks/post.php', 'track-update');
+					$router->map('POST','/track/update-auto', 'components/tracks/post.php', 'autoTrack-update');
 				// ALL CLIENTS
 				$router->map('GET','/client/all', 'components/clients/index.php', 'clients-all');
 				//Trello tasks
@@ -116,7 +122,7 @@ error_reporting(1);
 				} else {
 					echo json_encode( array("error" => "Error: Usuario no tiene acceso a esta sección.", "code"=>403) );
 				}
-			} elseif ($permission == "admin"){
+			} elseif ($permission == "admin" || $permission == "pm"){
 				//EN ADMIN VAN TODAS LAS RUTAS
 				$router->map('POST', '/persistence', 'components/users/post.php', 'user-persistence'); 
 
