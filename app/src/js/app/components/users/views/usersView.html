@@ -13,6 +13,7 @@
         <thead>
             <tr>
                 <th>{{ 'users.id' | translate }}</th>
+                <th ng-if="userRole != 'admin'"></th>
                 <th>{{ 'users.name' | translate }}</th>
                 <th>{{ 'users.email' | translate }}</th>
                 <th>{{ 'users.role' | translate }}</th>
@@ -22,6 +23,7 @@
         <tbody>
             <tr>
                 <td><input class="field-filter" ng-model="filter.id"></td>
+                <td ng-if="userRole != 'admin'"></td>
                 <td><input class="field-filter" ng-model="filter.name"></td>
                 <td><input class="field-filter" ng-model="filter.email"></td>
                 <td><input class="field-filter" ng-model="filter.role"></td>
