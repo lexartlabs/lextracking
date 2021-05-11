@@ -116,7 +116,7 @@ error_reporting(1);
 				} else {
 					echo json_encode( array("error" => "Error: Usuario no tiene acceso a esta sección.", "code"=>403) );
 				}
-			} elseif ($permission == "admin"){
+			} elseif ($permission == "admin" || $permission == "pm"){
 				//EN ADMIN VAN TODAS LAS RUTAS
 				$router->map('POST', '/persistence', 'components/users/post.php', 'user-persistence'); 
 
