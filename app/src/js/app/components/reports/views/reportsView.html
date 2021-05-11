@@ -690,9 +690,12 @@
                   <div class="flex-item">
                     {{track.startTime | date:'dd/MM/yyyy HH:mm' }}
                   </div>
-                  <div class="flex-item">
+                  <!-- <div class="flex-item">
                     {{track.endTime ? track.endTime : '' | date:'dd/MM/yyyy
                     HH:mm' }}
+                  </div> -->
+                  <div class="flex-item">
+                    {{track.endTime ? track.endTime : '' | date:'dd/MM/yyyy HH:mm'}}
                   </div>
                   <div class="flex-item">{{track.durations}}</div>
                   <div class="flex-item">$ {{track.trackCost}}</div>
