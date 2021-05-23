@@ -12,19 +12,19 @@ class Token {
 	}
 
 	public function checkToken($conn, $token){
-		$sql = "SELECT password, email FROM Users";
+		$sql = "SELECT password, email, role FROM Users";
 		$d 	 = $conn->query($sql);
 		$cnt = count($d);
 		$find= false;
-
 		for ($i=0; $i < $cnt; $i++) { 
 			if($token == $this->cryptoPsw($d[$i]["password"].$d[$i]["email"])){
 				$find = true;
+				$role = $d[$i]['role'];
 				break;
 			}
 		}
 
-		return array("find_token" => $find);
+		return array("find_token" => $find, "role"=>$role);
 	}
 
 }

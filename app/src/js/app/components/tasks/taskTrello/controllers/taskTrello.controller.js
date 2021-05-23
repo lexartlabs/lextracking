@@ -29,8 +29,8 @@
           $scope.board = angular.copy(tasks_trello[0]);
           tasks_trelloServices.getBoardsId( $scope.board.tablero_id, function(resp, err){
             if(resp){
-              $scope.tasks = angular.copy(resp);
-              angular.forEach($scope.tasks, function(tarea){
+              var tareas = angular.copy(resp);
+              angular.forEach(tareas, function(tarea){
                 var fixedTarea = angular.copy(tarea);
 
                 tarea.idboard    = $scope.board.tablero_id;
@@ -65,6 +65,8 @@
                   });                                                
                 }); 
               });
+              setTimeout(function(){$scope.tasks = tareas}, 500);
+              
             }
           });
           

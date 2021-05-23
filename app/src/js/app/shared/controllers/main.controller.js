@@ -41,6 +41,7 @@
 
         $scope.thisHide         = false;
         $scope.userToolsActive  = false;
+        $rootScope.inprogress   = false;
 
         $rootScope.toggleActive = function(){
             $scope.userToolsActive = !$scope.userToolsActive;
@@ -276,6 +277,7 @@
 
         $scope.startTrackTrello = function (tasks_trello){
             // Already tracking, stop and then start
+            $rootScope.inprogress = true;
             if ($rootScope.currentTrack.id) {
                 $rootScope.currentTrack.endTime = getCurrentDate();
                 TracksServices.update($rootScope.currentTrack, function(err, result){
@@ -303,6 +305,7 @@
                     if (!err) {
                         $rootScope.currentTrack.id = result[0].id;
                         $scope.toggleTimer();
+                        $rootScope.inprogress   = false;
                         console.log('saved id task', $rootScope.currentTrack.id);
                     }
                 });

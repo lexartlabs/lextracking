@@ -41,7 +41,7 @@
     }
 
 
-    if (userRole == 'admin') {
+    if (userRole == 'admin' || userRole == 'pm') {
       TracksServices.findActives( function (err, tracks) {
         if (!err) {
           console.log('tracks', tracks);
