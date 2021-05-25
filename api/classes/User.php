@@ -112,45 +112,50 @@ class User {
 	}
 	
 	public function insertUser($conn,$user){
-		$md   	 = $this->model;
-		$head 	 ="INSERT INTO ".$this->model;
-		$insert .="(";
-		$body 	.=" VALUES (";
-		$last 	 = count($user);
+		$sql_0	="SELECT * FROM ".$this->model." WHERE email='$user[email]' ";
+		$d_0 	= $conn->query($sql_0);
+		if(empty($d_0)){
+			//Actualizar usuario
+			$md   	 = $this->model;
+			$head 	 ="INSERT INTO ".$this->model;
+			$insert .="(";
+			$body 	.=" VALUES (";
+			$last 	 = count($user);
 
-		$ind 	 = 1;
-		foreach ($user as $key => $vle) {
-			
-			if($this->getStructure($conn,$key)){
+			$ind 	 = 1;
+			foreach ($user as $key => $vle) {
 				
-				if($ind==$last && $key=="password"){
-					$insert .=$key;
-					$body 	.="MD5('".$vle."')";
-				} elseif ($ind==$last && $key!="password") {
-					$insert .=$key;
-					$body 	.="'".$vle."'";
-				}elseif ($key=="password") {
-					$insert .=$key.", ";
-					$body 	.="MD5('".$vle."'), ";
-				}else {
-					$insert .=$key.", ";
-					$body 	.="'".$vle."', ";
+				if($this->getStructure($conn,$key)){
+					if($ind==$last && $key=="password"){
+						$insert .=$key;
+						$body 	.="MD5('".$vle."')";
+					} elseif ($ind==$last && $key!="password") {
+						$insert .=$key;
+						$body 	.="'".$vle."'";
+					}elseif ($key=="password") {
+						$insert .=$key.", ";
+						$body 	.="MD5('".$vle."'), ";
+					}else {
+						$insert .=$key.", ";
+						$body 	.="'".$vle."', ";
+					}
 				}
+				$ind++;
 			}
-			$ind++;
-		}
+			$insert .=")";
+			$body 	.=")";
+			$sql 	 = $head.$insert.$body;
+			$d 		 = $conn->query($sql);
+			// CALLBACK
+			if(empty($d)){
+				return array("response" => 'OK');
+			} else {
+				return array("error" => "Error: al ingresar el usuario.", "sql" => $sql);
+			}
 
-		$insert .=")";
-		$body 	.=")";
-		$sql 	 = $head.$insert.$body;
-		$d 		 = $conn->query($sql);
-		
-		// CALLBACK
-		if(empty($d)){
-			return array("response" => 'OK');
 		} else {
-			return array("error" => "Error: al ingresar el usuario.", "sql" => $sql);
-		}
+			return array("error" => "Error: ya existe usuario asociado a esta cuenta de email.");
+			}
 	}
 
 	public function updateUser($conn, $user){
