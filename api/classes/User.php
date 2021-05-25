@@ -154,14 +154,26 @@ class User {
 	}
 
 	public function updateUser($conn, $user){
-		$sql = "UPDATE ".$this->model." SET name = '$user[name]', email = '$user[email]', password = MD5('$user[password]'), role = '$user[role]', jiraToken = '$user[jiraToken]' WHERE id='$user[id]'";
-		$d 	= $conn->query($sql);
-
-		// CALLBACK
-		if(empty($d)){
-			return array("response" => 'OK', "sql" => $sql);
-		} else {
-			return array("error" => "Error: al actualizar el usuario.", "sql" => $sql);
+		$sql0 = "SELECT * FROM $this->model WHERE id='$user[id]'";
+		$res0 = $conn->query($sql0);
+		if ($res0[0]["password"] != md5($user[password])){
+			$sql = "UPDATE ".$this->model." SET name = '$user[name]', email = '$user[email]', password = MD5('$user[password]'), role = '$user[role]', jiraToken = '$user[jiraToken]' WHERE id='$user[id]'";
+			$d 	= $conn->query($sql);
+			// CALLBACK
+			if(empty($d)){
+				return array("response" => 'OK', "sql" => $sql);
+			} else {
+				return array("error" => "Error: al actualizar el usuario.", "sql" => $sql);
+			}
+		}else{
+			$sql = "UPDATE ".$this->model." SET name = '$user[name]', email = '$user[email]', role = '$user[role]', jiraToken = '$user[jiraToken]' WHERE id='$user[id]'";
+			$d 	= $conn->query($sql);
+			// CALLBACK
+			if(empty($d)){
+				return array("response" => 'OK', "sql" => $sql);
+			} else {
+				return array("error" => "Error: al actualizar el usuario.", "sql" => $sql);
+			}
 		}
 	}
 
