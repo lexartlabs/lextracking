@@ -6,6 +6,7 @@
 
   Module.controller('task_trelloCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$filter', 'tasks_trelloServices', 'ngDialog', 'ProjectsServices', 'ClientServices', function($scope, $rootScope, $state, $stateParams, $filter, tasks_trelloServices, ngDialog, ProjectsServices, ClientServices) {
 
+      $scope.isLoaded       = false;
       $scope.sendingData    = false;
       var idTask_trello     = $stateParams.id;
       $scope.board          = {};
@@ -30,7 +31,11 @@
           tasks_trelloServices.getBoardsId( $scope.board.tablero_id, function(resp, err){
             if(resp){
               var tareas = angular.copy(resp);
-              angular.forEach(tareas, function(tarea){
+              angular.forEach(tareas, function(tarea, index){
+                if (tareas.length==index+1) {
+                  $scope.isLoaded = true;
+                }
+                
                 var fixedTarea = angular.copy(tarea);
 
                 tarea.idboard    = $scope.board.tablero_id;
@@ -56,7 +61,7 @@
                         if(!err){
                           angular.forEach(idCard, function (element){
                             if(tarea.id == element.card_id){
-                              tarea.id = element.id;
+                             tarea.id = element.id;
                             }
                           })
                         }
@@ -66,7 +71,7 @@
                 }); 
               });
               setTimeout(function(){$scope.tasks = tareas}, 500);
-              
+              $scope.tasks = tareas;
             }
           });
           
