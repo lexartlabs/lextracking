@@ -4,7 +4,7 @@
 
     var Module = ng.module('Imm');
 
-    Module.controller('UserCtrl', ['$scope', '$state', '$stateParams', '$filter', 'UserServices','ClientServices', 'ngDialog', 'EvaluateServices','TracksServices', 'WeeklyHourServices', '$rootScope', function($scope, $state, $stateParams, $filter, UserServices, ClientServices,ngDialog, EvaluateServices, TracksServices, WeeklyHourServices, $rootScope) {
+    Module.controller('UserCtrl', ['$scope', '$state', '$stateParams', '$filter', 'UserServices','ClientServices', 'ngDialog', 'EvaluateServices','TracksServices', 'WeeklyHourServices', '$rootScope', '$http', function($scope, $state, $stateParams, $filter, UserServices, ClientServices,ngDialog, EvaluateServices, TracksServices, WeeklyHourServices, $rootScope, $http) {
 
         $scope.user         = {};
         $scope.sendingData  = false;
@@ -52,12 +52,14 @@
             console.log("RES: ", $scope.user);
 
             UserServices.save($scope.user, function (err, result) {
+                console.log("USER SAVE SIN ERR 1 :: ", result, err);
                 if (err) {
                     console.log("error", err);
                     $scope.error = err.message || err.error.message || err.error || err;
                     $sendingData = false;
                 } else {
-                    $state.go('app.users');
+                    //$state.go('app.users');
+                    console.log("USER SAVE SIN ERR 2 :: ", result, err);
                 }
             });
         }

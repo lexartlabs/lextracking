@@ -36,6 +36,7 @@
 		        	})
 		      	} else {
 		        	RestClient.post(model + "/new", obj, function(err, result) {
+		          		console.log("UserServices :: ", result, err);
 		          		cb(err, result);
 		        	})
 		      	}
