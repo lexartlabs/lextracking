@@ -29,14 +29,12 @@
 			},
 
 		    save: function(obj, cb) {
-		    	console.log(obj);
 		    	if (obj.id) {
 		        	RestClient.post(model + "/update" , obj, function(err, result) {
 		          		cb(err, result);
 		        	})
 		      	} else {
 		        	RestClient.post(model + "/new", obj, function(err, result) {
-		          		console.log("UserServices :: ", result, err);
 		          		cb(err, result);
 		        	})
 		      	}

@@ -52,14 +52,17 @@
             console.log("RES: ", $scope.user);
 
             UserServices.save($scope.user, function (err, result) {
-                console.log("USER SAVE SIN ERR 1 :: ", result, err);
                 if (err) {
                     console.log("error", err);
                     $scope.error = err.message || err.error.message || err.error || err;
                     $sendingData = false;
                 } else {
-                    //$state.go('app.users');
-                    console.log("USER SAVE SIN ERR 2 :: ", result, err);
+                    if (result != 'OK') {
+                        alert(result);
+                        $state.go('app.users');
+                    }else{
+                    $state.go('app.users');
+                    }
                 }
             });
         }
