@@ -32,9 +32,6 @@
             if(resp){
               var tareas = angular.copy(resp);
               angular.forEach(tareas, function(tarea, index){
-                if (tareas.length==index+1) {
-                  $scope.isLoaded = true;
-                }
                 
                 var fixedTarea = angular.copy(tarea);
 
@@ -59,10 +56,13 @@
                       });
                       tasks_trelloServices.findByIdCard(tarea.id, tarea.id, function (err, idCard){
                         if(!err){
-                          angular.forEach(idCard, function (element){
+                          angular.forEach(idCard, function (element, index){
                             if(tarea.id == element.card_id){
                              tarea.id = element.id;
                             }
+                            if (idCard.length==index+1) {
+                                setTimeout(function(){$scope.isLoaded = true;},2000);
+                              }
                           })
                         }
                       })
