@@ -154,7 +154,7 @@ class User {
 			}
 
 		} else {
-			return array("error" => "Error: ya existe usuario asociado a esta cuenta de email.");
+			return array("response" => "Error: ya existe usuario asociado a esta cuenta de email.", "error" => 204);
 			}
 	}
 
