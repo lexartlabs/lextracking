@@ -112,56 +112,73 @@ class User {
 	}
 	
 	public function insertUser($conn,$user){
-		$md   	 = $this->model;
-		$head 	 ="INSERT INTO ".$this->model;
-		$insert .="(";
-		$body 	.=" VALUES (";
-		$last 	 = count($user);
+		$sql_0	="SELECT * FROM ".$this->model." WHERE email='$user[email]' ";
+		$d_0 	= $conn->query($sql_0);
+		if(empty($d_0)){
+			//Actualizar usuario
+			$md   	 = $this->model;
+			$head 	 ="INSERT INTO ".$this->model;
+			$insert .="(";
+			$body 	.=" VALUES (";
+			$last 	 = count($user);
 
-		$ind 	 = 1;
-		foreach ($user as $key => $vle) {
-			
-			if($this->getStructure($conn,$key)){
+			$ind 	 = 1;
+			foreach ($user as $key => $vle) {
 				
-				if($ind==$last && $key=="password"){
-					$insert .=$key;
-					$body 	.="MD5('".$vle."')";
-				} elseif ($ind==$last && $key!="password") {
-					$insert .=$key;
-					$body 	.="'".$vle."'";
-				}elseif ($key=="password") {
-					$insert .=$key.", ";
-					$body 	.="MD5('".$vle."'), ";
-				}else {
-					$insert .=$key.", ";
-					$body 	.="'".$vle."', ";
+				if($this->getStructure($conn,$key)){
+					if($ind==$last && $key=="password"){
+						$insert .=$key;
+						$body 	.="MD5('".$vle."')";
+					} elseif ($ind==$last && $key!="password") {
+						$insert .=$key;
+						$body 	.="'".$vle."'";
+					}elseif ($key=="password") {
+						$insert .=$key.", ";
+						$body 	.="MD5('".$vle."'), ";
+					}else {
+						$insert .=$key.", ";
+						$body 	.="'".$vle."', ";
+					}
 				}
+				$ind++;
 			}
-			$ind++;
-		}
+			$insert .=")";
+			$body 	.=")";
+			$sql 	 = $head.$insert.$body;
+			$d 		 = $conn->query($sql);
+			// CALLBACK
+			if(empty($d)){
+				return array("response" => 'OK');
+			} else {
+				return array("error" => "Error: al ingresar el usuario.", "sql" => $sql);
+			}
 
-		$insert .=")";
-		$body 	.=")";
-		$sql 	 = $head.$insert.$body;
-		$d 		 = $conn->query($sql);
-		
-		// CALLBACK
-		if(empty($d)){
-			return array("response" => 'OK');
 		} else {
-			return array("error" => "Error: al ingresar el usuario.", "sql" => $sql);
-		}
+			return array("response" => "Error: ya existe usuario asociado a esta cuenta de email.", "error" => 204);
+			}
 	}
 
 	public function updateUser($conn, $user){
-		$sql = "UPDATE ".$this->model." SET name = '$user[name]', email = '$user[email]', password = MD5('$user[password]'), role = '$user[role]', jiraToken = '$user[jiraToken]' WHERE id='$user[id]'";
-		$d 	= $conn->query($sql);
-
-		// CALLBACK
-		if(empty($d)){
-			return array("response" => 'OK', "sql" => $sql);
-		} else {
-			return array("error" => "Error: al actualizar el usuario.", "sql" => $sql);
+		$sql0 = "SELECT * FROM $this->model WHERE id='$user[id]'";
+		$res0 = $conn->query($sql0);
+		if ($res0[0]["password"] != ($user[password])){
+			$sql = "UPDATE ".$this->model." SET name = '$user[name]', email = '$user[email]', password = MD5('$user[password]'), role = '$user[role]', jiraToken = '$user[jiraToken]' WHERE id='$user[id]'";
+			$d 	= $conn->query($sql);
+			// CALLBACK
+			if(empty($d)){
+				return array("response" => 'OK', "sql" => $sql);
+			} else {
+				return array("error" => "Error: al actualizar el usuario.", "sql" => $sql);
+			}
+		}else{
+			$sql = "UPDATE ".$this->model." SET name = '$user[name]', email = '$user[email]', role = '$user[role]', jiraToken = '$user[jiraToken]' WHERE id='$user[id]'";
+			$d 	= $conn->query($sql);
+			// CALLBACK
+			if(empty($d)){
+				return array("response" => 'OK', "sql" => $sql);
+			} else {
+				return array("error" => "Error: al actualizar el usuario.", "sql" => $sql);
+			}
 		}
 	}
 

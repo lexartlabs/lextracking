@@ -60,16 +60,24 @@ class Track {
 	}
 	//GET Active Tracks
 	public function getAllTracksActiveTracks($conn){
+		$d 		= [];
+		$d0 	= [];
 		$sql	="SELECT ".$this->model.".*, Projects.name AS projectName, Tasks.name AS taskName, Users.name AS userName, TIMEDIFF( ".$this->model.".endTime, ".$this->model.".startTime ) AS duration FROM ".$this->model."
 				INNER JOIN Tasks ON ".$this->model.".idTask = Tasks.id
 				INNER JOIN Users ON ".$this->model.".idUser = Users.id
 				INNER JOIN Projects ON Projects.id = Tasks.idProject
-				WHERE Tracks.endTime is null OR Tracks.endTime='0000-00-00 00:00:00' AND Tasks.active = 1";
+				WHERE Tracks.endTime is null OR Tracks.endTime='0000-00-00 00:00:00' AND Tasks.active = 1 AND Tracks.typeTrack = 'manual'";
+		$sql0	="SELECT ".$this->model.".*, Projects.name AS projectName, 	TrelloTask.id_project AS TrelloProyect, TrelloTask.name AS taskName, Users.name AS userName, TIMEDIFF( ".$this->model.".endTime, ".$this->model.".startTime ) AS duration FROM ".$this->model."
+				INNER JOIN TrelloTask ON ".$this->model.".idTask = TrelloTask.id
+				INNER JOIN Users ON ".$this->model.".idUser = Users.id
+				INNER JOIN Projects ON Projects.id = TrelloTask.id_project
+				WHERE Tracks.endTime is null OR Tracks.endTime='0000-00-00 00:00:00' AND TrelloTask.active = 1 AND Tracks.typeTrack = 'trello'";
 		$d 		= $conn->query($sql);
-
+		$d0 	= $conn->query($sql0);
+		$dd 	= array_merge($d, $d0);
 		// CALLBACK
-		if(!empty($d)){
-			return array("response" => $d);
+		if(!empty($d) || !empty($d0)){
+			return array("response" => $dd);
 		} else {
 			return array("error" => "Error: no existen tracks activas.");
 		}
