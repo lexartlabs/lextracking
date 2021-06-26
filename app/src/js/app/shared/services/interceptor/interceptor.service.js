@@ -30,10 +30,8 @@
                         if (response && typeof response.data !== 'undefined') {
                             if (response && response.data && response.data.response &&  !response.data.response.token && !response.data.response.email) {
                                 if (response.isTrello) {
-                                    console.log("isTrello :: ");
                                     return response;
                                 }else {
-                                 console.log("NO isTrello")   ;
                                 var rest = $injector.get('UserServices');
                                 rest.persistence( function(error, response){
                                     var user = angular.copy(response);
