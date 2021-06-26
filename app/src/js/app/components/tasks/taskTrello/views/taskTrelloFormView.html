@@ -40,6 +40,7 @@
                         <td title="{{tasks_trello.id}}">{{tasks_trello.id| truncateTail:true:50:'...'}}</td>
                         <td title="{{tasks_trello.name}}">{{tasks_trello.name | truncateTail:true:50:'...'}}</td>
                         <td>{{tasks_trello.status}}</td>
+                        <td>{{}}</td>
                         <td>
                             <a href="" ng-click="editTrello(tasks_trello)">
                                 <img src="assets/images/icons/pencil-ico.svg">
@@ -49,7 +50,7 @@
                         <td></td>
 
                         <td>
-                            <div ng-if="isLoaded">
+                            <div ng-if="tasks_trello.isPlayable">
                                 <div ng-if="!tasks_trello.status.includes('Done') && !tasks_trello.includes('In-Review') && isClient=='false' ">
                                     <a href ng-click="stopTrack()" ng-if="currentTrack.idTask == tasks_trello.id"><img class="img_stop" src="/assets/images/stop.png"></a>
                                     <a href ng-click="startTrackTrello(tasks_trello)" ng-disabled="inprogress" ng-if="currentTrack.idTask != tasks_trello.id"><img class="img_play" src="/assets/images/play.png"></a>    

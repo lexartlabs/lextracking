@@ -6,7 +6,6 @@
 
   Module.controller('task_trelloCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$filter', 'tasks_trelloServices', 'ngDialog', 'ProjectsServices', 'ClientServices', function($scope, $rootScope, $state, $stateParams, $filter, tasks_trelloServices, ngDialog, ProjectsServices, ClientServices) {
 
-      $scope.isLoaded       = false;
       $scope.sendingData    = false;
       var idTask_trello     = $stateParams.id;
       $scope.board          = {};
@@ -42,6 +41,7 @@
                 tarea.card_id    = tarea.id;
                 tarea.project    = $scope.board.projectName;
                 tarea.longIdCard = tarea.id;
+                tarea.isPlayable = false;
 
                 tasks_trelloServices.saveTaskTrello(tarea, function (err, result) {
                   tasks_trelloServices.getLabelsByCard(tarea.id, function(resp, err){
@@ -59,10 +59,9 @@
                           angular.forEach(idCard, function (element, index){
                             if(tarea.id == element.card_id){
                              tarea.id = element.id;
+                             tarea.isPlayable = true;
                             }
-                            if (idCard.length==index+1) {
-                                setTimeout(function(){$scope.isLoaded = true;},2000);
-                              }
+                            
                           })
                         }
                       })
