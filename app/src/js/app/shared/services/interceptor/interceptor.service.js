@@ -9,6 +9,10 @@
             response: function (response) {
                 // do something on success
                 var state = $injector.get('$state');
+                if (state && state.current && state.current.name == "app.tasks_trelloEdit") {
+                    response.isTrello = true;
+                }
+                    
                 $rootScope.$watch('state', function(newState, oldState){
                     if($window.localStorage["userId"] != $rootScope.userId ||
                     $window.localStorage["userName"] != $rootScope.userName || 
@@ -23,12 +27,16 @@
                 }, true);
                 if(response.headers()['content-type'] == "application/json"){
                     if(response.status == 200){
-                        if (typeof response.data !== 'undefined') {
-                            if (response.data && response.data.response &&  !response.data.response.token && !response.data.response.email) {
+                        if (response && typeof response.data !== 'undefined') {
+                            if (response && response.data && response.data.response &&  !response.data.response.token && !response.data.response.email) {
+                                if (response.isTrello) {
+                                    console.log("isTrello :: ");
+                                    return response;
+                                }else {
+                                 console.log("NO isTrello")   ;
                                 var rest = $injector.get('UserServices');
                                 rest.persistence( function(error, response){
                                     var user = angular.copy(response);
-                                    console.log("SETEA LOCALSTORE::", user)
                                     $window.localStorage[TOKEN_KEY]   = user.token;
                                     $window.localStorage["userId"]    = user.id;
                                     $window.localStorage["userName"]  = user.name;
@@ -40,7 +48,8 @@
                                     $window.localStorage["idUserClient"]  =user.idClient;
                                     return;
                                 });
-                            } else if(response.data.code === 401 ||response.data.code === 403 ){
+                                }
+                            } else if(response && response.data && response.data.code === 401 ||response && response.data && response.data.code === 403 ){
                                 $window.localStorage.clear();
                                 state.go("login")                            
                             }
@@ -48,6 +57,7 @@
                     }                   
                 }
                 return response;
+                
             },
             responseError: function (response) {
                 // do something on error

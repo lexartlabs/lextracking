@@ -42,7 +42,8 @@
                 tarea.card_id    = tarea.id;
                 tarea.project    = $scope.board.projectName;
                 tarea.longIdCard = tarea.id;
-
+                tarea.isPlayable = false;
+                
                 tasks_trelloServices.saveTaskTrello(tarea, function (err, result) {
                   tasks_trelloServices.getLabelsByCard(tarea.id, function(resp, err){
                     if(resp){
@@ -59,10 +60,11 @@
                           angular.forEach(idCard, function (element, index){
                             if(tarea.id == element.card_id){
                              tarea.id = element.id;
+                             tarea.isPlayable = true;
                             }
-                            if (idCard.length==index+1) {
-                                setTimeout(function(){$scope.isLoaded = true;},2000);
-                              }
+                            // if (idCard.length==index+1) {
+                            //     setTimeout(function(){$scope.isLoaded = true;},2000);
+                            //   }
                           })
                         }
                       })
