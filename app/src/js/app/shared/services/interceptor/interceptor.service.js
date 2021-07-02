@@ -17,8 +17,8 @@
                     $window.localStorage["isAdmin"] != $rootScope.isAdmin ||
                     $window.localStorage["isClient"] != $rootScope.isClient ||
                     $window.localStorage["isDeveloper"] != $rootScope.isDeveloper){
-                        $window.localStorage.clear();
-                        state.go("login")
+                      //  $window.localStorage.clear();
+                      //  state.go("login")
                     }
                 }, true);
                 if(response.headers()['content-type'] == "application/json"){
@@ -28,7 +28,7 @@
                                 var rest = $injector.get('UserServices');
                                 rest.persistence( function(error, response){
                                     var user = angular.copy(response);
-                                    console.log("SETEA LOCALSTORE::", user)
+                                    //console.log("SETEA LOCALSTORE::", user)
                                     $window.localStorage[TOKEN_KEY]   = user.token;
                                     $window.localStorage["userId"]    = user.id;
                                     $window.localStorage["userName"]  = user.name;

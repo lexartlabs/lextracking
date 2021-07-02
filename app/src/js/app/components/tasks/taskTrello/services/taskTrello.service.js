@@ -90,6 +90,7 @@
 			  })
 			},
 
+
 			getCards: function(obj,cb){
 				var data = null;
 				var xhr = new XMLHttpRequest();
@@ -117,8 +118,48 @@
 			},
 
 			getLists: function(obj, cb){
+				var data = null;
+				var xhr = new XMLHttpRequest();
+				xhr.addEventListener("readystatechange", function (resp) {
+					if (this.readyState === this.DONE) {
+						var resp = JSON.parse(this.responseText);
+						cb(resp);
+					}
+				});
+				xhr.open("GET", 'https://api.trello.com/1/boards/'+obj+'/lists/?limit=1000&fields=name&members=true&member_fields=fullName&key='+key+'&token='+token);
+				xhr.send(data);
+
 
 			},
+
+			getListByCard: function(obj,cb){
+				var data = null;
+				var xhr = new XMLHttpRequest();
+				xhr.addEventListener("readystatechange", function (resp) {
+					if (this.readyState === this.DONE) {
+						var resp = JSON.parse(this.responseText);
+						cb(resp);
+					}
+				});
+				xhr.open("GET", 'https://api.trello.com/1/cards/'+obj+'/list/?limit=1000&fields=name&members=true&member_fields=fullName&key='+key+'&token='+token);
+				xhr.send(data);
+			},//GET /1/cards/{id}/list
+
+			getCardByLists: function(obj, cb){
+				var data = null;
+				var xhr = new XMLHttpRequest();
+				xhr.addEventListener("readystatechange", function (resp) {
+					if (this.readyState === this.DONE) {
+						var resp = JSON.parse(this.responseText);
+						cb(resp);
+					}
+				});
+				xhr.open("GET", 'https://api.trello.com/1/lists/'+obj+'/cards/?limit=1000&fields=name&members=true&member_fields=fullName&key='+key+'&token='+token);
+				xhr.send(data);
+				//GET /1/lists/{id}/cards
+
+			},
+
 
 			getLabels: function(obj, cb){ //GET LABELS BOARD
 				var data = null;
@@ -284,7 +325,7 @@
 			},
 
 			getMembers: function(board, cb){
-				console.log(board);
+				//console.log(board);
 				var data = null;
 				var xhr = new XMLHttpRequest();
 				xhr.addEventListener("readystatechange", function (resp) {
