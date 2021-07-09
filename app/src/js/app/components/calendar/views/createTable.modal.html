@@ -1,0 +1,56 @@
+<div class="imm-modal imm-modal--medium">
+
+  <div class="imm-modal__header">
+    <div class="imm-modal__title" style="margin-bottom: 1%;">Agregar nuevo horario
+      <button type="button" class="btn btn-primary" style="float: right;" ng-click="addEvent()"> + 
+      </button>
+    </div> 
+
+  </div>
+  <div class="imm-modal__cnt">
+    <div>
+      <form>
+        <div class="imm-frm__fldgrp">
+          <div class="imm-frm__fld">
+            <label style="float: left;">{{selectedDay}}</label>
+            <label style="float: right;">Hoy {{todayIs}}</label>
+       <br>
+       <br>
+          </div>
+        </div>
+       <!-- MOSTRAR TODOS LOS EVENTOS DENTRO DE UN DIA -->
+      <ul>
+        <li ng-repeat="e in events">
+          <div class="imm-frm__fldgrp">
+            <div class="imm-frm__fld">
+                <a  ng-click="remove($index)"><i class="icon-remove"></i></a>
+                <b> <input ng-model="e.title"></b> 
+                <!-- {{e.start | date:"MMM dd"}} - {{e.end | date:"MMM dd"}} -->
+            </div>
+
+            <div class="imm-frm__fld" moment-picker='startTime.t' format="HH:mm:ss" change='selectedDates(e)'  max-view='date'>
+              <input type='text' ng-model='startTime.t' >
+            </div>
+            <div class="imm-frm__fld" moment-picker="endTime.t" format="HH:mm:ss" change='selectedDates(e)' max-view='date' >
+              <input type='text' ng-model='endTime.t'>
+            </div>
+          </div>
+        </li>
+      </ul>
+       
+
+       <!-- <label>Titulo:</label>
+       <input type="text" ng-model="event.title"><br> -->
+
+
+      </form>
+    </div>
+  </div>
+
+  <div class="imm-modal__actions">
+        <p class="err-display">{{error}}</p>
+        <a class="imm-btn imm-btn--alt" ng-click="ngDialogData.cancel()">{{ 'shared.modal.cancel' | translate }}</a>
+        <a class="imm-btn" ng-click="ngDialogData.confirm()">{{ 'shared.modal.accept' | translate }}</a>
+    </div>
+</div>
+

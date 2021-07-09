@@ -20,7 +20,8 @@
     "bill"        : "Factura",
     "my-profile"  : "Mi perfil",
     "logout"      : "Salir",
-    "jira"        : "Tareas Jira"
+    "jira"        : "Tareas Jira",
+    "calendar"    : "Calendario"
   },
 
   "evaluate": {
@@ -155,6 +156,12 @@
     "cancel"        : "Cancelar",
     "back"          : "Atrás",
     "projectName"   : "Nombre proyecto"
+  },
+
+  "calendar": {
+    "title" :"Título"
+
+
   },
 
   "reports": {

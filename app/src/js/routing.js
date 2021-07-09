@@ -472,6 +472,7 @@
                 templateUrl: 'app/components/tasks/taskTrello/views/taskTrelloFormView.html',
                 controller: 'task_trelloCtrl'
             })
+
             .state('app.dashboardTasks', {
                 url: '/dashboard/tareas',
                 templateUrl: 'app/components/tasks/views/dashboardView.html',
@@ -498,6 +499,12 @@
                 url: '/jira-new-task/:idboard',
                 templateUrl: 'app/components/tasks/jira/views/jiraTaskFormView.html',
                 controller: 'JiraTaskFormCtrl'
+            })
+
+            .state('app.calendar', {
+                url: '/calendar',
+                templateUrl: 'app/components/calendar/views/calendarView.html',
+                controller: 'CalendarCtrl'
             })
     }]);
 
