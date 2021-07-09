@@ -86,6 +86,7 @@
                                 angular.forEach(idCard, function (element) {
                                   if (tarea.id == element.card_id) {
                                     tarea.id = element.id;
+                                    tarea.isPlayable = true;
                                   }
                                 })
                               }

@@ -4,7 +4,7 @@
 
     var Module = ng.module('Imm');
 
-    Module.controller('UserCtrl', ['$scope', '$state', '$stateParams', '$filter', 'UserServices','ClientServices', 'ngDialog', 'EvaluateServices','TracksServices', 'WeeklyHourServices', '$rootScope', function($scope, $state, $stateParams, $filter, UserServices, ClientServices,ngDialog, EvaluateServices, TracksServices, WeeklyHourServices, $rootScope) {
+    Module.controller('UserCtrl', ['$scope', '$state', '$stateParams', '$filter', 'UserServices','ClientServices', 'ngDialog', 'EvaluateServices','TracksServices', 'WeeklyHourServices', '$rootScope', '$http', function($scope, $state, $stateParams, $filter, UserServices, ClientServices,ngDialog, EvaluateServices, TracksServices, WeeklyHourServices, $rootScope, $http) {
 
         $scope.user         = {};
         $scope.sendingData  = false;
@@ -57,7 +57,12 @@
                     $scope.error = err.message || err.error.message || err.error || err;
                     $sendingData = false;
                 } else {
+                    if (result != 'OK') {
+                        alert(result);
+                        $state.go('app.users');
+                    }else{
                     $state.go('app.users');
+                    }
                 }
             });
         }

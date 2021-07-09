@@ -57,3 +57,11 @@ Thumbs.db
 
 app/src/env.js
 api/conn.php
+
+# IGNORE LUMEN
+api-lumen/vendor
+api-lumen/.idea
+api-lumen/Homestead.json
+api-lumen/Homestead.yaml
+api-lumen/.env
+api-lumen/.phpunit.result.cache
