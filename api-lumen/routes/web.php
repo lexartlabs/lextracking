@@ -19,6 +19,6 @@ $router->get('/', function () use ($router) {
 
 $router->group(['prefix' => 'user'], function () use ($router) {
 
-    $router->post('/new', 'UserController@create');
+    $router->post('/new', 'UserController@new');
     
 });
