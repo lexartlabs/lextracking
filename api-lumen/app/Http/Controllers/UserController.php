@@ -31,7 +31,7 @@ class UserController extends Controller
                 $request->get('id') ? array_push($where, ["id","=",$request->get('id')]) : false;
                 $request->get('name') ? array_push($where, ["name","like","%".$request->get('name')."%"]) : false;
                 $request->get('email') ? array_push($where, ["email","like","%".$request->get('email')."%"]) : false;
-                
+                $request->get('role') ? array_push($where, ["role","like","%".$request->get('role')."%"]) : false;
                 /* QUERY */
                 $count = DB::table('users')->where($where)
                                              ->count();
@@ -54,11 +54,15 @@ class UserController extends Controller
                 $user = DB::table('users')->where('id', $id)->first();
                 unset($user->password);
                 unset($user->token);
+                if(!empty($user)){
+                    return response()->json(['response' => $user], 200);
+                } else {
+                    return array("error" => "Error: no se encuentra el usuario.");
+                }
                 
-                return response()->json(['response' => $user], 200);
             } catch (\Exception $e) {
                 var_dump($e->getMessage());
-                return response()->json(['message' => 'Fallo al obtener single user!'], 409);
+                return response()->json(['error' => 'Fallo al obtener single user!'], 409);
             }
         }
 
