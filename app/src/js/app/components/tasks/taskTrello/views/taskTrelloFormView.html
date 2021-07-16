@@ -9,11 +9,15 @@
     </div>
 </div>
 
-    <div>
-    <button style="float: right;background-color: steelblue; color: white; cursor: pointer;cursor: pointer;" ng-click="tutorial()">¿Como agregar un estado de tarea a Trello?</button>
-    <button style="float: right;background-color: steelblue; color: white; cursor: pointer;cursor: pointer;margin-right: 10px;" ng-click="tutorialBot()">¿Como agregar lexart.brain al tablero de Trello?</button>
-    </div>
-<a style="text-align: left; margin-left: 3px; color: blue; text-decoration: underline;" target="_blank" ng-href="{{urlBoard}}">Ver Tablero</a>
+<div>
+    <button style="float: right;background-color: steelblue; color: white; cursor: pointer;cursor: pointer;"
+        ng-click="tutorial()">¿Como agregar un estado de tarea a Trello?</button>
+    <button
+        style="float: right;background-color: steelblue; color: white; cursor: pointer;cursor: pointer;margin-right: 10px;"
+        ng-click="tutorialBot()">¿Como agregar lexart.brain al tablero de Trello?</button>
+</div>
+<a style="text-align: left; margin-left: 3px; color: blue; text-decoration: underline;" target="_blank"
+    ng-href="{{urlBoard}}">Ver Tablero</a>
 <div class="imm-wa__cnt" style="margin-top:10px;">
     <form class="imm-frm imm-frm--center">
 
@@ -28,7 +32,43 @@
                     <tr>
                         <th>{{ 'tasks_trello.id' | translate }}</th>
                         <th>{{ 'tasks_trello.task' | translate }}</th>
-                        <th>{{ 'tasks_trello.status' | translate }}</th>
+                        <th style="width: 30px;" >{{ 'tasks_trello.status' | translate }} </th>
+                        <th style="width: 120px">
+                         <ui-select 
+                            ng-model="labels.selected"
+                            class="imm-selectFilter imm-selectFilter--input"
+                            theme="selectize"
+                            append-to-body="true" 
+                            ng-disabled="disabled" 
+                            
+                            >
+                            <ui-select-match>
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices
+                                repeat="label.name as label in boardLabels | filter: { name: $select.search }">
+                                <div ng-bind-html="label.name | highlight: $select.selected.name"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                        </th>
+                        <th style="width: 30px;">Lista</th>
+                        <th style="width: 120px">
+                        <ui-select 
+                            ng-model="selectedList.selected"
+                            class="imm-selectFilter imm-selectFilter--input"
+                            theme="selectize"
+                            append-to-body="true" 
+                            ng-disabled="disabled" 
+                            >
+                            <ui-select-match>
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices
+                                repeat="lista in userList | filter: { name: $select.search }">
+                                <div ng-bind-html="lista.name | highlight: $select.selected.name"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                        </th>
                         <th class="imm-cstm__grid-5"></th>
                         <th></th>
                         <th></th>
@@ -36,10 +76,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="(index,tasks_trello) in tasks track by $index">
+                    <tr ng-repeat="tasks_trello in tasks | filter:{statusAll: labels.selected, listaId: selectedList.selected.id} track by tasks_trello.id" >
+                        <!-- <tr ng-repeat="(index,tasks_trello) in tasks track by $index "> -->
                         <td title="{{tasks_trello.id}}">{{tasks_trello.id| truncateTail:true:50:'...'}}</td>
                         <td title="{{tasks_trello.name}}">{{tasks_trello.name | truncateTail:true:50:'...'}}</td>
-                        <td>{{tasks_trello.status}}</td>
+                        <td title="{{tasks_trello.status}}">{{tasks_trello.status}}</td>
+                        <td></td>
+                        <td title="{{tasks_trello.listaName}}">{{tasks_trello.listaName}}</td>
+                        <td></td>
                         <td>
                             <a href="" ng-click="editTrello(tasks_trello)">
                                 <img src="assets/images/icons/pencil-ico.svg">
@@ -49,7 +93,7 @@
                         <td></td>
 
                         <td>
-                            <div ng-if="isLoaded">
+                            <div ng-if="tasks_trello.isPlayable">
                                 <div ng-if="!tasks_trello.status.includes('Done') && !tasks_trello.includes('In-Review') && isClient=='false' ">
                                     <a href ng-click="stopTrack()" ng-if="currentTrack.idTask == tasks_trello.id"><img class="img_stop" src="/assets/images/stop.png"></a>
                                     <a href ng-click="startTrackTrello(tasks_trello)" ng-disabled="inprogress" ng-if="currentTrack.idTask != tasks_trello.id"><img class="img_play" src="/assets/images/play.png"></a>    
