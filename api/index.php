@@ -11,6 +11,8 @@ require('classes/Token.php');
 
 ini_set('display_errors', 'On');
 error_reporting(1);
+define ("ENV", "/lextracking/api");
+
 
 
 	// CALL OBJS
@@ -28,6 +30,10 @@ error_reporting(1);
 		if($access){       
 			if($permission == "developer") {
 				//TODAS LAS RUTAS ACEPTADAS A DEVELOPERS DEBERIAN IR EN ESTE IF
+
+				//HORARIOS USUARIO
+				$router->map('GET', '/user-hours/[i:id]', 'components/userHours/get.php', 'user-hours'); 
+
 				$router->map('POST', '/persistence', 'components/users/post.php', 'user-persistence'); 
 				// CRYPTO ALGORITHM
 				$router->map('GET','/crypto/[a:psw]', 'components/crypto/index.php', 'crypto');
@@ -124,6 +130,10 @@ error_reporting(1);
 				}
 			} elseif ($permission == "admin" || $permission == "pm"){
 				//EN ADMIN VAN TODAS LAS RUTAS
+				
+				//HORARIOS DE USUARIOS
+				$router->map('GET', '/user-hours/[i:id]', 'components/userHours/get.php', 'user-hours'); 
+
 				$router->map('POST', '/persistence', 'components/users/post.php', 'user-persistence'); 
 
 				// CRYPTO ALGORITHM
