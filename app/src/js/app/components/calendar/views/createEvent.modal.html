@@ -1,7 +1,7 @@
-<div class="imm-modal imm-modal--medium">
+<div class="imm-modal imm-modal--medium" >
 
   <div class="imm-modal__header">
-    <div class="imm-modal__title" style="margin-bottom: 1%;">Agregar nuevo horario
+    <div class="imm-modal__title" style="margin-bottom: 1%;">Editar horario
       <button type="button" class="btn btn-primary" style="float: right;" ng-click="addEvent()"> + 
       </button>
     </div> 
@@ -20,28 +20,24 @@
         </div>
        <!-- MOSTRAR TODOS LOS EVENTOS DENTRO DE UN DIA -->
       <ul>
-        <li ng-repeat="e in events">
+        <li ng-repeat="e in events" ng-if="e.day == checkDate">
           <div class="imm-frm__fldgrp">
             <div class="imm-frm__fld">
                 <a  ng-click="remove($index)"><i class="icon-remove"></i></a>
                 <b> <input ng-model="e.title"></b> 
-                <!-- {{e.start | date:"MMM dd"}} - {{e.end | date:"MMM dd"}} -->
             </div>
 
-            <div class="imm-frm__fld" moment-picker='startTime.t' format="HH:mm:ss" change='selectedDates(e)'  max-view='date'>
-              <input type='text' ng-model='startTime.t' >
+            <div class="imm-frm__fld" moment-picker='e.hourStart' format="HH:mm" change='selectedDates(e, parseDate, date)' >
+              <input type='text' ng-model='e.hourStart'placeholder="Hora Inicial">
             </div>
-            <div class="imm-frm__fld" moment-picker="endTime.t" format="HH:mm:ss" change='selectedDates(e)' max-view='date' >
-              <input type='text' ng-model='endTime.t'>
+            <div class="imm-frm__fld" moment-picker="e.hourEnd" format="HH:mm" change='selectedDates(e, parseDate, date)'>
+              <input type='text' ng-model='e.hourEnd'  placeholder="Hora Final">
             </div>
+            <a class="close" ng-click="remove($index)"><img src="assets/images/icons/delete_entry-ico.svg"></i></a>
           </div>
         </li>
+
       </ul>
-       
-
-       <!-- <label>Titulo:</label>
-       <input type="text" ng-model="event.title"><br> -->
-
 
       </form>
     </div>

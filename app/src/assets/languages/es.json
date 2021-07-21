@@ -24,6 +24,8 @@
     "calendar"    : "Calendario"
   },
 
+
+
   "evaluate": {
     "title" : "Evaluación",
     "user"  : "Usuario"
@@ -159,9 +161,9 @@
   },
 
   "calendar": {
-    "title" :"Título"
-
-
+    "title"   :"Título",
+    "user"    : "Usuario",
+    "users"   : "Usuarios"
   },
 
   "reports": {

@@ -1,0 +1,20 @@
+<div class="imm-modal imm-modal--medium" id='modalError'>
+    <div class="imm-modal__header">
+      <h1 class="imm-modal__title">{{ 'Error' }}</h1>
+    </div>
+
+
+    <div class="imm-modal__cnt">
+      <div class="imm-frm__fld">
+        <div class="imm-frm__fld">
+          <label class="imm-frm__lbl">
+            <b class="imm-frm__lbl-name">Nos has ingresado los horarios correctamente</b>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="imm-modal__actions">
+      <a data-toggle='modalError' data-dismiss='#modalHorarioFijo'  class="imm-btn imm-btn--alt" ng-click="ngDialogData.cancel()">{{ 'shared.modal.close' | translate
+        }} </a>
+    </div>
