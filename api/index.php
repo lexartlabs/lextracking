@@ -13,6 +13,8 @@ ini_set('display_errors', 'On');
 error_reporting(1);
 define ("ENV", "/lextracking/api");
 
+
+
 	// CALL OBJS
 	$router 	= new AltoRouter();
 	$conn 		= new Connection();
@@ -28,6 +30,10 @@ define ("ENV", "/lextracking/api");
 		if($access){       
 			if($permission == "developer") {
 				//TODAS LAS RUTAS ACEPTADAS A DEVELOPERS DEBERIAN IR EN ESTE IF
+
+				//HORARIOS USUARIO
+				$router->map('GET', '/user-hours/[i:id]', 'components/userHours/get.php', 'user-hours'); 
+
 				$router->map('POST', '/persistence', 'components/users/post.php', 'user-persistence'); 
 				// CRYPTO ALGORITHM
 				$router->map('GET','/crypto/[a:psw]', 'components/crypto/index.php', 'crypto');
@@ -124,6 +130,13 @@ define ("ENV", "/lextracking/api");
 				}
 			} elseif ($permission == "admin" || $permission == "pm"){
 				//EN ADMIN VAN TODAS LAS RUTAS
+				
+				//HORARIOS DE USUARIOS
+				$router->map('GET', '/user-hours/[i:id]', 'components/userHours/get.php', 'user-hours'); 
+				$router->map('POST', '/user-hours', 'components/userHours/post.php', 'save-fixed-hours'); 
+				$router->map('POST', '/user-hours/[i:id]', 'components/userHours/post.php', 'edit-fixed-hours'); 
+				$router->map('POST', '/user-hours', 'components/userHours/post.php', 'delete-fixed-hours'); 
+
 				$router->map('POST', '/persistence', 'components/users/post.php', 'user-persistence'); 
 
 				// CRYPTO ALGORITHM
