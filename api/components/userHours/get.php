@@ -12,7 +12,7 @@
 		// GET USER BY ID
 		if($name == 'user-hours'){
 			$id 		= $params["id"];
-			$response 	= $objUsr->getUserHours($conn,$id);
+			$response 	= $objUsr->getUserFixedHours($conn,$id);
 			echo json_encode($response);
 		}
 

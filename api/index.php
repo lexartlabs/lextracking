@@ -133,6 +133,9 @@ define ("ENV", "/lextracking/api");
 				
 				//HORARIOS DE USUARIOS
 				$router->map('GET', '/user-hours/[i:id]', 'components/userHours/get.php', 'user-hours'); 
+				$router->map('POST', '/user-hours', 'components/userHours/post.php', 'save-fixed-hours'); 
+				$router->map('POST', '/user-hours/[i:id]', 'components/userHours/post.php', 'edit-fixed-hours'); 
+				$router->map('POST', '/user-hours', 'components/userHours/post.php', 'delete-fixed-hours'); 
 
 				$router->map('POST', '/persistence', 'components/users/post.php', 'user-persistence'); 
 
