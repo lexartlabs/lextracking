@@ -19,18 +19,22 @@ class HourUser {
 	}
 
 	public function saveUserFixedHours($conn, $params){
+		$d = [];
+		$arrD = [];
 		foreach ($params as $days){
+			if(count($days['horarios']) > 0 && $days['user_id']){
 				foreach ($days['horarios'] as $hour){
-					$sql = "INSERT INTO $this->model ('user_id', 'day', 'start', 'end') VALUES (".$params['user_id'].",".$days['name'].",".$hour['start'].",".$hour['end'].")";
+					$sql = "INSERT INTO $this->model (user_id, day, start, end) VALUES (".$days['user_id'].",'".$days['name']."','".$hour['desde']."','".$hour['hasta']."')";
 					$d   = $conn->query($sql);
+					if (!empty($d)) {
+						return array("response" => $d);
+					} else {
+						return array("response" => 'Error al asignar proyecto');
+					}
 				}
+			}
 		};
 
-		if (!empty($d)) {
-			return array("response" => $d);
-		} else {
-			return array("response" => 'Error al asignar proyecto');
-		}
 	}
 
 	public function editUserFixedHours($conn, $params){
