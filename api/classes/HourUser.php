@@ -19,14 +19,11 @@ class HourUser {
 	}
 
 	public function saveUserFixedHours($conn, $params){
-
 		foreach ($params as $days){
-			foreach ($days as $day){
-				foreach ($day['horarios'] as $hour){
-					$sql = "INSERT INTO $this->model ('user_id', 'day', 'start', 'end') VALUES (".$params['user_id'].",".$day['name'].",".$hour['start'].",".$hour['end'].")";
+				foreach ($days['horarios'] as $hour){
+					$sql = "INSERT INTO $this->model ('user_id', 'day', 'start', 'end') VALUES (".$params['user_id'].",".$days['name'].",".$hour['start'].",".$hour['end'].")";
 					$d   = $conn->query($sql);
 				}
-			}
 		};
 
 		if (!empty($d)) {
