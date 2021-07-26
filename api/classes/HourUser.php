@@ -21,6 +21,7 @@ class HourUser {
 	public function saveUserFixedHours($conn, $params){
 		$d = [];
 		$arrD = [];
+		var_dump($params);
 		foreach ($params as $days){
 			var_dump($days);
 			if(count($days['horarios']) > 0){
