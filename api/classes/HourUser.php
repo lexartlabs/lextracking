@@ -22,6 +22,7 @@ class HourUser {
 		$d = [];
 		$arrD = [];
 		foreach ($params as $days){
+			var_dump(count($days['horarios']));
 			if(!empty($days['horarios'])){
 				foreach ($days['horarios'] as $hour){
 					$sql = "INSERT INTO $this->model (user_id, day, start, end) VALUES (".$days['user_id'].",'".$days['name']."','".$hour['desde']."','".$hour['hasta']."')";
