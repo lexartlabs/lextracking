@@ -20,9 +20,7 @@ class HourUser {
 
 	public function saveUserFixedHours($conn, $params){
 		$d = [];
-		var_dump($params);
-		$sqli = "DELETE * FROM $this->model WHERE user_id = ".$params[7]['id'];
-		var_dump($sqli);
+		$sqli = "DELETE FROM $this->model WHERE user_id = ".$params[7]['id'];
 		$b = $conn->query($sqli);
 
 		foreach ($params as $days){
