@@ -26,12 +26,13 @@ class HourUser {
 				foreach ($days['horarios'] as $hour){
 					$sql = "INSERT INTO $this->model (user_id, day, start, end) VALUES (".$days['user_id'].",'".$days['name']."','".$hour['desde']."','".$hour['hasta']."')";
 					$d   = $conn->query($sql);
-					if (!empty($d)) {
-						return array("response" => $d);
-					} else {
-						return array("response" => 'Error al asignar proyecto');
-					}
+					array_push($arrD, $d);
 				}
+			}
+			if (!empty($arrD)) {
+				return array("response" => $arrD);
+			} else {
+				return array("response" => 'Error al asignar proyecto');
 			}
 		};
 
