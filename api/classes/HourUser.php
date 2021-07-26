@@ -28,13 +28,12 @@ class HourUser {
 					$d   = $conn->query($sql);
 				}
 			}
-			if (!empty($d)) {
-				return array("response" => $d);
-			} else {
-				return array("response" => 'Error al asignar proyecto');
-			}
 		};
-
+		if (!empty($d)) {
+			return array("response" => $d);
+		} else {
+			return array("response" => 'Error al asignar proyecto');
+		}
 	}
 
 	public function editUserFixedHours($conn, $params){
