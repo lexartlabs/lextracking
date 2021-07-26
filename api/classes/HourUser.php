@@ -21,8 +21,9 @@ class HourUser {
 	public function saveUserFixedHours($conn, $params){
 		$d = [];
 		$arrD = [];
+		var_dump(count($params));
 		foreach ($params as $days){
-			var_dump(count($days['horarios']));
+			var_dump($days);
 			if(!empty($days['horarios'])){
 				foreach ($days['horarios'] as $hour){
 					$sql = "INSERT INTO $this->model (user_id, day, start, end) VALUES (".$days['user_id'].",'".$days['name']."','".$hour['desde']."','".$hour['hasta']."')";
