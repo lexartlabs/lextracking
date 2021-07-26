@@ -22,6 +22,7 @@ class HourUser {
 		$d = [];
 		$arrD = [];
 		foreach ($params as $days){
+			var_dump($days);
 			if(count($days['horarios']) > 0 && $days['user_id']){
 				var_dump($days);
 				foreach ($days['horarios'] as $hour){
