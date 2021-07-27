@@ -21,7 +21,9 @@ class HourUser {
 	public function saveUserFixedHours($conn, $params){
 		$d = [];
 		$sqli = "DELETE FROM $this->model WHERE user_id = ".$params[7]['id'];
+		var_dump($sqli);
 		$b = $conn->query($sqli);
+		var_dump($b);
 
 		foreach ($params as $days){
 			if(!empty($days['horarios'])){
