@@ -19,26 +19,26 @@ class HourUser {
 	}
 
 	public function saveUserFixedHours($conn, $params){
-		$d = [];
+		// $d = [];
 		var_dump($params);
 		$sqli = "DELETE FROM $this->model WHERE user_id = ".$params[7]['id'];
 		var_dump($sqli);
 		$b = $conn->query($sqli);
 		var_dump($b);
 
-		foreach ($params as $days){
-			if(!empty($days['horarios'])){
-				foreach ($days['horarios'] as $hour){
-					$sql = "INSERT INTO $this->model (user_id, day, start, end) VALUES (".$days['user_id'].",'".$days['name']."','".$hour['desde']."','".$hour['hasta']."')";
-					$d   = $conn->query($sql);
-				}
-			}
-		};
-		if (!empty($d)) {
-			return array("response" => $d);
-		} else {
-			return array("response" => 'Error al asignar proyecto');
-		}
+		// foreach ($params as $days){
+		// 	if(!empty($days['horarios'])){
+		// 		foreach ($days['horarios'] as $hour){
+		// 			$sql = "INSERT INTO $this->model (user_id, day, start, end) VALUES (".$days['user_id'].",'".$days['name']."','".$hour['desde']."','".$hour['hasta']."')";
+		// 			$d   = $conn->query($sql);
+		// 		}
+		// 	}
+		// };
+		// if (!empty($d)) {
+		// 	return array("response" => $d);
+		// } else {
+		// 	return array("response" => 'Error al asignar proyecto');
+		// }
 	}
 
 	public function editUserFixedHours($conn, $params){
