@@ -82,12 +82,11 @@ class HourUser {
 		$year = $fullDate[1];
 
 		$sql = "SELECT * FROM $this->exceptions WHERE user_id = ".$id. " AND MONTH(`start`) =".$month." AND YEAR(`start`) =".$year;
-		var_dump($sql);
 		$d   = $conn->query($sql);
 		if (!empty($d)) {
 			return array("response" => $d);
 		} else {
-			return array("response" => 'Error al asignar proyecto');
+			return array("response" => 'No hay excepciones para este mes');
 		}
 	}
 
