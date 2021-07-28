@@ -75,7 +75,8 @@ class HourUser {
 		};
 	}
 
-	public function getUserExceptions($conn, $id){
+	public function getUserExceptions($conn, $id, $fecha){
+		var_dump($fecha);
 		$sql = "SELECT * FROM $this->exceptions WHERE user_id = ".$id;
 		$d   = $conn->query($sql);
 		if (!empty($d)) {
