@@ -16,6 +16,12 @@
 			echo json_encode($response);
 		}
 
+		if($name == 'user-exceptions'){
+			$id 		= $params["id"];
+			$response 	= $objUsr->getUserExceptions($conn,$id);
+			echo json_encode($response);
+		}
+
 	} else {
 		echo json_encode( array("response" => 'err') );
 	}

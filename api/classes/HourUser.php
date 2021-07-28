@@ -7,6 +7,7 @@
 class HourUser {
 
 	private $model = "users_hours";
+	private $exceptions = "user_exceptions";
 
 	public function getUserFixedHours($conn, $id){
 		$sql = "SELECT * FROM $this->model WHERE user_id = ".$id;
@@ -72,6 +73,16 @@ class HourUser {
 					}
 				}
 		};
+	}
+
+	public function getUserExceptions($conn, $id){
+		$sql = "SELECT * FROM $this->exceptions WHERE user_id = ".$id;
+		$d   = $conn->query($sql);
+		if (!empty($d)) {
+			return array("response" => $d);
+		} else {
+			return array("response" => 'Error al asignar proyecto');
+		}
 	}
 
 }
