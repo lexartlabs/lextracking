@@ -77,7 +77,7 @@ class HourUser {
 
 	public function getUserExceptions($conn, $id, $fecha){
 
-		$fullDate = explode("/", $fecha);
+		$fullDate = explode("-", $fecha);
 		$month = $fullDate[0];
 		$year = $fullDate[1];
 
