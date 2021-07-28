@@ -20,7 +20,7 @@
         </div>
        <!-- MOSTRAR TODOS LOS EVENTOS DENTRO DE UN DIA -->
       <ul>
-        <li ng-repeat="e in events" ng-if="e.day == checkDate">
+        <li ng-repeat="e in eventSources" ng-if="e.dayCheck == checkDate">
           <div class="imm-frm__fldgrp">
             <div class="imm-frm__fld">
                 <a  ng-click="remove($index)"><i class="icon-remove"></i></a>

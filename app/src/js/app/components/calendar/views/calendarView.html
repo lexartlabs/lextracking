@@ -14,7 +14,8 @@
         ng-model="filter.user" 
         class="imm-select imm-select--input" 
         theme="selectize"
-        title="{{ 'calendar.users' | translate }}" append-to-body="true">
+        title="{{ 'calendar.users' | translate }}" append-to-body="true"
+        on-select= refreshEventos(filter.user)>
           <ui-select-match> {{$select.selected.name}} </ui-select-match>
           <ui-select-choices repeat="user.id as user in users | filter: $select.search">
             <div ng-bind-html="user.name | highlight: $select.search"></div>
@@ -31,4 +32,4 @@
 </br>
 
 
-<div class="calendar" ui-calendar="uiConfig.calendar" ng-model="eventSources" calendar="calendar">
+<div class="calendar" config="uiConfig.calendar" ui-calendar="uiConfig.calendar" ng-model="eventSources" calendar='calendar' >

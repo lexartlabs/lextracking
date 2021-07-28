@@ -5,28 +5,39 @@
     var Module = ng.module('Imm');
 
     Module.factory('CalendarServices', ['RestClient', function(RestClient){
-        var model = 'Calendar';
+        var model = 'user-hours';
 
         var factory = {
             
 
-            getUserEvents: function(obj, cb){
-                RestClient.get(model + "/events-id", function(err, result){
+            getUserEvents: function(id, cb){
+                RestClient.get(model + '/' + id, function(err, result){
                     cb(err, result);
                 })
             },
+
+            getUserExceptions: function(id, cb){
+                RestClient.get('user-exceptions'+ '/' + id, function(err, result){
+                    cb(err, result);
+                })
+
+            },
+
 
             postUserEvents: function(obj, cb){
-                RestClient.post(model + '/save-events', obj, function(err, result){
+                RestClient.post(model, obj, function(err, result){
                     cb(err, result);
                 })
             },
 
-            EditEvents: function(obj, cb){
-                RestClient.post(model + '/save-events/' + obj.id, obj, function(err, result){
+
+            RemoveEvents: function(obj, cb){
+                RestClient.delete(model + '/delete-fixed-hours/' + obj.id, obj, function(err, result){
                     cb(err, result);
                 })
-            },
+            }
+
+            
 
 
 
