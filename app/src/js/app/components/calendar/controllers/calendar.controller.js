@@ -33,6 +33,7 @@
       var fechaActual = moment().format('MM-YYYY');
       var parseDate = moment($scope.date).toDate();
       var fechaActualCompleta = moment().toDate()
+      $scope.exceptions = []
 
       $scope.diaSeleccionado = {
         selected: {
@@ -67,8 +68,8 @@
       //   user_id: id
       // }
       // $scope.events.push($scope.event);
-    
-      
+
+
       function getUserEvents(id) {
         CalendarServices.getUserEvents(id, function (err, result) {
           if (result) {
@@ -77,13 +78,28 @@
               $scope.mostrarInfo.push({ name: e.day, desde: moment(e.start).format('hh:mm'), hasta: moment(e.end).format('hh:mm') })
               $scope.actualizarHorariosFijos()
             });
-            console.log('result', result)
           };
         });
-        CalendarServices.getUserExceptions(id, function(err, result){
+        CalendarServices.getUserExceptions(id, function (err, res) {
+          console.log('get excepciones', res)
+          $scope.exceptions = res
+
+          // if(res){
+          //   angular.forEach (res, function(r, index){
+          //     $scope.events.push(r)
+          //   })
+
+          //   console.log('$scope.events', $scope.events)
+          //   console.log('$scope.horariosFijos', $scope.horariosFijos)
+
+
+          // }
+          console.log('$scope.exceptions', $scope.exceptions)
         });
-      }; 
+
+      };
       getUserEvents($scope.filter.user);
+
 
 
 
@@ -133,14 +149,13 @@
             $scope.modalEventos();
             $scope.mesCalendario =
               $scope.selectedDay = angular.copy(selectedDate.format('DD/MM/YYYY'));
-            
+
           },
 
           eventDestroy: function (event, element, view) {
 
           },
           eventClick: $scope.modalEventos = function (event) {
-            console.log('event', event)
             // $scope.eventSources = []
             $scope.date = angular.copy(event.start);
             $scope.checkDate = moment($scope.date).toDate();
@@ -244,7 +259,7 @@
         $scope.cleanEvents();
         getUserEvents($scope.filter.user)
         $scope.changeView()
-          //uiCalendarConfig.calendars['calendar'].fullCalendar('refetchEvents')
+        //uiCalendarConfig.calendars['calendar'].fullCalendar('refetchEvents')
       };
 
       //FORMATEAR ARRAY DE HORARIOS FIJOS PARA ENVIARLO A LA API
@@ -287,7 +302,7 @@
                 }
               })
               console.log('$scope.eventSources', $scope.eventSources)
-              
+
               $scope.horariosFijosAux = []
 
               ngDialog.close();
@@ -355,20 +370,15 @@
 
       //ACTUALIZAR HORARIOS FIJOS CON INFO DE MOSTRAR INFO
       $scope.actualizarHorariosFijos = function () {
-
         angular.forEach($scope.horariosFijos, function (day, index) {
           angular.forEach($scope.mostrarInfo, function (dayInfo, indexInfo) {
             if (dayInfo.name.toLowerCase() == day.name.toLowerCase()) {
               $scope.arrayAux.push({ desde: dayInfo.desde, hasta: dayInfo.hasta });
               day.horarios = $scope.arrayAux;
-              console.log('index', index)
             }
-
           });
           $scope.arrayAux = [];
         });
-
-        console.log('$scope.horariosFijos', angular.copy($scope.horariosFijos))
         setHorariosFijos(fechaActual)
       };
 
@@ -386,14 +396,13 @@
           { name: 'Domingo', horarios: [] }
         ];
         $scope.actualizarHorariosFijos()
-        
-        
 
-        console.log('index',index)
-        
+
+
+        console.log('index', index)
+
       };
 
-      //DELETE EVENTO
 
       //MOSTRAR MODAL ERROR
       $scope.modalHorarioError = function () {
@@ -429,8 +438,16 @@
 
           for (var i = 1; i <= cant; i++) {
             var dia = angular.copy(i)
+
             var weekDayName = moment(dia + '-' + mesActual, 'DD-MM-YYYY').format('dddd').toLowerCase();
             angular.forEach($scope.horariosFijos, function (hF, index) {
+              angular.forEach($scope.exceptions, function (r, index) {
+                r.dayCheck = moment(r.start).format('DD')
+                if (i == r.dayCheck && !diasAgregados.includes(i)) {
+                  $scope.eventSources[0].push(r)
+                  diasAgregados.push(i);
+                }
+              })
               if (hF.horarios.length > 0 && hF.name.toLowerCase() == normalize(weekDayName)) {
                 if (diasAgregados.includes(i)) {
                   return
@@ -442,11 +459,14 @@
                     eventoAux.hourEnd = angular.copy(h.hasta)
                     var fecha = moment(dia + '-' + mesActual, 'DD-MM-YYYY')
                     eventoFijo = angular.copy($scope.selectedDates(eventoAux, fecha.toDate(), fecha))
+
                     if (eventoFijo.start >= moment().add(-1, 'days').toDate()) {
                       $scope.eventSources[0].push(eventoFijo)
                       eventoFijo = {}
                     }
+                    console.log('$scope.eventSources', $scope.eventSources)
                   })
+
                   diasAgregados.push(i);
                   // uiCalendarConfig.calendars['calendar'].fullCalendar('refetchEvents')
 

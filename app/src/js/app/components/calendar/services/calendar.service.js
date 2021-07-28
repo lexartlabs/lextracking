@@ -16,11 +16,10 @@
                 })
             },
 
-            getUserExceptions: function(id, cb){
-                RestClient.get('user-exceptions'+ '/' + id, function(err, result){
+            getUserExceptions: function(id, fecha, cb){
+                RestClient.get('user-exceptions'+ '/' + id + '?fecha=' + fecha, function(err, result){
                     cb(err, result);
                 })
-
             },
 
 
