@@ -17,9 +17,8 @@
 		}
 
 		if($name == 'user-exceptions'){
-			var_dump($params);
 			$id 		= $params["id"];
-			$fecha 	= $params["fecha"];
+			$fecha 	= $params["date_ini"];
 			$response 	= $objUsr->getUserExceptions($conn,$id, $fecha);
 			echo json_encode($response);
 		}
