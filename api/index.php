@@ -38,7 +38,7 @@ define ("ENV", "/lextracking/api");
 				$router->map('POST', '/user-hours', 'components/userHours/post.php', 'delete-fixed-hours'); 
 
 				//EXCEPCIONES USUARIO
-				$router->map('GET', '/user-exceptions/[i:id]', 'components/userHours/get.php', 'user-exceptions'); 
+				$router->map('GET', '/user-exceptions/[i:id]/[*:date_ini]', 'components/userHours/get.php', 'user-exceptions'); 
 				
 				$router->map('POST', '/persistence', 'components/users/post.php', 'user-persistence'); 
 				// CRYPTO ALGORITHM
@@ -144,7 +144,7 @@ define ("ENV", "/lextracking/api");
 				$router->map('POST', '/user-hours', 'components/userHours/post.php', 'delete-fixed-hours'); 
 
 				//USER EXCEPCIONES
-				$router->map('GET', '/user-exceptions/[i:id]', 'components/userHours/get.php', 'user-exceptions'); 
+				$router->map('GET', '/user-exceptions/[i:id]/[*:date_ini]', 'components/userHours/get.php', 'user-exceptions'); 
 
 
 				$router->map('POST', '/persistence', 'components/users/post.php', 'user-persistence'); 
