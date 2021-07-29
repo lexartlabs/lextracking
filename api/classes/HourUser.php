@@ -96,8 +96,9 @@ class HourUser {
 		$b = $conn->query($sqli);
 
 		foreach ($params as $days){
-					$sql = "INSERT INTO $this->model (user_id, day, title, start, end) VALUES (".$days['user_id'].",'".$days['day']."','".$days['title']."','".$days['desde']."','".$days['hasta']."')";
-					$d   = $conn->query($sql);
+				$sql = "INSERT INTO $this->model (user_id, day, title, start, end) VALUES (".$days['user_id'].",'".$days['day']."','".$days['title']."','".$days['desde']."','".$days['hasta']."')";
+				var_dump($sql);
+				$d   = $conn->query($sql);
 		};
 		if (!empty($d)) {
 			return array("response" => $d);
