@@ -90,9 +90,9 @@ class HourUser {
 		}
 	}
 
-	public function saveExceptions($conn, $params, $id){
+	public function saveExceptions($conn, $params, $id, $fecha){
 		$d = [];
-		$sqli = "DELETE FROM $this->exceptions WHERE user_id = ".$id;
+		$sqli = "DELETE FROM $this->exceptions WHERE user_id = ".$id." AND start ='".$fecha."'";
 		$b = $conn->query($sqli);
 
 		foreach ($params as $days){
