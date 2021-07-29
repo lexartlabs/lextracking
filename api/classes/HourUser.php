@@ -92,8 +92,6 @@ class HourUser {
 
 	public function saveExceptions($conn, $params, $id){
 		$d = [];
-		var_dump($id);
-		var_dump($params);
 		$sqli = "DELETE FROM $this->exceptions WHERE user_id = ".$id;
 		$b = $conn->query($sqli);
 
