@@ -19,7 +19,7 @@
 			echo json_encode($response);
 		}
 		if($name == 'save-exceptions'){
-			var_dump($id);
+			var_dump($params);
 			$id = $params["id"];
 			$response = $objUsr->saveExceptions($conn,$params, $id);
 			echo json_encode($response);
