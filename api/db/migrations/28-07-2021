@@ -46,3 +46,5 @@ ALTER TABLE `user_exceptions`
 ALTER TABLE `user_exceptions`
   MODIFY `user_exceptions_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
+
+ALTER TABLE `user_exceptions` CHANGE `title` `title` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
