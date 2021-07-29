@@ -96,7 +96,7 @@ class HourUser {
 		$b = $conn->query($sqli);
 
 		foreach ($params as $days){
-				$sql = "INSERT INTO $this->model (user_id, day, title, start, end) VALUES (".$days['user_id'].",'".$days['day']."','".$days['title']."','".$days['desde']."','".$days['hasta']."')";
+				$sql = "INSERT INTO $this->exceptions (user_id, day, title, start, end) VALUES (".$days['user_id'].",'".$days['day']."','".$days['title']."','".$days['start']."','".$days['end']."')";
 				var_dump($sql);
 				$d   = $conn->query($sql);
 		};
