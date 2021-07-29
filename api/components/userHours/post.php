@@ -4,7 +4,7 @@
 
 	$conn 		= new Connection();
 	$objUsr		= new HourUser();
-	
+	$params_get = $match['params'];
 	$params 	= json_decode(file_get_contents('php://input'), true);
 	$name 		= $match['name'];
 
@@ -19,8 +19,8 @@
 			echo json_encode($response);
 		}
 		if($name == 'save-exceptions'){
+			$id = $params_get["id"];
 			var_dump($params);
-			$id = $params["id"];
 			$response = $objUsr->saveExceptions($conn,$params, $id);
 			echo json_encode($response);
 		}
