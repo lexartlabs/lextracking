@@ -20,7 +20,9 @@
 		}
 		if($name == 'save-exceptions'){
 			$id = $params_get["id"];
-			$response = $objUsr->saveExceptions($conn,$params, $id);
+			$fecha 	= $params_get["date_ini"];
+
+			$response = $objUsr->saveExceptions($conn, $params, $id, $fecha);
 			echo json_encode($response);
 		}
 	} else {
