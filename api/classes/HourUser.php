@@ -90,6 +90,22 @@ class HourUser {
 		}
 	}
 
+	public function saveExceptions($conn, $params, $id){
+		$d = [];
+		$sqli = "DELETE FROM $this->exceptions WHERE user_id = ".$id;
+		$b = $conn->query($sqli);
+
+		foreach ($params as $days){
+					$sql = "INSERT INTO $this->model (user_id, day, title, start, end) VALUES (".$days['user_id'].",'".$days['day']."','".$days['title']."','".$days['desde']."','".$days['hasta']."')";
+					$d   = $conn->query($sql);
+		};
+		if (!empty($d)) {
+			return array("response" => $d);
+		} else {
+			return array("response" => 'Error al asignar proyecto');
+		}
+	}
+
 }
 
 ?>

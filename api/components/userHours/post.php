@@ -18,8 +18,9 @@
 			$response = $objUsr->editUserFixedHours($conn,$params);
 			echo json_encode($response);
 		}
-		if($name == 'delete-fixed-hours'){
-			$response = $objUsr->deleteUserFixedHours($conn,$params);
+		if($name == 'save-exceptions'){
+			$id = $params["id"];
+			$response = $objUsr->saveExceptions($conn,$params, $id);
 			echo json_encode($response);
 		}
 	} else {
