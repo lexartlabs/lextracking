@@ -92,13 +92,17 @@ class HourUser {
 
 	public function saveExceptions($conn, $params, $id, $fecha){
 		$d = [];
-		$sqli = "DELETE FROM $this->exceptions WHERE user_id = ".$id." AND start ='".$fecha."'";
+		$sqli = "DELETE FROM $this->exceptions WHERE user_id = ".$id." AND start LIKE '%".$fecha."%'";
+		var_dump($sqli);
 		$b = $conn->query($sqli);
 
 		foreach ($params as $days){
+			if($days){
 				$sql = "INSERT INTO $this->exceptions (user_id, day, title, start, end) VALUES (".$days['user_id'].",'".$days['day']."','".$days['title']."','".$days['start']."','".$days['end']."')";
 				$d   = $conn->query($sql);
+			}
 		};
+
 		if (!empty($d)) {
 			return array("response" => $d);
 		} else {
