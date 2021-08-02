@@ -39,7 +39,7 @@ define ("ENV", "/lextracking/api");
 
 				//EXCEPCIONES USUARIO
 				$router->map('GET', '/user-exceptions/[i:id]/[*:date_ini]', 'components/userHours/get.php', 'user-exceptions'); 
-				$router->map('POST', '/user-exceptions/[i:id]', 'components/userHours/post.php', 'save-exceptions'); 
+				$router->map('POST', '/user-exceptions/[i:id]/[*:date_ini]', 'components/userHours/post.php', 'save-exceptions'); 
 				
 				$router->map('POST', '/persistence', 'components/users/post.php', 'user-persistence'); 
 				// CRYPTO ALGORITHM
