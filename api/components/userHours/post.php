@@ -8,7 +8,7 @@
 	$params 	= json_decode(file_get_contents('php://input'), true);
 	$name 		= $match['name'];
 
-	if($params){
+	if(count($params) >= 0){
 		// GET USER BY ID
 		if($name == 'save-fixed-hours'){
 			$response = $objUsr->saveUserFixedHours($conn,$params);
