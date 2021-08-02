@@ -92,6 +92,7 @@ class HourUser {
 
 	public function saveExceptions($conn, $params, $id, $fecha){
 		$d = [];
+		var_dump($fecha);
 		$sqli = "DELETE FROM $this->exceptions WHERE user_id = ".$id." AND start LIKE '%".$fecha."%'";
 		var_dump($sqli);
 		$b = $conn->query($sqli);
