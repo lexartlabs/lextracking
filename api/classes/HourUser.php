@@ -93,7 +93,7 @@ class HourUser {
 	public function saveExceptions($conn, $params, $id, $fecha){
 		$d = [];
 		var_dump($fecha);
-		$sqli = "DELETE FROM $this->exceptions WHERE user_id = ".$id." AND start BETWEEN  '".$fecha."' AND '".$fecha."'";
+		$sqli = "DELETE FROM $this->exceptions WHERE user_id = ".$id." AND Month(start) = Month('".$fecha."') AND Year(date) = Year('".$fecha."')";
 		var_dump($sqli);
 		$b = $conn->query($sqli);
 
