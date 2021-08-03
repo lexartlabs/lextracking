@@ -20,6 +20,7 @@ define ("ENV", "/lextracking/api");
 	$conn 		= new Connection();
 	$objToken	= new Token();
 	$router->setBasePath(ENV);
+	var_dump(phpversion());
 	if($_SERVER["HTTP_TOKEN"]){
 		$token 	= $_SERVER["HTTP_TOKEN"];
 		$access = $objToken->checkToken($conn, $token);
