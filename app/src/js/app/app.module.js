@@ -29,7 +29,8 @@ var Imm = Imm || {};
         'ckeditor',
         'as.sortable',
         'naif.base64',
-        'mgo-angular-wizard'
+        'mgo-angular-wizard',
+        'ui.calendar'
 
     ]).config(['$httpProvider', '$translateProvider', function ($httpProvider, $translateProvider) {
 

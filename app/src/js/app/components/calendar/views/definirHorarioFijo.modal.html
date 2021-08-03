@@ -1,0 +1,61 @@
+
+<div class="imm-modal imm-modal--medium" id='modalHorarioFijo'>
+
+    <div class="imm-modal__header">
+        <div class="imm-modal__title" style="margin-bottom: 1%;">Asignar horario fijo
+        </div>
+
+    </div>
+    <div class="imm-modal__cnt">
+        <div>
+            <form>
+
+                <div class="imm-frm__fldgrp">
+                    <div class="imm-frm__fld">
+                        <ui-select ng-model="diaSeleccionado.selected" class="imm-select imm-select--input"
+                            theme="selectize" title="{{'Dias'}}" append-to-body="true">
+                            <ui-select-match> {{$select.selected.name}} </ui-select-match>
+                            <ui-select-choices repeat="day in horariosFijos | filter: $select.search">
+                                <div ng-bind-html="day.name | highlight: $select.selected.name"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+
+
+                    <div class="imm-frm__fld" moment-picker='t.hourStart' format="HH:mm" change='selectedTime(t)'>
+                        <input type='text' ng-model='t.hourStart' placeholder="Hora Inicial">
+                    </div>
+                    <div class="imm-frm__fld" moment-picker="t.hourEnd" format="HH:mm" change='selectedTime(t)'>
+                        <input type='text' ng-model='t.hourEnd' placeholder="Hora Final">
+                    </div>
+                    <button type="button" class="btn btn-primary" style="float: right;"
+                        ng-click="addHorarioFijo(diaSeleccionado.selected.name, t)"> Agregar Horario
+                    </button>
+                </div>
+                <table>
+                    <thead>
+                        <th>Dia</th>
+                        <th>Horarios Elegidos</th>
+                        <th></th>
+
+                    </thead>
+                    <tbody>
+                        <tr ng-if='diaSeleccionado.selected.name.toLowerCase() == h.name.toLowerCase() && !h.exception' ng-repeat= '(index, h) in mostrarInfo'>
+                            <td title='{{h.name}}'>{{h.name}}</td>
+                            <td title='{{h.desde}}{{h.hasta}}'>{{h.desde}}-{{h.hasta}}</td>
+                            <td> <a class="close" ng-click="eliminarRegistro(index)">
+                                    <img src="assets/images/icons/delete_entry-ico.svg"></i></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="imm-modal__actions">
+        <p class="err-display">{{error}}</p>
+        <a class="imm-btn imm-btn--alt" ng-click="ngDialogData.cancel()">{{ 'shared.modal.cancel' | translate }}</a>
+        <a class="imm-btn" ng-click="ngDialogData.confirm(); ">{{ 'shared.modal.accept' | translate }}</a>
+    </div>
+</div>

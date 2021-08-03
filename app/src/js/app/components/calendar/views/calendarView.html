@@ -1,0 +1,35 @@
+<!-- <div class="btn-group calTools">
+    AGREGAR EVENTO
+    <button type="button" class="btn btn-primary" ng-click="addEvent()"> + </button>
+    <button class="btn btn-success" ng-click="changeView('month', 'calendar')">Mes</button>
+    <button class="btn btn-success" ng-click="changeView('agendaWeek', 'calendar')">Semana</button>
+</div> -->
+
+<div class="imm-modal__cnt">
+  <div class="imm-frm__fldgrp">
+    <div style="width: 150px;" ng-if="userRole=='admin' || userRole == 'pm' ">
+      <label class="imm-frm__lbl">
+        <b class="imm-frm__lbl-name">{{ 'calendar.user' | translate }}</b>
+        <ui-select 
+        ng-model="filter.user" 
+        class="imm-select imm-select--input" 
+        theme="selectize"
+        title="{{ 'calendar.users' | translate }}" append-to-body="true"
+        on-select= 'callCalendar()'>
+          <ui-select-match> {{$select.selected.name}} </ui-select-match>
+          <ui-select-choices repeat="user.id as user in users | filter: $select.search">
+            <div ng-bind-html="user.name | highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+      </label>
+    </div>
+    
+  </div>
+</div>
+
+
+</br>
+</br>
+
+
+<div class="calendar" ui-calendar="uiConfig.calendar" ng-model="eventSources" calendar='calendar' >
