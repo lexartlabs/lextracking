@@ -11,9 +11,6 @@ require('classes/Token.php');
 
 ini_set('display_errors', 'On');
 error_reporting(1);
-define ("ENV", "/lextracking/api");
-
-
 
 	// CALL OBJS
 	$router 	= new AltoRouter();
