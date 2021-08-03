@@ -17,7 +17,7 @@
             },
 
             getUserExceptions: function(id, fecha, cb){
-                RestClient.get('user-exceptions'+ '/' + id + '?fecha=' + fecha, function(err, result){
+                RestClient.get('user-exceptions'+ '/' + id + '/' + fecha, function(err, result){
                     cb(err, result);
                 })
             },
@@ -25,6 +25,13 @@
 
             postUserEvents: function(obj, cb){
                 RestClient.post(model, obj, function(err, result){
+                    cb(err, result);
+                })
+            },
+
+
+            postUserExceptions: function(obj, id, fecha, cb){
+                RestClient.post('user-exceptions' + '/' + id + '/' + fecha, obj , function(err, result){
                     cb(err, result);
                 })
             },
