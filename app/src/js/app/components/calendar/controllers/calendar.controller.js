@@ -134,7 +134,7 @@
           },
           locale: 'es',
           height: 540,
-          editable: true,
+          editable: false,
           selectable: true,
           nowIndicator: true,
 
@@ -158,8 +158,6 @@
                 $scope.changeView()
               }
             })
-
-            // getUserEvents($scope.filter.user, $scope.currentMonth)
           },
 
           dayClick: function (selectedDate) {
@@ -170,28 +168,7 @@
             $scope.modalEventos()
           },
 
-          eventClick: function (event) {
-            // $scope.eventSources = []
-            $scope.date = angular.copy(event.start);
-            $scope.checkDate = moment($scope.date).toDate();
-            $scope.checkDate = $scope.checkDate.getDate();
-            ngDialog.open({
-              template: '/app/components/calendar/views/editarEventosDia.modal.html',
-              showClose: true,
-              scope: $scope,
-              disableAnimation: true,
-              data: {
-                confirm: function () {
-                  $scope.eventSources = [$scope.events];
-                  // $scope.crearArrayPostExceptions()
-                  ngDialog.close();
-                },
-                cancel: function () {
-                  ngDialog.close();
-                }
-              }
-            })
-          },
+          eventClick:$scope.eventClick,
           eventDrop: $scope.alertOnDrop,
           eventResize: $scope.alertOnResize,
 
@@ -492,6 +469,7 @@
           }
         })
       };
+
 
       //MODAL EDITAR EVENTOS
       $scope.modalEventos = function () {
