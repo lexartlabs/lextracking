@@ -80,7 +80,7 @@
         CalendarServices.getUserEvents(id, function (err, result) {
           if (result) {
             angular.forEach(result, function (e) {
-              if(e.title == 'Horario Fijo'){
+              if (e.title == 'Horario Fijo') {
                 e.dayCheck = moment(e.start).format('DD')
                 $scope.mostrarInfo.push({ name: e.day, desde: moment(e.start).format('HH:mm'), hasta: moment(e.end).format('HH:mm') })
               }
@@ -114,20 +114,20 @@
       $scope.uiConfig = {
         calendar: {
           buttonText: {
-            today:    'Hoy',
-            month:    'Mes',
+            today: 'Hoy',
+            month: 'Mes',
             title: 'title'.toUpperCase()
           },
-          customButtons: {   
+          customButtons: {
             agregarHorario: {
               text: 'Horarios Fijos',
-              click: function () { 
-                $scope.modalHorarioFijo() 
+              click: function () {
+                $scope.modalHorarioFijo()
               }
             },
-            semana:{
-              text:'Semana',
-              click: function(){ 
+            semana: {
+              text: 'Semana',
+              click: function () {
                 uiCalendarConfig.calendars['calendar'].fullCalendar('changeView', 'agendaWeek');
               }
             }
@@ -137,7 +137,7 @@
           editable: true,
           selectable: true,
           nowIndicator: true,
-          
+
 
           header: {
             left: 'today prev,next',
@@ -241,22 +241,22 @@
         $scope.exceptionsAux = []
         angular.forEach($scope.events, function (e) {
           // $scope.btwDatesE(moment(e.start), e.hourStart, e.hourEnd)
-          
-            if (e.dayCheck == $scope.checkDate) {
-              e.start = moment(e.start).format('YYYY-MM-DD') + ' ' + e.hourStart + ":00"
-              e.end = moment(e.end).format('YYYY-MM-DD') + ' ' + e.hourEnd + ":00"
-              dateView = moment(e.start).format('YYYY-MM-DD')
-              if (e.dayDescription) {
-                e.day = e.dayDescription
-  
-              }
-              $scope.exceptionsAux.push(e)
+
+          if (e.dayCheck == $scope.checkDate) {
+            e.start = moment(e.start).format('YYYY-MM-DD') + ' ' + e.hourStart + ":00"
+            e.end = moment(e.end).format('YYYY-MM-DD') + ' ' + e.hourEnd + ":00"
+            dateView = moment(e.start).format('YYYY-MM-DD')
+            if (e.dayDescription) {
+              e.day = e.dayDescription
+
             }
+            $scope.exceptionsAux.push(e)
+          }
 
 
         })
         $scope.f = $scope.currentMonth.split('-')
-        
+
         CalendarServices.postUserExceptions($scope.exceptionsAux, $scope.filter.user, $scope.f[1] + '-' + $scope.f[0] + '-' + $scope.checkDate, function (err, result) {
           $scope.uiConfig.calendar.viewRender({
             intervalEnd: {
@@ -266,27 +266,31 @@
 
           })
         });
-      
+
 
       };
-      
-      
+
+
       $scope.btwDatesH = function (day, desde, hasta, type) {
         var verify = 0
         $scope.error = ''
         if (type == 'hf') {
           angular.forEach($scope.horariosFijos, function (hF, index) {
             if (hF.name.toLowerCase() == day) {
-              angular.forEach(hF.horarios, function (h, index) {      
+              angular.forEach(hF.horarios, function (h, index) {
                 var start = moment(h.desde + ':00', 'HH:mm:ss')
                 var end = moment(h.hasta + ':00', 'HH:mm:ss')
                 console.log(moment(desde), moment(hasta), desde, hasta)
-                if (moment(desde + ':00', 'HH:mm:ss').isBetween(start, end) || moment(hasta+ ':00', 'HH:mm:ss').isBetween(start, end)) {
+                if (moment(desde + ':00', 'HH:mm:ss').isBetween(start, end) || moment(hasta + ':00', 'HH:mm:ss').isBetween(start, end)) {
                   verify = verify + 1
-                } 
+                }
+                if (start.isBetween(moment(desde + ':00', 'HH:mm:ss'), moment(hasta + ':00', 'HH:mm:ss')) || end.isBetween(moment(desde + ':00', 'HH:mm:ss'), moment(hasta + ':00', 'HH:mm:ss'))) {
+                  verify = verify + 1
+                }
+
               })
             }
-            if (verify > 0){
+            if (verify > 0) {
               $scope.error = 'Los horarios no se pueden superponer'
             } else {
               $scope.error = ''
@@ -296,7 +300,7 @@
       }
 
 
-      $scope.callCalendar = function(){
+      $scope.callCalendar = function () {
         $scope.uiConfig.calendar.viewRender({
           intervalEnd: {
             _d: dateView
@@ -306,34 +310,37 @@
         })
       }
 
-        $scope.btwDatesE = function (day, desde, hasta, index){
-          console.log('index', index)
-          var verify = 0
-          $scope.error = ''
-          day = day.getDate()
-          console.log('day',day)
-          angular.forEach($scope.events, function(e, ind){
-            if (e.dayCheck == $scope.checkDate && e.title != 'Horario Fijo' && e.dayCheck == day){
-              var start = moment(e.hourStart + ':00', 'HH:mm:ss')
-              var end = moment(e.hourEnd + ':00', 'HH:mm:ss')
-              console.log(moment(desde + ':00', 'HH:mm:ss'),moment(hasta + ':00', 'HH:mm:ss'), start, end)
-              if(moment(desde + ':00', 'HH:mm:ss').isBetween(start, end) || moment(hasta + ':00', 'HH:mm:ss').isBetween(start, end)){
-                verify = verify + 1
-              }
-              if (verify > 0){
-                if(index == ind ){
-                  e.error = true
-                  $scope.indexDeleted = index
-                }
-                $scope.error = 'Los horarios no se pueden superponer'
-              } else {
-                $scope.error = ''
-              }
+      $scope.btwDatesE = function (day, desde, hasta, index) {
+        console.log('index', index)
+        var verify = 0
+        $scope.error = ''
+        day = day.getDate()
+        console.log('day', day)
+        angular.forEach($scope.events, function (e, ind) {
+          if (e.dayCheck == $scope.checkDate && e.title != 'Horario Fijo' && e.dayCheck == day) {
+            var start = moment(e.hourStart + ':00', 'HH:mm:ss')
+            var end = moment(e.hourEnd + ':00', 'HH:mm:ss')
+            console.log(moment(desde + ':00', 'HH:mm:ss'), moment(hasta + ':00', 'HH:mm:ss'), start, end)
+            if (moment(desde + ':00', 'HH:mm:ss').isBetween(start, end) || moment(hasta + ':00', 'HH:mm:ss').isBetween(start, end)) {
+              verify = verify + 1
             }
-          })
-        }
+            if (start.isBetween(moment(desde + ':00', 'HH:mm:ss'), moment(hasta + ':00', 'HH:mm:ss')) || end.isBetween(moment(desde + ':00', 'HH:mm:ss'), moment(hasta + ':00', 'HH:mm:ss'))) {
+              verify = verify + 1
+            }
+            if (verify > 0) {
+              if (index == ind) {
+                e.error = true
+                $scope.indexDeleted = index
+              }
+              $scope.error = 'Los horarios no se pueden superponer'
+            } else {
+              $scope.error = ''
+            }
+          }
+        })
+      }
 
-    
+
 
       //CAMBIAR VISTA CALENDARIO
       $scope.changeView = function () {
@@ -370,8 +377,8 @@
         // $scope.eventDeleted.push($scope.events[index])
         $scope.events.splice(index, 1)
         console.log($scope.events)
-        angular.forEach($scope.events, function(e, index){
-          if (e.error){
+        angular.forEach($scope.events, function (e, index) {
+          if (e.error) {
             $scope.error = 'Los horarios no se pueden superponer'
             return
           } else {
@@ -455,24 +462,24 @@
           data: {
             confirm: function () {
               $scope.actualizarHorariosFijos();
-                $scope.armarHorarioFijoPost();
-                $scope.cleanEvents(function (bool) {
-                  if (bool) {
-                    $scope.horariosFijosAux.push({ id: $scope.filter.user });
-                    CalendarServices.postUserEvents($scope.horariosFijosAux, function (err, result) {
-                      $scope.uiConfig.calendar.viewRender({
-                        intervalEnd: {
-                          _d: dateView
-                        }
-                      }, {
+              $scope.armarHorarioFijoPost();
+              $scope.cleanEvents(function (bool) {
+                if (bool) {
+                  $scope.horariosFijosAux.push({ id: $scope.filter.user });
+                  CalendarServices.postUserEvents($scope.horariosFijosAux, function (err, result) {
+                    $scope.uiConfig.calendar.viewRender({
+                      intervalEnd: {
+                        _d: dateView
+                      }
+                    }, {
 
-                      })
-                    });
-                    $scope.horariosFijosAux = []
-                  }
-                });
-                ngDialog.close();
-              
+                    })
+                  });
+                  $scope.horariosFijosAux = []
+                }
+              });
+              ngDialog.close();
+
 
 
 
@@ -497,10 +504,10 @@
           data: {
             confirm: function () {
               if ($scope.error == '') {
-              $scope.crearArrayPostExceptions()
-              ngDialog.close();
+                $scope.crearArrayPostExceptions()
+                ngDialog.close();
               }
-              
+
             },
             cancel: function () {
               $scope.events.splice($scope.indexDeleted, 1)
