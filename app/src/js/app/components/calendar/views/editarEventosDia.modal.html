@@ -52,7 +52,7 @@
           <div ng-repeat="e in events" ng-style='{"border":e.error ? "1px dashed red":""}' ng-if="e.day == checkDate && e.title != 'Horario Fijo'|| e.dayCheck == checkDate && e.title != 'Horario Fijo'">
             
             <div style='border:1px solid #DDDDDD; padding:10px; border-radius:3px' >
-              <div class="imm-frm__fldgrp" style="float: right">
+              <div class="imm-frm__fldgrp" style="float: left">
 
 
                 <div size=10% class="imm-frm__fld" moment-picker='e.hourStart' format="HH:mm" change='selectedDates(e, e.start, e.start); btwDatesE(e.start, e.hourStart, e.hourEnd, $index, "exc")'>
@@ -64,15 +64,16 @@
 
                   
                 </div>
-                <a style="float: right" class="close" ng-click="remove($index)"><img
-                  src="assets/images/icons/delete_entry-ico.svg"></i></a>
+                
               </div>
+              <a style="float: right" class="close" ng-click="remove($index)"><img
+                src="assets/images/icons/delete_entry-ico.svg"></i></a>
               </br>
               </br>
               </br>
 
 
-              <b style="float: left; "> <input size="65%"  ng-model="e.title"></b>
+              <b style="float: left; "> <input placeholder='Agregar descripción 'size="65%"  ng-model="e.title"></b>
 
 
 
