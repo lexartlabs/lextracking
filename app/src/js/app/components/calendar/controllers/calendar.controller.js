@@ -112,6 +112,7 @@
       //CONFIGURACION DEL CALENDARIO
       $scope.uiConfig = {
         calendar: {
+          timeZone: 'UTC',
           buttonText: {
             today: 'Hoy',
             month: 'Mes',
@@ -158,7 +159,8 @@
           },
           // titleFormat: '[' + monthTitle + ']',
 
-          viewRender: function (view, element) {
+          viewRender: function (view, element, prev,next) {
+            console.log(view, element, prev, next)
             //capturo info del mes del calendario en el que estoy
             $scope.currentMonth = view.intervalEnd._d
             endMonthViewDate = view.intervalEnd._d
