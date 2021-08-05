@@ -25,6 +25,7 @@
       $scope.users = [];
       $scope.startTimeFijo = {};
       $scope.endTimeFijo = {};
+      $scope.eventsAux = {};
       $scope.startEnd = {};
       $scope.mostrarHorariosModal = [];
       var endMonthViewDate = {};
@@ -203,7 +204,13 @@
           },
         }
       };
-      $scope.eventsAux = {}
+
+      setTimeout(function () {
+        uiCalendarConfig.calendars['calendar'].fullCalendar('render');
+      },1000)
+      
+
+
 
       //AGREGAR EVENTO
       $scope.addEvent = function () {
