@@ -39,7 +39,9 @@
       $scope.exceptionsAux = [];
       $scope.eventDeleted = [];
       $scope.indexDeleted = null;
+      var count = 0;
       $scope.error = '';
+      var monthTitle = moment().format('MMMM YYYY');
       $scope.diaSeleccionado = {
         selected: {
           name: "Lunes", horarios: []
@@ -113,7 +115,6 @@
           buttonText: {
             today: 'Hoy',
             month: 'Mes',
-            title: 'title'.toUpperCase()
           },
           customButtons: {
             agregarHorario: {
@@ -127,6 +128,20 @@
               click: function () {
                 uiCalendarConfig.calendars['calendar'].fullCalendar('changeView', 'agendaWeek');
               }
+            },
+            hoy: {
+              text: 'Hoy',
+              click: function () {
+                  $scope.uiConfig.calendar.viewRender({
+                    intervalEnd: {
+                      _d: moment(fechaActualCompleta)
+                      
+                    }
+                  }, {
+          
+                  })
+                
+              }
             }
           },
           locale: 'es',
@@ -137,17 +152,27 @@
 
 
           header: {
-            left: 'today prev,next',
+            left: 'prev,next',
             center: 'title',
             right: 'agregarHorario month semana',
           },
+          // titleFormat: '[' + monthTitle + ']',
 
           viewRender: function (view, element) {
+
+            console.log(view)
+            // $scope.uiConfig.calendar.titleFormat = '['+ monthTitle +']'
+
+            monthTitle = moment(view.intervalEnd._d).format('MMMM YYYY')
+            
+            $scope.setTitle(monthTitle, count+1)
+
 
             //capturo info del mes del calendario en el que estoy
             $scope.currentMonth = view.intervalEnd._d
             endMonthViewDate = view.intervalEnd._d
             $scope.currentMonth = moment($scope.currentMonth).format('MM-YYYY')
+
             diasAgregados = [];
             $scope.refreshEventos($scope.filter.user, function (bool) {
               if (bool) {
@@ -156,6 +181,7 @@
               }
             })
           },
+
 
           dayClick: function (selectedDate) {
             $scope.date = angular.copy(selectedDate);
@@ -210,6 +236,15 @@
       };
 
 
+      $scope.setTitle = function (title, count) {
+        console.log('title', title)
+        if (count > 1){
+          $scope.uiConfig.calendar.titleFormat = '[' + title + ']'
+        }
+        
+      }
+
+
 
       //ARMO ARRAY DE EXCEPCIONES EXTRAIDO DE LA INFO DEL MODAL PARA EL POST
       var dateView = moment()
@@ -242,9 +277,8 @@
 
           })
         });
-
-
       };
+
 
 
       $scope.btwDatesH = function (day, desde, hasta, type) {
@@ -277,6 +311,7 @@
 
 
       $scope.callCalendar = function () {
+        console.log('TEST 2')
         $scope.uiConfig.calendar.viewRender({
           intervalEnd: {
             _d: dateView
