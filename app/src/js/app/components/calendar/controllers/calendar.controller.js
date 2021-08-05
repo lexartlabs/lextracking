@@ -113,6 +113,7 @@
       $scope.uiConfig = {
         calendar: {
           timeZone: 'UTC',
+          defaultDate: moment().toDate(),
           buttonText: {
             today: 'Hoy',
             month: 'Mes',
