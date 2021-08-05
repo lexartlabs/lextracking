@@ -37,11 +37,17 @@
             },
 
 
-            RemoveEvents: function(obj, cb){
+            removeEvents: function(obj, cb){
                 RestClient.delete(model + '/delete-fixed-hours/' + obj.id, obj, function(err, result){
                     cb(err, result);
                 })
-            }
+            },
+
+            getTrackedHours: function(obj, cb){
+                RestClient.get(model +  '/' + id + '/' , function(err, result){
+                    cb(err, result); 
+                })
+            },
 
             
 
