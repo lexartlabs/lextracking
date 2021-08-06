@@ -40,6 +40,7 @@
       $scope.exceptionsAux = [];
       $scope.eventDeleted = [];
       $scope.indexDeleted = null;
+      $scope.currentMonthText = "";
       var count = 0;
       $scope.error = '';
       
@@ -162,11 +163,12 @@
           // titleFormat: '[' + monthTitle + ']',
 
           viewRender: function (view, element, prev,next) {
-            console.log(view, element, prev, next)
+            console.log(view, element)
             //capturo info del mes del calendario en el que estoy
             $scope.currentMonth = view.intervalEnd._d
             endMonthViewDate = view.intervalEnd._d
             $scope.currentMonth = moment($scope.currentMonth).format('MM-YYYY')
+            $scope.currentMonthText =  moment( view.intervalEnd._d).format('MMMM YYYY');
             diasAgregados = [];
             $scope.refreshEventos($scope.filter.user, function (bool) {
               if (bool) {
@@ -204,11 +206,6 @@
           },
         }
       };
-
-      setTimeout(function () {
-        uiCalendarConfig.calendars['calendar'].fullCalendar('render');
-      },1000)
-      
 
 
 
