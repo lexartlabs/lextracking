@@ -111,8 +111,7 @@ class HourUser {
 	}
 
 	public function getTracksEvents($conn, $id, $fecha){
-		$sql = "SELECT id, name AS title, startTime AS start, endTime AS end FROM $this->tracks WHERE idUser = ".$id." AND Month(startTime) = Month('".$fecha."') AND Year(startTime) = Year('".$fecha."')";
-		var_dump($sql);
+		$sql = "SELECT id AS id_track, name AS title, startTime AS start, endTime AS end FROM $this->tracks WHERE idUser = ".$id." AND Month(startTime) = Month('".$fecha."') AND Year(startTime) = Year('".$fecha."')";
 		$d   = $conn->query($sql);
 		if (!empty($d)) {
 			return array("response" => $d);
