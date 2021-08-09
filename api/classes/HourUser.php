@@ -8,6 +8,7 @@ class HourUser {
 
 	private $model = "users_hours";
 	private $exceptions = "user_exceptions";
+	private $tracks = "tracks";
 
 	public function getUserFixedHours($conn, $id){
 		$sql = "SELECT * FROM $this->model WHERE user_id = ".$id;
@@ -102,6 +103,16 @@ class HourUser {
 			}
 		};
 
+		if (!empty($d)) {
+			return array("response" => $d);
+		} else {
+			return array("response" => 'Error al asignar proyecto');
+		}
+	}
+
+	public function getTracksEvents($conn, $id, $fecha){
+		$sql = "SELECT id, name AS title, startTime AS start, endTime AS end FROM $this->tracks WHERE user_id = ".$id." AND DAY(startTime) = DAY('".$fecha."') AND Month(startTime) = Month('".$fecha."') AND Year(startTime) = Year('".$fecha."')";
+		$d   = $conn->query($sql);
 		if (!empty($d)) {
 			return array("response" => $d);
 		} else {
