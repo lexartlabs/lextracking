@@ -25,6 +25,7 @@
       $scope.users = [];
       $scope.startTimeFijo = {};
       $scope.endTimeFijo = {};
+      $scope.eventsAux = {};
       $scope.startEnd = {};
       $scope.mostrarHorariosModal = [];
       var endMonthViewDate = {};
@@ -39,7 +40,10 @@
       $scope.exceptionsAux = [];
       $scope.eventDeleted = [];
       $scope.indexDeleted = null;
+      $scope.currentMonthText = "";
+      var count = 0;
       $scope.error = '';
+      
       $scope.diaSeleccionado = {
         selected: {
           name: "Lunes", horarios: []
@@ -110,10 +114,11 @@
       //CONFIGURACION DEL CALENDARIO
       $scope.uiConfig = {
         calendar: {
+          timeZone: 'UTC',
+          defaultDate: moment().toDate(),
           buttonText: {
             today: 'Hoy',
             month: 'Mes',
-            title: 'title'.toUpperCase()
           },
           customButtons: {
             agregarHorario: {
@@ -126,6 +131,20 @@
               text: 'Semana',
               click: function () {
                 uiCalendarConfig.calendars['calendar'].fullCalendar('changeView', 'agendaWeek');
+              }
+            },
+            hoy: {
+              text: 'Hoy',
+              click: function () {
+                  $scope.uiConfig.calendar.viewRender({
+                    intervalEnd: {
+                      _d: moment(fechaActualCompleta)
+                      
+                    }
+                  }, {
+          
+                  })
+                
               }
             }
           },
@@ -141,21 +160,26 @@
             center: 'title',
             right: 'agregarHorario month semana',
           },
+          // titleFormat: '[' + monthTitle + ']',
 
-          viewRender: function (view, element) {
-
+          viewRender: function (view, element, prev,next) {
+            console.log(view, element)
             //capturo info del mes del calendario en el que estoy
             $scope.currentMonth = view.intervalEnd._d
             endMonthViewDate = view.intervalEnd._d
             $scope.currentMonth = moment($scope.currentMonth).format('MM-YYYY')
+            $scope.currentMonthText =  moment( view.intervalEnd._d).format('MMMM YYYY');
             diasAgregados = [];
             $scope.refreshEventos($scope.filter.user, function (bool) {
               if (bool) {
                 $scope.actualizarHorariosFijos()
                 $scope.changeView()
+                
               }
             })
+            
           },
+
 
           dayClick: function (selectedDate) {
             $scope.date = angular.copy(selectedDate);
@@ -182,7 +206,8 @@
           },
         }
       };
-      $scope.eventsAux = {}
+
+
 
       //AGREGAR EVENTO
       $scope.addEvent = function () {
@@ -208,7 +233,6 @@
 
         $scope.events.push($scope.eventsAux)
       };
-
 
 
       //ARMO ARRAY DE EXCEPCIONES EXTRAIDO DE LA INFO DEL MODAL PARA EL POST
@@ -242,9 +266,8 @@
 
           })
         });
-
-
       };
+
 
 
       $scope.btwDatesH = function (day, desde, hasta, type) {
@@ -277,6 +300,7 @@
 
 
       $scope.callCalendar = function () {
+        console.log('TEST 2')
         $scope.uiConfig.calendar.viewRender({
           intervalEnd: {
             _d: dateView
