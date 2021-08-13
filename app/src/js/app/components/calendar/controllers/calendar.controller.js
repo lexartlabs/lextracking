@@ -34,16 +34,19 @@
       $scope.eventSources = [$scope.events];
       var fechaActual = moment().format('MM-YYYY');
       var parseDate = moment($scope.date).toDate();
-      var fechaActualCompleta = moment().toDate()
+      $scope.fechaActualCompleta = moment().toDate()
       $scope.exceptions = []
       $scope.todayIs = moment().format('DD/MM/YYYY');
       $scope.exceptionsAux = [];
       $scope.eventDeleted = [];
+      $scope.filters = [];
       $scope.indexDeleted = null;
       $scope.currentMonthText = "";
+      $scope.trackedEvents = [];
+      $scope.diaAnterior = ''
       var count = 0;
       $scope.error = '';
-      
+
       $scope.diaSeleccionado = {
         selected: {
           name: "Lunes", horarios: []
@@ -81,14 +84,20 @@
 
 
       function getUserEvents(id, fecha, cb) {
+        var excepciones = [];
+        var horariosFijos = [];
+        var tracks = [];
+        $scope.loading = true;
         CalendarServices.getUserEvents(id, function (err, result) {
           if (result) {
+
             angular.forEach(result, function (e) {
               if (e.title == 'Horario Fijo') {
                 e.dayCheck = moment(e.start).format('DD')
                 $scope.mostrarInfo.push({ name: e.day, desde: moment(e.start).format('HH:mm'), hasta: moment(e.end).format('HH:mm') })
               }
             });
+            horariosFijos = result
             CalendarServices.getUserExceptions(id, fecha, function (err, res) {
               $scope.exceptions = res
               if ($scope.exceptions && res != 'No hay excepciones para este mes') {
@@ -96,17 +105,27 @@
                   $scope.mostrarInfo.push({ name: e.day, desde: moment(e.start).format('HH:mm'), hasta: moment(e.end).format('HH:mm'), exception: true })
                   e.hourStart = moment(e.start).format('HH:mm')
                   e.hourEnd = moment(e.end).format('HH:mm')
-                })
-                cb(res, result)
-              } else {
-                cb(res, result)
+                });
               }
+              excepciones = res
+              $scope.fechaTracking = $scope.currentMonth.split('-')
+              CalendarServices.getTrackedHours(id, $scope.fechaTracking[1] + '-' + $scope.fechaTracking[0] + '-' + '01', function (err, resultado) {
+                if (typeof resultado != 'string') {
+                  angular.forEach(resultado, function (t, index) {
+                    t.day = normalize(moment(t.start).format('dddd').toLowerCase())
+                    $scope.mostrarInfo.push({ name: t.day, desde: moment(t.start).format('HH:mm'), hasta: moment(t.end).format('HH:mm'), trackedEvent: true, })
+                    $scope.trackedEvents.push(t)
+                    
+                  })
+                }
+                tracks = resultado
+                cb(excepciones, horariosFijos, tracks)
+                $scope.loading = false
+              });
             });
-
-          } else {
-            cb(res, result)
           }
         });
+
       };
       //getUserEvents($scope.filter.user, fechaActual);
 
@@ -136,15 +155,15 @@
             hoy: {
               text: 'Hoy',
               click: function () {
-                  $scope.uiConfig.calendar.viewRender({
-                    intervalEnd: {
-                      _d: moment(fechaActualCompleta)
-                      
-                    }
-                  }, {
-          
-                  })
-                
+                $scope.uiConfig.calendar.viewRender({
+                  intervalEnd: {
+                    _d: moment($scope.fechaActualCompleta)
+
+                  }
+                }, {
+
+                })
+
               }
             }
           },
@@ -162,34 +181,46 @@
           },
           // titleFormat: '[' + monthTitle + ']',
 
-          viewRender: function (view, element, prev,next) {
-            console.log(view, element)
-            //capturo info del mes del calendario en el que estoy
+          viewRender: function (view, element, prev, next) {
             $scope.currentMonth = view.intervalEnd._d
             endMonthViewDate = view.intervalEnd._d
             $scope.currentMonth = moment($scope.currentMonth).format('MM-YYYY')
-            $scope.currentMonthText =  moment( view.intervalEnd._d).format('MMMM YYYY');
+            $scope.currentMonthText = moment(view.intervalEnd._d).format('MMMM YYYY');
             diasAgregados = [];
             $scope.refreshEventos($scope.filter.user, function (bool) {
               if (bool) {
                 $scope.actualizarHorariosFijos()
                 $scope.changeView()
-                
               }
             })
-            
+
+
           },
 
 
           dayClick: function (selectedDate) {
-            $scope.date = angular.copy(selectedDate);
-            $scope.checkDate = moment($scope.date).toDate();
-            $scope.checkDate = $scope.checkDate.getDate() + 1;
+
+            $scope.date = angular.copy(selectedDate._d);
+            // $scope.checkDate = moment($scope.date).toDate();
+            $scope.checkDate = $scope.date.getDate() + 1;
             $scope.selectedDay = angular.copy(selectedDate.format('DD/MM/YYYY'));
+            var fechaClick = moment($scope.date).add(1, 'days')
+            var fechaDeHoy = moment()
+            if (moment().diff(fechaClick) < 0) {
+              $scope.diaAnterior = true
+              
+            }
             $scope.modalEventos()
+
+
           },
 
-          eventClick: function () {
+          eventClick: function (event) {
+            var auxDate = moment(event.start).toDate();
+            $scope.date = angular.copy(auxDate);
+            // $scope.checkDate = moment($scope.date).toDate();
+            $scope.checkDate = $scope.date.getDate();
+            $scope.selectedDay = angular.copy(event.start.format('DD/MM/YYYY'));
             $scope.modalEventos()
           },
           eventDrop: $scope.alertOnDrop,
@@ -199,6 +230,9 @@
             if (event.user_exceptions_id) {
               element.css('background-color', '#f95c33');
               element.css('border-color', '#f95c33')
+            } else if (event.id_track) {
+              element.css('background-color', '#32AA2C');
+              element.css('border-color', '#32AA2C')
             } else {
               element.css('background-color', 'rgb(3, 155, 229)');
               element.css('border-color', 'rgb(3, 155, 229)')
@@ -206,6 +240,7 @@
           },
         }
       };
+
 
 
 
@@ -248,12 +283,9 @@
             dateView = moment(e.start).format('YYYY-MM-DD')
             if (e.dayDescription) {
               e.day = e.dayDescription
-
             }
             $scope.exceptionsAux.push(e)
           }
-
-
         })
         $scope.f = $scope.currentMonth.split('-')
 
@@ -263,7 +295,6 @@
               _d: dateView
             }
           }, {
-
           })
         });
       };
@@ -297,10 +328,7 @@
         }
       }
 
-
-
       $scope.callCalendar = function () {
-        console.log('TEST 2')
         $scope.uiConfig.calendar.viewRender({
           intervalEnd: {
             _d: dateView
@@ -400,7 +428,8 @@
 
       //BORRAR EVENTOS DE HORARIO FIJO ALMACENADOS (MANTIENE EXEPCIONES)
       $scope.cleanEvents = function (cb) {
-        $scope.events = []
+        $scope.trackedEvents = [];
+        $scope.events = [];
         $scope.mostrarInfo = [];
         $scope.eventSources[0] = [];
         $scope.horariosFijos = [
@@ -417,12 +446,14 @@
         cb(true)
       };
 
+
+
       //ACTUALIZAR EVENTOS
       $scope.refreshEventos = function (id, cb) {
         $scope.cleanEvents(function (bool) {
           if (bool) {
-            getUserEvents(id, $scope.currentMonth, function (exc, hF) {
-              if (hF) {
+            getUserEvents(id, $scope.currentMonth, function (exc, hF, tracks) {
+              if (exc || hF || tracks) {
                 $scope.eventSources[0] = $scope.events;
                 cb(bool)
               }
@@ -483,6 +514,7 @@
             },
 
             cancel: function () {
+
               ngDialog.close();
             }
           }
@@ -502,12 +534,18 @@
             confirm: function () {
               if ($scope.error == '') {
                 $scope.crearArrayPostExceptions()
+
+
                 ngDialog.close();
               }
-
+              $scope.diaAnterior = false
             },
             cancel: function () {
-              $scope.events.splice($scope.indexDeleted, 1)
+              if ($scope.indexDeleted) {
+                $scope.events.splice($scope.indexDeleted, 1)
+              }
+              $scope.diaAnterior = false
+
               ngDialog.close();
             }
           }
@@ -535,7 +573,7 @@
         angular.forEach($scope.horariosFijos, function (day, index) {
           angular.forEach($scope.mostrarInfo, function (dayInfo, indexInfo) {
 
-            if (dayInfo.name.toLowerCase() == day.name.toLowerCase() && !dayInfo.exception) {
+            if (dayInfo.name.toLowerCase() == day.name.toLowerCase() && !dayInfo.exception && !dayInfo.trackedEvent) {
               $scope.arrayAux.push({ desde: dayInfo.desde, hasta: dayInfo.hasta });
 
               day.horarios = $scope.arrayAux;
@@ -547,6 +585,7 @@
           })
           $scope.arrayAux = [];
         });
+
       };
 
       //ELIMINAR REGISTRO DE HORARIO EN MODAL HORARIO FIJO
@@ -580,15 +619,25 @@
         for (var i = 1; i <= cant; i++) {
           var dia = angular.copy(i)
           var weekDayName = moment(dia + '-' + mesActual, 'DD-MM-YYYY').format('dddd').toLowerCase();
+          var check =  moment(dia + '-' + $scope.currentMonth, 'DD-MM-YYYY')
+          if ( moment().diff(check) > 0 ){
+              if ($scope.trackedEvents.length > 0) {
+                angular.forEach($scope.trackedEvents, function (t, index) {
+                  if (t.start && t.end && !t.trackedEvent) {
+                    if (moment(t.start).toDate() < moment($scope.fechaActualCompleta).add(-1, 'days').toDate()) {
+                      t.dayCheck = moment(t.start).format('DD')
+                      t.hourStart = moment(t.start).format('HH:mm')
+                      t.hourEnd = moment(t.end).format('HH:mm')
+                      t.trackedEvent = true
+                      $scope.eventSources[0].push(t)
+                    }
+                  }
+                }
+                )
+              }
+          }
           angular.forEach($scope.horariosFijos, function (hF, index) {
             angular.forEach($scope.exceptions, function (r, index) {
-              // if (events.title == 'Horario Fijo' && events.day == r.dayCheck) {
-              //   events.exception = true
-              //   events.start = moment(events.start).format('YYYY-MM-DD') + ' ' + events.hourStart + ":00"
-              //   events.end = moment(events.end).format('YYYY-MM-DD') + ' ' + events.hourEnd + ":00"
-              //   $scope.exceptionsAux.push(events);
-              //   console.log('$scope.exceptionsAux', $scope.exceptionsAux)
-              // }
               if (r.start) {
                 r.dayCheck = moment(r.start).format('DD')
                 if (i == r.dayCheck && !r.added) {
@@ -622,9 +671,13 @@
 
             }
           })
-        };
+        }
+        
+
+
         callback(true)
       };
+
 
       //SACAR TILDES ETC
       var normalize = (function () {

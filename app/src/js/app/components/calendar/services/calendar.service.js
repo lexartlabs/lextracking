@@ -43,8 +43,8 @@
                 })
             },
 
-            getTrackedHours: function(obj, cb){
-                RestClient.get(model +  '/' + id + '/' , function(err, result){
+            getTrackedHours: function(id, fecha, cb){
+                RestClient.get ('past-events'+ '/' + id + '/' + fecha, function(err, result){
                     cb(err, result); 
                 })
             },
