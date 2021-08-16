@@ -8,7 +8,7 @@ class HourUser {
 
 	private $model = "users_hours";
 	private $exceptions = "user_exceptions";
-	private $tracks = "tracks";
+	private $tracks = "Tracks";
 
 	public function getUserFixedHours($conn, $id){
 		$sql = "SELECT * FROM $this->model WHERE user_id = ".$id;
