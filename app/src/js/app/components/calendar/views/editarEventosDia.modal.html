@@ -12,7 +12,7 @@
         <div class="imm-frm__fldgrp">
           <div class="imm-frm__fld">
             <label style="float: left;">{{selectedDay}}</label>
-            <button type="button" class="imm-btn ng-binding" style="float: right; font-size:15px" ng-click="addEvent()"> + </button>
+            <button ng-if="diaAnterior==true" type="button" class="imm-btn ng-binding" style="float: right; font-size:15px" ng-click="addEvent()"> + </button>
             <!-- <label style="float: right;">Hoy {{todayIs}}</label> -->
             <br>
             <br>
