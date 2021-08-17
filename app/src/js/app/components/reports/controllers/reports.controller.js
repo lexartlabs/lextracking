@@ -87,7 +87,6 @@
       }
 
       $scope.excelName = createExcel();
-      console.log("excelTime", createExcel());
 
       function checkTime(i) {
         i = i < 1 ? 0 : i;
@@ -105,7 +104,6 @@
 
         if (d > 0) {
           d = d * 24;
-          console.log("DIAS A HORAS", d);
         }
         if (h <= 9) {
           h = "0" + h;
@@ -120,7 +118,6 @@
           h = Number(d) + Number(h);
         }
         var finalTracked = h + ":" + m + ":" + s;
-        console.log("finaltracked", finalTracked);
         return finalTracked;
       };
 
@@ -130,7 +127,6 @@
           $scope.finalHour = convertTime(
             moment.duration($scope.finalHour).add(value)
           );
-          console.log("Final hour", value, $scope.finalHour);
         } else {
           ProjectsServices.getProjectsByUser(userId, function (err, res) {
             $scope.userCost = Object.entries(res);
@@ -145,8 +141,6 @@
         } else {
           var idHourCost = $rootScope.userId;
         }
-        console.log("Check id", $rootScope.trackId);
-        console.log(idHourCost);
         WeeklyHourServices.find(
           $scope.currentPage,
           $scope.query,
@@ -155,12 +149,8 @@
               angular.forEach(weeklyHours, function (value, key) {
                 if (value.idUser == idHourCost) {
                   //$scope.CurrTotalCost = value.currency;
-                  console.log(value.costHour, weeklyHours, 'costo hora idUser');
                   var costo = value.costHour;
-                  console.log('costo', costo);
-                  console.log(ms, 'ms');
                   var result = (ms / 3600 / 1000) * costo;
-                  console.log('total cost iduser', result);
                   
                   $scope.arrSubtotal.push(result);
                   // $scope.totalcost = result;
@@ -168,12 +158,10 @@
                   if (cost.value != undefined) {
                     $scope.finalTotal = cost.value;
                   } else {
-                    console.log("COSTO TAREA en error", cost.value.result);
                   }
                 }
               });
               //getTotal($scope.finalTotal);
-              console.log(weeklyHours);
             }
           }
         );
@@ -182,7 +170,6 @@
       //Calcular hora y costo de automaticas y Trello.
 
       function getSubTotalCost(mss) {
-        console.log("MSS::", mss);
         $scope.mssArr.push(mss.mss);
         WeeklyHourServices.find(
           $scope.currentPage,
@@ -192,27 +179,19 @@
               //for (var i = 0; i < $scope.mssArr.length; i++) {
               angular.forEach(weeklyHours, function (value, key) {
                 if (value.idUser == mss.idUser) {
-
-                  console.log('MSS::', value.idUser, mss.idUser);
-                  console.log('MSS COSTO USER::', value.costHour);
                   var costo = (value.costHour);
-                  console.log('MSS COSTO::', costo);
-                  var result = (mss.mss / 3600 / 1000) * costo;
-                  console.log('MSS TOTAL COSTO::', result);
-                  
+                  var result = (mss.mss / 3600 / 1000) * costo;                  
                   $scope.subTotalCost.push(result);
                   //proyectSubTotal($scope.subTotalCost);
                 }
               });
               //}
-              console.log(weeklyHours);
             }
           }
         );
       }
 
       function getTotalTime(ms, cost) {
-        console.log("otros ms", ms);
         var h = checkTime(Math.floor(ms / 3600));
         ms = Math.floor(ms % 3600);
         var m = checkTime(Math.floor(ms / 60));
@@ -227,7 +206,6 @@
         } else {
           var idHourCost = $rootScope.userId;
         }
-        console.log(idHourCost);
         WeeklyHourServices.find(
           $scope.currentPage,
           $scope.query,
@@ -235,33 +213,23 @@
             if (!err) {
               angular.forEach(weeklyHours, function (value, key) {
                 if (value.idUser == idHourCost) {
-                  console.log(value.costHour, "costo hora idUser");
                   var costo = parseInt(value.costHour);
-                  console.log("costo", costo);
-                  console.log(msc, "msc");
                   var result2 = (msc / 3600 / 1000) * costo;
-                  console.log("total auto cost", result2);
                   result2 = Math.ceil(result2);
                   var cost = { value: result2 };
                   if (cost.value != undefined) {
                     $scope.finalTotal = cost.value;
                   } else {
-                    console.log(
-                      "COSTO TAREA AUTOMATICA en error",
-                      cost.value.result2
-                    );
                   }
                 }
               });
               //getTotalAuto($scope.finalTotal);
-              console.log(weeklyHours);
             }
           }
         );
       }
 
       function getTotalTimeAuto(msc, cost) {
-        console.log("otros ms", msc);
         var h = checkTime(Math.floor(msc / 3600));
         msc = Math.floor(msc % 3600);
         var m = checkTime(Math.floor(msc / 60));
@@ -276,7 +244,6 @@
         } else {
           var idHourCost = $rootScope.userId;
         }
-        console.log(idHourCost);
         WeeklyHourServices.find(
           $scope.currentPage,
           $scope.query,
@@ -284,26 +251,16 @@
             if (!err) {
               angular.forEach(weeklyHours, function (value, key) {
                 if (value.idUser == idHourCost) {
-                  console.log(value.costHour, "costo hora idUser");
                   var costo = parseInt(value.costHour);
-                  console.log("costo", costo);
-                  console.log(mst, "mst");
                   var result3 = (mst / 3600 / 1000) * costo;
-                  console.log("total trello cost", result3);
                   result3 = Math.ceil(result3);
                   var cost = { value: result3 };
-                  console.log("COSTO TAREA trello", cost);
                   if (cost.value != undefined) {
                     $scope.finalTotal = cost.value;
                   } else {
-                    console.log(
-                      "COSTO TAREA trello en error",
-                      cost.value.result3
-                    );
                   }
                 }
               });
-              console.log(weeklyHours);
               //getTotal($scope.finalTotal);
               //getTotalTrello($scope.finalTotal);
             }
@@ -312,7 +269,6 @@
       }
 
       function getTotalTimeTrello(mst, cost) {
-        console.log("otros ms", mst);
         var h = checkTime(Math.floor(mst / 3600));
         mst = Math.floor(mst % 3600);
         var m = checkTime(Math.floor(mst / 60));
@@ -358,7 +314,6 @@
           $rootScope.userIdClient,
           function (err, clients) {
             if (!err) {
-              console.log(clients);
               $scope.client = angular.copy(clients);
               $scope.filter.idClient = clients.id;
               $scope.getProjects($scope.filter.idClient);
@@ -373,7 +328,6 @@
             users.unshift({ id: 0, name: $filter("translate")("reports.all") });
             $scope.users = users;
             $scope.filter.idUser = 0;
-            console.log("reports user");
           }
         });
       } else if (userRole == "client") {
@@ -426,14 +380,7 @@
       $scope.filter.startDate = {};
       $scope.filter.endDate = {};
       $scope.$watch("filter.startTime", function (newValue, oldValue) {
-        console.log(newValue);
         $scope.filter.startDate.maxDate = moment();
-        console.log(
-          "test",
-          moment(),
-          moment($scope.filter.startTime, "DD/MM/YYYY"),
-          moment($scope.filter.startTime, "DD/MM/YYYY").diff(moment(), "month")
-        );
         if (
           moment($scope.filter.startTime, "DD/MM/YYYY").diff(
             moment(),
@@ -494,9 +441,8 @@
         $scope.finalHour = "00:00:00";
 
         TracksServices.getTracks(filters, function (err, tracks) {
-          if (!err) {
+          if (!err && tracks) {
             $scope.tracks = tracks;
-            console.log("Tracks tareas", tracks);
             var tempTotal = 0;
 
             tracks.forEach(function (track) {
@@ -518,7 +464,6 @@
                         track.currency = object.currency;
                         if (typeof index !== 'undefined') {
                           $scope.tableTrack[index].currency = object.currency;
-                          // console.log(track);
                         }
                       }
                     }
@@ -545,20 +490,17 @@
                         track.currency = object.currency;
                         if (typeof index !== 'undefined') {
                           $scope.tableTrack[index].currency = object.currency;
-                          // console.log(track);
                         }
                       }
                     }
                   );
                   var exist = false;
-                  console.log(track);
                   $scope.tableTrack.forEach(function (element, index) {
                     if (element.idUser == track.idUser && exist == false) {
                       exist = true;
                       element.subTotalCost += (
                         track.trackCost ? track.trackCost : 0
                       );
-                      console.log(element);
 
                       WeeklyHourServices.find(
                         $scope.currentPage,
@@ -570,7 +512,6 @@
                             });
                             // track.currency = object.currency;
                             element.currency = object.currency;
-                            // console.log(track);
                           }
                         }
                       );
@@ -578,7 +519,6 @@
                       element.duration = convertTime(
                         moment.duration(element.duration).add(track.duration)
                       );
-                      console.log("Total horas Element:", element.duration);
                     }
                   });
                   if (exist === false) {
@@ -604,7 +544,6 @@
                         });
                         track.currency = object.currency;
                         $scope.tableTrack[index].currency = object.currency;
-                        // console.log(track);
                       }
                     }
                   );
@@ -637,7 +576,6 @@
                             });
                             // track.currency = object.currency;
                             element.currency = object.currency;
-                            // console.log(track);
                           }
                         }
                       );
@@ -675,9 +613,7 @@
                         var object = weeklyHours.find(function (value) {
                           return track.idUser == value.idUser;
                         });
-                        console.log(object);
                         // el.byProject = object.currency;
-                        console.log(track);
                       }
                     }
                   );
@@ -759,11 +695,7 @@
                   }
                 }
               });
-              console.log("ADD FEATURE byTask: ", el.byTask);
-              console.log("ADD FEATURE byProject: ", el.byProject);
             });
-
-            console.log("RESULT::", $scope.tableTrack, $scope.tracks);
             //Llamada a graficas de barras
             bargraphUsers();
             bargraphClients();
@@ -771,7 +703,6 @@
             var now = new Date().getTime();
             _.each(tracks, function (track) {
               $rootScope.trackId = track.idUser;
-              console.log("UserRole", userRole);
               if (userRole == "admin" || userRole == "pm") {
                 if (!$scope.subtotals[track.idUser]) {
                   $scope.subtotals[track.idUser] = 0;
@@ -844,9 +775,8 @@
         });
 
         TracksServices.getAutoTracks(filters, function (err, tracks) {
-          if (!err) {
+          if (!err && tracks) {
             $scope.autoTracks = tracks;
-            console.log("filters", filters, tracks);
             var tempTotal = 0;
             tracks.forEach(function (track) {
               tempTotal += parseInt(track.trackCost ? track.trackCost : 0);
@@ -863,7 +793,6 @@
                         });
                         track.currency = object.currency;
                         $scope.tableTrack[index].currency = object.currency;
-                        console.log(track);
                       }
                     }
                   );
@@ -877,8 +806,7 @@
                     currency: track.currency,
                     tracks: [track],
                   });
-                  console.log(track);
-                  console.log("Track Automatic", $scope.tableTrackAuto);
+
                 } else {
                   var exist = false;
                   $scope.tableTrackAuto.forEach(function (element) {
@@ -897,7 +825,6 @@
                             });
                             // track.currency = object.currency;
                             element.currency = object.currency;
-                            // console.log(track);
                           }
                         }
                       );
@@ -905,11 +832,8 @@
                       element.duration = convertTime(
                         moment.duration(element.duration).add(track.durations)
                       );
-                      console.log("Total horas Element:", element.duration);
                     }
                   });
-                  console.log("TableTrack::", $scope.tableTrackAuto);
-
                   if (exist === false) {
                     $scope.tableTrackAuto.push({
                       idUser: track.idUser,
@@ -1008,8 +932,6 @@
                 }
               });
             });
-
-            console.log("RESULT::", $scope.tableTrackAuto);
             //Llamada a graficas de barras
             bargraphUsers();
             bargraphClients();
@@ -1061,9 +983,8 @@
             roundgraphClient();
           }
         });
-        console.log(filters);
         TracksServices.getTrelloTrack(filters, function (err, tracks) {
-          if (!err) {
+          if (!err && tracks) {
             $scope.trelloTracks = tracks;
 
             /* NUEVA FUNCION */
@@ -1198,7 +1119,6 @@
                 }
               });
             });
-            console.log("RESULT trello::", $scope.tableTrackTrello);
             /* FIN NUEVA FUNCION */
 
             //Llamada a graficas de barras
@@ -1255,7 +1175,6 @@
         });
 
         TracksServices.getJiraTrack(filters, function (err, tracks) {
-          console.log("Tareas Jira", tracks, err);
           if (!err) {
             $scope.jiraTracks = tracks;
 
@@ -1391,7 +1310,7 @@
                 }
               });
             });
-            console.log("RESULT Jira::", $scope.tableTrackJira);
+
             /* FIN NUEVA FUNCION */
 
             //Llamada a graficas de barras
@@ -1450,7 +1369,6 @@
 
       var sumTotalcost = function (value) {
         $scope.arrCost.push(value);
-        console.log("All totals", $scope.arrCost);
       };
 
       function parseTrackTime(date) {
@@ -1524,11 +1442,9 @@
       $scope.editTrack = function (track) {
         $scope.error = "";
         $scope.track = angular.copy(track);
-        console.log("INVALID DATE", $scope.track, track);
         $scope.track.startTime = moment($scope.track.startTime);
         $scope.track.endTime = moment($scope.track.endTime);
         $scope.track.trackDuration = $scope.track.duration;
-        console.log("INVALID DATE moment", $scope.track);
 
         ngDialog.open({
           template: "/app/components/reports/views/report.task.modal.html",
@@ -1715,7 +1631,6 @@
       };
 
       $scope.editJiraTrack = function (jira) {
-        console.log(jira);
         $scope.error = "";
         $scope.jiraTrack = angular.copy(jira);
         $scope.jiraTrack.startTime = moment($scope.jiraTrack.startTime);
@@ -1864,7 +1779,6 @@
 
           // },15000);
         } catch (error) {
-          console.log("NOT FINALHOUR [0]");
         }
       }
 
@@ -1894,6 +1808,7 @@
       // EXPORT TO CSV
       $scope.exportToCSV = function () {
         function convertToCSV(objArray) {
+          console.log(objArray)
           var array =
             typeof objArray != "object" ? JSON.parse(objArray) : objArray;
           var str = "";
