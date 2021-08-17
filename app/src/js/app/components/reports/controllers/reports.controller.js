@@ -494,7 +494,7 @@
         $scope.finalHour = "00:00:00";
 
         TracksServices.getTracks(filters, function (err, tracks) {
-          if (!err) {
+          if (!err && tracks) {
             $scope.tracks = tracks;
             console.log("Tracks tareas", tracks);
             var tempTotal = 0;
@@ -844,7 +844,7 @@
         });
 
         TracksServices.getAutoTracks(filters, function (err, tracks) {
-          if (!err) {
+          if (!err && tracks) {
             $scope.autoTracks = tracks;
             console.log("filters", filters, tracks);
             var tempTotal = 0;
@@ -1063,7 +1063,7 @@
         });
         console.log(filters);
         TracksServices.getTrelloTrack(filters, function (err, tracks) {
-          if (!err) {
+          if (!err && tracks) {
             $scope.trelloTracks = tracks;
 
             /* NUEVA FUNCION */
@@ -1254,198 +1254,198 @@
           }
         });
 
-        TracksServices.getJiraTrack(filters, function (err, tracks) {
-          console.log("Tareas Jira", tracks, err);
-          if (!err) {
-            $scope.jiraTracks = tracks;
+        // TracksServices.getJiraTrack(filters, function (err, tracks) {
+        //   console.log("Tareas Jira", tracks, err);
+        //   if (!err) {
+        //     $scope.jiraTracks = tracks;
 
-            /* NUEVA FUNCION */
-            var tempTotal = 0;
-            tracks.forEach(function (track) {
-              tempTotal += parseInt(track.trackCost ? track.trackCost : 0);
-              $scope.totalcost4 = tempTotal;
-              if (userRole == "admin" || userRole == "pm") {
-                if ($scope.tableTrackJira.length < 1) {
-                  $scope.tableTrackJira.push({
-                    idUser: track.idUser,
-                    idProyecto: track.idProyecto,
-                    clientName: track.client,
-                    duration: track.durations,
-                    subTotalCost: parseInt(
-                      track.trackCost ? track.trackCost : 0
-                    ),
-                    tracks: [track],
-                  });
-                } else {
-                  var exist = false;
-                  $scope.tableTrackJira.forEach(function (element) {
-                    if (element.idUser == track.idUser && exist == false) {
-                      exist = true;
-                      element.subTotalCost += parseInt(
-                        track.trackCost ? track.trackCost : 0
-                      );
-                      element.tracks.push(track);
-                      element.duration = convertTime(
-                        moment.duration(element.duration).add(track.durations)
-                      );
-                    }
-                  });
-                  if (exist === false) {
-                    $scope.tableTrackJira.push({
-                      idUser: track.idUser,
-                      idProyecto: track.idProyecto,
-                      clientName: track.client,
-                      duration: track.durations,
-                      subTotalCost: parseInt(
-                        track.trackCost ? track.trackCost : 0
-                      ),
-                      tracks: [track],
-                    });
-                  }
-                }
-              } else {
-                if ($scope.tableTrackJira.length < 1) {
-                  $scope.tableTrackJira.push({
-                    idProyecto: track.idUser,
-                    idProyecto: track.idProyecto,
-                    clientName: track.client,
-                    duration: track.duration,
-                    subTotalCost: parseInt(
-                      track.trackCost ? track.trackCost : 0
-                    ),
-                    tracks: [track],
-                  });
-                } else {
-                  var exist = false;
-                  $scope.tableTrackJira.forEach(function (element) {
-                    if (
-                      element.idProyecto == track.idProyecto &&
-                      exist == false
-                    ) {
-                      exist = true;
-                      element.subTotalCost += parseInt(
-                        track.trackCost ? track.trackCost : 0
-                      );
-                      element.tracks.push(track);
-                      element.duration = convertTime(
-                        moment.duration(element.duration).add(track.duration)
-                      );
-                    }
-                  });
-                  if (exist === false) {
-                    $scope.tableTrackJira.push({
-                      idProyecto: track.idProyecto,
-                      clientName: track.client,
-                      duration: track.durations,
-                      subTotalCost: parseInt(
-                        track.trackCost ? track.trackCost : 0
-                      ),
-                      tracks: [track],
-                    });
-                  }
-                }
-              }
-            });
-            $scope.tableTrackJira.forEach(function (el) {
-              el.byProject = []; //aca vamos a ir pusheando cada track
-              el.tracks.forEach(function (track, index) {
-                // recorremos los tracks
-                if (el.byProject.length < 1) {
-                  el.byProject.push({
-                    idProyecto: track.idProyecto,
-                    projectName: track.projectName,
-                    duration: track.durations,
-                    subTotalCost: parseInt(
-                      track.trackCost ? track.trackCost : 0
-                    ),
-                    tracks: [track],
-                  });
-                } else {
-                  var exist = false;
-                  el.byProject.forEach(function (element) {
-                    if (
-                      element.idProyecto == track.idProyecto &&
-                      exist == false
-                    ) {
-                      exist = true;
-                      element.subTotalCost += parseInt(
-                        track.trackCost ? track.trackCost : 0
-                      );
-                      element.tracks.push(track);
-                      element.duration = convertTime(
-                        moment.duration(element.duration).add(track.durations)
-                      );
-                    }
-                  });
-                  if (exist === false) {
-                    el.byProject.push({
-                      idProyecto: track.idProyecto,
-                      projectName: track.projectName,
-                      duration: track.durations,
-                      subTotalCost: parseInt(
-                        track.trackCost ? track.trackCost : 0
-                      ),
-                      tracks: [track],
-                    });
-                  }
-                }
-              });
-            });
-            console.log("RESULT Jira::", $scope.tableTrackJira);
-            /* FIN NUEVA FUNCION */
+        //     /* NUEVA FUNCION */
+        //     var tempTotal = 0;
+        //     tracks.forEach(function (track) {
+        //       tempTotal += parseInt(track.trackCost ? track.trackCost : 0);
+        //       $scope.totalcost4 = tempTotal;
+        //       if (userRole == "admin" || userRole == "pm") {
+        //         if ($scope.tableTrackJira.length < 1) {
+        //           $scope.tableTrackJira.push({
+        //             idUser: track.idUser,
+        //             idProyecto: track.idProyecto,
+        //             clientName: track.client,
+        //             duration: track.durations,
+        //             subTotalCost: parseInt(
+        //               track.trackCost ? track.trackCost : 0
+        //             ),
+        //             tracks: [track],
+        //           });
+        //         } else {
+        //           var exist = false;
+        //           $scope.tableTrackJira.forEach(function (element) {
+        //             if (element.idUser == track.idUser && exist == false) {
+        //               exist = true;
+        //               element.subTotalCost += parseInt(
+        //                 track.trackCost ? track.trackCost : 0
+        //               );
+        //               element.tracks.push(track);
+        //               element.duration = convertTime(
+        //                 moment.duration(element.duration).add(track.durations)
+        //               );
+        //             }
+        //           });
+        //           if (exist === false) {
+        //             $scope.tableTrackJira.push({
+        //               idUser: track.idUser,
+        //               idProyecto: track.idProyecto,
+        //               clientName: track.client,
+        //               duration: track.durations,
+        //               subTotalCost: parseInt(
+        //                 track.trackCost ? track.trackCost : 0
+        //               ),
+        //               tracks: [track],
+        //             });
+        //           }
+        //         }
+        //       } else {
+        //         if ($scope.tableTrackJira.length < 1) {
+        //           $scope.tableTrackJira.push({
+        //             idProyecto: track.idUser,
+        //             idProyecto: track.idProyecto,
+        //             clientName: track.client,
+        //             duration: track.duration,
+        //             subTotalCost: parseInt(
+        //               track.trackCost ? track.trackCost : 0
+        //             ),
+        //             tracks: [track],
+        //           });
+        //         } else {
+        //           var exist = false;
+        //           $scope.tableTrackJira.forEach(function (element) {
+        //             if (
+        //               element.idProyecto == track.idProyecto &&
+        //               exist == false
+        //             ) {
+        //               exist = true;
+        //               element.subTotalCost += parseInt(
+        //                 track.trackCost ? track.trackCost : 0
+        //               );
+        //               element.tracks.push(track);
+        //               element.duration = convertTime(
+        //                 moment.duration(element.duration).add(track.duration)
+        //               );
+        //             }
+        //           });
+        //           if (exist === false) {
+        //             $scope.tableTrackJira.push({
+        //               idProyecto: track.idProyecto,
+        //               clientName: track.client,
+        //               duration: track.durations,
+        //               subTotalCost: parseInt(
+        //                 track.trackCost ? track.trackCost : 0
+        //               ),
+        //               tracks: [track],
+        //             });
+        //           }
+        //         }
+        //       }
+        //     });
+        //     $scope.tableTrackJira.forEach(function (el) {
+        //       el.byProject = []; //aca vamos a ir pusheando cada track
+        //       el.tracks.forEach(function (track, index) {
+        //         // recorremos los tracks
+        //         if (el.byProject.length < 1) {
+        //           el.byProject.push({
+        //             idProyecto: track.idProyecto,
+        //             projectName: track.projectName,
+        //             duration: track.durations,
+        //             subTotalCost: parseInt(
+        //               track.trackCost ? track.trackCost : 0
+        //             ),
+        //             tracks: [track],
+        //           });
+        //         } else {
+        //           var exist = false;
+        //           el.byProject.forEach(function (element) {
+        //             if (
+        //               element.idProyecto == track.idProyecto &&
+        //               exist == false
+        //             ) {
+        //               exist = true;
+        //               element.subTotalCost += parseInt(
+        //                 track.trackCost ? track.trackCost : 0
+        //               );
+        //               element.tracks.push(track);
+        //               element.duration = convertTime(
+        //                 moment.duration(element.duration).add(track.durations)
+        //               );
+        //             }
+        //           });
+        //           if (exist === false) {
+        //             el.byProject.push({
+        //               idProyecto: track.idProyecto,
+        //               projectName: track.projectName,
+        //               duration: track.durations,
+        //               subTotalCost: parseInt(
+        //                 track.trackCost ? track.trackCost : 0
+        //               ),
+        //               tracks: [track],
+        //             });
+        //           }
+        //         }
+        //       });
+        //     });
+        //     console.log("RESULT Jira::", $scope.tableTrackJira);
+        //     /* FIN NUEVA FUNCION */
 
-            //Llamada a graficas de barras
-            bargraphUsers();
-            bargraphClients();
-            var mst = 0;
-            var now = new Date().getTime();
-            _.each(tracks, function (track) {
-              if (!$scope.subtotals4[track.projectName]) {
-                $scope.subtotals4[track.projectName] = 0;
-              }
-              track.startTime = new Date(track.startTime).getTime();
-              track.endTime = new Date(track.endTime).getTime();
-              if (track.durations.indexOf("-") !== -1) {
-                track.durations = getTotalTimeTrello(
-                  (now - track.startTime) / 1000
-                );
-                mst += now - track.startTime;
-                $scope.subtotals4[track.projectName] += now - track.startTime;
-              } else {
-                mst += track.endTime - track.startTime;
-                $scope.subtotals4[track.projectName] +=
-                  track.endTime - track.startTime;
-              }
-            });
+        //     //Llamada a graficas de barras
+        //     bargraphUsers();
+        //     bargraphClients();
+        //     var mst = 0;
+        //     var now = new Date().getTime();
+        //     _.each(tracks, function (track) {
+        //       if (!$scope.subtotals4[track.projectName]) {
+        //         $scope.subtotals4[track.projectName] = 0;
+        //       }
+        //       track.startTime = new Date(track.startTime).getTime();
+        //       track.endTime = new Date(track.endTime).getTime();
+        //       if (track.durations.indexOf("-") !== -1) {
+        //         track.durations = getTotalTimeTrello(
+        //           (now - track.startTime) / 1000
+        //         );
+        //         mst += now - track.startTime;
+        //         $scope.subtotals4[track.projectName] += now - track.startTime;
+        //       } else {
+        //         mst += track.endTime - track.startTime;
+        //         $scope.subtotals4[track.projectName] +=
+        //           track.endTime - track.startTime;
+        //       }
+        //     });
 
-            //Subotales de horas po proyecto
-            for (var k in $scope.subtotals4) {
-              if ($scope.subtotals4.hasOwnProperty(k)) {
-                $scope.subtotals4[k] = getTotalTimeTrello(
-                  $scope.subtotals4[k] / 1000
-                );
-                $scope.sumHoursTrelo.push($scope.subtotals4[k]);
-              }
-            }
+        //     //Subotales de horas po proyecto
+        //     for (var k in $scope.subtotals4) {
+        //       if ($scope.subtotals4.hasOwnProperty(k)) {
+        //         $scope.subtotals4[k] = getTotalTimeTrello(
+        //           $scope.subtotals4[k] / 1000
+        //         );
+        //         $scope.sumHoursTrelo.push($scope.subtotals4[k]);
+        //       }
+        //     }
 
-            for (var i = 0; i < $scope.sumHoursTrelo.length; i++) {
-              var th = moment.duration(th).add($scope.sumHoursTrelo[i]);
-            }
+        //     for (var i = 0; i < $scope.sumHoursTrelo.length; i++) {
+        //       var th = moment.duration(th).add($scope.sumHoursTrelo[i]);
+        //     }
 
-            $scope.total4 = convertTime(th);
+        //     $scope.total4 = convertTime(th);
 
-            $scope.sumHoursTrelo = [];
+        //     $scope.sumHoursTrelo = [];
 
-            //Total tareas trello
-            getTotalTrelloCost(mst);
+        //     //Total tareas trello
+        //     getTotalTrelloCost(mst);
 
-            getHours($scope.total4);
+        //     getHours($scope.total4);
 
-            //llamada a graficas de tortas
-            roundgraphUser();
-            roundgraphClient();
-          }
-        });
+        //     //llamada a graficas de tortas
+        //     roundgraphUser();
+        //     roundgraphClient();
+        //   }
+        // });
       };
 
       var sumTotalcost = function (value) {
