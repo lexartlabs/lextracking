@@ -187,7 +187,7 @@
     </div>
     <div class="imm-wa__cnt">
       <div class="imm-flex" ng-if="itemTab == 1">
-        <div class="flex-table" ng-if="tracks.length">
+        <div class="flex-table" ng-if="tableTrack.length">
           <div class="flex-head">
             <div class="flex-item">{{ 'reports.user' | translate }}</div>
             <div class="flex-item">{{ 'reports.client' | translate }}</div>
@@ -985,7 +985,7 @@
             font-size: 11px;
           "
         >
-          TOTAL COSTO: $ {{(totalcost + totalcost2 + totalcost3 + totalcost4).toFixed(2)}}
+          TOTAL COSTO: $ {{(arrCost).toFixed(2)}}
         </div>
         <!-- End Table -->
       </div>

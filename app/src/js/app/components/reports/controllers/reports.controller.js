@@ -161,7 +161,7 @@
                   console.log(ms, 'ms');
                   var result = (ms / 3600 / 1000) * costo;
                   console.log('total cost iduser', result);
-                  
+
                   $scope.arrSubtotal.push(result);
                   // $scope.totalcost = result;
                   var cost = { value: result };
@@ -199,7 +199,6 @@
                   console.log('MSS COSTO::', costo);
                   var result = (mss.mss / 3600 / 1000) * costo;
                   console.log('MSS TOTAL COSTO::', result);
-                  
                   $scope.subTotalCost.push(result);
                   //proyectSubTotal($scope.subTotalCost);
                 }
@@ -448,16 +447,16 @@
           );
         }
       });
-      
-      function deshabilitar_btnBuscar(){
-        setTimeout(function() {
-        document.getElementById("buscar").disabled = false;
+
+      function deshabilitar_btnBuscar() {
+        setTimeout(function () {
+          document.getElementById("buscar").disabled = false;
         }, 3000);
         document.getElementById("buscar").disabled = true;
       };
 
       $scope.search = function () {
-        deshabilitar_btnBuscar();     
+        deshabilitar_btnBuscar();
         var filters = {
           startTime: parseDate($scope.filter.startTime) + " 00:00:00",
           endTime: parseDate($scope.filter.endTime) + " 23:59:59",
@@ -501,7 +500,6 @@
 
             tracks.forEach(function (track) {
               tempTotal += (track.trackCost ? track.trackCost : 0);
-
               $scope.totalcost = tempTotal;
               //$scope.sumAll += parseInt(tempTotal) ? tempTotal : 0;
               sumTotalcost(tempTotal);
@@ -851,6 +849,7 @@
             tracks.forEach(function (track) {
               tempTotal += parseInt(track.trackCost ? track.trackCost : 0);
               $scope.totalcost2 = tempTotal;
+              sumTotalcost(tempTotal);
               if (userRole == "admin" || userRole == "pm") {
                 if ($scope.tableTrackAuto.length < 1) {
                   WeeklyHourServices.find(
@@ -1070,7 +1069,9 @@
             var tempTotal = 0;
             tracks.forEach(function (track) {
               tempTotal += parseInt(track.trackCost ? track.trackCost : 0);
+              console.log('COSTO UNITARIO', track.trackCost, 'COSTO TOTAL TRELLO', tempTotal)
               $scope.totalcost3 = tempTotal;
+              sumTotalcost(tempTotal);
               if (userRole == "admin" || userRole == "pm") {
                 if ($scope.tableTrackTrello.length < 1) {
                   $scope.tableTrackTrello.push({
@@ -1447,9 +1448,9 @@
         //   }
         // });
       };
-
+      
       var sumTotalcost = function (value) {
-        $scope.arrCost.push(value);
+        $scope.arrCost =+ value;
         console.log("All totals", $scope.arrCost);
       };
 
@@ -1888,7 +1889,7 @@
           // var reloadGraphRoundClient = $interval(function(){
           //   $scope.typeClient = $scope.typeClient === 'pie' ? 'radar' : 'pie';
           // }, 15000);
-        } catch (error) {}
+        } catch (error) { }
       }
 
       // EXPORT TO CSV
