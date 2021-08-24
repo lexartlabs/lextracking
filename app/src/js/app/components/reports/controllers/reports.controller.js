@@ -497,7 +497,6 @@
             $scope.tracks = tracks;
             console.log("Tracks tareas", tracks);
             var tempTotal = 0;
-
             tracks.forEach(function (track) {
               tempTotal += (track.trackCost ? track.trackCost : 0);
               $scope.totalcost = tempTotal;
@@ -516,7 +515,6 @@
                         track.currency = object.currency;
                         if (typeof index !== 'undefined') {
                           $scope.tableTrack[index].currency = object.currency;
-                          // console.log(track);
                         }
                       }
                     }

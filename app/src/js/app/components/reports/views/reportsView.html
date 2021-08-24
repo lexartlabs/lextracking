@@ -233,7 +233,7 @@
                     {{track.endTime ? track.endTime : '' | date:'dd/MM/yyyy HH:mm'}}
                   </div>
                   <div class="flex-item">{{track.duration}}</div>
-                  <div class="flex-item">{{tracks.currency}} {{track.trackCost.toFixed(2)}}</div>
+                  <div class="flex-item">{{track.currency}} {{track.trackCost.toFixed(2)}}</div>
                   <!-- <div class="flex-item">$ {{track}}</div> -->
                   <div style="flex: 5%; width: 5%">
                     <a href="" ng-click="editTrack(track)">
@@ -260,7 +260,7 @@
                     {{byTask.taskName | truncateTail:true:20:'...'}}
                   </div>
                   <div class="flex-item">{{byTask.duration}}</div>
-                  <div class="flex-item">{{tracks.currency}} {{byTask.subTotalCost.toFixed(2)}}</div>
+                  <div class="flex-item">{{track.currency}} {{byTask.subTotalCost.toFixed(2)}}</div>
                   <div style="flex: 5%; width: 5%"></div>
                 </div>
               </div>
@@ -290,7 +290,7 @@
                       {{ byProject.projectName | truncateTail:true:20:'...' }}
                     </div>
                     <div class="flex-item">{{byProject.duration}}</div>
-                    <div class="flex-item">{{tracks.currency}} {{byProject.subTotalCost.toFixed(2)}}</div>
+                    <div class="flex-item">{{track.currency}} {{byProject.subTotalCost.toFixed(2)}}</div>
                     <div style="flex: 5%; width: 5%"></div>
                   </div>
                 </div>
@@ -301,6 +301,8 @@
             <div
               class="flex-column"
               ng-if="userRole=='admin' || userRole == 'pm' && !filter.idUser "
+              ng-repeat="byTask in tracks.byTask"
+
             >
               <div class="flex-column-wrap">
                 <div
@@ -309,6 +311,7 @@
                     background-color: rgba(60, 144, 190, 0.1);
                     font-weight: bold;
                   "
+                  ng-repeat="track in byTask.tracks track by $index"
                 >
                   <div class="flex-item"></div>
                   <div class="flex-item"></div>
@@ -319,7 +322,7 @@
                     {{ 'reports.sub_total' | translate | uppercase }}
                   </div>
                   <div class="flex-item">{{tracks.duration}}</div>
-                  <div class="flex-item">{{tracks.currency}} {{tracks.subTotalCost.toFixed(2)}}</div>
+                  <div class="flex-item">{{track.currency}} {{tracks.subTotalCost.toFixed(2)}}</div>
                   <div style="flex: 5%; width: 5%"></div>
                 </div>
               </div>
