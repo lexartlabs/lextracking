@@ -301,8 +301,7 @@
             <div
               class="flex-column"
               ng-if="userRole=='admin' || userRole == 'pm' && !filter.idUser "
-              ng-repeat="byTask in tracks.byTask"
-
+              ng-repeat="track in tracks.tracks"
             >
               <div class="flex-column-wrap">
                 <div
@@ -311,7 +310,7 @@
                     background-color: rgba(60, 144, 190, 0.1);
                     font-weight: bold;
                   "
-                  ng-repeat="track in byTask.tracks track by $index"
+                  ng-show="$first"
                 >
                   <div class="flex-item"></div>
                   <div class="flex-item"></div>

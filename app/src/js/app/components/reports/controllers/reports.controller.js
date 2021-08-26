@@ -513,12 +513,16 @@
                           return track.idUser == value.idUser;
                         });
                         track.currency = object.currency;
+                        console.log(track)
                         if (typeof index !== 'undefined') {
                           $scope.tableTrack[index].currency = object.currency;
                         }
-                      }
+                      }console.log(track.currency)
+
                     }
+
                   );
+
                   $scope.tableTrack.push({
                     idUser: track.idUser,
                     duration: track.duration,
@@ -529,6 +533,7 @@
                     tracks: [track],
                     // currency: track.currency,
                   });
+                  console.log($scope.tableTrack)
                 } else {
                   WeeklyHourServices.find(
                     $scope.currentPage,
