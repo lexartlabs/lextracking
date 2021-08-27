@@ -112,7 +112,8 @@
 					name 	   : obj.taskName,
 		    		startTime  : obj.startTime,
 					endTime	   : obj.endTime,
-					typeTrack  : obj.typeTrack
+					typeTrack  : obj.typeTrack,
+					currency : obj.currency
 					}
 					RestClient.post(model + "/track-trello-new", track, function(err, result) {
 						console.log("resultTrello::", err, result);
@@ -151,7 +152,8 @@
 			    		idProyecto : obj.idProyecto,
 			    		duracion   : obj.duracion,
 			    		totalTrack : obj.totalTrack,
-			    		projCost   : obj.projCost
+			    		projCost   : obj.projCost,
+						currency   : obj.currency
 			    	}
 			    	console.log('track to update', track);
 		        	RestClient.post(model + "/update", track, function(err, result) {
@@ -166,7 +168,8 @@
 			    		trackCost: obj.trackCost,
 						name 	 : obj.taskName,
 			    		startTime: obj.startTime,
-			    		endTime  : obj.endTime
+			    		endTime  : obj.endTime,
+						currency : obj.currency
 					}
 					console.log('track trelloTrack to update', track);
 		        	RestClient.post(model + "/track-trello-update", track, function(err, result) {
@@ -181,7 +184,8 @@
 			    		trackCost  : obj.trackCost,
 						name 	 : obj.taskName,
 			    		startTime: obj.startTime,
-			    		endTime  : obj.endTime
+			    		endTime  : obj.endTime,
+						currency : obj.currency
 			    	}
 			    	console.log('track autoTask to update', track);
 		        	RestClient.post(model + "/update-auto", track, function(err, result) {

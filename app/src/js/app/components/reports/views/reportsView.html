@@ -700,7 +700,7 @@
                     {{track.endTime ? track.endTime : '' | date:'dd/MM/yyyy HH:mm'}}
                   </div>
                   <div class="flex-item">{{track.durations}}</div>
-                  <div class="flex-item">$ {{track.trackCost}}</div>
+                  <div class="flex-item">{{track.currency}} {{track.trackCost}}</div>
                   <div style="flex: 5%; width: 5%">
                     <a href="" ng-click="editTrelloTrack(track)">
                       <img src="assets/images/icons/pencil-ico.svg" />
@@ -722,7 +722,7 @@
                     {{byProject.projectName | truncateTail:true:20:'...'}}
                   </div>
                   <div class="flex-item">{{byProject.duration}}</div>
-                  <div class="flex-item">$ {{byProject.subTotalCost}}</div>
+                  <div class="flex-item">{{track.currency}} {{byProject.subTotalCost}}</div>
                   <div style="flex: 5%; width: 5%"></div>
                 </div>
               </div>
@@ -730,15 +730,17 @@
             <!-- SUBTOTAL POR USUARIO -->
             <div
               class="flex-column"
-              ng-if="userRole=='admin' || userRole == 'pm' && !filter.idUser "
+              ng-if="userRole=='admin' || userRole == 'pm' && !filter.idUser"
             >
-              <div class="flex-column-wrap">
+              <div class="flex-column-wrap" 
+              >
                 <div
                   class="flex-row"
                   style="
                     background-color: rgba(60, 144, 190, 0.1);
                     font-weight: bold;
                   "
+                  
                 >
                   <div class="flex-item"></div>
                   <div class="flex-item"></div>
@@ -749,12 +751,12 @@
                     {{ 'reports.sub_total' | translate | uppercase }}
                   </div>
                   <div class="flex-item">{{tracks.duration}}</div>
-                  <div class="flex-item">$ {{tracks.subTotalCost}}</div>
+                  <div class="flex-item">{{tracks.currency}} {{tracks.subTotalCost}}</div>
                   <div style="flex: 5%; width: 5%"></div>
                 </div>
               </div>
             </div>
-          </div>
+          
           <div class="flex-column">
             <div class="flex-column-wrap">
               <div
@@ -773,11 +775,12 @@
                   {{ 'reports.total' | translate | uppercase }}
                 </div>
                 <div class="flex-item">{{total3}}</div>
-                <div class="flex-item">$ {{totalcost3}}</div>
+                <div class="flex-item">{{tracks.currency}} {{totalcost3}}</div>
                 <div style="flex: 5%; width: 5%"></div>
               </div>
             </div>
           </div>
+        </div>
         </div>
         <!--  <table ng-if="tableTrackTrello.length" id="datatable">
         <thead>

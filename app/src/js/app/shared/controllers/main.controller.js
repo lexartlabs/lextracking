@@ -385,6 +385,7 @@
         $scope.stopTrack = function (){
             var ms = 0;
             console.log("stopTrack::", $rootScope.currentTrack);
+            
             if ($rootScope.currentTrack && $rootScope.currentTrack.id) {
                 $rootScope.currentTrack.endTime = getCurrentDate();
                     var start = moment(new Date($rootScope.currentTrack.startTime));
@@ -410,6 +411,8 @@
                                         console.log(value.costHour,'costo hora idUser');
                                         var costo = parseInt(value.costHour);
                                         console.log('costo',costo);
+                                        $rootScope.currentTrack.currency = value.currency;
+                                        console.log(value.currency)
                                         // console.log(ms,'ms');
                                         // var result = (ms/3600/1000) * costo;
                                         var result = decimalTime * costo;
@@ -417,11 +420,13 @@
                                         //result = Math.ceil(result);
                                         //console.log(result);
                                         getCost(result);
+                                        console.log($rootScope.currentTrack)
                                       }
                                   });
                                 console.log(weeklyHours);
                                 if(exist === false){
                                     TracksServices.update($rootScope.currentTrack, function(err, result){
+                                        console.log($rootScope.currentTrack)
                                         console.log("Track actualizado con exito");
                                         $rootScope.timerRunning = false;
                                         $scope.stopTimer();
@@ -430,6 +435,7 @@
                             }else{
                                 TracksServices.update($rootScope.currentTrack, function(err, result){
                                     console.log("Track actualizado con exito");
+                                    console.log($rootScope.currentTrack)
                                     $rootScope.timerRunning = false;
                                     $scope.stopTimer();
                                 });
@@ -451,6 +457,8 @@
                                 TracksServices.update($rootScope.currentTrack, function(err, result){
                                     console.log("Track actualizado con exito");
                                     $rootScope.timerRunning = false;
+                                    console.log($rootScope.currentTrack)
+
                                     $scope.stopTimer();
                                 });
                             })
@@ -458,7 +466,8 @@
                             TracksServices.update($rootScope.currentTrack, function(err, result){
                                 console.log("Track actualizado con exito");
                                 $rootScope.timerRunning = false;
-                                    $scope.stopTimer();
+                                console.log($rootScope.currentTrack)
+                                $scope.stopTimer();
                             });
                         }
                 }

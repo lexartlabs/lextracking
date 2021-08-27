@@ -1082,6 +1082,7 @@
                     idProyecto: track.idProyecto,
                     clientName: track.client,
                     duration: track.durations,
+                    currency : track.currency,
                     subTotalCost: parseInt(
                       track.trackCost ? track.trackCost : 0
                     ),
