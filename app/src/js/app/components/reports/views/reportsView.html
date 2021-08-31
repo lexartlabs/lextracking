@@ -7,18 +7,10 @@
 </div>
 <div class="imm-frm__fld">
   <ul class="imm-tabs" ng-init="tabReport = 1">
-    <li
-      class="imm-tabs__item"
-      ng-click="tabReport = 1"
-      ng-class="{'imm-tabs__item--selected' : tabReport == 1}"
-    >
+    <li class="imm-tabs__item" ng-click="tabReport = 1" ng-class="{'imm-tabs__item--selected' : tabReport == 1}">
       Reportes Tareas
     </li>
-    <li
-      class="imm-tabs__item"
-      ng-click="tabReport = 2"
-      ng-class="{'imm-tabs__item--selected' : tabReport == 2}"
-    >
+    <li class="imm-tabs__item" ng-click="tabReport = 2" ng-class="{'imm-tabs__item--selected' : tabReport == 2}">
       Reportes Proyectos
     </li>
   </ul>
@@ -28,13 +20,8 @@
     <div class="imm-frm__fldgrp">
       <div class="imm-frm__fld">
         <label class="imm-frm__lbl">
-          <b class="imm-frm__lbl-name"
-            >{{ 'reports.start_time' | translate }}</b
-          >
-          <div
-            moment-picker="filter.startTime"
-            max-date="filter.startDate.maxDate"
-          >
+          <b class="imm-frm__lbl-name">{{ 'reports.start_time' | translate }}</b>
+          <div moment-picker="filter.startTime" max-date="filter.startDate.maxDate">
             <input ng-model="filter.startTime" />
           </div>
         </label>
@@ -43,11 +30,7 @@
       <div class="imm-frm__fld">
         <label class="imm-frm__lbl">
           <b class="imm-frm__lbl-name">{{ 'reports.end_time' | translate }}</b>
-          <div
-            moment-picker="filter.endTime"
-            max-date="filter.endDate.maxDate"
-            min-date="filter.startTime"
-          >
+          <div moment-picker="filter.endTime" max-date="filter.endDate.maxDate" min-date="filter.startTime">
             <input ng-model="filter.endTime" />
           </div>
         </label>
@@ -56,17 +39,10 @@
       <div class="imm-frm__fld" ng-if="userRole=='admin' || userRole == 'pm' ">
         <label class="imm-frm__lbl">
           <b class="imm-frm__lbl-name">{{ 'reports.user' | translate }}</b>
-          <ui-select
-            ng-model="filter.idUser"
-            class="imm-select imm-select--input"
-            theme="selectize"
-            title="{{ 'reports.users' | translate }}"
-            append-to-body="true"
-          >
+          <ui-select ng-model="filter.idUser" class="imm-select imm-select--input" theme="selectize"
+            title="{{ 'reports.users' | translate }}" append-to-body="true">
             <ui-select-match> {{$select.selected.name}} </ui-select-match>
-            <ui-select-choices
-              repeat="user.id as user in users | filter: $select.search"
-            >
+            <ui-select-choices repeat="user.id as user in users | filter: $select.search">
               <div ng-bind-html="user.name | highlight: $select.search"></div>
             </ui-select-choices>
           </ui-select>
@@ -76,48 +52,26 @@
       <div class="imm-frm__fld">
         <label class="imm-frm__lbl">
           <b class="imm-frm__lbl-name">{{ 'reports.client' | translate }}</b>
-          <ui-select
-            ng-if="isClient=='false'"
-            ng-model="filter.idClient"
-            class="imm-select imm-select--input"
-            theme="selectize"
-            title="{{ 'reports.clients' | translate }}"
-            append-to-body="true"
-            ng-change="getProjects(filter.idClient)"
-          >
+          <ui-select ng-if="isClient=='false'" ng-model="filter.idClient" class="imm-select imm-select--input"
+            theme="selectize" title="{{ 'reports.clients' | translate }}" append-to-body="true"
+            ng-change="getProjects(filter.idClient)">
             <ui-select-match> {{$select.selected.name}} </ui-select-match>
-            <ui-select-choices
-              repeat="client.id as client in clients | filter: $select.search"
-            >
+            <ui-select-choices repeat="client.id as client in clients | filter: $select.search">
               <div ng-bind-html="client.name | highlight: $select.search"></div>
             </ui-select-choices>
           </ui-select>
-          <input
-            ng-if="isClient=='true'"
-            type="text"
-            ng-value="client.name"
-            readonly
-          />
+          <input ng-if="isClient=='true'" type="text" ng-value="client.name" readonly />
         </label>
       </div>
 
       <div class="imm-frm__fld">
         <label class="imm-frm__lbl">
           <b class="imm-frm__lbl-name">{{ 'reports.project' | translate }}</b>
-          <ui-select
-            ng-model="filter.idProject"
-            class="imm-select imm-select--input"
-            theme="selectize"
-            title="{{ 'reports.projects' | translate }}"
-            append-to-body="true"
-          >
+          <ui-select ng-model="filter.idProject" class="imm-select imm-select--input" theme="selectize"
+            title="{{ 'reports.projects' | translate }}" append-to-body="true">
             <ui-select-match> {{$select.selected.name}} </ui-select-match>
-            <ui-select-choices
-              repeat="project.id as project in projects | filter: $select.search"
-            >
-              <div
-                ng-bind-html="project.name | highlight: $select.search"
-              ></div>
+            <ui-select-choices repeat="project.id as project in projects | filter: $select.search">
+              <div ng-bind-html="project.name | highlight: $select.search"></div>
             </ui-select-choices>
           </ui-select>
         </label>
@@ -132,34 +86,18 @@
       </div>
     </div>
     <div class="imm-frm__fld">
-      <a
-        style="display: none"
-        download="{{excelName}}.xls"
-        href="#/app/reports"
-        onclick="return ngTableExcelExport.excel(this, 'datatable', 'prueba');"
-        style="float: right"
-      >
+      <a style="display: none" download="{{excelName}}.xls" href="#/app/reports"
+        onclick="return ngTableExcelExport.excel(this, 'datatable', 'prueba');" style="float: right">
         <button>
-          <img
-            class="img_exportExcel"
-            src="/assets/images/exportExcel.png"
-            style="vertical-align: middle; margin: 0 5px"
-          />Exportar
+          <img class="img_exportExcel" src="/assets/images/exportExcel.png"
+            style="vertical-align: middle; margin: 0 5px" />Exportar
         </button>
       </a>
       <ul class="imm-tabs" ng-init="itemTab = 1">
-        <li
-          class="imm-tabs__item"
-          ng-click="itemTab = 1"
-          ng-class="{'imm-tabs__item--selected' : itemTab == 1}"
-        >
+        <li class="imm-tabs__item" ng-click="itemTab = 1" ng-class="{'imm-tabs__item--selected' : itemTab == 1}">
           Tabla
         </li>
-        <li
-          class="imm-tabs__item"
-          ng-click="itemTab = 2"
-          ng-class="{'imm-tabs__item--selected' : itemTab == 2}"
-        >
+        <li class="imm-tabs__item" ng-click="itemTab = 2" ng-class="{'imm-tabs__item--selected' : itemTab == 2}">
           Gráficas
         </li>
       </ul>
@@ -169,9 +107,7 @@
     <div class="imm-wa__hdr imm-flex" ng-if="itemTab == 1">
       <div class="imm-flex-5">
         <h1 class="imm-wa__tit">
-          <a class="imm-bc-item" ng-if="tracks.length"
-            >{{ 'reports.title' | translate }}</a
-          >
+          <a class="imm-bc-item" ng-if="tracks.length">{{ 'reports.title' | translate }}</a>
         </h1>
         <button class="imm-btn" ng-if="tracks.length" ng-click="exportToCSV()">
           Descargar CSV
@@ -187,7 +123,7 @@
     </div>
     <div class="imm-wa__cnt">
       <div class="imm-flex" ng-if="itemTab == 1">
-        <div class="flex-table" ng-if="tracks.length">
+        <div class="flex-table" ng-if="tableTrack.length">
           <div class="flex-head">
             <div class="flex-item">{{ 'reports.user' | translate }}</div>
             <div class="flex-item">{{ 'reports.client' | translate }}</div>
@@ -201,24 +137,20 @@
             <div style="flex: 5%; width: 5%"></div>
           </div>
           <!-- ORDENADO POR USUARIO -->
-          <div
-            ng-repeat="tracks in tableTrack"
-            class="flex-column"
-            style="color: black"
-          >
+          <div ng-repeat="tracks in tableTrack" class="flex-column" style="color: black">
             <!-- ORDENADO POR TAREA -->
             <div ng-repeat="byTask in tracks.byTask" class="flex-column">
               <!-- TRACKS -->
-              <div
-                ng-repeat="track in byTask.tracks track by $index"
-                class="flex-column-wrap"
-                id="datatable"
-              >
+              <div ng-repeat="track in byTask.tracks track by $index" class="flex-column-wrap" id="datatable">
                 <div class="flex-row">
                   <div class="flex-item">{{track.userName}}</div>
                   <div class="flex-item">{{track.clientName}}</div>
-                  <div class="flex-item" ng-if="userRole != 'admin'">{{track.projectName | truncateTail:true:20:'...'}}</div>
-                  <div class="flex-item"><a ng-if="userRole == 'admin'" style="color: #4a90e2; text-decoration: underline" ui-sref="app.projectEdit({id: track.idProyecto})" target="_blank">{{track.projectName | truncateTail:true:20:'...'}}</a></div>
+                  <div class="flex-item" ng-if="userRole != 'admin'">{{track.projectName | truncateTail:true:20:'...'}}
+                  </div>
+                  <div class="flex-item"><a ng-if="userRole == 'admin'"
+                      style="color: #4a90e2; text-decoration: underline"
+                      ui-sref="app.projectEdit({id: track.idProyecto})" target="_blank">{{track.projectName |
+                      truncateTail:true:20:'...'}}</a></div>
                   <div class="flex-item">
                     {{track.taskName | truncateTail:true:20:'...'}}
                   </div>
@@ -233,7 +165,7 @@
                     {{track.endTime ? track.endTime : '' | date:'dd/MM/yyyy HH:mm'}}
                   </div>
                   <div class="flex-item">{{track.duration}}</div>
-                  <div class="flex-item">{{tracks.currency}} {{track.trackCost.toFixed(2)}}</div>
+                  <div class="flex-item">{{track.currency}}{{track.trackCost.toFixed(2)}}</div>
                   <!-- <div class="flex-item">$ {{track}}</div> -->
                   <div style="flex: 5%; width: 5%">
                     <a href="" ng-click="editTrack(track)">
@@ -242,14 +174,10 @@
                   </div>
                 </div>
                 <!-- ADD FEATURE: SUBTOTAL POR TAREAS -->
-                <div
-                  class="flex-row"
-                  ng-if="$index == byTask.tracks.length - 1 && !filter.idTask"
-                  style="
+                <div class="flex-row" ng-if="$index == byTask.tracks.length - 1 && !filter.idTask" style="
                     background-color: rgba(225, 56, 107, 0.1);
                     font-weight: bold;
-                  "
-                >
+                  ">
                   <div class="flex-item"></div>
                   <div class="flex-item"></div>
                   <div class="flex-item"></div>
@@ -260,27 +188,19 @@
                     {{byTask.taskName | truncateTail:true:20:'...'}}
                   </div>
                   <div class="flex-item">{{byTask.duration}}</div>
-                  <div class="flex-item">{{tracks.currency}} {{byTask.subTotalCost.toFixed(2)}}</div>
+                  <div class="flex-item">{{track.currency}} {{byTask.subTotalCost.toFixed(2)}}</div>
                   <div style="flex: 5%; width: 5%"></div>
                 </div>
               </div>
             </div>
             <!-- SUBTOTAL POR PROYECTO -->
             <div ng-repeat="byProject in tracks.byProject" class="flex-column">
-              <div
-                ng-repeat="track in byProject.tracks track by $index"
-                class="flex-column-wrap"
-                id="datatable"
-              >
+              <div ng-repeat="track in byProject.tracks track by $index" class="flex-column-wrap" id="datatable">
                 <div class="flex-column-wrap">
-                  <div
-                    ng-if="$index == byProject.tracks.length - 1 && !filter.idTask"
-                    class="flex-row"
-                    style="
+                  <div ng-if="$index == byProject.tracks.length - 1 && !filter.idTask" class="flex-row" style="
                       background-color: rgb(255, 243, 115);
                       font-weight: bold;
-                    "
-                  >
+                    ">
                     <div class="flex-item"></div>
                     <div class="flex-item"></div>
                     <div class="flex-item"></div>
@@ -290,7 +210,7 @@
                       {{ byProject.projectName | truncateTail:true:20:'...' }}
                     </div>
                     <div class="flex-item">{{byProject.duration}}</div>
-                    <div class="flex-item">{{tracks.currency}} {{byProject.subTotalCost.toFixed(2)}}</div>
+                    <div class="flex-item">{{track.currency}} {{byProject.subTotalCost.toFixed(2)}}</div>
                     <div style="flex: 5%; width: 5%"></div>
                   </div>
                 </div>
@@ -298,18 +218,13 @@
             </div>
             <!-- </div> -->
             <!-- SUBTOTAL POR USUARIO -->
-            <div
-              class="flex-column"
-              ng-if="userRole=='admin' || userRole == 'pm' && !filter.idUser "
-            >
+            <div class="flex-column" ng-if="userRole=='admin' || userRole == 'pm' && !filter.idUser "
+              ng-repeat="track in tracks.tracks">
               <div class="flex-column-wrap">
-                <div
-                  class="flex-row"
-                  style="
+                <div class="flex-row" style="
                     background-color: rgba(60, 144, 190, 0.1);
                     font-weight: bold;
-                  "
-                >
+                  " ng-show="$first">
                   <div class="flex-item"></div>
                   <div class="flex-item"></div>
                   <div class="flex-item"></div>
@@ -319,21 +234,18 @@
                     {{ 'reports.sub_total' | translate | uppercase }}
                   </div>
                   <div class="flex-item">{{tracks.duration}}</div>
-                  <div class="flex-item">{{tracks.currency}} {{tracks.subTotalCost.toFixed(2)}}</div>
+                  <div class="flex-item">{{track.currency}} {{tracks.subTotalCost.toFixed(2)}}</div>
                   <div style="flex: 5%; width: 5%"></div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="flex-column">
+          <!-- <div class="flex-column">
             <div class="flex-column-wrap">
-              <div
-                class="flex-row"
-                style="
+              <div class="flex-row" style="
                   background-color: rgba(59, 144, 190, 0.43);
                   font-weight: bold;
-                "
-              >
+                ">
                 <div class="flex-item"></div>
                 <div class="flex-item"></div>
                 <div class="flex-item"></div>
@@ -347,15 +259,11 @@
                 <div style="flex: 5%; width: 5%"></div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
         <div ng-if="tracks.length" style="display: none">
-        <!-- <div ng-if="tracks.length"> -->
-          <table
-            id="exportReport"
-            ng-repeat="tracks in tableTrack"
-            style="margin-top: 0"
-          >
+          <!-- <div ng-if="tracks.length"> -->
+          <table id="exportReport" ng-repeat="tracks in tableTrack" style="margin-top: 0">
             <thead ng-if="$first">
               <tr>
                 <th>{{ 'reports.user' | translate }}</th>
@@ -370,10 +278,8 @@
               </tr>
             </thead>
             <tbody ng-repeat="byTask in tracks.byTask">
-              <tr
-                ng-repeat="track in byTask.tracks track by $index"
-                ng-class="{'active-task': track.type != 'projectInfo' && !track.endTime || track.endTime == '0000-00-00 00:00:00'}"
-              >
+              <tr ng-repeat="track in byTask.tracks track by $index"
+                ng-class="{'active-task': track.type != 'projectInfo' && !track.endTime || track.endTime == '0000-00-00 00:00:00'}">
                 <td>{{track.userName}}</td>
                 <td>{{track.clientName}}</td>
                 <td>{{track.projectName | truncateTail:true:20:'...'}}</td>
@@ -391,12 +297,10 @@
                   </a>
                 </td>
               </tr>
-              <tr
-                style="
+              <tr style="
                   background-color: rgba(225, 56, 107, 0.1);
                   font-weight: bold;
-                "
-              >
+                ">
                 <td colspan="4"></td>
                 <td>TAREA</td>
                 <td>{{byTask.taskName | truncateTail:true:20:'...'}}</td>
@@ -406,13 +310,10 @@
               </tr>
             </tbody>
             <tfoot>
-              <tr
-                ng-if="userRole=='admin' || userRole == 'pm' && filter.idUser "
-                style="
+              <tr ng-if="userRole=='admin' || userRole == 'pm' && filter.idUser " style="
                   background-color: rgba(60, 144, 190, 0.1);
                   font-weight: bold;
-                "
-              >
+                ">
                 <td colspan="5"></td>
                 <td>{{ 'reports.sub_total' | translate | uppercase }}</td>
                 <td>{{tracks.duration}}</td>
@@ -421,179 +322,148 @@
               </tr>
             </tfoot>
             <tbody ng-repeat="byProject in tracks.byProject" class="flex-column">
-              <table
-                ng-repeat="track in byProject.tracks track by $index"
-                class="flex-column-wrap"
-                id="datatable"
-              >
-                  <tr
-                    ng-if="$index == byProject.tracks.length - 1 && !filter.idTask"
-                    class="flex-row"
-                    style="
+              <table ng-repeat="track in byProject.tracks track by $index" class="flex-column-wrap" id="datatable">
+                <tr ng-if="$index == byProject.tracks.length - 1 && !filter.idTask" class="flex-row" style="
                       background-color: rgb(255, 243, 115);
                       font-weight: bold;
-                    "
-                  >
-                    <td class="flex-item"></td>
-                    <td class="flex-item"></td>
-                    <td class="flex-item"></td>
-                    <td class="flex-item"></td>
-                    <td class="flex-item">PROYECTO</td>
-                    <td class="flex-item">
-                      {{ byProject.projectName | truncateTail:true:20:'...' }}
-                    </td>
-                    <td class="flex-item">{{byProject.duration}}</td>
-                    <td class="flex-item">$ {{byProject.subTotalCost}}</td>
-                    <td style="flex: 5%; width: 5%"></td>
-                  </tr>
-                </div>
-              </table>
-            </tbody>
-            <tfoot>
-              <tr
-                style="
+                    ">
+                  <td class="flex-item"></td>
+                  <td class="flex-item"></td>
+                  <td class="flex-item"></td>
+                  <td class="flex-item"></td>
+                  <td class="flex-item">PROYECTO</td>
+                  <td class="flex-item">
+                    {{ byProject.projectName | truncateTail:true:20:'...' }}
+                  </td>
+                  <td class="flex-item">{{byProject.duration}}</td>
+                  <td class="flex-item">$ {{byProject.subTotalCost}}</td>
+                  <td style="flex: 5%; width: 5%"></td>
+                </tr>
+        </div>
+        </table>
+        </tbody>
+        <!-- <tfoot>
+          <tr style="
                   background-color: rgba(104, 149, 191, 0.4);
                   font-weight: bold;
-                "
-              >
-                <td colspan="5"></td>
-                <td>{{ 'reports.total' | translate | uppercase }}</td>
-                <td>{{total}}</td>
-                <td>$ {{totalcost.toFixed(2)}}</td>
-                <td></td>
-              </tr>
-            </tfoot>
-          </table>
+                ">
+            <td colspan="5"></td>
+            <td>{{ 'reports.total' | translate | uppercase }}</td>
+            <td>{{total}}</td>
+            <td>$ {{totalcost.toFixed(2)}}</td>
+            <td></td>
+          </tr>
+        </tfoot> -->
+        </table>
+      </div>
+    </div>
+    <div ng-if="itemTab == 1">
+      <br />
+      <a class="imm-bc-item" ng-if="autoTracks.length">{{ 'reports.titleAuto' | translate }}</a>
+      <br /><br />
+    </div>
+    <div class="imm-flex" ng-if="itemTab == 1">
+      <div class="flex-table" ng-if="tableTrackAuto.length > 0">
+        <div class="flex-head">
+          <div class="flex-item">{{ 'reports.user' | translate }}</div>
+          <div class="flex-item">{{ 'reports.client' | translate }}</div>
+          <div class="flex-item">{{ 'reports.project' | translate }}</div>
+          <div class="flex-item">{{ 'reports.task' | translate }}</div>
+          <div class="flex-item">{{ 'reports.start_time' | translate }}</div>
+          <div class="flex-item">{{ 'reports.end_time' | translate }}</div>
+          <div class="flex-item">{{ 'reports.duration' | translate }}</div>
+          <div class="flex-item">{{ 'reports.trackCost' | translate }}</div>
+          <div style="flex: 5%; width: 5%"></div>
         </div>
-      </div>
-      <div ng-if="itemTab == 1">
-        <br />
-        <a class="imm-bc-item" ng-if="autoTracks.length"
-          >{{ 'reports.titleAuto' | translate }}</a
-        >
-        <br /><br />
-      </div>
-      <div class="imm-flex" ng-if="itemTab == 1">
-        <div class="flex-table" ng-if="tableTrackAuto.length > 0">
-          <div class="flex-head">
-            <div class="flex-item">{{ 'reports.user' | translate }}</div>
-            <div class="flex-item">{{ 'reports.client' | translate }}</div>
-            <div class="flex-item">{{ 'reports.project' | translate }}</div>
-            <div class="flex-item">{{ 'reports.task' | translate }}</div>
-            <div class="flex-item">{{ 'reports.start_time' | translate }}</div>
-            <div class="flex-item">{{ 'reports.end_time' | translate }}</div>
-            <div class="flex-item">{{ 'reports.duration' | translate }}</div>
-            <div class="flex-item">{{ 'reports.trackCost' | translate }}</div>
-            <div style="flex: 5%; width: 5%"></div>
-          </div>
-          <!-- ORDENADO POR USUARIO -->
-          <div
-            ng-repeat="tracks in tableTrackAuto"
-            class="flex-column"
-            style="color: black"
-          >
-            <!-- ORDENADO POR PROYECTO -->
-            <div ng-repeat="byProject in tracks.byProject" class="flex-column">
-              <!-- TRACKS AUTOMATICOS -->
-              <div
-                ng-repeat="track in byProject.tracks track by $index"
-                class="flex-column-wrap"
-              >
-                <div class="flex-row">
-                  <div class="flex-item">{{track.usersName}}</div>
-                  <div class="flex-item">{{track.client}}</div>
-                  <div class="flex-item">{{track.projectError}}</div>
-                  <div class="flex-item">
-                    {{track.error | truncateTail:true:20:'...'}}
-                  </div>
-                  <div class="flex-item">
-                    {{track.startTime | date:'dd/MM/yyyy HH:mm' }}
-                  </div>
-                  <div class="flex-item">
-                    {{track.endTime ? track.endTime : '' | date:'dd/MM/yyyy
-                    HH:mm' }}
-                  </div>
-                  <div class="flex-item">{{track.durations}}</div>
-                  <div class="flex-item">$ {{track.trackCost}}</div>
-                  <div style="flex: 5%; width: 5%">
-                    <a href="" ng-click="editAutoTrack(track)">
-                      <img src="assets/images/icons/pencil-ico.svg" />
-                    </a>
-                  </div>
+        <!-- ORDENADO POR USUARIO -->
+        <div ng-repeat="tracks in tableTrackAuto" class="flex-column" style="color: black">
+          <!-- ORDENADO POR PROYECTO -->
+          <div ng-repeat="byProject in tracks.byProject" class="flex-column">
+            <!-- TRACKS AUTOMATICOS -->
+            <div ng-repeat="track in byProject.tracks track by $index" class="flex-column-wrap">
+              <div class="flex-row">
+                <div class="flex-item">{{track.usersName}}</div>
+                <div class="flex-item">{{track.client}}</div>
+                <div class="flex-item">{{track.projectError}}</div>
+                <div class="flex-item">
+                  {{track.error | truncateTail:true:20:'...'}}
                 </div>
-                <!-- SUBTOTAL POR PROYECTO -->
-                <div
-                  class="flex-row"
-                  ng-if="$index == byProject.tracks.length - 1 && !filter.idProject"
-                  style="background-color: #ffff0069; font-weight: bold"
-                >
-                  <div class="flex-item"></div>
-                  <div class="flex-item"></div>
-                  <div class="flex-item"></div>
-                  <div class="flex-item"></div>
-                  <div class="flex-item"></div>
-                  <div class="flex-item">
-                    {{byProject.projectName | truncateTail:true:20:'...'}}
-                  </div>
-                  <div class="flex-item">{{byProject.duration}}</div>
-                  <div class="flex-item">$ {{byProject.subTotalCost}}</div>
-                  <div style="flex: 5%; width: 5%"></div>
+                <div class="flex-item">
+                  {{track.startTime | date:'dd/MM/yyyy HH:mm' }}
+                </div>
+                <div class="flex-item">
+                  {{track.endTime ? track.endTime : '' | date:'dd/MM/yyyy
+                  HH:mm' }}
+                </div>
+                <div class="flex-item">{{track.durations}}</div>
+                <div class="flex-item">$ {{track.trackCost}}</div>
+                <div style="flex: 5%; width: 5%">
+                  <a href="" ng-click="editAutoTrack(track)">
+                    <img src="assets/images/icons/pencil-ico.svg" />
+                  </a>
                 </div>
               </div>
-            </div>
-            <!-- SUBTOTAL POR USUARIO -->
-            <div
-              class="flex-column"
-              ng-if="userRole=='admin' || userRole == 'pm' && !filter.idUser "
-            >
-              <div class="flex-column-wrap">
-                <div
-                  class="flex-row"
-                  style="
-                    background-color: rgba(60, 144, 190, 0.1);
-                    font-weight: bold;
-                  "
-                >
-                  <div class="flex-item"></div>
-                  <div class="flex-item"></div>
-                  <div class="flex-item"></div>
-                  <div class="flex-item"></div>
-                  <div class="flex-item"></div>
-                  <div class="flex-item">
-                    {{ 'reports.sub_total' | translate | uppercase }}
-                  </div>
-                  <div class="flex-item">{{tracks.duration}}</div>
-                  <div class="flex-item">$ {{tracks.subTotalCost}}</div>
-                  <div style="flex: 5%; width: 5%"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="flex-column">
-            <div class="flex-column-wrap">
-              <div
-                class="flex-row"
-                style="
-                  background-color: rgba(59, 144, 190, 0.43);
-                  font-weight: bold;
-                "
-              >
+              <!-- SUBTOTAL POR PROYECTO -->
+              <div class="flex-row" ng-if="$index == byProject.tracks.length - 1 && !filter.idProject"
+                style="background-color: #ffff0069; font-weight: bold">
                 <div class="flex-item"></div>
                 <div class="flex-item"></div>
                 <div class="flex-item"></div>
                 <div class="flex-item"></div>
                 <div class="flex-item"></div>
                 <div class="flex-item">
-                  {{ 'reports.total.toFixed(2)' | translate | uppercase }}
+                  {{byProject.projectName | truncateTail:true:20:'...'}}
                 </div>
-                <div class="flex-item">{{total2}}</div>
-                <div class="flex-item">$ {{totalcost2}}</div>
+                <div class="flex-item">{{byProject.duration}}</div>
+                <div class="flex-item">$ {{byProject.subTotalCost}}</div>
+                <div style="flex: 5%; width: 5%"></div>
+              </div>
+            </div>
+          </div>
+          <!-- SUBTOTAL POR USUARIO -->
+          <div class="flex-column" ng-if="userRole=='admin' || userRole == 'pm' && !filter.idUser ">
+            <div class="flex-column-wrap">
+              <div class="flex-row" style="
+                    background-color: rgba(60, 144, 190, 0.1);
+                    font-weight: bold;
+                  ">
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item">
+                  {{ 'reports.sub_total' | translate | uppercase }}
+                </div>
+                <div class="flex-item">{{tracks.duration}}</div>
+                <div class="flex-item">$ {{tracks.subTotalCost}}</div>
                 <div style="flex: 5%; width: 5%"></div>
               </div>
             </div>
           </div>
         </div>
-        <!--  <table ng-if="tableTrackAuto.length" id="datatable" style="display: none;">
+        <div class="flex-column">
+          <div class="flex-column-wrap">
+            <div class="flex-row" style="
+                  background-color: rgba(59, 144, 190, 0.43);
+                  font-weight: bold;
+                ">
+              <div class="flex-item"></div>
+              <div class="flex-item"></div>
+              <div class="flex-item"></div>
+              <div class="flex-item"></div>
+              <div class="flex-item"></div>
+              <div class="flex-item">
+                {{ 'reports.total.toFixed(2)' | translate | uppercase }}
+              </div>
+              <div class="flex-item">{{total2}}</div>
+              <div class="flex-item">$ {{totalcost2}}</div>
+              <div style="flex: 5%; width: 5%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--  <table ng-if="tableTrackAuto.length" id="datatable" style="display: none;">
         <thead>
             <tr>
                 <th>{{ 'reports.user' | translate }}</th>
@@ -643,125 +513,104 @@
             </tr>
         </tbody>
     </table> -->
-      </div>
+    </div>
 
-      <!-- End Table -->
-      <div ng-if="itemTab == 1">
-        <br />
-        <a class="imm-bc-item" ng-if="trelloTracks.length > 0"
-          >{{ 'reports.titleTrello' | translate }}</a
-        >
-        <br /><br />
-      </div>
+    <!-- End Table -->
+    <div ng-if="itemTab == 1">
+      <br />
+      <a class="imm-bc-item" ng-if="trelloTracks.length > 0">{{ 'reports.titleTrello' | translate }}</a>
+      <br /><br />
+    </div>
 
-      <div class="imm-flex" ng-if="itemTab == 1">
-        <div class="flex-table" ng-if="tableTrackTrello.length > 0">
-          <div class="flex-head">
-            <div class="flex-item">{{ 'reports.user' | translate }}</div>
-            <div class="flex-item">{{ 'reports.client' | translate }}</div>
-            <div class="flex-item">{{ 'reports.project' | translate }}</div>
-            <div class="flex-item">{{ 'reports.task' | translate }}</div>
-            <div class="flex-item">{{ 'reports.start_time' | translate }}</div>
-            <div class="flex-item">{{ 'reports.end_time' | translate }}</div>
-            <div class="flex-item">{{ 'reports.duration' | translate }}</div>
-            <div class="flex-item">{{ 'reports.trackCost' | translate }}</div>
-            <div style="flex: 5%; width: 5%"></div>
-          </div>
-          <!-- ORDENADO POR USUARIO -->
-          <div
-            ng-repeat="tracks in tableTrackTrello"
-            class="flex-column"
-            style="color: black"
-          >
-            <!-- ORDENADO POR PROYECTO -->
-            <div ng-repeat="byProject in tracks.byProject" class="flex-column">
-              <!-- TRACKS TRELLO -->
-              <div
-                ng-repeat="track in byProject.tracks track by $index"
-                class="flex-column-wrap"
-              >
-                <div class="flex-row">
-                  <div class="flex-item">{{track.usersName}}</div>
-                  <div class="flex-item">{{tracks.clientName}}</div>
-                  <div class="flex-item">{{track.projectName}}</div>
-                  <div class="flex-item">
-                    {{track.name | truncateTail:true:20:'...'}}
-                  </div>
-                  <div class="flex-item">
-                    {{track.startTime | date:'dd/MM/yyyy HH:mm' }}
-                  </div>
-                  <!-- <div class="flex-item">
+    <div class="imm-flex" ng-if="itemTab == 1">
+      <div class="flex-table" ng-if="tableTrackTrello.length > 0">
+        <div class="flex-head">
+          <div class="flex-item">{{ 'reports.user' | translate }}</div>
+          <div class="flex-item">{{ 'reports.client' | translate }}</div>
+          <div class="flex-item">{{ 'reports.project' | translate }}</div>
+          <div class="flex-item">{{ 'reports.task' | translate }}</div>
+          <div class="flex-item">{{ 'reports.start_time' | translate }}</div>
+          <div class="flex-item">{{ 'reports.end_time' | translate }}</div>
+          <div class="flex-item">{{ 'reports.duration' | translate }}</div>
+          <div class="flex-item">{{ 'reports.trackCost' | translate }}</div>
+          <div style="flex: 5%; width: 5%"></div>
+        </div>
+        <!-- ORDENADO POR USUARIO -->
+        <div ng-repeat="tracks in tableTrackTrello" class="flex-column" style="color: black">
+          <!-- ORDENADO POR PROYECTO -->
+          <div ng-repeat="byProject in tracks.byProject" class="flex-column">
+            <!-- TRACKS TRELLO -->
+            <div ng-repeat="track in byProject.tracks track by $index" class="flex-column-wrap">
+              <div class="flex-row">
+                <div class="flex-item">{{track.usersName}}</div>
+                <div class="flex-item">{{tracks.clientName}}</div>
+                <div class="flex-item">{{track.projectName}}</div>
+                <div class="flex-item">
+                  {{track.name | truncateTail:true:20:'...'}}
+                </div>
+                <div class="flex-item">
+                  {{track.startTime | date:'dd/MM/yyyy HH:mm' }}
+                </div>
+                <!-- <div class="flex-item">
                     {{track.endTime ? track.endTime : '' | date:'dd/MM/yyyy
                     HH:mm' }}
                   </div> -->
-                  <div class="flex-item">
-                    {{track.endTime ? track.endTime : '' | date:'dd/MM/yyyy HH:mm'}}
-                  </div>
-                  <div class="flex-item">{{track.durations}}</div>
-                  <div class="flex-item">$ {{track.trackCost}}</div>
-                  <div style="flex: 5%; width: 5%">
-                    <a href="" ng-click="editTrelloTrack(track)">
-                      <img src="assets/images/icons/pencil-ico.svg" />
-                    </a>
-                  </div>
+                <div class="flex-item">
+                  {{track.endTime ? track.endTime : '' | date:'dd/MM/yyyy HH:mm'}}
                 </div>
-                <!-- SUBTOTAL POR PROYECTO -->
-                <div
-                  class="flex-row"
-                  ng-if="$index == byProject.tracks.length - 1 && !filter.idProject"
-                  style="background-color: #ffff0069; font-weight: bold"
-                >
-                  <div class="flex-item"></div>
-                  <div class="flex-item"></div>
-                  <div class="flex-item"></div>
-                  <div class="flex-item"></div>
-                  <div class="flex-item"></div>
-                  <div class="flex-item">
-                    {{byProject.projectName | truncateTail:true:20:'...'}}
-                  </div>
-                  <div class="flex-item">{{byProject.duration}}</div>
-                  <div class="flex-item">$ {{byProject.subTotalCost}}</div>
-                  <div style="flex: 5%; width: 5%"></div>
+                <div class="flex-item">{{track.durations}}</div>
+                <div class="flex-item">{{track.currency}} {{track.trackCost}}</div>
+                <div style="flex: 5%; width: 5%">
+                  <a href="" ng-click="editTrelloTrack(track)">
+                    <img src="assets/images/icons/pencil-ico.svg" />
+                  </a>
                 </div>
               </div>
-            </div>
-            <!-- SUBTOTAL POR USUARIO -->
-            <div
-              class="flex-column"
-              ng-if="userRole=='admin' || userRole == 'pm' && !filter.idUser "
-            >
-              <div class="flex-column-wrap">
-                <div
-                  class="flex-row"
-                  style="
-                    background-color: rgba(60, 144, 190, 0.1);
-                    font-weight: bold;
-                  "
-                >
-                  <div class="flex-item"></div>
-                  <div class="flex-item"></div>
-                  <div class="flex-item"></div>
-                  <div class="flex-item"></div>
-                  <div class="flex-item"></div>
-                  <div class="flex-item">
-                    {{ 'reports.sub_total' | translate | uppercase }}
-                  </div>
-                  <div class="flex-item">{{tracks.duration}}</div>
-                  <div class="flex-item">$ {{tracks.subTotalCost}}</div>
-                  <div style="flex: 5%; width: 5%"></div>
+              <!-- SUBTOTAL POR PROYECTO -->
+              <div class="flex-row" ng-if="$index == byProject.tracks.length - 1 && !filter.idProject"
+                style="background-color: #ffff0069; font-weight: bold">
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item">
+                  {{byProject.projectName | truncateTail:true:20:'...'}}
                 </div>
+                <div class="flex-item">{{byProject.duration}}</div>
+                <div class="flex-item">{{tracks.currency}} {{byProject.subTotalCost}}</div>
+                <div style="flex: 5%; width: 5%"></div>
               </div>
             </div>
           </div>
-          <div class="flex-column">
+          <!-- SUBTOTAL POR USUARIO -->
+          <div class="flex-column" ng-if="userRole=='admin' || userRole == 'pm' && !filter.idUser">
             <div class="flex-column-wrap">
-              <div
-                class="flex-row"
-                style="
+              <div class="flex-row" style="
+                    background-color: rgba(60, 144, 190, 0.1);
+                    font-weight: bold;
+                  ">
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item">
+                  {{ 'reports.sub_total' | translate | uppercase }}
+                </div>
+                <div class="flex-item">{{tracks.duration}}</div>
+                <div class="flex-item">{{tracks.currency}} {{tracks.subTotalCost}}</div>
+                <div style="flex: 5%; width: 5%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="flex-column">
+            <div class="flex-column-wrap">
+              <div class="flex-row" style="
                   background-color: rgba(59, 144, 190, 0.43);
                   font-weight: bold;
-                "
-              >
+                ">
                 <div class="flex-item"></div>
                 <div class="flex-item"></div>
                 <div class="flex-item"></div>
@@ -771,13 +620,14 @@
                   {{ 'reports.total' | translate | uppercase }}
                 </div>
                 <div class="flex-item">{{total3}}</div>
-                <div class="flex-item">$ {{totalcost3}}</div>
+                <div class="flex-item">{{tracks.currency}} {{totalcost3}}</div>
                 <div style="flex: 5%; width: 5%"></div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
-        <!--  <table ng-if="tableTrackTrello.length" id="datatable">
+      </div>
+      <!--  <table ng-if="tableTrackTrello.length" id="datatable">
         <thead>
             <tr>
                 <th>{{ 'reports.user' | translate }}</th>
@@ -827,139 +677,159 @@
             </tr>
         </tbody>
     </table> -->
-      </div>
+    </div>
 
-      <div ng-if="itemTab == 1">
-        <br />
-        <a class="imm-bc-item" ng-if="jiraTracks.length > 0"
-          >{{ 'Tareas Jira' }}</a
-        >
-        <br /><br />
-      </div>
+  
 
-      <div class="imm-flex" ng-if="itemTab == 1">
-        <div class="flex-table" ng-if="jiraTracks.length > 0">
-          <div class="flex-head">
-            <div class="flex-item">{{ 'reports.user' | translate }}</div>
-            <div class="flex-item">{{ 'reports.client' | translate }}</div>
-            <div class="flex-item">{{ 'reports.project' | translate }}</div>
-            <div class="flex-item">{{ 'reports.task' | translate }}</div>
-            <div class="flex-item">{{ 'reports.start_time' | translate }}</div>
-            <div class="flex-item">{{ 'reports.end_time' | translate }}</div>
-            <div class="flex-item">{{ 'reports.duration' | translate }}</div>
-            <div class="flex-item">{{ 'reports.trackCost' | translate }}</div>
-            <div style="flex: 5%; width: 5%"></div>
-          </div>
-          <!-- ORDENADO POR USUARIO -->
-          <div
-            ng-repeat="tracks in tableTrackJira"
-            class="flex-column"
-            style="color: black"
-          >
-            <!-- ORDENADO POR PROYECTO -->
-            <div ng-repeat="byProject in tracks.byProject" class="flex-column">
-              <!-- TRACKS AUTOMATICOS -->
-              <div
-                ng-repeat="track in byProject.tracks track by $index"
-                class="flex-column-wrap"
-              >
-                <div class="flex-row">
-                  <div class="flex-item">{{track.usersName}}</div>
-                  <div class="flex-item">{{track.client}}</div>
-                  <div class="flex-item">{{track.projectName}}</div>
-                  <div class="flex-item">
-                    {{track.name | truncateTail:true:20:'...'}}
-                  </div>
-                  <div class="flex-item">
-                    {{track.startTime | date:'dd/MM/yyyy HH:mm' }}
-                  </div>
-                  <div class="flex-item">
-                    {{track.endTime ? track.endTime : '' | date:'dd/MM/yyyy
-                    HH:mm' }}
-                  </div>
-                  <div class="flex-item">{{track.durations}}</div>
-                  <div class="flex-item">$ {{track.trackCost}}</div>
-                  <div style="flex: 5%; width: 5%">
-                    <a href="" ng-click="editJiraTrack(track)">
-                      <img src="assets/images/icons/pencil-ico.svg" />
-                    </a>
-                  </div>
+    <div ng-if="itemTab == 1">
+      <br />
+      <a class="imm-bc-item" ng-if="jiraTracks.length > 0">{{ 'Tareas Jira' }}</a>
+      <br /><br />
+    </div>
+
+    <div class="imm-flex" ng-if="itemTab == 1">
+      <div class="flex-table" ng-if="jiraTracks.length > 0">
+        <div class="flex-head">
+          <div class="flex-item">{{ 'reports.user' | translate }}</div>
+          <div class="flex-item">{{ 'reports.client' | translate }}</div>
+          <div class="flex-item">{{ 'reports.project' | translate }}</div>
+          <div class="flex-item">{{ 'reports.task' | translate }}</div>
+          <div class="flex-item">{{ 'reports.start_time' | translate }}</div>
+          <div class="flex-item">{{ 'reports.end_time' | translate }}</div>
+          <div class="flex-item">{{ 'reports.duration' | translate }}</div>
+          <div class="flex-item">{{ 'reports.trackCost' | translate }}</div>
+          <div style="flex: 5%; width: 5%"></div>
+        </div>
+        <!-- ORDENADO POR USUARIO -->
+        <div ng-repeat="tracks in tableTrackJira" class="flex-column" style="color: black">
+          <!-- ORDENADO POR PROYECTO -->
+          <div ng-repeat="byProject in tracks.byProject" class="flex-column">
+            <!-- TRACKS AUTOMATICOS -->
+            <div ng-repeat="track in byProject.tracks track by $index" class="flex-column-wrap">
+              <div class="flex-row">
+                <div class="flex-item">{{track.usersName}}</div>
+                <div class="flex-item">{{track.client}}</div>
+                <div class="flex-item">{{track.projectName}}</div>
+                <div class="flex-item">
+                  {{track.name | truncateTail:true:20:'...'}}
                 </div>
-                <!-- SUBTOTAL POR PROYECTO -->
-                <div
-                  class="flex-row"
-                  ng-if="$index == byProject.tracks.length - 1 && !filter.idProject"
-                  style="background-color: #ffff0069; font-weight: bold"
-                >
-                  <div class="flex-item"></div>
-                  <div class="flex-item"></div>
-                  <div class="flex-item"></div>
-                  <div class="flex-item"></div>
-                  <div class="flex-item"></div>
-                  <div class="flex-item">
-                    {{byProject.projectName | truncateTail:true:20:'...'}}
-                  </div>
-                  <div class="flex-item">{{byProject.duration}}</div>
-                  <div class="flex-item">$ {{byProject.subTotalCost}}</div>
-                  <div style="flex: 5%; width: 5%"></div>
+                <div class="flex-item">
+                  {{track.startTime | date:'dd/MM/yyyy HH:mm' }}
+                </div>
+                <div class="flex-item">
+                  {{track.endTime ? track.endTime : '' | date:'dd/MM/yyyy
+                  HH:mm' }}
+                </div>
+                <div class="flex-item">{{track.durations}}</div>
+                <div class="flex-item">$ {{track.trackCost}}</div>
+                <div style="flex: 5%; width: 5%">
+                  <a href="" ng-click="editJiraTrack(track)">
+                    <img src="assets/images/icons/pencil-ico.svg" />
+                  </a>
                 </div>
               </div>
-            </div>
-            <!-- SUBTOTAL POR USUARIO -->
-            <div
-              class="flex-column"
-              ng-if="userRole=='admin' || userRole == 'pm' && !filter.idUser "
-            >
-              <div class="flex-column-wrap">
-                <div
-                  class="flex-row"
-                  style="
-                    background-color: rgba(60, 144, 190, 0.1);
-                    font-weight: bold;
-                  "
-                >
-                  <div class="flex-item"></div>
-                  <div class="flex-item"></div>
-                  <div class="flex-item"></div>
-                  <div class="flex-item"></div>
-                  <div class="flex-item"></div>
-                  <div class="flex-item">
-                    {{ 'reports.sub_total' | translate | uppercase }}
-                  </div>
-                  <div class="flex-item">{{tracks.duration}}</div>
-                  <div class="flex-item">$ {{tracks.subTotalCost}}</div>
-                  <div style="flex: 5%; width: 5%"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="flex-column">
-            <div class="flex-column-wrap">
-              <div
-                class="flex-row"
-                style="
-                  background-color: rgba(59, 144, 190, 0.43);
-                  font-weight: bold;
-                "
-              >
+              <!-- SUBTOTAL POR PROYECTO -->
+              <div class="flex-row" ng-if="$index == byProject.tracks.length - 1 && !filter.idProject"
+                style="background-color: #ffff0069; font-weight: bold">
                 <div class="flex-item"></div>
                 <div class="flex-item"></div>
                 <div class="flex-item"></div>
                 <div class="flex-item"></div>
                 <div class="flex-item"></div>
                 <div class="flex-item">
-                  {{ 'reports.total' | translate | uppercase }}
+                  {{byProject.projectName | truncateTail:true:20:'...'}}
                 </div>
-                <div class="flex-item">{{total4}}</div>
-                <div class="flex-item">$ {{totalcost4}}</div>
+                <div class="flex-item">{{byProject.duration}}</div>
+                <div class="flex-item">$ {{byProject.subTotalCost}}</div>
+                <div style="flex: 5%; width: 5%"></div>
+              </div>
+            </div>
+          </div>
+          <!-- SUBTOTAL POR USUARIO -->7
+          <div class="flex-column" ng-if="userRole=='admin' || userRole == 'pm' && !filter.idUser ">
+            <div class="flex-column-wrap">
+              <div class="flex-row" style="
+                    background-color: rgba(60, 144, 190, 0.1);
+                    font-weight: bold;
+                  ">
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item"></div>
+                <div class="flex-item">
+                  {{ 'reports.sub_total' | translate | uppercase }}
+                </div>
+                <div class="flex-item">{{tracks.duration}}</div>
+                <div class="flex-item">$ {{tracks.subTotalCost}}</div>
                 <div style="flex: 5%; width: 5%"></div>
               </div>
             </div>
           </div>
         </div>
+        <div class="flex-column">
+          <div class="flex-column-wrap">
+            <div class="flex-row" style="
+                  background-color: rgba(59, 144, 190, 0.43);
+                  font-weight: bold;
+                ">
+              <div class="flex-item"></div>
+              <div class="flex-item"></div>
+              <div class="flex-item"></div>
+              <div class="flex-item"></div>
+              <div class="flex-item"></div>
+              <div class="flex-item">
+                {{ 'reports.total' | translate | uppercase }}
+              </div>
+              <div class="flex-item">{{total4}}</div>
+              <div class="flex-item">$ {{totalcost4}}</div>
+              <div style="flex: 5%; width: 5%"></div>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
 
-      <div ng-if="itemTab == 1">
+    
+    <div class="imm-wa__hdr imm-flex">
+      <div class="imm-flex-5">
+        <table style="max-width:40%; white-space:nowrap; float:right" ng-repeat="tracks in tableTrack" ng-show="$first"
+          ng-if="tableTrack.length > 0 || tableTrackTrello.length > 0">
+          <tr style="font-weight: bold; ">
+            <td></td>
+            <td>{{ 'reports.duration' | translate | uppercase}}</td>
+            <td>$</td>
+            <td>R$</td>
+            <td>USD</td>
+          </tr>
+          <tr>
+            <td>{{ 'reports.manual' | translate}}</td>
+            <td>{{total}}</td>
+            <td>{{totalCostManualPesos}}</td>
+            <td>{{totalCostManualReales}}</td>
+            <td>{{totalCostManualDolares}}</td>
+          </tr>
+          <tr>
+            <td>{{ 'reports.trello' | translate}}</td>
+            <td>{{total3}}</td>
+            <td>{{totalCostTrelloPesos}}</td>
+            <td>{{totalCostTrelloReales}}</td>
+            <td>{{totalCostTrelloDolares}}</td>
+          </tr>
+          <tr style="background-color: rgba(59, 144, 190, 0.43); font-weight: bold; ">
+            <td>{{ 'reports.total' | translate | uppercase}}</td>
+            <td>{{totalDuration}}</td>
+            <td>{{totalCostPesos}}</td>
+            <td>{{totalCostReales}}</td>
+            <td>{{totalCostDolares}}</td>
+          </tr>
+
+
+
+        </table>
+      </div>
+    </div>
+    <!-- <div ng-if="itemTab == 1">
         <div
           ng-if="tableTrack.length > 0 || tableTrackAuto.length > 0 || tableTrackTrello.length > 0 || tableTrackJira.length > 0"
           style="
@@ -985,85 +855,65 @@
             font-size: 11px;
           "
         >
-          TOTAL COSTO: $ {{(totalcost + totalcost2 + totalcost3 + totalcost4).toFixed(2)}}
+          TOTAL COSTO: $ {{(arrCost).toFixed(2)}}
         </div>
-        <!-- End Table -->
-      </div>
 
-      <div class="imm-cstm__grid-90">
-        <div ng-if="itemTab == 2">
-          <!-- Graph tabs -->
-          <div class="imm-frm__fld">
-            <ul class="imm-tabs" ng-init="graphicTab = 1">
-              <li
-                class="imm-tabs__item"
-                ng-click="graphicTab = 1"
-                ng-class="{'imm-tabs__item--selected' : graphicTab == 1}"
-              >
-                Usuarios
-              </li>
-              <li
-                class="imm-tabs__item"
-                ng-click="graphicTab = 2"
-                ng-class="{'imm-tabs__item--selected' : graphicTab == 2}"
-              >
-                Clientes
-              </li>
-            </ul>
-          </div>
-          <!--End graph tabs-->
-          <!-- Bar Graph User-->
-          <div ng-if="graphicTab == 1">
-            <div class="imm-frm__fldgrp">
-              <div class="imm-frm__fld">
-                <div class="imm-tit">
-                  <h2 class="imm-wa__tit">
-                    <a class="imm-bc-item">{{ 'reports.users' | translate }}</a>
-                  </h2>
-                </div>
-                <canvas
-                  height="80"
-                  id="base"
-                  class="chart-base"
-                  chart-type="typeBarUser"
-                  chart-data="dataBarUsers"
-                  chart-labels="labelsBarUsers"
-                >
-                </canvas>
-              </div>
-            </div>
-            <!-- Round End Graph -->
-          </div>
+      </div> -->
 
-          <!-- Bar Graph Clients-->
-          <div ng-if="graphicTab == 2">
-            <div class="imm-frm__fldgrp">
-              <div class="imm-frm__fld">
-                <div class="imm-tit">
-                  <h2 class="imm-wa__tit">
-                    <a class="imm-bc-item"
-                      >{{ 'reports.clients' | translate }}</a
-                    >
-                  </h2>
-                </div>
-                <canvas
-                  height="80"
-                  id="base"
-                  class="chart-base"
-                  chart-type="typeBarClient"
-                  chart-data="dataBarClients"
-                  chart-labels="labelsBarClients"
-                >
-                </canvas>
+    <div class="imm-cstm__grid-90">
+      <div ng-if="itemTab == 2">
+        <!-- Graph tabs -->
+        <div class="imm-frm__fld">
+          <ul class="imm-tabs" ng-init="graphicTab = 1">
+            <li class="imm-tabs__item" ng-click="graphicTab = 1"
+              ng-class="{'imm-tabs__item--selected' : graphicTab == 1}">
+              Usuarios
+            </li>
+            <li class="imm-tabs__item" ng-click="graphicTab = 2"
+              ng-class="{'imm-tabs__item--selected' : graphicTab == 2}">
+              Clientes
+            </li>
+          </ul>
+        </div>
+        <!--End graph tabs-->
+        <!-- Bar Graph User-->
+        <div ng-if="graphicTab == 1">
+          <div class="imm-frm__fldgrp">
+            <div class="imm-frm__fld">
+              <div class="imm-tit">
+                <h2 class="imm-wa__tit">
+                  <a class="imm-bc-item">{{ 'reports.users' | translate }}</a>
+                </h2>
               </div>
+              <canvas height="80" id="base" class="chart-base" chart-type="typeBarUser" chart-data="dataBarUsers"
+                chart-labels="labelsBarUsers">
+              </canvas>
             </div>
           </div>
           <!-- Round End Graph -->
         </div>
+
+        <!-- Bar Graph Clients-->
+        <div ng-if="graphicTab == 2">
+          <div class="imm-frm__fldgrp">
+            <div class="imm-frm__fld">
+              <div class="imm-tit">
+                <h2 class="imm-wa__tit">
+                  <a class="imm-bc-item">{{ 'reports.clients' | translate }}</a>
+                </h2>
+              </div>
+              <canvas height="80" id="base" class="chart-base" chart-type="typeBarClient" chart-data="dataBarClients"
+                chart-labels="labelsBarClients">
+              </canvas>
+            </div>
+          </div>
+        </div>
+        <!-- Round End Graph -->
       </div>
-      <!-- End Bar Graph -->
     </div>
+    <!-- End Bar Graph -->
   </div>
+</div>
 </div>
 
 <div ng-if="tabReport == 2">
@@ -1126,16 +976,7 @@
       </table>
     </div>
   </div>
-  <paging
-    ng-show="totalTab>pageSize"
-    page="currentPage"
-    page-size="pageSize"
-    total="totalTab"
-    hide-if-empty="true"
-    show-prev-next="true"
-    show-first-last="true"
-    scroll-top="true"
-    paging-action="pager(page)"
-  >
+  <paging ng-show="totalTab>pageSize" page="currentPage" page-size="pageSize" total="totalTab" hide-if-empty="true"
+    show-prev-next="true" show-first-last="true" scroll-top="true" paging-action="pager(page)">
   </paging>
 </div>
