@@ -79,7 +79,8 @@
 		    		startTime : obj.startTime,
 					endTime	  : obj.endTime,
 					typeTrack : obj.typeTrack,
-					idProyecto: obj.idProyecto
+					idProyecto: obj.idProyecto,
+					currency   : obj.currency
 		    	}
 	        	RestClient.post(model + "/new", track, function(err, result) {
 					console.log("result::", result);

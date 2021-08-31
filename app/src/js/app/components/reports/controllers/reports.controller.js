@@ -71,6 +71,16 @@
       $scope.verifyMss = [];
       $scope.arrCost = [];
       $scope.filter.idTask = 0;
+      $scope.totalCostTrelloPesos = 0;
+      $scope.totalCostTrelloReales = 0;
+      $scope.totalCostTrelloDolares = 0;
+      $scope.totalCostManualPesos = 0;
+      $scope.totalCostManualReales = 0;
+      $scope.totalCostManualDolares = 0;
+      $scope.totalCostPesos = 0;
+      $scope.totalCostReales = 0;
+      $scope.totalCostDolares = 0;
+      $scope.totalDuration = 0;
       $scope.CurrTotalCost = '';
       var userId = $rootScope.userId;
       var userRole = $rootScope.userRole;
@@ -93,6 +103,26 @@
         i = i < 1 ? 0 : i;
         if (i < 10) i = "0" + i;
         return i;
+      }
+
+      $scope.cleanTotals = function(){
+        $scope.totalCostTrelloPesos = 0;
+        $scope.totalCostTrelloReales = 0;
+        $scope.totalCostTrelloDolares = 0;
+        $scope.totalCostManualPesos = 0;
+        $scope.totalCostManualReales = 0;
+        $scope.totalCostManualDolares = 0;
+        $scope.totalCostPesos = 0;
+        $scope.totalCostReales = 0;
+        $scope.totalCostDolares = 0;
+        $scope.totalDuration =0;
+      }
+
+      $scope.getTotalHours = function(){
+        setTimeout(function(){
+          $scope.totalDuration =convertTime(moment.duration($scope.total).add($scope.total3))
+          console.log($scope.totalDuration)
+        },1500)
       }
 
       //Función formatea obj Moment
@@ -294,6 +324,7 @@
                   console.log("COSTO TAREA trello", cost);
                   if (cost.value != undefined) {
                     $scope.finalTotal = cost.value;
+                    console.log($scope.finalTotal)
                   } else {
                     console.log(
                       "COSTO TAREA trello en error",
@@ -490,8 +521,9 @@
         $scope.tableTrackTrello = [];
         $scope.tableTrackAuto = [];
         $scope.tableTrackJira = [];
-        $scope.finalHour = "00:00:00";
+        $scope.finalHour = "00:00:00"; 
 
+        $scope.cleanTotals()
         TracksServices.getTracks(filters, function (err, tracks) {
           if (!err && tracks) {
             $scope.tracks = tracks;
@@ -512,17 +544,14 @@
                         var object = weeklyHours.find(function (value) {
                           return track.idUser == value.idUser;
                         });
-                        track.currency = object.currency;
+                        // track.currency = object.currency;
                         console.log(track)
                         if (typeof index !== 'undefined') {
-                          $scope.tableTrack[index].currency = object.currency;
+                          // $scope.tableTrack[index].currency = object.currency;
                         }
-                      }console.log(track.currency)
-
+                      }
                     }
-
                   );
-
                   $scope.tableTrack.push({
                     idUser: track.idUser,
                     duration: track.duration,
@@ -543,9 +572,9 @@
                         var object = weeklyHours.find(function (value) {
                           return track.idUser == value.idUser;
                         });
-                        track.currency = object.currency;
+                        // track.currency = object.currency;
                         if (typeof index !== 'undefined') {
-                          $scope.tableTrack[index].currency = object.currency;
+                          // $scope.tableTrack[index].currency = object.currency;
                           // console.log(track);
                         }
                       }
@@ -570,7 +599,7 @@
                               return track.idUser == value.idUser;
                             });
                             // track.currency = object.currency;
-                            element.currency = object.currency;
+                            // element.currency = object.currency;
                             // console.log(track);
                           }
                         }
@@ -603,8 +632,8 @@
                         var object = weeklyHours.find(function (value) {
                           return track.idUser == value.idUser;
                         });
-                        track.currency = object.currency;
-                        $scope.tableTrack[index].currency = object.currency;
+                        // track.currency = object.currency;
+                        // $scope.tableTrack[index].currency = object.currency;
                         // console.log(track);
                       }
                     }
@@ -637,7 +666,7 @@
                               return track.idUser == value.idUser;
                             });
                             // track.currency = object.currency;
-                            element.currency = object.currency;
+                            // element.currency = object.currency;
                             // console.log(track);
                           }
                         }
@@ -659,6 +688,20 @@
                     });
                   }
                 }
+              }console.log(track)
+              if(track.currency == '$'){
+                console.log('test')
+                $scope.totalCostManualPesos += track.trackCost
+                $scope.totalCostPesos += track.trackCost
+              }
+              if(track.currency == 'R$'){
+                $scope.totalCostManualReales += track.trackCost
+                $scope.totalCostReales += track.trackCost
+              }
+              if(track.currency == 'USD'){
+                console.log('test')
+                $scope.totalCostManualDolares += track.trackCost
+                $scope.totalCostDolares += track.trackCost
               }
             });
             // Subtotal by Project
@@ -873,6 +916,7 @@
                     idUser: track.idUser,
                     idProyecto: track.idProyecto,
                     duration: track.durations,
+                    currency : track.currency,
                     subTotalCost: parseInt(
                       track.trackCost ? track.trackCost : 0
                     ),
@@ -917,6 +961,7 @@
                       idUser: track.idUser,
                       idProyecto: track.idProyecto,
                       duration: track.durations,
+                      currency : track.currency,
                       subTotalCost: parseInt(
                         track.trackCost ? track.trackCost : 0
                       ),
@@ -930,6 +975,7 @@
                     idUser: track.idUser,
                     idProyecto: track.idProyecto,
                     duration: track.durations,
+                    currency : track.currency,
                     subTotalCost: parseInt(
                       track.trackCost ? track.trackCost : 0
                     ),
@@ -956,6 +1002,7 @@
                     $scope.tableTrackAuto.push({
                       idProyecto: track.idProyecto,
                       duration: track.durations,
+                      currency : track.currency,
                       subTotalCost: parseInt(
                         track.trackCost ? track.trackCost : 0
                       ),
@@ -974,6 +1021,7 @@
                     idProyecto: track.idProyecto,
                     projectName: track.projectName,
                     duration: track.durations,
+                    currency : track.currency,
                     subTotalCost: parseInt(
                       track.trackCost ? track.trackCost : 0
                     ),
@@ -1001,6 +1049,7 @@
                       idProyecto: track.idProyecto,
                       projectName: track.projectName,
                       duration: track.durations,
+                      currency : track.currency,
                       subTotalCost: parseInt(
                         track.trackCost ? track.trackCost : 0
                       ),
@@ -1108,6 +1157,7 @@
                       idProyecto: track.idProyecto,
                       clientName: track.client,
                       duration: track.durations,
+                      currency : track.currency,
                       subTotalCost: parseInt(
                         track.trackCost ? track.trackCost : 0
                       ),
@@ -1122,6 +1172,7 @@
                     idProyecto: track.idProyecto,
                     clientName: track.client,
                     duration: track.duration,
+                    currency : track.currency,
                     subTotalCost: parseInt(
                       track.trackCost ? track.trackCost : 0
                     ),
@@ -1149,6 +1200,7 @@
                       idProyecto: track.idProyecto,
                       clientName: track.client,
                       duration: track.durations,
+                      currency : track.currency,
                       subTotalCost: parseInt(
                         track.trackCost ? track.trackCost : 0
                       ),
@@ -1156,7 +1208,8 @@
                     });
                   }
                 }
-              }
+              }console.log(track)
+
             });
             $scope.tableTrackTrello.forEach(function (el) {
               el.byProject = []; //aca vamos a ir pusheando cada track
@@ -1167,6 +1220,7 @@
                     idProyecto: track.idProyecto,
                     projectName: track.projectName,
                     duration: track.durations,
+                    currency : track.currency,
                     subTotalCost: parseInt(
                       track.trackCost ? track.trackCost : 0
                     ),
@@ -1194,12 +1248,25 @@
                       idProyecto: track.idProyecto,
                       projectName: track.projectName,
                       duration: track.durations,
+                      currency : track.currency,
                       subTotalCost: parseInt(
                         track.trackCost ? track.trackCost : 0
                       ),
                       tracks: [track],
                     });
                   }
+                }
+                if(track.currency == '$'){
+                  $scope.totalCostTrelloPesos += track.trackCost
+                  $scope.totalCostPesos += track.trackCost
+                }
+                if(track.currency == 'R$'){
+                  $scope.totalCostTrelloReales += track.trackCost
+                  $scope.totalCostReales += track.trackCost
+                }
+                if(track.currency == 'USD'){
+                  $scope.totalCostTrelloDolares += track.trackCost
+                  $scope.totalCostDolares += track.trackCost
                 }
               });
             });
@@ -1242,6 +1309,7 @@
 
             for (var i = 0; i < $scope.sumHoursTrelo.length; i++) {
               var th = moment.duration(th).add($scope.sumHoursTrelo[i]);
+              console.log(moment.duration(th))
             }
 
             $scope.total3 = convertTime(th);
@@ -1257,6 +1325,7 @@
             roundgraphUser();
             roundgraphClient();
           }
+          $scope.getTotalHours()
         });
 
         // TracksServices.getJiraTrack(filters, function (err, tracks) {
@@ -1454,7 +1523,7 @@
       };
       
       var sumTotalcost = function (value) {
-        $scope.arrCost =+ value;
+        $scope.arrCost += value;
         console.log("All totals", $scope.arrCost);
       };
 
