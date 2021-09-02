@@ -147,41 +147,53 @@
         };
 
         $scope.startTrack = function (task) {
-            if (task.status.toLowerCase() === 'to-do') {
-                task.status = 'In-Progress';
-                ProjectsServices.saveProjectTask(task, function (err, result) {
-                    console.log('Update Status::', err, result);
+            WeeklyHourServices.find($scope.currentPage, $scope.query, function (err, weeklyHours, countItems) {
+                console.log(weeklyHours)
+                angular.forEach(weeklyHours, function (value, index) {
+                    if (value.idUser == $rootScope.userId) {
+                        $scope.currency = value.currency
+                        return
+                    }
                 })
-            }
-            console.log("TTT::", task);
-            // Already tracking, stop and then start
-            if ($rootScope.currentTrack.id) {
-                $rootScope.currentTrack.endTime = getCurrentDate();
-                TracksServices.update($rootScope.currentTrack, function (err, result) {
-                    if (!err) {
-                        console.log('saved task', result);
-                        $scope.toggleTimer();
-                    }
-                });
-            } else {
-                $rootScope.currentTrack = {
-                    idUser: $rootScope.userId,
-                    idTask: task.id,
-                    taskName: task.name,
-                    projectName: task.projectName,
-                    startTime: getCurrentDate(),
-                    endTime: undefined,
-                    idProyecto: task.idProject,
-                    typeTrack: "manual"
-                };
-                TracksServices.create($rootScope.currentTrack, function (err, result) {
-                    if (!err) {
-                        console.log('saved task', result);
-                        $rootScope.currentTrack.id = result.id;
-                        $scope.toggleTimer();
-                    }
-                });
-            }
+                if (task.status.toLowerCase() === 'to-do') {
+                    task.status = 'In-Progress';
+                    ProjectsServices.saveProjectTask(task, function (err, result) {
+                        console.log('Update Status::', err, result);
+                    })
+                }
+                console.log("TTT::", task);
+                // Already tracking, stop and then start
+                if ($rootScope.currentTrack.id) {
+                    $rootScope.currentTrack.endTime = getCurrentDate();
+                    TracksServices.update($rootScope.currentTrack, function (err, result) {
+                        if (!err) {
+                            console.log('saved task', result);
+                            $scope.toggleTimer();
+                        }
+                    });
+                } else {
+                    $rootScope.currentTrack = {
+                        idUser: $rootScope.userId,
+                        idTask: task.id,
+                        taskName: task.name,
+                        projectName: task.projectName,
+                        startTime: getCurrentDate(),
+                        endTime: undefined,
+                        idProyecto: task.idProject,
+                        typeTrack: "manual",
+                        currency: $scope.currency
+
+                    };
+                    TracksServices.create($rootScope.currentTrack, function (err, result) {
+                        if (!err) {
+                            console.log('saved task', result);
+                            $rootScope.currentTrack.id = result.id;
+                            $scope.toggleTimer();
+                        }
+                    });
+                }
+            })
+
         };
 
         $scope.startTrackAuto = function (task_automatic) {
@@ -283,46 +295,47 @@
                         if (value.idUser == $rootScope.userId) {
                             console.log(value)
                             $scope.currency = value.currency
-
-                            // Already tracking, stop and then start
-                            $rootScope.inprogress = true;
-                            if ($rootScope.currentTrack.id) {
-                                $rootScope.currentTrack.endTime = getCurrentDate();
-                                TracksServices.update($rootScope.currentTrack, function (err, result) {
-                                    if (!err) {
-                                        console.log('saved trello task', result);
-                                        $scope.toggleTimer();
-                                    }
-                                });
-                            } else {
-                                $rootScope.currentTrack = {
-                                    idTask: tasks_trello.id,
-                                    idUser: $rootScope.userId,
-                                    idBoard: tasks_trello.idboard,
-                                    id_project: tasks_trello.id_project,
-                                    idProyecto: parseInt(tasks_trello.idProyecto),
-                                    taskName: tasks_trello.name,
-                                    startTime: getCurrentDate(),
-                                    endTime: undefined,
-                                    typeTrack: "trello",
-                                    currency: $scope.currency
-
-                                };
-
-                                console.log("TrelloTrack::", $rootScope.currentTrack);
-                                TracksServices.createTrelloTask($rootScope.currentTrack, function (err, result) {
-                                    console.log("resultx::", result);
-                                    console.log($rootScope.currentTrack)
-                                    if (!err) {
-                                        $rootScope.currentTrack.id = result[0].id;
-                                        $scope.toggleTimer();
-                                        $rootScope.inprogress = false;
-                                        console.log('saved id task', $rootScope.currentTrack.id);
-                                    }
-                                });
-                            }
                         }
                     })
+                    // Already tracking, stop and then start
+                    $rootScope.inprogress = true;
+                    if ($rootScope.currentTrack.id) {
+                        $rootScope.currentTrack.endTime = getCurrentDate();
+                        TracksServices.update($rootScope.currentTrack, function (err, result) {
+                            if (!err) {
+                                console.log('saved trello task', result);
+                                $scope.toggleTimer();
+                            }
+                        });
+                    } else {
+                        $rootScope.currentTrack = {
+                            idTask: tasks_trello.id,
+                            idUser: $rootScope.userId,
+                            idBoard: tasks_trello.idboard,
+                            id_project: tasks_trello.id_project,
+                            idProyecto: parseInt(tasks_trello.idProyecto),
+                            taskName: tasks_trello.name,
+                            startTime: getCurrentDate(),
+                            endTime: undefined,
+                            typeTrack: "trello",
+                            currency: $scope.currency
+
+                        };
+
+                        console.log("TrelloTrack::", $rootScope.currentTrack);
+                        TracksServices.createTrelloTask($rootScope.currentTrack, function (err, result) {
+                            console.log("resultx::", result);
+                            console.log($rootScope.currentTrack)
+                            if (!err) {
+                                $rootScope.currentTrack.id = result[0].id;
+                                $scope.toggleTimer();
+                                $rootScope.inprogress = false;
+                                console.log('saved id task', $rootScope.currentTrack.id);
+                            }
+                        });
+                    }
+
+
                 }
             })
 

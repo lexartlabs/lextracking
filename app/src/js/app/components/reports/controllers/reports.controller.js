@@ -1590,10 +1590,13 @@
                 );
               }
               var newCostTracked = function (value) {
+                console.log(value)
                 objTrack.trackCost = value;
                 ProjectsServices.findById(
                   objTrack.idProyecto,
                   function (err, result) {
+                    console.log(objTrack.idProyecto)
+                    console.log(result)
                     var project = result;
                     var oldTime = moment.duration(objTrack.duration);
                     var newTime = moment.duration(objTrack.trackDuration);
