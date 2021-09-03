@@ -1135,7 +1135,7 @@
                     });
                   }
                 }
-              }console.log(track)
+              }console.log( $scope.tableTrackTrello)
 
             });
             $scope.tableTrackTrello.forEach(function (el) {
@@ -1148,6 +1148,7 @@
                     projectName: track.projectName,
                     duration: track.durations,
                     currency : track.currency,
+                    client: track.client,
                     subTotalCost: parseInt(
                       track.trackCost ? track.trackCost : 0
                     ),
@@ -1176,6 +1177,7 @@
                       projectName: track.projectName,
                       duration: track.durations,
                       currency : track.currency,
+                      client: track.client,
                       subTotalCost: parseInt(
                         track.trackCost ? track.trackCost : 0
                       ),
@@ -1195,7 +1197,7 @@
                   $scope.totalCostTrelloDolares += track.trackCost
                   $scope.totalCostDolares += track.trackCost
                 }
-              });
+              });console.log( $scope.tableTrackTrello)
             });
             /* FIN NUEVA FUNCION */
 

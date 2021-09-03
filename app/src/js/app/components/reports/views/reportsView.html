@@ -165,7 +165,7 @@
                     {{track.endTime ? track.endTime : '' | date:'dd/MM/yyyy HH:mm'}}
                   </div>
                   <div class="flex-item">{{track.duration}}</div>
-                  <div class="flex-item">{{track.currency}}{{track.trackCost.toFixed(2)}}</div>
+                  <div class="flex-item">{{track.currency}} {{track.trackCost.toFixed(2)}}</div>
                   <!-- <div class="flex-item">$ {{track}}</div> -->
                   <div style="flex: 5%; width: 5%">
                     <a href="" ng-click="editTrack(track)">
@@ -541,9 +541,10 @@
           <div ng-repeat="byProject in tracks.byProject" class="flex-column">
             <!-- TRACKS TRELLO -->
             <div ng-repeat="track in byProject.tracks track by $index" class="flex-column-wrap">
+              
               <div class="flex-row">
                 <div class="flex-item">{{track.usersName}}</div>
-                <div class="flex-item">{{tracks.clientName}}</div>
+                <div class="flex-item">{{track.client}}</div>
                 <div class="flex-item">{{track.projectName}}</div>
                 <div class="flex-item">
                   {{track.name | truncateTail:true:20:'...'}}
