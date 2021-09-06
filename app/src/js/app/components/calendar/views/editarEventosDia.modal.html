@@ -26,6 +26,30 @@
 
         <!-- MOSTRAR TODOS LOS EVENTOS DENTRO DE UN DIA -->
         <ul>
+          <div ng-repeat="e in events"
+          ng-if="e.day == checkDate && e.id_track || e.dayCheck == checkDate && e.id_track">
+
+          <div style='border:1px solid #DDDDDD; padding:10px; border-radius:3px'>
+            <div class="imm-frm__fldgrp" style="float: right">
+              <div size=10% class="imm-frm__fld" moment-picker='e.hourStart' format="HH:mm"
+                change='selectedDates(e, e.start, e.start)'>
+                <input type='text' ng-model='e.hourStart' placeholder="Hora Inicial" ng-disabled='e.hourStart'>
+              </div>
+
+              <div class="imm-frm__fld" moment-picker="e.hourEnd" format="HH:mm"
+                change='selectedDates(e, e.end, e.end)'>
+                <input type='text' ng-model='e.hourEnd' placeholder="Hora Final" ng-disabled='e.hourEnd'>
+              </div>
+            </div>
+            </br>
+            </br>
+            </br>
+            <b style="float: left; "> <input size="65%" ng-model="e.title"></b>
+            </br>
+            </br>
+
+          </div>
+        </div>
 
           <div ng-repeat="e in events"
             ng-if="e.day == checkDate && e.title =='Horario Fijo'|| e.dayCheck == checkDate && e.title =='Horario Fijo'">
@@ -55,7 +79,7 @@
 
 
           <div ng-repeat="e in events" ng-style='{"border":e.error ? "1px dashed red":""}'
-            ng-if="e.day == checkDate && e.title != 'Horario Fijo'|| e.dayCheck == checkDate && e.title != 'Horario Fijo'">
+            ng-if="e.day == checkDate && e.title != 'Horario Fijo' && !e.id_track|| e.dayCheck == checkDate && e.title != 'Horario Fijo' && !e.id_track">
 
             <div style='border:1px solid #DDDDDD; padding:10px; border-radius:3px'>
               <div class="imm-frm__fldgrp" style="float: left">
