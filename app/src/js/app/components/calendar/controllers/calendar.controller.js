@@ -524,6 +524,7 @@
 
       //MODAL EDITAR EVENTOS
       $scope.modalEventos = function () {
+        console.log($scope.events)
         $scope.error = ''
         ngDialog.open({
           template: '/app/components/calendar/views/editarEventosDia.modal.html',
