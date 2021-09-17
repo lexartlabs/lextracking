@@ -151,7 +151,11 @@
                 console.log(weeklyHours)
                 angular.forEach(weeklyHours, function (value, index) {
                     if (value.idUser == $rootScope.userId) {
+                        if(value.currency == null || value.currency == ''){
+                            value.currency = '$'
+                        }
                         $scope.currency = value.currency
+
                         return
                     }
                 })
@@ -294,7 +298,11 @@
                     angular.forEach(weeklyHours, function (value, index) {
                         if (value.idUser == $rootScope.userId) {
                             console.log(value)
+                            if(value.currency == null || value.currency == ''){
+                                value.currency = '$'
+                            }
                             $scope.currency = value.currency
+
                         }
                     })
                     // Already tracking, stop and then start
@@ -440,7 +448,11 @@
                                         console.log(value.costHour, 'costo hora idUser');
                                         var costo = parseInt(value.costHour);
                                         console.log('costo', costo);
+                                        if(value.currency == null || value.currency == ''){
+                                            value.currency = '$'
+                                        }
                                         $rootScope.currentTrack.currency = value.currency;
+
                                         console.log(value.currency)
                                         // console.log(ms,'ms');
                                         // var result = (ms/3600/1000) * costo;
