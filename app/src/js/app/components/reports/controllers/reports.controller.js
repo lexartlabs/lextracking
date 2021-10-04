@@ -475,8 +475,12 @@
         TracksServices.getTracks(filters, function (err, tracks) {
           if (!err && tracks) {
             $scope.tracks = tracks;
+            
             var tempTotal = 0;
             tracks.forEach(function (track) {
+              if(!track.currency){
+                track.currency == '$'
+              }
               tempTotal += (track.trackCost ? track.trackCost : 0);
               $scope.totalcost = tempTotal;
               //$scope.sumAll += parseInt(tempTotal) ? tempTotal : 0;
@@ -489,6 +493,10 @@
                     function (err, weeklyHours, countItems) {
                       if (!err) {
                         var object = weeklyHours.find(function (value) {
+                          if(value.currency == null || value.currency == ''){
+                            track.currency = '$'
+                          }
+                          
                           return track.idUser == value.idUser;
                         });
                         // track.currency = object.currency;
@@ -633,6 +641,9 @@
                   }
                 }
               }console.log(track)
+              if(track.currency == null || track.currency == ''){
+                track.currency == '$'
+              }
               if(track.currency == '$'){
                 console.log('test')
                 $scope.totalCostManualPesos += track.trackCost
