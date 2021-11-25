@@ -40,7 +40,7 @@
 
                     </thead>
                     <tbody>
-                        <tr ng-if='diaSeleccionado.selected.name.toLowerCase() == h.name.toLowerCase() && !h.exception' ng-repeat= '(index, h) in mostrarInfo'>
+                        <tr ng-if='diaSeleccionado.selected.name.toLowerCase() == h.name.toLowerCase() && !h.exception && !h.trackedEvent' ng-repeat= '(index, h) in mostrarInfo'>
                             <td title='{{h.name}}'>{{h.name}}</td>
                             <td title='{{h.desde}}{{h.hasta}}'>{{h.desde}}-{{h.hasta}}</td>
                             <td> <a class="close" ng-click="eliminarRegistro(index)">

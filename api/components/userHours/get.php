@@ -23,6 +23,13 @@
 			echo json_encode($response);
 		}
 
+		if($name == 'user-tracks-events'){
+			$id 		= $params["id"];
+			$fecha 	= $params["date_ini"];
+			$response 	= $objUsr->getTracksEvents($conn,$id, $fecha);
+			echo json_encode($response);
+		}
+
 	} else {
 		echo json_encode( array("response" => 'err') );
 	}

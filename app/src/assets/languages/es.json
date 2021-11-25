@@ -198,7 +198,10 @@
     "totalCost"         : "Costo Total",
     "presupuesto"       : "Presupuesto",
     "trackCost"         : "Costo",
-    "currency"          : "Moneda"
+    "currency"          : "Moneda",
+    "trello"            : "Trello",
+    "manual"            : "Manual",
+    "tipo"              : "Tipo"
   },
 
 
