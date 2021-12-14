@@ -95,16 +95,17 @@ class User {
 		// CLEAR FIELDS
 		// $user["email"] 		= $conn->escapeString($user["email"]);
 		// $user["password"] 	= $conn->escapeString($user["password"]);
-  //       $user["password"] 	=  $this->cryptoPsw($user["password"].$user["email"]);
+  	//       $user["password"] 	=  $this->cryptoPsw($user["password"].$user["email"]);
 
-		$sql  ="SELECT * FROM ".$this->model." WHERE email='$user[email]' AND password ='$user[password]'";
+		$hash = md5($user[password]);
+		$sql  ="SELECT * FROM ".$this->model." WHERE email='$user[email]' AND password='$hash'";
 		$d 		= $conn->query($sql);
 		
 		// CALLBACK
 		if(!empty($d)){
 
 			// SET TOKEN
-			$d[0]["token"] =  $this->cryptoPsw($d[0]["password"].$d[0]["email"]);	
+			$d[0]["token"] =  $this->cryptoPsw($d[0]["password"].$d[0]["email"]);
 			return array("response" => $d[0]);
 		} else {
 			return array("error" => "Error: email o clave incorrecta.");
