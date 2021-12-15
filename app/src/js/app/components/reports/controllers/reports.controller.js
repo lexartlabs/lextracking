@@ -517,7 +517,6 @@
                     tracks: [track],
                     // currency: track.currency,
                   });
-                  console.log($scope.tableTrack)
                 } else {
                   WeeklyHourServices.find(
                     $scope.currentPage,

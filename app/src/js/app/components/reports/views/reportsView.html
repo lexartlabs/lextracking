@@ -794,8 +794,8 @@
     
     <div class="imm-wa__hdr imm-flex">
       <div class="imm-flex-5">
-        <table style="max-width:40%; white-space:nowrap; float:right" ng-repeat="tracks in tableTrack" ng-show="$first"
-          ng-if="tableTrack.length > 0 || tableTrackTrello.length > 0">
+        <table style="max-width:40%; white-space:nowrap; float:right"
+          ng-if="tableTrack.length || tableTrackTrello.length">
           <tr style="font-weight: bold; ">
             <td></td>
             <td>{{ 'reports.duration' | translate | uppercase}}</td>
