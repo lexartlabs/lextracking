@@ -1,0 +1,98 @@
+<div class="imm-wa__hdr imm-flex">
+    <div class="imm-flex-5">
+        <h1 class="imm-wa__tit">
+            <a class="imm-bc-item" ui-sref="app.tasks">{{ 'tasks.title' | translate }}</a>
+        </h1>
+        <div class="imm-bc">
+            <a class="imm-bc-item">{{ 'tasks.task' | translate }}</a>
+        </div>
+        <div class="imm-bc" ng-if="task.name">
+            <span class="imm-bc-item imm-bc--head">{{task.name}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="imm-wa__cnt">
+    <form class="imm-frm imm-frm--center">
+        <div class="imm-frm__fldgrp">
+            <div class="imm-frm__fld" ng-if="task.id">
+                <label class="imm-frm__lbl">
+                    <input type="text" ng-value="task.id" readonly/>
+                    <b class="imm-frm__lbl-name">{{ 'tasks.id' | translate }}</b>
+                </label>
+            </div>
+        
+            <div class="imm-frm__fld">
+                <label class="imm-frm__lbl">
+                    <input type="text" ng-model="task.name"/>
+                    <b class="imm-frm__lbl-name">{{ 'tasks.name' | translate }} <span class="required">*</span></b>
+                </label>
+            </div>
+        </div>
+
+        <div class="imm-frm__fldgrp">
+            <div class="imm-frm__fld">
+                <label class="imm-frm__lbl">
+                    <input type="text" ng-model="field.name" placeholder="{{ 'tasks.field_name' | translate }}">
+                    <b class="imm-frm__lbl-name">{{ 'tasks.field_name' | translate }} <span class="required">*</span></b>
+                </label>
+            </div>
+
+            <div class="imm-frm__fld">
+                <label class="imm-frm__lbl">
+                    <ui-select 
+                                ng-model="field.type" 
+                                class="imm-select imm-select--input" 
+                                theme="selectize" 
+                                append-to-body="true"
+                    >
+                        <ui-select-match placeholder="{{ 'tasks.select_type' | translate }}">
+                            {{$select.selected.name}}
+                        </ui-select-match>
+                        <ui-select-choices repeat="type.key as type in types | filter: $select.search">
+                            <div ng-bind-html="type.name"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                    <b class="imm-frm__lbl-name">{{ 'tasks.field_type' | translate }} <span class="required">*</span></b>
+                </label>
+            </div>
+
+            <div class="imm-frm__fld">
+                <label class="imm-frm__lbl">
+                    <button class="imm-btn" ng-click="addField()">{{ 'tasks.add_field' | translate }}</button>
+                </label>
+            </div>
+
+            <div class="imm-frm__fld">
+                <label class="imm-frm__lbl"></label>
+            </div>
+        </div>
+
+        <div class="imm-frm__fldgrp" ng-if="task.fields.length">
+            <table>
+                <thead>
+                    <tr>
+                        <th>{{ 'tasks.field_name' | translate }}</th>
+                        <th>{{ 'tasks.field_type' | translate }}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody data-ng-model="task.fields" as-sortable>
+                    <tr ng-repeat="field in task.fields" as-sortable-item="">
+                        <td as-sortable-item-handle="" style="cursor: pointer;">{{ field.name }}</td>
+                        <td as-sortable-item-handle="" style="cursor: pointer;">{{ field.type }}</td>
+                        <td>
+                            <a class="imm-link__delete" ng-click="removeField($index)"></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>
+
+<div class="imm-wa__actions">
+    <p ng-if="error" class="err-display">{{error}} {{ 'general.cant_be_empty' | translate }}</p>
+    <button class="imm-btn imm-btn--alt" ui-sref="app.tasks">{{ 'tasks.back' | translate }}</button>
+    <button class="imm-btn" ng-disabled="sendingData" ng-click="save()">{{ 'tasks.save' | translate }}</button>
+</div>

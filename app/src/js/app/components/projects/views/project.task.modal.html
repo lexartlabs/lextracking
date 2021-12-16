@@ -1,0 +1,173 @@
+<div class="imm-modal imm-modal--medium">
+
+  <div class="imm-modal__header">
+    <h1 class="imm-modal__title">{{ 'projects.task' | translate }}</h1>
+    <a class="imm-modal__close-btn" ng-click="closeThisDialog()">
+      <i class="imm-icon imm-icon--modal-close"></i>
+    </a>
+  </div>
+
+  <div class="imm-modal__cnt">
+    <ng-form>
+      <form class="imm-frm">
+        <div class="imm-frm__fldgrp">
+          <div class="imm-frm__fld">
+            <label class="imm-frm__lbl">
+              <input type="text" ng-model="task.name" readonly>
+
+              <b class="imm-frm__lbl-name">{{ 'projects.name' | translate }} <span class="required" >*</span></b>
+            </label>
+          </div>
+
+          <div class="imm-frm__fld">
+            <label class="imm-frm__lbl">
+              <!--<input type="text" ng-model="task.duration">-->
+           <!--    <span style="width: 10px;"><input type="number" min="0" class="f-hour" " placeholder="hhhh" string-to-number ng-model="duration.hours" ng-if="isAdmin=='false' && isClient=='false'" readonly  ><input type="number" min="0" max="59" class="f-minute"  " placeholder="mm"  ng-model="duration.minutes" ng-if="isAdmin=='false' && isClient=='false'" readonly><input type="number" min="0" max="59" class="f-second"  " placeholder="ss"  ng-model="duration.seconds" ng-if="isAdmin=='false' && isClient=='false'" readonly ></span> -->
+              <span style="width: 10px;"><input readonly type="number" placeholder="Horas" min="0" class="f-hour" string-to-number ng-model="task.hour" ><input readonly type="number" placeholder="Minutos" min="0" max="59" class="f-minute" ng-model="task.mins"><input type="number" placeholder="Segundos" min="0" max="59" class="f-second" ng-model="task.secs" readonly></span>
+
+              <b class="imm-frm__lbl-name">{{ 'projects.duration' | translate }}</b>
+            </label>
+          </div>
+        </div>
+
+        <div class="imm-frm__fldgrp">
+          <div class="imm-frm__fld">
+            <label class="imm-frm__lbl">
+              <!--<input type="text" ng-model="task.description">-->
+              <textarea rows="7" cols="50" ng-model="task.description" readonly>
+
+              </textarea>
+              <b class="imm-frm__lbl-name">{{ 'projects.description' | translate }}</b>
+            </label>
+          </div>
+          <div class="imm-frm__fld" >
+            <label class="imm-frm__lbl">
+              <input type="text" ng-model="task.status" readonly>
+
+<!--             <ui-select
+            ng-model="task.status"
+            class="imm-select imm-select--input"
+            theme="selectize"
+            append-to-body="true"
+            ng-change="changeStatus()"
+            readonly>
+            <ui-select-match readonly>
+              {{$select.selected}}
+            </ui-select-match>
+            <ui-select-choices repeat="client in allStatus " readonly>
+              <div ng-bind-html="client | highlight: $select.selected" readonly></div>
+            </ui-select-choices>
+          </ui-select> -->
+
+          <b class="imm-frm__lbl-name">{{ 'projects.status' | translate }} <span class="required">*</span></b>
+        </label>
+
+      </div>
+
+
+    </div>
+    <div class="imm-frm__fldgrp">
+      <div class="imm-frm__fld">
+        <label class="imm-frm__lbl">
+          <div moment-picker="task.startDate">
+            <input ng-model="task.startDate" readonly>
+          </div>
+          <b class="imm-frm__lbl-name">{{ 'Fecha Inicio'  }} <span class="required">*</span></b>
+
+        </label>
+      </div>
+      <div class="imm-frm__fld">
+        <label class="imm-frm__lbl">
+          <div moment-picker="task.endDate">
+            <input ng-model="task.endDate" readonly>
+          </div>
+          <b class="imm-frm__lbl-name">{{ 'Fecha Fin' }} <span class="required">*</span></b>
+
+        </label>
+
+      </div>
+
+    </div>
+<!--     <div class="imm-frm__fldgrp">
+
+
+      <div class="imm-frm__fld">
+
+        <button type="button"  class="imm-btn" ng-click="openModalComentario()">Agregar Comentario</button>
+      </div>
+
+    </div>
+
+
+
+
+    <div class="imm-frm__fldgrp">
+      <table ng-show="comments.length>0">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>{{ 'Usuario'}}</th>
+
+            <th>{{ 'projects.comments' | translate }}</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="(index,comment) in comments">
+            <td>{{index+1}}</td>
+            <td>{{comment.userName}}</td>
+
+            <td>{{comment.comment}}</td>
+            <td>
+              <a ng-click="editComments(index,comment)">
+                <img src="assets/images/icons/pencil-ico.svg">
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div> -->
+<!-- 
+    <div class="imm-frm__fldgrp">
+      <table>
+        <thead>
+          <tr>
+            <th>{{ 'projects.id' | translate }}</th>
+            <th>{{ 'projects.name' | translate }}</th>
+            <th>{{ 'projects.assign' | translate }}</th>
+            <th ng-click="toggleSelectUsers($event)" class="toggleSelectUsersCursor">+</th>
+          </tr>
+        </thead>
+        <tbody class="toggleSelectUsers">
+          <tr>
+            <th></th>
+            <th style="width:100%;"><input class="field-filter" ng-model="search.name"></th>
+            <th></th>
+            <th></th>
+          </tr>
+          <tr ng-repeat="user in users | filter:search">
+            <td>{{user.id}}</td>
+            <td>{{user.name}}</td>
+            <td>
+              <input type="checkbox" ng-model="usersAux[user.id]"   >
+
+            </td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+ -->
+
+
+  </form>
+</ng-form>
+</div>
+
+<div class="imm-modal__actions">
+  <p class="err-display">{{error}}</p>
+  <a class="imm-btn imm-btn--alt" ng-click="ngDialogData.cancel()">{{ 'shared.modal.cancel' | translate }}</a>
+  <a class="imm-btn" ng-disabled="sendingData || !task.name" ng-click="ngDialogData.cancel()">{{ 'shared.modal.accept' | translate }}</a>
+</div>
+</div>

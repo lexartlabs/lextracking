@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="110px" height="110px" viewBox="0 0 110 110" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40 (33762) - http://www.bohemiancoding.com/sketch -->
+    <title>catalogos/documentos</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="55" cy="55" r="55"></circle>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="110" height="110" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="IMM-desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="catalogos/documentos">
+            <use id="Oval-4" stroke="#CCCCCC" mask="url(#mask-2)" stroke-width="4" fill="#FFFFFF" xlink:href="#path-1"></use>
+            <circle id="Oval-4-Copy" fill="#C2E0D7" cx="55" cy="55" r="50"></circle>
+            <g id="Group-33" transform="translate(28.000000, 24.000000)">
+                <g id="Group-32" transform="translate(0.000000, 3.000000)">
+                    <rect id="Rectangle-46" fill="#E1B843" x="0" y="0" width="16" height="58" rx="1"></rect>
+                    <rect id="Rectangle-47" fill="#F9FAF3" x="2" y="9" width="12" height="23" rx="2"></rect>
+                    <rect id="Rectangle-48" fill="#D8D8D8" x="4" y="15" width="8" height="3"></rect>
+                    <rect id="Rectangle-48-Copy" fill="#D8D8D8" x="4" y="19" width="8" height="3"></rect>
+                    <rect id="Rectangle-48-Copy-2" fill="#D8D8D8" x="4" y="23" width="8" height="1"></rect>
+                    <circle id="Oval-15" fill="#F9FAF3" cx="8" cy="50" r="3"></circle>
+                </g>
+                <g id="Group-32-Copy" transform="translate(17.000000, 3.000000)">
+                    <rect id="Rectangle-46" fill="#292D41" x="0" y="0" width="16" height="58" rx="1"></rect>
+                    <rect id="Rectangle-47" fill="#F9FAF3" x="2" y="9" width="12" height="23" rx="2"></rect>
+                    <rect id="Rectangle-48" fill="#D8D8D8" x="4" y="15" width="8" height="3"></rect>
+                    <rect id="Rectangle-48-Copy" fill="#D8D8D8" x="4" y="19" width="8" height="3"></rect>
+                    <rect id="Rectangle-48-Copy-2" fill="#D8D8D8" x="4" y="23" width="8" height="1"></rect>
+                    <circle id="Oval-15" fill="#F9FAF3" cx="8" cy="50" r="3"></circle>
+                </g>
+                <g id="Group-32-Copy-2" transform="translate(46.795742, 30.970426) rotate(-12.000000) translate(-46.795742, -30.970426) translate(38.795742, 1.970426)">
+                    <rect id="Rectangle-46" fill="#C96459" x="2.27373675e-13" y="0" width="16" height="58" rx="1"></rect>
+                    <rect id="Rectangle-47" fill="#F9FAF3" x="2" y="9" width="12" height="23" rx="2"></rect>
+                    <rect id="Rectangle-48" fill="#D8D8D8" x="4" y="15" width="8" height="3"></rect>
+                    <rect id="Rectangle-48-Copy" fill="#D8D8D8" x="4" y="19" width="8" height="3"></rect>
+                    <rect id="Rectangle-48-Copy-2" fill="#D8D8D8" x="4" y="23" width="8" height="1"></rect>
+                    <circle id="Oval-15" fill="#F9FAF3" cx="8" cy="50" r="3"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,71 @@
+<div class="imm-modal imm-modal--medium">
+
+    <div class="imm-modal__header">
+        <h1 class="imm-modal__title">{{ 'reports.title' | translate }}</h1>
+        <a class="imm-modal__close-btn" ng-click="closeThisDialog()">
+            <i class="imm-icon imm-icon--close-modal"></i>
+        </a>
+    </div>
+
+    <div class="imm-modal__cnt">
+        <ng-form>
+            <form class="imm-frm">
+                <div class="imm-frm__fldgrp">
+                    <div class="imm-frm__fld">
+                        <label class="imm-frm__lbl">
+                            <input type="text" ng-model="trelloTrack.usersName" readonly>
+                            <b class="imm-frm__lbl-name ng-binding">{{ 'reports.user' | translate }} </b>
+                        </label>
+                    </div>
+
+                    <div class="imm-frm__fld">
+                        <label class="imm-frm__lbl">
+                            <input type="text" ng-model="trelloTrack.projectName" readonly>
+                            <b class="imm-frm__lbl-name ng-binding">{{ 'reports.project' | translate }} </b>
+                        </label>
+                    </div>
+
+                    <div class="imm-frm__fld">
+                        <label class="imm-frm__lbl">
+                            <input type="text" ng-model="trelloTrack.name" readonly>
+                            <b class="imm-frm__lbl-name ng-binding">{{ 'reports.task' | translate }} </b>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="imm-frm__fldgrp">
+                    <div class="imm-frm__fld">
+                        <label class="imm-frm__lbl">
+                            <b class="imm-frm__lbl-name">{{ 'reports.start_time' | translate }}</b>
+                            <div moment-picker="trelloTrack.startTime" format="DD/MM/YYYY HH:mm" max-view="minute" change="updateTrelloTrackDuration(trelloTrack)">
+                                <input ng-model="trelloTrack.startTime">
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="imm-frm__fld">
+                        <label class="imm-frm__lbl">
+                            <b class="imm-frm__lbl-name">{{ 'reports.end_time' | translate }}</b>
+                            <div moment-picker="trelloTrack.endTime" format="DD/MM/YYYY HH:mm" max-view="minute" change="updateTrelloTrackDuration(trelloTrack)">
+                                <input ng-model="trelloTrack.endTime">
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="imm-frm__fld">
+                        <label class="imm-frm__lbl">
+                            <input type="text" ng-model="trelloTrack.durations" readonly>
+                            <b class="imm-frm__lbl-name ng-binding">{{ 'reports.duration' | translate }} </b>
+                        </label>
+                    </div>
+                </div>
+            </form>
+        </ng-form>
+    </div>
+
+    <div class="imm-modal__actions">
+        <p class="err-display">{{error}}</p>
+        <a class="imm-btn imm-btn--alt" ng-click="ngDialogData.cancel()">{{ 'shared.modal.cancel' | translate }}</a>
+        <a class="imm-btn" ng-disabled="sendingData || !trelloTrack.name" ng-click="ngDialogData.confirm()">{{ 'shared.modal.accept' | translate }}</a>
+    </div>
+</div>

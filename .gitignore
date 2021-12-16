@@ -7,8 +7,10 @@
 node_modules/
 app/bower_components/
 app/node_modules/
+/app/grunt
 dist/
 bower_components/
+app/package-lock.json
 # Node artifact files
 app/node_modules/
 app/dist/
@@ -67,5 +69,3 @@ api-lumen/Homestead.json
 api-lumen/Homestead.yaml
 api-lumen/.env
 api-lumen/.phpunit.result.cache
-
-./api/teste.php

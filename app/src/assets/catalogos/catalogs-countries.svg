@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="110px" height="110px" viewBox="0 0 110 110" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40 (33762) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 3</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="55" cy="55" r="55"></circle>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="110" height="110" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <circle id="path-3" cx="55" cy="55" r="39"></circle>
+        <mask id="mask-4" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="78" height="78" fill="white">
+            <use xlink:href="#path-3"></use>
+        </mask>
+    </defs>
+    <g id="IMM-desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="d.dashboard-c-catalogos" transform="translate(-467.000000, -93.000000)">
+            <g id="Group-3" transform="translate(467.000000, 93.000000)">
+                <g id="Group-2-Copy-8">
+                    <use id="Oval-4" stroke="#CCCCCC" mask="url(#mask-2)" stroke-width="4" fill="#FFFFFF" xlink:href="#path-1"></use>
+                    <circle id="Oval-4-Copy" fill="#27B99A" cx="55" cy="55" r="50"></circle>
+                </g>
+                <use id="Oval-2" stroke="#FFFFFF" mask="url(#mask-4)" stroke-width="14" xlink:href="#path-3"></use>
+                <polygon id="Combined-Shape-Copy-2" fill="#364D5D" points="61.5912454 55 76.2132034 33.7867966 55 48.4087546 33.7867966 33.7867966 48.4087546 55 33.7867966 76.2132034 55 61.5912454 76.2132034 76.2132034 61.5912454 55"></polygon>
+                <polygon id="Combined-Shape" fill="#FF6000" points="55 12 48.3196429 48.3196429 12 55 48.3196429 61.6803571 55 98 61.6803571 61.6803571 98 55 61.6803571 48.3196429"></polygon>
+                <circle id="Oval-5" fill="#364D5D" cx="55" cy="55" r="6"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

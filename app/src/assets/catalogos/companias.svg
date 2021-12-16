@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="110px" height="110px" viewBox="0 0 110 110" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.1 (33804) - http://www.bohemiancoding.com/sketch -->
+    <title>catalogos/companias</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="55" cy="55" r="55"></circle>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="110" height="110" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="IMM-desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="d.dashboard-c-catalogos" transform="translate(-648.000000, -93.000000)">
+            <g id="catalogos/companias" transform="translate(648.000000, 93.000000)">
+                <use id="Oval-4" stroke="#CCCCCC" mask="url(#mask-2)" stroke-width="4" fill="#FFFFFF" xlink:href="#path-1"></use>
+                <circle id="Oval-4-Copy" fill="#F6C35B" cx="55" cy="55" r="50"></circle>
+                <g id="Group-10" transform="translate(30.000000, 21.000000)">
+                    <path d="M41,24 L41,21.0049233 C41,19.8988551 40.1047006,19 39.0002927,19 L6.99970728,19 C5.88989258,19 5,19.8976348 5,21.0049233 L5,60.9950767 C5,62.1011449 5.89529944,63 6.99970728,63 L39.0002927,63 C40.1101074,63 41,62.1023652 41,60.9950767 L41,58 C50.3888407,58 58,50.3888407 58,41 C58,31.6111593 50.3888407,24 41,24 Z M41,30 C47.0751322,30 52,34.9248678 52,41 C52,47.0751322 47.0751322,52 41,52 L41,30 Z" id="Combined-Shape" fill="#FFFFFF"></path>
+                    <rect id="Rectangle-15" fill="#F0736B" x="0" y="63" width="46" height="6" rx="3"></rect>
+                    <path d="M23,0 C23,0 25,1 25,4 C25,7 21,7 21,10 C21,13 23,14 23,14" id="Path-7" stroke="#FFFFFF" stroke-width="3"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
