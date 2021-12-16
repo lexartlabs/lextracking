@@ -90,14 +90,15 @@
         $scope.loading = true;
         CalendarServices.getUserEvents(id, function (err, result) {
           if (result) {
-
-            angular.forEach(result, function (e) {
-              if (e.title == 'Horario Fijo') {
-                e.dayCheck = moment(e.start).format('DD')
-                $scope.mostrarInfo.push({ name: e.day, desde: moment(e.start).format('HH:mm'), hasta: moment(e.end).format('HH:mm') })
-              }
-            });
-            horariosFijos = result
+            if (id != 'all') {
+              angular.forEach(result, function (e) {
+                if (e.title == 'Horario Fijo') {
+                  e.dayCheck = moment(e.start).format('DD')
+                  $scope.mostrarInfo.push({ name: e.day, desde: moment(e.start).format('HH:mm'), hasta: moment(e.end).format('HH:mm') })
+                }
+              });
+              horariosFijos = result
+            }
             CalendarServices.getUserExceptions(id, fecha, function (err, res) {
               $scope.exceptions = res
               if ($scope.exceptions && res != 'No hay excepciones para este mes') {
