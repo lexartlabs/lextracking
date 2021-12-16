@@ -59,7 +59,7 @@ Thumbs.db
 *.mov
 *.wmv
 
-app/src/env.js
+/app/src/env.js
 api/conn.php
 
 # IGNORE LUMEN
