@@ -423,6 +423,7 @@
         UserServices.find(0, "", function (err, users) {
           if (!err) {
             $scope.users = users;
+            $scope.users.push({ id: "all", name: "Todos"});
           };
         })
       };
