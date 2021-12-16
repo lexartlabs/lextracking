@@ -616,6 +616,15 @@
         allDay: false,
       };
 
+      function createUserExceptionTitle(r) {
+        var result = r.title;
+        if (userRole == "admin" || userRole == "pm") {
+          var usrName = $filter('filter')($scope.users, { id: r.user_id })[0].name;
+          result = usrName.toUpperCase() + ' - ' + r.title;
+        }
+        return result;
+      };
+
       function setHorariosFijos(mesActual, callback) {
         var cant = moment(mesActual, "YYYY-MM").daysInMonth()
         eventosFijos = [];
@@ -644,6 +653,7 @@
               if (r.start) {
                 r.dayCheck = moment(r.start).format('DD')
                 if (i == r.dayCheck && !r.added) {
+                  r.title = createUserExceptionTitle(r);
                   $scope.eventSources[0].push(r)
                   r.added = true
                   diasAgregados.push(i);
