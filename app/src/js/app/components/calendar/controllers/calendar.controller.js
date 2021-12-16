@@ -90,7 +90,7 @@
         $scope.loading = true;
         CalendarServices.getUserEvents(id, function (err, result) {
           if (result) {
-            if (id != 'all') {
+            if (id != 0) {
               angular.forEach(result, function (e) {
                 if (e.title == 'Horario Fijo') {
                   e.dayCheck = moment(e.start).format('DD')
@@ -423,7 +423,7 @@
         UserServices.find(0, "", function (err, users) {
           if (!err) {
             $scope.users = users;
-            $scope.users.push({ id: "all", name: "Todos"});
+            $scope.users.push({ id: 0, name: "Todos"});
           };
         })
       };
