@@ -4,7 +4,10 @@
 #     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
 
 # Node artifact files
+app/grunt
 node_modules/
+app/bower_components/
+app/node_modules/
 dist/
 bower_components/
 # Node artifact files
@@ -65,3 +68,5 @@ api-lumen/Homestead.json
 api-lumen/Homestead.yaml
 api-lumen/.env
 api-lumen/.phpunit.result.cache
+
+api/teste.php
