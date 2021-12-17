@@ -118,8 +118,6 @@
       }
     });
 
-    // function convertToCurrency() {};
-
 
     $scope.save = function () {
       var sale=angular.copy($scope.sale);
