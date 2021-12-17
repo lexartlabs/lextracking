@@ -7,7 +7,7 @@
 node_modules/
 app/bower_components/
 app/node_modules/
-/app/grunt
+app/grunt
 dist/
 bower_components/
 app/package-lock.json
