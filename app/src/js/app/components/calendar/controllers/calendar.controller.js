@@ -90,14 +90,15 @@
         $scope.loading = true;
         CalendarServices.getUserEvents(id, function (err, result) {
           if (result) {
-
-            angular.forEach(result, function (e) {
-              if (e.title == 'Horario Fijo') {
-                e.dayCheck = moment(e.start).format('DD')
-                $scope.mostrarInfo.push({ name: e.day, desde: moment(e.start).format('HH:mm'), hasta: moment(e.end).format('HH:mm') })
-              }
-            });
-            horariosFijos = result
+            if (id != 0) {
+              angular.forEach(result, function (e) {
+                if (e.title == 'Horario Fijo') {
+                  e.dayCheck = moment(e.start).format('DD')
+                  $scope.mostrarInfo.push({ name: e.day, desde: moment(e.start).format('HH:mm'), hasta: moment(e.end).format('HH:mm') })
+                }
+              });
+              horariosFijos = result
+            }
             CalendarServices.getUserExceptions(id, fecha, function (err, res) {
               $scope.exceptions = res
               if ($scope.exceptions && res != 'No hay excepciones para este mes') {
@@ -421,7 +422,12 @@
       if (userRole == "admin" || userRole == "pm") {
         UserServices.find(0, "", function (err, users) {
           if (!err) {
-            $scope.users = users;
+            $scope.users = users.sort(function(a,b) {
+              if (a.name > b.name) { return 1; }
+              if (a.name < b.name) { return -1; }
+              return 0;
+            });
+            $scope.users.unshift({ id: 0, name: "Todos"});
           };
         })
       };
@@ -614,6 +620,15 @@
         allDay: false,
       };
 
+      function createUserExceptionTitle(r) {
+        var result = r.title;
+        if (userRole == "admin" || userRole == "pm") {
+          var usrName = $filter('filter')($scope.users, { id: r.user_id })[0].name;
+          result = usrName.toUpperCase() + ' - ' + r.title;
+        }
+        return result;
+      };
+
       function setHorariosFijos(mesActual, callback) {
         var cant = moment(mesActual, "YYYY-MM").daysInMonth()
         eventosFijos = [];
@@ -642,6 +657,7 @@
               if (r.start) {
                 r.dayCheck = moment(r.start).format('DD')
                 if (i == r.dayCheck && !r.added) {
+                  r.title = createUserExceptionTitle(r);
                   $scope.eventSources[0].push(r)
                   r.added = true
                   diasAgregados.push(i);

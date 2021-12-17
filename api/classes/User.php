@@ -98,7 +98,7 @@ class User {
   	//       $user["password"] 	=  $this->cryptoPsw($user["password"].$user["email"]);
 
 		$hash = md5($user[password]);
-		$sql  ="SELECT * FROM ".$this->model." WHERE email='$user[email]' AND password='$hash'";
+		$sql	="SELECT * FROM ".$this->model." WHERE email='$user[email]' AND password = '$hash'";
 		$d 		= $conn->query($sql);
 		
 		// CALLBACK

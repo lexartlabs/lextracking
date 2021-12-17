@@ -11,7 +11,11 @@ class HourUser {
 	private $tracks = "Tracks";
 
 	public function getUserFixedHours($conn, $id){
-		$sql = "SELECT * FROM $this->model WHERE user_id = ".$id;
+		if ($id == 0) {
+			$sql = "SELECT * FROM $this->model";
+		} else {
+			$sql = "SELECT * FROM $this->model WHERE user_id = ".$id;
+		}
 		$d   = $conn->query($sql);
 		if (!empty($d)) {
 			return array("response" => $d);
@@ -82,7 +86,12 @@ class HourUser {
 		$month = $fullDate[0];
 		$year = $fullDate[1];
 
-		$sql = "SELECT * FROM $this->exceptions WHERE user_id = ".$id. " AND MONTH(`start`) =".$month." AND YEAR(`start`) =".$year;
+		if ($id == 0) {
+			$sql = "SELECT * FROM $this->exceptions WHERE MONTH(`start`) =".$month." AND YEAR(`start`) =".$year;
+		} else {
+			$sql = "SELECT * FROM $this->exceptions WHERE user_id = ".$id. " AND MONTH(`start`) =".$month." AND YEAR(`start`) =".$year;
+		}
+
 		$d   = $conn->query($sql);
 		if (!empty($d)) {
 			return array("response" => $d);
