@@ -82,6 +82,7 @@
       $scope.totalCostDolares = 0;
       $scope.totalDuration = 0;
       $scope.CurrTotalCost = '';
+      $scope.clientTotalDev = {};
       var userId = $rootScope.userId;
       var userRole = $rootScope.userRole;
 
@@ -469,13 +470,36 @@
         $scope.tableTrackTrello = [];
         $scope.tableTrackAuto = [];
         $scope.tableTrackJira = [];
-        $scope.finalHour = "00:00:00"; 
+        $scope.finalHour = "00:00:00";
 
-        $scope.cleanTotals()
+        $scope.cleanTotals();
+
+        var calculeTotalHrDesarollo = function (array, clientKeyName) {
+          // Creo una variable que guarda los datos y empieza con los datos que ya están;
+          var result = {};
+          Object.assign(result, $scope.clientTotalDev);
+          // Creo a los seletores y valores default
+          var defaultTotals = { totalReales: 0, totalPesos: 0, totalDolares: 0 };
+          var totalName = {
+            'R$': 'totalReales',
+            '$': 'totalPesos',
+            'USD': 'totalDolares'
+          };
+
+          // Itero sobre los tracks y modifico el result conforme el cliente y la moneda
+          angular.forEach(array, function (el, key) {
+            if(!result[el[clientKeyName]]) { result[el[clientKeyName]] = defaultTotals }
+            result[el[clientKeyName]][totalName[el.currency]] += el.trackCost;
+          }, result);
+
+          return result;
+        };
+
         TracksServices.getTracks(filters, function (err, tracks) {
           if (!err && tracks) {
             $scope.tracks = tracks;
-            
+            $scope.clientTotalDev = calculeTotalHrDesarollo(tracks, 'clientName');
+
             var tempTotal = 0;
             tracks.forEach(function (track) {
               if(!track.currency){
@@ -837,6 +861,7 @@
         TracksServices.getAutoTracks(filters, function (err, tracks) {
           if (!err && tracks) {
             $scope.autoTracks = tracks;
+            $scope.clientTotalDev = calculeTotalHrDesarollo(tracks, 'clientName');
             var tempTotal = 0;
             tracks.forEach(function (track) {
               tempTotal += parseInt(track.trackCost ? track.trackCost : 0);
@@ -1053,6 +1078,7 @@
         TracksServices.getTrelloTrack(filters, function (err, tracks) {
           if (!err && tracks) {
             $scope.trelloTracks = tracks;
+            $scope.clientTotalDev = calculeTotalHrDesarollo(tracks, 'client');
 
             /* NUEVA FUNCION */
             var tempTotal = 0;
@@ -1976,11 +2002,11 @@
         link.click();
       };
 
-      $scope.calculeDiference = function (totals) {
+      $scope.calculeDiference = function (totals, client) {
         return {
-          totalReales: 'R$ ' + (totals.totalReales - $scope.totalCostReales).toFixed(2),
-          totalPesos: '$ ' + (totals.totalPesos - $scope.totalCostPesos).toFixed(2),
-          totalDolares: 'USD ' + (totals.totalDolares - $scope.totalCostDolares).toFixed(2),
+          totalReales: 'R$ ' + (totals.totalReales - $scope.clientTotalDev[client].totalReales).toFixed(2),
+          totalPesos: '$ ' + (totals.totalPesos - $scope.clientTotalDev[client].totalPesos).toFixed(2),
+          totalDolares: 'USD ' + (totals.totalDolares - $scope.clientTotalDev[client].totalDolares).toFixed(2),
         };
       };
     },

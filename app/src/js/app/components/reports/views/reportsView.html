@@ -990,14 +990,14 @@
       <th>Cliente Budget</th>
       <th>Diferencia</th>
     </tr>
-    <tr>
-      <td>Client name here</td>
+    <tr ng-repeat="(key, value) in clientTotalDev">
+      <td>{{ key }}</td>
       <td>
-        {{ totalCostDolares | currency:"USD$" }}
+        {{ value.totalDolares | currency:"USD$" }}
         <br>
-        {{ totalCostReales | currency:"R$" }}
+        {{ value.totalReales | currency:"R$" }}
         <br>
-        {{ totalCostPesos | currency:"$" }}
+        {{ value.totalPesos | currency:"$" }}
       </td>
       <td>
         Precio R$
@@ -1008,15 +1008,15 @@
       </td>
       <td>
         {{
-          calculeDiference({ totalReales: 0.00, totalPesos: 0.00, totalDolares: 25.00 }).totalDolares
+          calculeDiference({ totalReales: 0.00, totalPesos: 0.00, totalDolares: 25.00 }, key).totalDolares
         }}
         <br>
         {{
-          calculeDiference({ totalReales: 0.00, totalPesos: 0.00, totalDolares: 25.00 }).totalReales
+          calculeDiference({ totalReales: 0.00, totalPesos: 0.00, totalDolares: 25.00 }, key).totalReales
         }}
         <br>
         {{
-          calculeDiference({ totalReales: 0.00, totalPesos: 0.00, totalDolares: 25.00 }).totalPesos
+          calculeDiference({ totalReales: 0.00, totalPesos: 0.00, totalDolares: 25.00 }, key).totalPesos
         }}
       </td>
     </tr>
