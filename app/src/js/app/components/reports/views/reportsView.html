@@ -981,3 +981,44 @@
     show-prev-next="true" show-first-last="true" scroll-top="true" paging-action="pager(page)">
   </paging>
 </div>
+
+<div ng-if="userRole == 'admin'">
+  <table>
+    <tr>
+      <th>Cliente</th>
+      <th>Horas Desarollo</th>
+      <th>Cliente Budget</th>
+      <th>Diferencia</th>
+    </tr>
+    <tr>
+      <td>Client name here</td>
+      <td>
+        {{ totalCostDolares | currency:"USD$" }}
+        <br>
+        {{ totalCostReales | currency:"R$" }}
+        <br>
+        {{ totalCostPesos | currency:"$" }}
+      </td>
+      <td>
+        Precio R$
+        <br>
+        Precio $
+        <br>
+        Precio USD
+      </td>
+      <td>
+        {{
+          calculeDiference({ totalReales: 0.00, totalPesos: 0.00, totalDolares: 25.00 }).totalDolares
+        }}
+        <br>
+        {{
+          calculeDiference({ totalReales: 0.00, totalPesos: 0.00, totalDolares: 25.00 }).totalReales
+        }}
+        <br>
+        {{
+          calculeDiference({ totalReales: 0.00, totalPesos: 0.00, totalDolares: 25.00 }).totalPesos
+        }}
+      </td>
+    </tr>
+  </table>
+</div>

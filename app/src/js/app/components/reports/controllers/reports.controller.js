@@ -1975,6 +1975,14 @@
 
         link.click();
       };
+
+      $scope.calculeDiference = function (totals) {
+        return {
+          totalReales: 'R$ ' + (totals.totalReales - $scope.totalCostReales).toFixed(2),
+          totalPesos: '$ ' + (totals.totalPesos - $scope.totalCostPesos).toFixed(2),
+          totalDolares: 'USD ' + (totals.totalDolares - $scope.totalCostDolares).toFixed(2),
+        };
+      };
     },
   ]);
 })(angular);
