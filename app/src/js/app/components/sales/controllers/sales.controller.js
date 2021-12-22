@@ -150,17 +150,14 @@
 
 
     $scope.query =$scope.fill.year.year+"-"+$scope.fill.month.dateIni+"/"+$scope.fill.year.year+"-"+$scope.fill.month.dateEnd;
-    console.log($scope.query);
 
     $scope.changeMonth  = function (){
       $scope.query = $scope.fill.year.year+"-"+$scope.fill.month.dateIni+"/"+$scope.fill.year.year+"-"+$scope.fill.month.dateEnd;
-      console.log("fill: ", $scope.fill);
       search();
     };
 
     $scope.changeYear  = function (){
       $scope.query = $scope.fill.year.year+"-"+$scope.fill.month.dateIni+"/"+$scope.fill.year.year+"-"+$scope.fill.month.dateEnd;
-      console.log("fill: ", $scope.fill);
       search();
     };
 
@@ -171,13 +168,11 @@
 
 
     var search  = function (){
-      console.log($scope.query);
       if (!$scope.select.user) {
 
 
         SaleServices.findByMonth($scope.currentPage, $scope.query, function(err, sales, countItems) {
           if (!err) {
-            console.log('sales', sales, countItems);
             $scope.sales  = angular.copy(sales);
 
             $scope.total    = countItems;
@@ -187,7 +182,6 @@
         $scope.query+="/"+$scope.select.user.id;
         SaleServices.findByUserMonth($scope.currentPage, $scope.query, function(err, sales, countItems) {
           if (!err) {
-            console.log('sales', sales, countItems);
             $scope.sales  = angular.copy(sales);
 
             $scope.total    = countItems;
