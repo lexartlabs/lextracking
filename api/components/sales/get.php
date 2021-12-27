@@ -34,6 +34,14 @@
 			header('Content-Type: application/json');
 			echo json_encode($response);
 		}
+		if($name == 'sales-total-by-date') {
+			$dateIni 	= $params["date_ini"];
+			$dateEnd 	= $params["date_end"];
+			$response 	= $objUsr->getSalesTotalsMonth($conn,$dateIni,$dateEnd);
+
+			header('Content-Type: application/json');
+			echo json_encode($response);
+		}
 
 	} else {
 		header('Content-Type: application/json');

@@ -173,6 +173,46 @@ class Sale {
 					);
 		return array("response" => $types);
 	}
+
+	public function getSalesTotalsMonth($conn,$dateIni,$dateEnd){
+		$sql = "
+			SELECT SUM(s.amount) AS 'total', c.name AS 'Client'
+			FROM `Sales` AS s
+			LEFT JOIN `Clients` AS c ON s.idClient = c.id
+			WHERE `currency` = 'R$' AND `date` >= '$dateIni' AND `date` <= ('$dateEnd' + INTERVAL 1 DAY)
+			GROUP BY `idClient`";
+
+		$sql2 = "
+			SELECT SUM(s.amount) AS 'total', c.name AS 'Client'
+			FROM `Sales` AS s
+			LEFT JOIN `Clients` AS c ON s.idClient = c.id
+			WHERE `currency` = '$' AND `date` >= '$dateIni' AND `date` <= ('$dateEnd' + INTERVAL 1 DAY)
+			GROUP BY `idClient`
+		";
+		$sql3 = "
+			SELECT SUM(s.amount) AS 'total', c.name AS 'Client'
+			FROM `Sales` AS s
+			LEFT JOIN `Clients` AS c ON s.idClient = c.id
+			WHERE `currency` = 'USD' AND `date` >= '$dateIni' AND `date` <= ('$dateEnd' + INTERVAL 1 DAY)
+			GROUP BY `idClient`
+		";
+		
+		
+		$d 		= $conn->query($sql);
+		$d2		= $conn->query($sql2);
+		$d3		= $conn->query($sql3);
+
+		if(!empty($d)){
+			$res = array(
+				'Reales' => $d,
+				'Pesos' => $d2,
+				'Dolares' => $d3,
+			);
+			return array("response" => $res );
+		} else {
+			return array("error" => "Error: no existen ventas.","sql"=>$sql);
+		}
+	}
 }
 
 ?>
