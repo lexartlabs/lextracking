@@ -1000,23 +1000,23 @@
         {{ value.totalPesos | currency:"$" }}
       </td>
       <td>
-        Precio R$
+        {{ (clientTotals[key].totalDolares || 0) | currency:"USD$" }}
         <br>
-        Precio $
+        {{ (clientTotals[key].totalReales || 0) | currency:"R$" }}
         <br>
-        Precio USD
+        {{ (clientTotals[key].totalPesos || 0) | currency:"$" }}
       </td>
       <td>
         {{
-          calculeDiference({ totalReales: 0.00, totalPesos: 0.00, totalDolares: 25.00 }, key).totalDolares
+          (clientTotals[key].totalDolares || 0) - value.totalDolares | currency:"USD$"
         }}
         <br>
         {{
-          calculeDiference({ totalReales: 0.00, totalPesos: 0.00, totalDolares: 25.00 }, key).totalReales
+          (clientTotals[key].totalReales || 0) - value.totalReales | currency:"R$"
         }}
         <br>
         {{
-          calculeDiference({ totalReales: 0.00, totalPesos: 0.00, totalDolares: 25.00 }, key).totalPesos
+          (clientTotals[key].totalPesos || 0) - value.totalPesos | currency:"$"
         }}
       </td>
     </tr>
