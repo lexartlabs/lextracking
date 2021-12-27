@@ -2003,15 +2003,7 @@
         link.click();
       };
 
-      $scope.calculeDiference = function (totals, client) {
-        return {
-          totalReales: 'R$ ' + (totals.totalReales - $scope.clientTotalDev[client].totalReales).toFixed(2),
-          totalPesos: '$ ' + (totals.totalPesos - $scope.clientTotalDev[client].totalPesos).toFixed(2),
-          totalDolares: 'USD ' + (totals.totalDolares - $scope.clientTotalDev[client].totalDolares).toFixed(2),
-        };
-      };
-
-      //  LUCAS AQUI
+      // Logics to create the clients budgets state
       function groupBudgetsByClient(budgets, currency) {
         angular.forEach(budgets, function(v, k) {
           if (!$scope.clientTotals[v.Client]) {
@@ -2026,7 +2018,7 @@
         return moment(date).format('YYYY-MM-DD');
       };
 
-      if(["admin", "pm"].includes(userRole)) {
+      if(["admin"].includes(userRole)) {
         SaleServices.getAllClientBudgets(
           formatDateQuery($scope.filter.startTime) +  '/' + formatDateQuery($scope.filter.endTime),
           function(err, res) {
