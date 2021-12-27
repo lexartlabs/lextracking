@@ -69,7 +69,13 @@
 		    	RestClient.delete(model + "/" + id, function(err, result) {
 		        	cb(err, result);
 		      	})
-		    }
+		    },
+
+				getAllClientBudgets: function(q, cb) {
+					RestClient.get( "sales/budgets/by-date/" + q, function(err, result) {
+						cb(err, result);
+					})
+				},
         
 	  	};
 
