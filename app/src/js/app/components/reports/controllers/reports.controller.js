@@ -17,6 +17,7 @@
     "ngDialog",
     "WeeklyHourServices",
     "TasksServices",
+    "SaleServices",
     function (
       $scope,
       $interval,
@@ -30,7 +31,8 @@
       TracksServices,
       ngDialog,
       WeeklyHourServices,
-      TasksServices
+      TasksServices,
+      SaleServices
     ) {
       $scope.users = [];
       $scope.clients = [];
@@ -82,7 +84,11 @@
       $scope.totalCostDolares = 0;
       $scope.totalDuration = 0;
       $scope.CurrTotalCost = '';
+
+      // Estados para guardar los costos totales de desarollo y comparar con los budgets
       $scope.clientTotalDev = {};
+      $scope.clientTotals = {};
+
       var userId = $rootScope.userId;
       var userRole = $rootScope.userRole;
 
@@ -121,7 +127,6 @@
       $scope.getTotalHours = function(){
         setTimeout(function(){
           $scope.totalDuration =convertTime(moment.duration($scope.total).add($scope.total3))
-          console.log($scope.totalDuration)
         },1500)
       }
 
@@ -288,7 +293,6 @@
                   var cost = { value: result3 };
                   if (cost.value != undefined) {
                     $scope.finalTotal = cost.value;
-                    console.log($scope.finalTotal)
                   } else {
                   }
                 }
@@ -524,7 +528,6 @@
                           return track.idUser == value.idUser;
                         });
                         // track.currency = object.currency;
-                        console.log(track)
                         if (typeof index !== 'undefined') {
                           // $scope.tableTrack[index].currency = object.currency;
                         }
@@ -663,12 +666,11 @@
                     });
                   }
                 }
-              }console.log(track)
+              }
               if(track.currency == null || track.currency == ''){
                 track.currency == '$'
               }
               if(track.currency == '$'){
-                console.log('test')
                 $scope.totalCostManualPesos += track.trackCost
                 $scope.totalCostPesos += track.trackCost
               }
@@ -677,7 +679,6 @@
                 $scope.totalCostReales += track.trackCost
               }
               if(track.currency == 'USD'){
-                console.log('test')
                 $scope.totalCostManualDolares += track.trackCost
                 $scope.totalCostDolares += track.trackCost
               }
@@ -1084,7 +1085,7 @@
             var tempTotal = 0;
             tracks.forEach(function (track) {
               tempTotal += parseInt(track.trackCost ? track.trackCost : 0);
-              console.log('COSTO UNITARIO', track.trackCost, 'COSTO TOTAL TRELLO', tempTotal)
+              // console.log('COSTO UNITARIO', track.trackCost, 'COSTO TOTAL TRELLO', tempTotal)
               $scope.totalcost3 = tempTotal;
               sumTotalcost(tempTotal);
               if (userRole == "admin" || userRole == "pm") {
@@ -1171,7 +1172,7 @@
                     });
                   }
                 }
-              }console.log( $scope.tableTrackTrello)
+              }
 
             });
             $scope.tableTrackTrello.forEach(function (el) {
@@ -1233,7 +1234,7 @@
                   $scope.totalCostTrelloDolares += track.trackCost
                   $scope.totalCostDolares += track.trackCost
                 }
-              });console.log( $scope.tableTrackTrello)
+              });
             });
             /* FIN NUEVA FUNCION */
 
@@ -1273,7 +1274,7 @@
 
             for (var i = 0; i < $scope.sumHoursTrelo.length; i++) {
               var th = moment.duration(th).add($scope.sumHoursTrelo[i]);
-              console.log(moment.duration(th))
+              // console.log(moment.duration(th))
             }
 
             $scope.total3 = convertTime(th);
@@ -1628,13 +1629,13 @@
                 );
               }
               var newCostTracked = function (value) {
-                console.log(value)
+                // console.log(value)
                 objTrack.trackCost = value;
                 ProjectsServices.findById(
                   objTrack.idProyecto,
                   function (err, result) {
-                    console.log(objTrack.idProyecto)
-                    console.log(result)
+                    // console.log(objTrack.idProyecto)
+                    // console.log(result)
                     var project = result;
                     var oldTime = moment.duration(objTrack.duration);
                     var newTime = moment.duration(objTrack.trackDuration);
@@ -1930,7 +1931,7 @@
       // EXPORT TO CSV
       $scope.exportToCSV = function () {
         function convertToCSV(objArray) {
-          console.log(objArray)
+          // console.log(objArray)
           var array =
             typeof objArray != "object" ? JSON.parse(objArray) : objArray;
           var str = "";
@@ -2009,6 +2010,34 @@
           totalDolares: 'USD ' + (totals.totalDolares - $scope.clientTotalDev[client].totalDolares).toFixed(2),
         };
       };
+
+      //  LUCAS AQUI
+      function groupBudgetsByClient(budgets, currency) {
+        angular.forEach(budgets, function(v, k) {
+          if (!$scope.clientTotals[v.Client]) {
+            $scope.clientTotals[v.Client]= {};
+          }
+
+          $scope.clientTotals[v.Client]['total' + currency] = v.total;
+        });
+      };
+
+      function formatDateQuery(date) {
+        return moment(date).format('YYYY-MM-DD');
+      };
+
+      if(["admin", "pm"].includes(userRole)) {
+        SaleServices.getAllClientBudgets(
+          formatDateQuery($scope.filter.startTime) +  '/' + formatDateQuery($scope.filter.endTime),
+          function(err, res) {
+            if(!err) {
+              angular.forEach(res, function(v, k) {
+                groupBudgetsByClient(v, k);
+              });
+            }
+          }
+        );
+      }
     },
   ]);
 })(angular);
