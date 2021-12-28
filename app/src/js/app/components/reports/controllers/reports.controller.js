@@ -439,6 +439,16 @@
         document.getElementById("buscar").disabled = true;
       };
 
+      function groupBudgetsByClient(budgets, currency) {
+        angular.forEach(budgets, function(v, k) {
+          if (!$scope.clientTotals[v.Client]) {
+            $scope.clientTotals[v.Client]= {};
+          }
+
+          $scope.clientTotals[v.Client]['total' + currency] = v.total;
+        });
+      };
+
       $scope.search = function () {
         deshabilitar_btnBuscar();
         var filters = {
@@ -475,15 +485,25 @@
         $scope.tableTrackAuto = [];
         $scope.tableTrackJira = [];
         $scope.finalHour = "00:00:00";
+        $scope.clientTotalDev = {};
 
         $scope.cleanTotals();
 
+        if(userRole == "admin") {
+          SaleServices.getAllClientBudgets(
+            moment(filters.startTime).format('YYYY-MM-DD') +  '/' + moment(filters.endTime).format('YYYY-MM-DD'),
+            function(err, res) {
+              if(!err) {
+                angular.forEach(res, function(v, k) {
+                  groupBudgetsByClient(v, k);
+                });
+              }
+            }
+          );
+        }
+
         var calculeTotalHrDesarollo = function (array, clientKeyName) {
-          // Creo una variable que guarda los datos y empieza con los datos que ya están;
-          var result = {};
-          Object.assign(result, $scope.clientTotalDev);
           // Creo a los seletores y valores default
-          var defaultTotals = { totalReales: 0, totalPesos: 0, totalDolares: 0 };
           var totalName = {
             'R$': 'totalReales',
             '$': 'totalPesos',
@@ -492,17 +512,22 @@
 
           // Itero sobre los tracks y modifico el result conforme el cliente y la moneda
           angular.forEach(array, function (el, key) {
-            if(!result[el[clientKeyName]]) { result[el[clientKeyName]] = defaultTotals }
-            result[el[clientKeyName]][totalName[el.currency]] += el.trackCost;
-          }, result);
+            if(!$scope.clientTotalDev[el[clientKeyName]]) {
+              $scope.clientTotalDev[el[clientKeyName]] = { totalReales: 0, totalPesos: 0, totalDolares: 0 };
+            }
 
-          return result;
+            console.log($scope.clientTotalDev);
+
+            $scope.clientTotalDev
+              [el[clientKeyName]]
+              [totalName[el.currency]] += el.trackCost;
+          });
         };
 
         TracksServices.getTracks(filters, function (err, tracks) {
           if (!err && tracks) {
             $scope.tracks = tracks;
-            $scope.clientTotalDev = calculeTotalHrDesarollo(tracks, 'clientName');
+            calculeTotalHrDesarollo(tracks, 'clientName');
 
             var tempTotal = 0;
             tracks.forEach(function (track) {
@@ -862,7 +887,7 @@
         TracksServices.getAutoTracks(filters, function (err, tracks) {
           if (!err && tracks) {
             $scope.autoTracks = tracks;
-            $scope.clientTotalDev = calculeTotalHrDesarollo(tracks, 'clientName');
+            calculeTotalHrDesarollo(tracks, 'clientName');
             var tempTotal = 0;
             tracks.forEach(function (track) {
               tempTotal += parseInt(track.trackCost ? track.trackCost : 0);
@@ -1079,7 +1104,7 @@
         TracksServices.getTrelloTrack(filters, function (err, tracks) {
           if (!err && tracks) {
             $scope.trelloTracks = tracks;
-            $scope.clientTotalDev = calculeTotalHrDesarollo(tracks, 'client');
+            calculeTotalHrDesarollo(tracks, 'client');
 
             /* NUEVA FUNCION */
             var tempTotal = 0;
@@ -2001,35 +2026,7 @@
         document.body.appendChild(link);
 
         link.click();
-      };
-
-      // Logics to create the clients budgets state
-      function groupBudgetsByClient(budgets, currency) {
-        angular.forEach(budgets, function(v, k) {
-          if (!$scope.clientTotals[v.Client]) {
-            $scope.clientTotals[v.Client]= {};
-          }
-
-          $scope.clientTotals[v.Client]['total' + currency] = v.total;
-        });
-      };
-
-      function formatDateQuery(date) {
-        return moment(date).format('YYYY-MM-DD');
-      };
-
-      if(["admin"].includes(userRole)) {
-        SaleServices.getAllClientBudgets(
-          formatDateQuery($scope.filter.startTime) +  '/' + formatDateQuery($scope.filter.endTime),
-          function(err, res) {
-            if(!err) {
-              angular.forEach(res, function(v, k) {
-                groupBudgetsByClient(v, k);
-              });
-            }
-          }
-        );
-      }
+      };      
     },
   ]);
 })(angular);
