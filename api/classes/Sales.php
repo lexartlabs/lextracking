@@ -202,7 +202,7 @@ class Sale {
 		$d2		= $conn->query($sql2);
 		$d3		= $conn->query($sql3);
 
-		if(!empty($d)){
+		if(!empty($d) || !empty($d2) || !empty($d3)){
 			$res = array(
 				'Reales' => $d,
 				'Pesos' => $d2,

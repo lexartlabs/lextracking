@@ -486,6 +486,7 @@
         $scope.tableTrackJira = [];
         $scope.finalHour = "00:00:00";
         $scope.clientTotalDev = {};
+        $scope.clientTotals = {};
 
         $scope.cleanTotals();
 
@@ -515,8 +516,6 @@
             if(!$scope.clientTotalDev[el[clientKeyName]]) {
               $scope.clientTotalDev[el[clientKeyName]] = { totalReales: 0, totalPesos: 0, totalDolares: 0 };
             }
-
-            console.log($scope.clientTotalDev);
 
             $scope.clientTotalDev
               [el[clientKeyName]]
