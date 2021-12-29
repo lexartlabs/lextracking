@@ -49,16 +49,24 @@
 			$response 	= $objUsr->getProjectByHour($conn,$idProject);
 			echo json_encode($response);
 		}
+		if($name == 'external-by-id') {
+			$id = $params['id'];
+			$response 	= $externals->one($conn,$id);
+			echo json_encode($response);
+		}
+
 	}else {
 		if($name == 'track-actives'){
 			$response 	= $objUsr->getAllTracksActiveTracks($conn);
 			echo json_encode($response);
 		}
+
 		if($name == 'external-by-month') {
 			$month = $_GET['month'];
 			$response 	= $externals->all($conn,$month);
 			echo json_encode($response);
 		}
+
 		else {
 			echo json_encode( array("response" => 'err') );
 		}

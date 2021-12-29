@@ -239,7 +239,9 @@ error_reporting(1);
 					$router->map('POST','/track/track-jira-new', 'components/tracks/post.php', 'track-jira-new');
 
 					// EXTERNAL TASKS
+					$router->map('GET', '/track/externals/[i:id]', 'components/tracks/get.php', 'external-by-id');
 					$router->map('GET', '/track/externals/all', 'components/tracks/get.php', 'external-by-month');
+					$router->map('POST', '/track/externals', 'components/tracks/post.php', 'add-external');
 	
 	
 					// GET USERS BY ID
