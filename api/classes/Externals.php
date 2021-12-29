@@ -4,7 +4,9 @@ class Externals {
 
   private $model = "Externals";
 
-  public function create($conn, $report) {}
+  public function create($conn, $report) {
+    
+  }
 
   public function all($conn) {
     $sql = "SELECT * FROM ".$this->model;
@@ -28,7 +30,9 @@ class Externals {
 		}
   }
 
-  public function update($conn, $report, $id) {}
+  public function update($conn, $report, $id) {
+
+  }
 
 }
 
