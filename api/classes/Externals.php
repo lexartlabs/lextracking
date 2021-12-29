@@ -128,7 +128,7 @@ class Externals {
     };
 
 		if(!empty($d)){
-			return array("response" => $d);
+			return array("response" => $d[0]);
 		} else {
 			return array("error" => "Error: Id invalido.");
 		}
