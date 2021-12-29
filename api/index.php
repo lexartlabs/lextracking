@@ -9,6 +9,7 @@ require('config/conn.php');
 require('classes/AltoRouter.php');
 require('classes/Token.php');
 
+define ("ENV", "/lextracking/api");
 
 ini_set('display_errors', 'On');
 error_reporting(1);
