@@ -1,11 +1,13 @@
 <?php 
 	// INCLUDE CLASS
 	require("classes/Track.php");
+	require("classes/Externals.php");
 
-	$conn 		= new Connection();
-	$objUsr		= new Track();
-	$params 	= $match['params'];
-	$name 		= $match['name'];
+	$conn 		 = new Connection();
+	$objUsr		 = new Track();
+	$externals = new Externals();
+	$params  	 = $match['params'];
+	$name 		 = $match['name'];
 
 	if($params){
 		
@@ -47,11 +49,20 @@
 			$response 	= $objUsr->getProjectByHour($conn,$idProject);
 			echo json_encode($response);
 		}
-	}elseif($name == 'track-actives'){
+	}else {
+		if($name == 'track-actives'){
 			$response 	= $objUsr->getAllTracksActiveTracks($conn);
 			echo json_encode($response);
-	} else {
-		echo json_encode( array("response" => 'err') );
+		}
+		if($name == 'external-by-month') {
+			$month = $_GET['month'];
+			$response 	= $externals->all($conn,$month);
+			echo json_encode($response);
+		}
+		else {
+			echo json_encode( array("response" => 'err') );
+		}
 	}
+
 	
 ?>
