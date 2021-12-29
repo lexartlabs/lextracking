@@ -17,7 +17,16 @@ class Externals {
 		}
   }
 
-  public function byId($conn, $id) {}
+  public function byId($conn, $id) {
+    $sql = "SELECT * FROM ".$this->model."WHERE id = '$id'";
+    $d 	 = $conn->query($sql);
+
+		if(!empty($d)){
+			return array("response" => $d);
+		} else {
+			return array("error" => "Error: Id invalido.");
+		}
+  }
 
   public function update($conn, $report, $id) {}
 
