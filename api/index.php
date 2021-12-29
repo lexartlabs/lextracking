@@ -237,6 +237,9 @@ error_reporting(1);
 					 $router->map('POST','/track/track-trello-new', 'components/tracks/post.php', 'track-trello-new');
 					$router->map('POST','/track/track-trello-update', 'components/tracks/post.php', 'track-trello-update');
 					$router->map('POST','/track/track-jira-new', 'components/tracks/post.php', 'track-jira-new');
+
+					// EXTERNAL TASKS
+					$router->map('GET', '/track/externals/all', 'components/tracks/get.php', 'external-by-month');
 	
 	
 					// GET USERS BY ID
