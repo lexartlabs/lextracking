@@ -644,8 +644,8 @@ class Track {
 	public function getUserHoursByYear($conn, $id, $year) {
 		$sql = "
 			SELECT
-				MONTH(startTime) AS 'mes',
-				'segundos' AS 'metrica',
+				MONTH(startTime) AS 'month',
+				'seconds' AS 'metric',
 				(CASE WHEN typeTrack = 'external'
 						THEN SUM(TIME_TO_SEC(duracion))
 						ELSE SUM(TIME_TO_SEC((TIMEDIFF(endTime, startTime))))
