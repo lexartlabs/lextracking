@@ -135,7 +135,31 @@ class Externals {
   }
 
   public function update($conn, $report, $id) {
+    $isValid = $this->validatePayload($report);
 
+    if ($isValid == "true") {
+      $idProject = $report['idProyecto'] ? $report['idProyecto'] : 0;
+
+      $sql = "
+        UPDATE ".$this->model." SET
+          `idUser` = ".$report['idUser'].",
+          `name` = '".$report['plataform']."',
+          `currency` = '".$report['currency']."',
+          `idProyecto` = ".$idProject.",
+          `duracion` = '".$report['duration']."'
+        WHERE id = ".$id.";
+        ";
+
+      $d = $conn->query($sql);
+
+      if(empty($d)){
+        return array("response" => 'OK');
+      } else {
+        return array("error" => "Error: al modificar el reporte.", "sql" => $sql);
+      }
+    } else {
+      return array("error" => "Error: '$isValid'");
+    }
   }
 
 }
