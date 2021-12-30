@@ -10,6 +10,7 @@ class Externals {
     if (!$payload['plataform']) { return "plataform is required";}
     if (!$payload['currency']) { return "currency is required";}
     if (!$payload['duration']) { return "duration is required";}
+    if (!$payload['idProject']) { return "project id is required"; }
     return "true";
   }
 
@@ -28,11 +29,11 @@ class Externals {
     $isValid = $this->validatePayload($report);
 
     if ($isValid == "true") {
-      $idProject = $report['idProyecto'] ? $report['idProyecto'] : 0;
+      $idProject = $report['idProject'];
 
       $sql = "
         INSERT INTO ".$this->model."
-            (`idUser`, `name`, `typeTrack`, `currency`, `idProyecto`, `duracion`, `startTime`)
+            (`idUser`, `name`, `typeTrack`, `currency`, `idProject`, `duracion`, `startTime`)
           VALUES
             (
             ".$report['idUser'].",
@@ -72,7 +73,7 @@ class Externals {
         u.name AS 'user'
       FROM ".$this->model." AS t
       INNER JOIN Users AS u ON t.idUser = u.id
-      INNER JOIN Projects AS p ON p.id = t.idProyecto
+      INNER JOIN Projects AS p ON p.id = t.idProject
       INNER JOIN Clients AS c ON c.id = p.idClient
       WHERE `typeTrack` = 'external' AND MONTH(startTime) = ".$month;
     
@@ -110,7 +111,7 @@ class Externals {
         u.name AS 'user'
       FROM ".$this->model." AS t
       INNER JOIN Users AS u ON t.idUser = u.id
-      INNER JOIN Projects AS p ON p.id = t.idProyecto
+      INNER JOIN Projects AS p ON p.id = t.idProject
       INNER JOIN Clients AS c ON c.id = p.idClient
       WHERE `typeTrack` = 'external' AND t.id = ".$id;
     
@@ -138,14 +139,14 @@ class Externals {
     $isValid = $this->validatePayload($report);
 
     if ($isValid == "true") {
-      $idProject = $report['idProyecto'] ? $report['idProyecto'] : 0;
+      $idProject = $report['idProject'];
 
       $sql = "
         UPDATE ".$this->model." SET
           `idUser` = ".$report['idUser'].",
           `name` = '".$report['plataform']."',
           `currency` = '".$report['currency']."',
-          `idProyecto` = ".$idProject.",
+          `idProject` = ".$idProject.",
           `duracion` = '".$report['duration']."'
         WHERE id = ".$id.";
         ";
