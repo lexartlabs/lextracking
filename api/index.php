@@ -11,6 +11,7 @@ require('classes/Token.php');
 
 
 
+
 ini_set('display_errors', 'On');
 error_reporting(1);
 	// CALL OBJS
@@ -385,7 +386,9 @@ error_reporting(1);
 					$router->map('POST','/biller/comprobantes/crear', 'components/biller/post.php', 'crear');
 					$router->map('POST','/biller/comprobantes/obtener', 'components/biller/post.php', 'obtener');
 					$router->map('POST','/biller/comprobantes/pdf', 'components/biller/post.php', 'pdf');
-	
+
+					// tracks for cube
+					$router->map('GET', '/public/tracks-by-year/[i:id]/[i:year]', 'components/tracks/get.php', 'tracks-by-user-by-year');
 	
 					
 				// match current request
@@ -413,9 +416,6 @@ error_reporting(1);
 		$router->map('POST','/trello/new', 'components/trelloTasks/post.php', 'trello-new');
 
 		// PUBLIC APIS
-
-		// tracks for cube
-		$router->map('GET', '/public/tracks-by-year/[i:id]/[i:year]', 'components/tracks/get.php', 'tracks-by-user-by-year');
 
 		$router->map('GET','/public/apps/easy-web/my-website/[*:token]', 'components/apps/easyweb/get.php', 'app-easyweb-by-token');
 		// match current request
