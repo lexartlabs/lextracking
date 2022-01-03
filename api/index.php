@@ -10,6 +10,7 @@ require('classes/AltoRouter.php');
 require('classes/Token.php');
 
 
+
 ini_set('display_errors', 'On');
 error_reporting(1);
 	// CALL OBJS
@@ -126,6 +127,9 @@ error_reporting(1);
 				//WeeklyHour
 				$router->map('GET','/weeklyHours/all', 			'components/weeklyHours/index.php', 'weeklyHour-all');
 				$router->map('GET','/weeklyHour/user/[i:id]', 		'components/weeklyHours/get.php', 	'weeklyHour-by-idUser');
+
+				// tracks for cube
+				$router->map('GET', '/public/tracks-by-year/[i:id]/[i:year]', 'components/tracks/get.php', 'tracks-by-user-by-year');
 
 				$match = $router->match();
 				if($match) {
@@ -383,9 +387,7 @@ error_reporting(1);
 					//Biller
 					$router->map('POST','/biller/comprobantes/crear', 'components/biller/post.php', 'crear');
 					$router->map('POST','/biller/comprobantes/obtener', 'components/biller/post.php', 'obtener');
-					$router->map('POST','/biller/comprobantes/pdf', 'components/biller/post.php', 'pdf');
-	
-	
+					$router->map('POST','/biller/comprobantes/pdf', 'components/biller/post.php', 'pdf');	
 					
 				// match current request
 				$match = $router->match();

@@ -47,11 +47,20 @@
 			$response 	= $objUsr->getProjectByHour($conn,$idProject);
 			echo json_encode($response);
 		}
-	}elseif($name == 'track-actives'){
+		if ($name == 'tracks-by-user-by-year') {
+			$year = $params["year"];
+			$id = $params["id"];
+			$response 	= $objUsr->getUserHoursByYear($conn, $id, $year);
+			echo json_encode($response);
+		}
+	}else {
+		if($name == 'track-actives'){
 			$response 	= $objUsr->getAllTracksActiveTracks($conn);
 			echo json_encode($response);
-	} else {
-		echo json_encode( array("response" => 'err') );
+		}
+		else {
+			echo json_encode( array("response" => 'err') );
+		}
 	}
 	
 ?>
