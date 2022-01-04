@@ -52,19 +52,22 @@
 			$response 	= $objUsr->one($conn,$id);
 			echo json_encode($response);
 		}
-
+		if ($name == 'tracks-by-user-by-year') {
+			$year = $params["year"];
+			$id = $params["id"];
+			$response 	= $objUsr->getUserHoursByYear($conn, $id, $year);
+			echo json_encode($response);
+		}
 	}else {
 		if($name == 'track-actives'){
 			$response 	= $objUsr->getAllTracksActiveTracks($conn);
 			echo json_encode($response);
 		}
-
 		if($name == 'external-by-month') {
 			$month = $_GET['month'];
 			$response 	= $objUsr->all($conn,$month);
 			echo json_encode($response);
 		}
-
 		else {
 			echo json_encode( array("response" => 'err') );
 		}

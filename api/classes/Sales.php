@@ -23,15 +23,18 @@ class Sale {
 
 	public function totalAmount($arr,$key){
 		$totalDolares 	= 0;
-		$totalPesos			=0;
+		$totalPesos			= 0;
+		$totalReales    = 0;
 		for ($i=0; $i < count($arr) ; $i++) {
 			if ($arr[$i]["currency"]=="$") {
 				$totalPesos = $totalPesos + (float) $arr[$i][$key];
-			}else {
+			}elseif ($arr[$i]["currency"]=="R$") {
+				$totalReales = $totalReales + (float) $arr[$i][$key];
+			} else {
 				$totalDolares=$totalDolares +(float) $arr[$i][$key];
 			}
 		}
-		return array("totalPesos" => $totalPesos,"totalDolares" =>  $totalDolares);
+		return array("totalPesos" => $totalPesos,"totalDolares" =>  $totalDolares, "totalReales" => $totalReales);
 	}
 
 	// CRYPTO FUNCTION

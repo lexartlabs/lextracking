@@ -721,7 +721,7 @@ class Track {
 		} else {
 			return array("error" => "Error: no existen reportes para esta fecha.");
 		}
-  }
+	}
 
   public function one($conn, $id) {
     $sql = "
@@ -788,6 +788,30 @@ class Track {
       return array("error" => "Error: '$isValid'");
     }
   }
+
+	// For cube
+	public function getUserHoursByYear($conn, $id, $year) {
+		$sql = "
+			SELECT
+				MONTH(startTime) AS 'month',
+				'seconds' AS 'metric',
+				(CASE WHEN typeTrack = 'external'
+						THEN SUM(TIME_TO_SEC(duracion))
+						ELSE SUM(TIME_TO_SEC((TIMEDIFF(endTime, startTime))))
+				END) AS 'tracks'
+			FROM ".$this->model."
+			WHERE YEAR(startTime) = ".$year." AND idUser = ".$id."
+			GROUP BY MONTH(startTime);
+		";
+
+		$d = $conn->query($sql);
+
+		if(!empty($d)){
+			return array("response" => $d);
+		} else {
+			return array("error" => "Error: no se encontraron tracks con estos filtros.");
+		}
+	}
 }
 
 ?>

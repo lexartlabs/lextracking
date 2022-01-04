@@ -73,6 +73,7 @@
         <select ng-model="sale.currency">
           <option>USD</option>
           <option>$</option>
+          <option>R$</option>
         </select>
         <b class="imm-frm__lbl-name">{{ 'sales.currency' | translate }} <span class="required">*</span></b>
       </label>
@@ -152,9 +153,19 @@
     </div>
 
 
+    <div class="imm-frm__fld">
+      <label class="imm-frm__lbl">
+        <b class="imm-frm__lbl-name">Status<span class="required">*</span></b>
+        <select ng-model="sale.status">
 
+          <option>CON</option>
+          <option>PND</option>
+          <option>PGO</option>
+          <option>CIE</option>
 
-
+        </select>
+      </label>
+    </div>
 
 
     <div class="imm-frm__fld">
