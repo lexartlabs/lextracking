@@ -2,11 +2,9 @@
 	// INCLUDE CLASS
 
 	require("classes/Track.php");
-	require("classes/Externals.php");
 
 	$conn 		= new Connection();
 	$objUsr		= new Track();
-	$externals = new Externals();
 	
 	$params 	= json_decode(file_get_contents('php://input'), true);
 	$name 		= $match['name'];
@@ -89,7 +87,7 @@
 			echo json_encode($response);
 		}
 		if ($name == 'add-external') {
-			$response = $externals->create($conn, $params);
+			$response = $objUsr->create($conn, $params);
 			echo json_encode($response);
 		}
 	} else {

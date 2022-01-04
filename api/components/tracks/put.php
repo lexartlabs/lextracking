@@ -1,9 +1,9 @@
 <?php
 
-  require("classes/Externals.php");
+require("classes/Track.php");
 
   $conn 		= new Connection();
-	$externals = new Externals();
+	$objUsr		= new Track();
 	
 	$params 	= json_decode(file_get_contents('php://input'), true);
 	$name 		= $match['name'];
@@ -12,7 +12,7 @@
     if ($name == 'update-external') {
       $id = $match['params']['id'];
 
-      $response = $externals->update($conn, $params, $id);
+      $response = $objUsr->update($conn, $params, $id);
 			echo json_encode($response);
     }
   } else {

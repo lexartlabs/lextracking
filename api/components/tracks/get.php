@@ -1,11 +1,9 @@
 <?php 
 	// INCLUDE CLASS
 	require("classes/Track.php");
-	require("classes/Externals.php");
 
 	$conn 		 = new Connection();
 	$objUsr		 = new Track();
-	$externals = new Externals();
 	$params  	 = $match['params'];
 	$name 		 = $match['name'];
 
@@ -51,7 +49,7 @@
 		}
 		if($name == 'external-by-id') {
 			$id = $params['id'];
-			$response 	= $externals->one($conn,$id);
+			$response 	= $objUsr->one($conn,$id);
 			echo json_encode($response);
 		}
 
@@ -63,7 +61,7 @@
 
 		if($name == 'external-by-month') {
 			$month = $_GET['month'];
-			$response 	= $externals->all($conn,$month);
+			$response 	= $objUsr->all($conn,$month);
 			echo json_encode($response);
 		}
 
