@@ -981,3 +981,44 @@
     show-prev-next="true" show-first-last="true" scroll-top="true" paging-action="pager(page)">
   </paging>
 </div>
+
+<div ng-if="userRole == 'admin'">
+  <table>
+    <tr>
+      <th>Cliente</th>
+      <th>Horas Desarollo</th>
+      <th>Cliente Budget</th>
+      <th>Diferencia</th>
+    </tr>
+    <tr ng-repeat="(key, value) in clientTotalDev">
+      <td>{{ key }}</td>
+      <td>
+        {{ value.totalDolares | currency:"USD$" }}
+        <br>
+        {{ value.totalReales | currency:"R$" }}
+        <br>
+        {{ value.totalPesos | currency:"$" }}
+      </td>
+      <td>
+        {{ (clientTotals[key].totalDolares || 0) | currency:"USD$" }}
+        <br>
+        {{ (clientTotals[key].totalReales || 0) | currency:"R$" }}
+        <br>
+        {{ (clientTotals[key].totalPesos || 0) | currency:"$" }}
+      </td>
+      <td>
+        {{
+          (clientTotals[key].totalDolares || 0) - value.totalDolares | currency:"USD$"
+        }}
+        <br>
+        {{
+          (clientTotals[key].totalReales || 0) - value.totalReales | currency:"R$"
+        }}
+        <br>
+        {{
+          (clientTotals[key].totalPesos || 0) - value.totalPesos | currency:"$"
+        }}
+      </td>
+    </tr>
+  </table>
+</div>

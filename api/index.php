@@ -334,6 +334,7 @@ error_reporting(1);
 					$router->map('GET','/sales/concepts', 			'components/sales/index.php', 'sales-concepts');
 					$router->map('GET','/sales/all/by-date/[*:date_ini]/[*:date_end]','components/sales/get.php', 'sales-by-date');
 					$router->map('GET','/sales/all/by-user-date/[*:date_ini]/[*:date_end]/[i:id]','components/sales/get.php', 'sales-by-user-date');
+					$router->map('GET','/sales/budgets/by-date/[*:date_ini]/[*:date_end]','components/sales/get.php', 'sales-total-by-date');
 	
 					$router->map('GET','/sale/[i:id]', 		'components/sales/get.php', 	'sale-by-id');
 	
