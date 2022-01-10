@@ -332,11 +332,9 @@
       $scope.callCalendar = function () {
         $scope.uiConfig.calendar.viewRender({
           intervalEnd: {
-            _d: dateView
+            _d: moment($scope.currentMonth, 'MM-YYYY') || dateView
           }
-        }, {
-
-        })
+        }, {})
       }
 
       $scope.btwDatesE = function (day, desde, hasta, index) {
