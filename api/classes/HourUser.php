@@ -86,7 +86,7 @@ class HourUser {
 		$month = $fullDate[0];
 		$year = $fullDate[1];
 
-		if ($id == 0) {
+		if ($id === '0') {
 			$sql = "SELECT * FROM $this->exceptions WHERE MONTH(`start`) =".$month." AND YEAR(`start`) =".$year;
 		} else {
 			$sql = "SELECT * FROM $this->exceptions WHERE user_id = ".$id. " AND MONTH(`start`) =".$month." AND YEAR(`start`) =".$year;
