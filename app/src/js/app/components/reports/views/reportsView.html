@@ -794,8 +794,8 @@
     
     <div class="imm-wa__hdr imm-flex">
       <div class="imm-flex-5">
-        <table style="max-width:40%; white-space:nowrap; float:right" ng-repeat="tracks in tableTrack" ng-show="$first"
-          ng-if="tableTrack.length > 0 || tableTrackTrello.length > 0">
+        <table style="max-width:40%; white-space:nowrap; float:right"
+          ng-if="tableTrack.length || tableTrackTrello.length">
           <tr style="font-weight: bold; ">
             <td></td>
             <td>{{ 'reports.duration' | translate | uppercase}}</td>
@@ -980,4 +980,45 @@
   <paging ng-show="totalTab>pageSize" page="currentPage" page-size="pageSize" total="totalTab" hide-if-empty="true"
     show-prev-next="true" show-first-last="true" scroll-top="true" paging-action="pager(page)">
   </paging>
+</div>
+
+<div ng-if="userRole == 'admin'">
+  <table>
+    <tr>
+      <th>Cliente</th>
+      <th>Horas Desarollo</th>
+      <th>Cliente Budget</th>
+      <th>Diferencia</th>
+    </tr>
+    <tr ng-repeat="(key, value) in clientTotalDev">
+      <td>{{ key }}</td>
+      <td>
+        {{ value.totalDolares | currency:"USD$" }}
+        <br>
+        {{ value.totalReales | currency:"R$" }}
+        <br>
+        {{ value.totalPesos | currency:"$" }}
+      </td>
+      <td>
+        {{ (clientTotals[key].totalDolares || 0) | currency:"USD$" }}
+        <br>
+        {{ (clientTotals[key].totalReales || 0) | currency:"R$" }}
+        <br>
+        {{ (clientTotals[key].totalPesos || 0) | currency:"$" }}
+      </td>
+      <td>
+        {{
+          (clientTotals[key].totalDolares || 0) - value.totalDolares | currency:"USD$"
+        }}
+        <br>
+        {{
+          (clientTotals[key].totalReales || 0) - value.totalReales | currency:"R$"
+        }}
+        <br>
+        {{
+          (clientTotals[key].totalPesos || 0) - value.totalPesos | currency:"$"
+        }}
+      </td>
+    </tr>
+  </table>
 </div>

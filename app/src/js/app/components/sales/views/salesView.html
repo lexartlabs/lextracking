@@ -86,8 +86,7 @@
         <th>{{ 'Cliente' }}</th>
 
 
-        <th>{{ 'Monto $' }}</th>
-        <th>{{ 'Monto USD' }}</th>
+        <th>{{ 'Monto' }}</th>
 
         <th class="imm-cstm__grid-5"></th>
       </tr>
@@ -101,7 +100,6 @@
         <td><input class="field-filter" ng-model="filter.client"></td>
         <td><input class="field-filter" ng-model="filter.amount"></td>
         <td></td>
-        <td></td>
 
       </tr>
       <tr ng-repeat="sale in sales.sales | filter: filter">
@@ -111,10 +109,10 @@
         <td>{{sale.seller}}</td>
         <td>{{sale.client}}</td>
         <td ng-if="sale.currency=='$'">{{sale.amount| currency:" $"}}</td>
-        <td  ng-if="sale.currency!='$'"><span style="opacity: 0.5">{{ cotizacion ?  ( sale.amount*cotizacion | currency:" ≈ $" )   : "Calculando ..." }}</span></td>
 
         <td ng-if="sale.currency=='USD'">{{sale.amount| currency:" USD"}}</td>
-        <td ng-if="sale.currency!='USD'"><span style="opacity: 0.5">{{ cotizacion ?  (sale.amount/cotizacion | currency:"≈ USD" )  : "Calculando ..." }}</span></td>
+
+        <td ng-if="sale.currency=='R$'">{{sale.amount| currency:" R$"}}</td>
 
         <td>
           <a ui-sref="app.saleEdit({id: sale.id})">
@@ -131,8 +129,13 @@
         <td></td>
         <td></td>
 
-        <td><b>{{sales.totalSales.totalPesos | currency:" $"}}</b></td>
-        <td><b>{{sales.totalSales.totalDolares | currency:" USD"}}</b></td>
+        <td><b>
+          {{ sales.totalSales.totalPesos | currency:" $" }}
+          <br>
+          {{ sales.totalSales.totalDolares | currency: "USD" }}
+          <br>
+          {{ sales.totalSales.totalReales | currency:" R$" }}
+        </b></td>
 
         <td></td>
       </tr>

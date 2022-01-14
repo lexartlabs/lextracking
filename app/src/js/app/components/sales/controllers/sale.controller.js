@@ -119,11 +119,8 @@
     });
 
 
-
-
     $scope.save = function () {
       var sale=angular.copy($scope.sale);
-      console.log("select",$scope.select);
       if ($scope.select.user) {
         sale.idUser=$scope.select.user.id;
         sale.seller=$scope.select.user.name;
@@ -138,17 +135,17 @@
         sale.idClient=$scope.select.client.id;
         sale.client=$scope.select.client.name
       }
+      if (sale.status == "PGO") {
+        // Le salvo en el campo 'patType' la fecha de pagamiento
+        sale.payType=new Date().toISOString().slice(0, 19).replace('T', ' ');
+      }
       sale.active=1;
-      sale.status ="";
 
       sale.date=changeFormatDate($scope.sale.date);
 
-      console.log("sale to save ", sale);
       SaleServices.save(sale,function (err,result) {
         if (!err) {
-          console.log(result);
           $state.go('app.sales');
-
         }
       })
     };

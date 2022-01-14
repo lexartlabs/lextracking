@@ -9,6 +9,7 @@ require('config/conn.php');
 require('classes/AltoRouter.php');
 require('classes/Token.php');
 
+
 ini_set('display_errors', 'On');
 error_reporting(1);
 	// CALL OBJS
@@ -126,6 +127,9 @@ error_reporting(1);
 				$router->map('GET','/weeklyHours/all', 			'components/weeklyHours/index.php', 'weeklyHour-all');
 				$router->map('GET','/weeklyHour/user/[i:id]', 		'components/weeklyHours/get.php', 	'weeklyHour-by-idUser');
 
+				// tracks for cube
+				$router->map('GET', '/public/tracks-by-year/[i:id]/[i:year]', 'components/tracks/get.php', 'tracks-by-user-by-year');
+
 				$match = $router->match();
 				if($match) {
 				require $match['target'];
@@ -235,6 +239,12 @@ error_reporting(1);
 					 $router->map('POST','/track/track-trello-new', 'components/tracks/post.php', 'track-trello-new');
 					$router->map('POST','/track/track-trello-update', 'components/tracks/post.php', 'track-trello-update');
 					$router->map('POST','/track/track-jira-new', 'components/tracks/post.php', 'track-jira-new');
+
+					// EXTERNAL TASKS
+					$router->map('GET', '/track/externals/[i:id]', 'components/tracks/get.php', 'external-by-id');
+					$router->map('GET', '/track/externals/all', 'components/tracks/get.php', 'external-by-month');
+					$router->map('POST', '/track/externals', 'components/tracks/post.php', 'add-external');
+					$router->map('PUT', '/track/externals/[i:id]', 'components/tracks/put.php', 'update-external');
 	
 	
 					// GET USERS BY ID
@@ -324,6 +334,7 @@ error_reporting(1);
 					$router->map('GET','/sales/concepts', 			'components/sales/index.php', 'sales-concepts');
 					$router->map('GET','/sales/all/by-date/[*:date_ini]/[*:date_end]','components/sales/get.php', 'sales-by-date');
 					$router->map('GET','/sales/all/by-user-date/[*:date_ini]/[*:date_end]/[i:id]','components/sales/get.php', 'sales-by-user-date');
+					$router->map('GET','/sales/budgets/by-date/[*:date_ini]/[*:date_end]','components/sales/get.php', 'sales-total-by-date');
 	
 					$router->map('GET','/sale/[i:id]', 		'components/sales/get.php', 	'sale-by-id');
 	
@@ -383,7 +394,9 @@ error_reporting(1);
 					$router->map('POST','/biller/comprobantes/crear', 'components/biller/post.php', 'crear');
 					$router->map('POST','/biller/comprobantes/obtener', 'components/biller/post.php', 'obtener');
 					$router->map('POST','/biller/comprobantes/pdf', 'components/biller/post.php', 'pdf');
-	
+
+					// tracks for cube
+					$router->map('GET', '/public/tracks-by-year/[i:id]/[i:year]', 'components/tracks/get.php', 'tracks-by-user-by-year');
 	
 					
 				// match current request
