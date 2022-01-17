@@ -63,7 +63,7 @@
 			$response 	= $objUsr->getAllTracksActiveTracks($conn);
 			echo json_encode($response);
 		}
-		if($name == 'external-by-month') {
+		else if($name == 'external-by-month') {
 			$month = $_GET['month'];
 			$response 	= $objUsr->all($conn,$month);
 			echo json_encode($response);

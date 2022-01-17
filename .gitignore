@@ -70,8 +70,3 @@ api-lumen/Homestead.json
 api-lumen/Homestead.yaml
 api-lumen/.env
 api-lumen/.phpunit.result.cache
-<<<<<<< HEAD
-
-api/teste.php
-=======
->>>>>>> feature/pl-51
