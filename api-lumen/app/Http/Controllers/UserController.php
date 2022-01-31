@@ -23,13 +23,19 @@ class UserController extends BaseController
         $password = md5($request->input('password'));
 
         try {
-            $user = User::where('email', $email)->where('password', $password)->first();
-            if ($user) {
-                $auth = new AuthController();
-                return $auth->login($user);
+
+            $user = User::where('email', $email)->first();
+
+            if (!$user) {
+                return (new Response(array("Error" => INVALID_LOGIN, "Operation" => "login"), 400));
             }
 
-            return (new Response(array("Error" => INVALID_LOGIN, "Operation" => "login"), 400));
+            if ($user->password !== $password) {
+                return (new Response(array("Error" => INVALID_LOGIN, "Operation" => "login"), 400));
+            }
+
+            $auth = new AuthController();
+            return $auth->login($user);
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "login"), 500));
         }
@@ -50,23 +56,25 @@ class UserController extends BaseController
         $password = md5($request->input('password')); //REVER O METODO DE ENCRYPT
         $role = $request->input('role');
 
-        try{
+        try {
             User::create(array(
                 "name" => $name,
                 "email" => $email,
                 "password" => $password,
-                "role" => $role));
-            
+                "role" => $role
+            ));
+
             return (new Response(array("status" => REGISTRED, "operation" => "register")));
-        }catch(Exception $e) {
+        } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "login"), 500));
         }
     }
 
-    public function all() {
-        try{
+    public function all()
+    {
+        try {
             return json_encode(User::all());
-        }catch(Exception $e){
+        } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "login"), 500));
         }
     }
