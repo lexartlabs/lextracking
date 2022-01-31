@@ -23,20 +23,24 @@ Route::group(['prefix' => 'api'], function ($router) {
 
     Route::group(['prefix' => 'user'], function () {
         Route::post('login', 'UserController@login');
+        
+        Route::group(['middleware' => 'auth:api'], function () {
+            Route::get('current', 'UserController@current');
+        });
+
+        Route::group(['middleware' => 'admin:api'], function () {
+            Route::post('register', 'UserController@register');
+            Route::get('all', 'UserController@all');
+            Route::get('{id}', 'UserController@userById');
+    
+            //Performances
+            Route::group(['prefix' => 'performances'], function() {
+                
+            });
+        });
     });
 
     Route::group(['middleware' => 'auth:api'], function () {
-
-    });
-
-    Route::group(['middleware' => 'admin:api'], function () {
-        Route::post('register', 'UserController@register');
-        Route::get('all', 'UserController@all');
-        Route::get('{id}', 'UserController@userById');
-
-        //Performances
-        Route::group(['prefix' => 'performances'], function() {
-            
-        });
+        
     });
 });

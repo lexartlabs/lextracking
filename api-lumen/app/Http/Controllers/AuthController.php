@@ -33,6 +33,11 @@ class AuthController extends BaseController
         ], 401);
     }
 
+    public function current()
+    {
+        return Auth::user();
+    }
+
     protected function respondWithToken($token)
     {
         return response()->json([

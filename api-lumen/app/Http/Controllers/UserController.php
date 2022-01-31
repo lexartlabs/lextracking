@@ -91,4 +91,9 @@ class UserController extends BaseController
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "user"), 500));
         }
     }
+
+    public function current()
+    {
+        return json_encode(AuthController::current());
+    }
 }
