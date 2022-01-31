@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Exception;
 use Laravel\Lumen\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\AuthController;
@@ -76,6 +75,20 @@ class UserController extends BaseController
             return json_encode(User::all());
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "login"), 500));
+        }
+    }
+
+    public function userById($id)
+    {
+        try {
+            $user = User::where('id', $id)->first();
+            if(!$user) {
+                return (new Response(array("Error" => USER_NOT, "Operation" => "user"), 500));
+            }
+
+            return json_encode($user);
+        } catch (Exception $e) {
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "user"), 500));
         }
     }
 }

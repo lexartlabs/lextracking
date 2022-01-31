@@ -15,17 +15,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix' => 'api'], function ($router) {
-    Route::post('login', 'UserController@login');
+Route::get('/', function ($router) {
+    return $router->app->version();
+});
 
-    //SOMENTE AUTHENTICADOS
+Route::group(['prefix' => 'api'], function ($router) {
+
+    Route::group(['prefix' => 'user'], function () {
+        Route::post('login', 'UserController@login');
+    });
+
     Route::group(['middleware' => 'auth:api'], function () {
-        
-        //SOMENTE ADMIN
-        Route::group(['middleware' => 'admin:api'], function () {
+
+    });
+
+    Route::group(['middleware' => 'admin:api'], function () {
+        Route::post('register', 'UserController@register');
+        Route::get('all', 'UserController@all');
+        Route::get('{id}', 'UserController@userById');
+
+        //Performances
+        Route::group(['prefix' => 'performances'], function() {
             
-            Route::post('register', 'UserController@register');
-            Route::get('all', 'UserController@all');
         });
     });
 });
