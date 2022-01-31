@@ -26,21 +26,21 @@ Route::group(['prefix' => 'api'], function ($router) {
         
         Route::group(['middleware' => 'auth:api'], function () {
             Route::get('current', 'UserController@current');
+            Route::get('current/performance', 'PerformanceController@current');
+            
         });
 
         Route::group(['middleware' => 'admin:api'], function () {
             Route::post('register', 'UserController@register');
             Route::get('all', 'UserController@all');
             Route::get('{id}', 'UserController@userById');
-    
+
             //Performances
-            Route::group(['prefix' => 'performances'], function() {
-                
+            Route::get('{id}/performance', 'PerformanceController@userId');
+            Route::group(['prefix' => 'performance'], function() {
+                Route::get('all', 'PerformanceController@all');
+                Route::post('save', 'PerformanceController@save');
             });
         });
-    });
-
-    Route::group(['middleware' => 'auth:api'], function () {
-        
     });
 });

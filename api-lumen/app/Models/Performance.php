@@ -9,6 +9,8 @@ class Performance extends Model
 {
     use HasFactory;
 
+    protected $table = 'performance';
+
     protected $fillable = [
         'idUser', 'idMonth', 'year', 'idUser'
     ];
