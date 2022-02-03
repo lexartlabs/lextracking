@@ -34,6 +34,8 @@ Route::group(['prefix' => 'api'], function ($router) {
             Route::post('register', 'UserController@register');
             Route::get('all', 'UserController@all');
             Route::get('{id}', 'UserController@userById');
+            Route::delete('delete', 'UserController@delete');
+            Route::post('undelete', 'UserController@undelete');
 
             //Performances
             Route::get('{id}/performance', 'PerformanceController@userId');
