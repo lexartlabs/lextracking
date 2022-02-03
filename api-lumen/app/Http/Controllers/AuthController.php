@@ -21,8 +21,9 @@ class AuthController extends BaseController
             ], 401);
         }
         $bearer = $this->respondWithToken($token);
-
-        return json_encode(array("token" => $bearer, "user" => Auth::user()));
+        $user = Auth::user();
+        $user->token = $bearer['access_token'];
+        return json_encode($user);
     }
 
     public function logout()
@@ -40,10 +41,8 @@ class AuthController extends BaseController
 
     protected function respondWithToken($token)
     {
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => Auth::factory()->getTTL() * 60 // default 1 hour
-        ]);
+        return array('access_token' => $token,
+        'token_type' => 'bearer',
+        'expires_in' => Auth::factory()->getTTL() * 60);
     }
 }
