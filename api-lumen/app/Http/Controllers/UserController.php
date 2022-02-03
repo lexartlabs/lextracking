@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Exception;
 use Laravel\Lumen\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\AuthController;
@@ -24,7 +23,7 @@ class UserController extends BaseController
 
         try {
 
-            $user = User::where('email', $email)->first();
+            $user = User::where('email', $email)->where('status', 0)->first();
 
             if (!$user) {
                 return (new Response(array("Error" => INVALID_LOGIN, "Operation" => "login"), 400));
@@ -76,6 +75,67 @@ class UserController extends BaseController
             return json_encode(User::all());
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "login"), 500));
+        }
+    }
+
+    public function userById($id)
+    {
+        try {
+            $user = User::where('id', $id)->first();
+            if(!$user) {
+                return (new Response(array("Error" => USER_NOT, "Operation" => "user"), 500));
+            }
+
+            return json_encode($user);
+        } catch (Exception $e) {
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "user"), 500));
+        }
+    }
+
+    public function current()
+    {
+        return json_encode(AuthController::current());
+    }
+
+    public function delete(Request $request)
+    {
+        $this->validate($request, [
+            "id" => "required",
+        ]);
+
+        $id = $request->input("id");
+        
+        try{
+            $user = User::where("id", $id)->where("status", 0)->first();
+
+            if(!$user) {
+               return (new Response(array("Error" => USER_NOT, "Operation" => "delete"), 400));
+            }
+
+            return User::where("id", $id)->update(["status" => 1]);
+        }catch (Exception $e){
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "delete"), 500));
+        }
+    }
+
+    public function undelete(Request $request)
+    {
+        $this->validate($request, [
+            "id" => "required",
+        ]);
+        
+        $id = $request->input("id");
+        
+        try{
+            $user = User::where("id", $id)->where("status", 1)->first();
+
+            if(!$user) {
+                return (new Response(array("Error" => USER_NOT, "Operation" => "undelete"), 400));
+            }
+
+            return User::where("id", $id)->update(["status" => 0]);
+        }catch (Exception $e){
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "undelete"), 500));
         }
     }
 }

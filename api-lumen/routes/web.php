@@ -15,17 +15,34 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix' => 'api'], function ($router) {
-    Route::post('login', 'UserController@login');
+Route::get('/', function ($router) {
+    return $router->app->version();
+});
 
-    //SOMENTE AUTHENTICADOS
-    Route::group(['middleware' => 'auth:api'], function () {
+Route::group(['prefix' => 'api'], function ($router) {
+
+    Route::group(['prefix' => 'user'], function () {
+        Route::post('login', 'UserController@login');
         
-        //SOMENTE ADMIN
-        Route::group(['middleware' => 'admin:api'], function () {
+        Route::group(['middleware' => 'auth:api'], function () {
+            Route::get('current', 'UserController@current');
+            Route::get('current/performance', 'PerformanceController@current');
             
+        });
+
+        Route::group(['middleware' => 'admin:api'], function () {
             Route::post('register', 'UserController@register');
             Route::get('all', 'UserController@all');
+            Route::get('{id}', 'UserController@userById');
+            Route::delete('delete', 'UserController@delete');
+            Route::post('undelete', 'UserController@undelete');
+
+            //Performances
+            Route::get('{id}/performance', 'PerformanceController@userId');
+            Route::group(['prefix' => 'performance'], function() {
+                Route::get('all', 'PerformanceController@all');
+                Route::post('save', 'PerformanceController@save');
+            });
         });
     });
 });

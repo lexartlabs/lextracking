@@ -16,14 +16,21 @@ class Admin
 
     public function handle($request, Closure $next, $guard = null)
     {
+        if ($this->auth->guard($guard)->guest()) {
+            return response()->json([
+                'message' => 'Unauthorized'
+            ], 401);
+        }
+        
         $user = $this->auth->guard($guard)->user();
 
-        if ($user->role === 'admin') {
-            return $next($request);
+        if ($user->role !== 'admin') {
+            return response()->json([
+                'message' => 'Unauthorized'
+            ], 401);
+            
         }
 
-        return response()->json([
-            'message' => 'Unauthorized'
-        ], 401);
+        return $next($request);
     }
 }
