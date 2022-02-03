@@ -67,20 +67,33 @@ class User {
 	}
 
 	// GET USER BY ID
-	public function getAllUsers($conn){
-		$sql	="SELECT * FROM ".$this->model;
-		$d 		= $conn->query($sql);
-		
-		// CALLBACK
-		if(!empty($d)){
-			return array("response" => $d);
-		} else {
-			return array("error" => "Error: no existen usuarios.");
+	public function getAllUsers($conn, $params){
+		if($params["active"] == true){
+			$sql	="SELECT * FROM ".$this->model." WHERE status = 0";
+			$d 		= $conn->query($sql);
+			
+			// CALLBACK
+			if(!empty($d)){
+				return array("response" => $d);
+			} else {
+				return array("error" => "Error: no existen usuarios.");
+			}
+		} elseif ($params['active'] == false){
+			$sql	="SELECT * FROM ".$this->model." WHERE status = 1";
+			$d 		= $conn->query($sql);
+			
+			// CALLBACK
+			if(!empty($d)){
+				return array("response" => $d);
+			} else {
+				return array("error" => "Error: no existen usuarios.");
+			}
 		}
+		
 	}
 
 	public function getUserById($conn,$id){
-		$sql	="SELECT * FROM ".$this->model." WHERE id='$id'";
+		$sql	="SELECT * FROM ".$this->model." WHERE id='$id' AND status = 0";
 		$d 		= $conn->query($sql);
 		
 		// CALLBACK
@@ -95,17 +108,18 @@ class User {
 		// CLEAR FIELDS
 		// $user["email"] 		= $conn->escapeString($user["email"]);
 		// $user["password"] 	= $conn->escapeString($user["password"]);
-  	//       $user["password"] 	=  $this->cryptoPsw($user["password"].$user["email"]);
+  		// $user["password"] 	=  $this->cryptoPsw($user["password"].$user["email"]);
 
 		$hash = md5($user[password]);
-		$sql	="SELECT * FROM ".$this->model." WHERE email='$user[email]' AND password = '$hash'";
+		$sql	="SELECT * FROM ".$this->model." WHERE email='$user[email]' AND password = '$hash' AND status = 0";
 		$d 		= $conn->query($sql);
-		
+	
 		// CALLBACK
 		if(!empty($d)){
-
 			// SET TOKEN
-			$d[0]["token"] =  $this->cryptoPsw($d[0]["password"].$d[0]["email"]);
+			$d[0]["token"]  =  $this->cryptoPsw($d[0]["password"].$d[0]["email"]);
+			$d[0]["status"] =  $status;
+
 			return array("response" => $d[0]);
 		} else {
 			return array("error" => "Error: email o clave incorrecta.");
@@ -113,7 +127,7 @@ class User {
 	}
 	
 	public function insertUser($conn,$user){
-		$sql_0	="SELECT * FROM ".$this->model." WHERE email='$user[email]' ";
+		$sql_0	="SELECT * FROM ".$this->model." WHERE email='$user[email]' AND status = 0";
 		$d_0 	= $conn->query($sql_0);
 		if(empty($d_0)){
 			//Actualizar usuario
@@ -160,7 +174,7 @@ class User {
 	}
 
 	public function updateUser($conn, $user){
-		$sql0 = "SELECT * FROM $this->model WHERE id='$user[id]'";
+		$sql0 = "SELECT * FROM $this->model WHERE id='$user[id]' AND status = 0";
 		$res0 = $conn->query($sql0);
 		if ($res0[0]["password"] != ($user[password])){
 			$sql = "UPDATE ".$this->model." SET name = '$user[name]', email = '$user[email]', password = MD5('$user[password]'), role = '$user[role]', jiraToken = '$user[jiraToken]' WHERE id='$user[id]'";
@@ -184,7 +198,7 @@ class User {
 	}
 
 	public function userpersistence($conn, $token){
-		$sql = "SELECT * FROM Users";
+		$sql = "SELECT * FROM Users WHERE status = 0";
 		$d 	 = $conn->query($sql);
 		$cnt = count($d);
 		$var1 = $token['token'];
@@ -200,7 +214,30 @@ class User {
 			}
 		}
 	}
-}
 
+	public function softDeleteUser($conn, $id) {
+		$sql = "UPDATE ". $this->model. " SET status = 1 WHERE id = '$id'";
+		$d   = $conn->query($sql);
+		
+		//CALLBACK
+		if(empty($d)) {
+			return array("response" => "Usuario eliminado");
+		} else {
+			return array("error" => "Error: no se encuentra el usuario");
+		}
+	}
+
+	public function revertSoftDeleteUser($conn, $id) {
+		$sql = "UPDATE " .$this->model. " SET status = 0 WHERE id = '$id'";
+		$d   = $conn->query($sql);
+
+		//CALLBACK
+		if(empty($d)) {
+			return array("response" => "Usuario restaurado");
+		}else {
+			return array("error" => "Error: no se encuentra el usuario");
+		}
+	}
+}
 ?>
 

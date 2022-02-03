@@ -41,5 +41,4 @@
 	} else {
 		echo json_encode( array("response" => 'err') );
 	}
-	
 ?>
