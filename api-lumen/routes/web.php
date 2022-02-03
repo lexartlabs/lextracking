@@ -45,4 +45,19 @@ Route::group(['prefix' => 'api'], function ($router) {
             });
         });
     });
+
+    Route::group(['prefix' => 'projects', 'middleware' => 'auth:api'], function() {
+        Route::get('all', 'ProjectsController@all');
+        Route::get('{id}', 'ProjectsController@all');
+
+        Route::get('client/{id}', 'ProjectsController@client');
+
+        Route::group(['prefix' => 'tasks'], function() {
+            Route::get('all', 'TasksController@all');
+            Route::get('{id}', 'TasksController@all');
+            Route::delete('delete', 'TasksController@delete');
+
+            Route::get('project/{id}', 'TasksController@project');
+        });
+    });
 });
