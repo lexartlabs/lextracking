@@ -57,7 +57,7 @@ Route::group(['prefix' => 'api'], function ($router) {
             Route::get('{id}', 'TasksController@all');
             Route::delete('delete', 'TasksController@delete');
             Route::post('undelete', 'TasksController@undelete');
-            Route::post('update', 'TasksController@update');
+            Route::put('update', 'TasksController@update');
             Route::post('create', 'TasksController@create');
             Route::get('user/current', 'TasksController@currentUser');
             
@@ -68,7 +68,12 @@ Route::group(['prefix' => 'api'], function ($router) {
 
     Route::group(['prefix' => 'tracks', 'middleware' => 'auth:api'], function() {
         Route::get('all', 'TracksController@all'); //PAGINAÇÃO DE DATABASE
-
         Route::get('{id}', 'TracksController@all');
+
+        Route::post('new', 'TracksController@new');
+        Route::put('update', 'TracksController@update');
+        
+        Route::get('current', 'TracksController@current');
+        Route::post('current/date', 'tracksController@currentUserDate');
     });
 });
