@@ -65,4 +65,10 @@ Route::group(['prefix' => 'api'], function ($router) {
             Route::get('user/{id}', 'TasksController@userId');
         });
     });
+
+    Route::group(['prefix' => 'tracks', 'middleware' => 'auth:api'], function() {
+        Route::get('all', 'TracksController@all'); //PAGINAÇÃO DE DATABASE
+
+        Route::get('{id}', 'TracksController@all');
+    });
 });
