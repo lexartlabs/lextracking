@@ -98,7 +98,7 @@ class TracksController extends BaseController
             "idTask" => "required|numeric",
             "idUser" => "required|numeric",
             "name" => "required",
-            "startTime" => "required",
+            "startTime" => "required|date",
             "typeTrack" => "required",
         ]);
 
@@ -122,8 +122,8 @@ class TracksController extends BaseController
     public function update(Request $request)
     {
         $this->validate($request,[
-            "duracion" => "required",
-            "endTime" => "required",
+            "duracion" => "required|regex:/(\d+\:\d+)/",
+            "endTime" => "required|date",
             "id" => "required|numeric",
         ]);
 
