@@ -71,12 +71,11 @@ Route::group(['prefix' => 'api'], function ($router) {
                 Route::post('new', 'TrelloTasksController@new');
                 Route::put('update', 'TrelloTasksController@update');
     
-                Route::get('user/current', 'TrelloTasksController@current');
-                Route::post('user/current/date', 'TrelloTasksController@currentUserDate');
-
                 Route::group(['prefix' => 'boards'], function (){
                     Route::get('all', 'BoardTrelloController@all');
                     Route::get('{id}', 'BoardTrelloController@all');
+
+                    Route::post('new', 'BoardTrelloController@new');
                 });
             });
         });
