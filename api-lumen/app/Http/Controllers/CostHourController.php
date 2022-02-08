@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CostHour;
+use App\Models\Weeklyhours;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 class CostHourController extends BaseController
 {
     public function costHour($duration, $userId)
     {
-        $cost = CostHour::where('idUser', $userId)->first()->costHour;
+        $cost = Weeklyhours::where('idUser', $userId)->first()->costHour;
         $costDecimal = $this->convertTimeToDecimal($duration);
         $trackCost = round($costDecimal * intval($cost)) ? round($costDecimal * intval($cost)) : 0 ;
 
