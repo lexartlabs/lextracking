@@ -9,6 +9,9 @@ use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\CostHourController;
 use App\Http\Controllers\AuthController;
+use Illuminate\Http\Response;
+use App\Models\TrelloTasks;
+use App\Models\Tasks;
 
 class TracksController extends BaseController
 {
@@ -94,21 +97,33 @@ class TracksController extends BaseController
     {
         $this->validate($request,[
             "currency" => "",
-            "idProyecto" => "required|numeric",
+            "idProyecto" => "required|numeric|exists:projects,id",
             "idTask" => "required|numeric",
-            "idUser" => "required|numeric",
+            "idUser" => "required|numeric|exists:users,id",
             "name" => "required",
             "startTime" => "required|date",
             "typeTrack" => "required",
         ]);
 
+        $idTask = $request->input("idTask");
         $currency = $request->input("currency");
         $idProyecto = $request->input("idProyecto");
-        $idTask = $request->input("idTask");
         $idUser = $request->input("idUser");
         $name = $request->input("name");
         $startTime = $request->input("startTime");
         $typeTrack = $request->input("typeTrack");
+        
+        if($typeTrack == "manual"){
+            $task_manual = Tasks::where('id', $idTask)->first();
+
+            if(!$task_manual){
+                $task_trello = TrelloTasks::where('id', $idTask)->first();
+
+                if(!$task_trello){
+                    return (new Response(array("Error" => TASK_INVALID, "Operation" => "tracks new"), 500));
+                }
+            }
+        }
 
         try{
             $track = $this->arrayTracks($currency, $idProyecto, $idTask, $idUser, $name, $startTime, $typeTrack);

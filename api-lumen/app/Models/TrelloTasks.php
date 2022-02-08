@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TrelloTracks extends Model
+class TrelloTasks extends Model
 {
     use HasFactory;
 

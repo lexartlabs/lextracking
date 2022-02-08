@@ -63,6 +63,22 @@ Route::group(['prefix' => 'api'], function ($router) {
             
             Route::get('project/{id}', 'TasksController@project');
             Route::get('user/{id}', 'TasksController@userId');
+            
+            Route::group(['prefix' => 'trello'], function (){
+                Route::get('all', 'TrelloTasksController@all');
+                Route::get('{id}', 'TrelloTasksController@all');
+                
+                Route::post('new', 'TrelloTasksController@new');
+                Route::put('update', 'TrelloTasksController@update');
+    
+                Route::get('user/current', 'TrelloTasksController@current');
+                Route::post('user/current/date', 'TrelloTasksController@currentUserDate');
+
+                Route::group(['prefix' => 'boards'], function (){
+                    Route::get('all', 'BoardTrelloController@all');
+                    Route::get('{id}', 'BoardTrelloController@all');
+                });
+            });
         });
     });
 
@@ -75,16 +91,5 @@ Route::group(['prefix' => 'api'], function ($router) {
         
         Route::get('user/current', 'TracksController@current');
         Route::post('user/current/date', 'TracksController@currentUserDate');
-
-        Route::group(['prefix' => 'trello'], function (){
-            Route::get('all', 'TrelloTracksController@all');
-            Route::get('{id}', 'TrelloTracksController@all');
-            
-            Route::post('new', 'TrelloTracksController@new');
-            Route::put('update', 'TrelloTracksController@update');
-
-            Route::get('user/current', 'TrelloTracksController@current');
-            Route::post('user/current/date', 'TrelloTracksController@currentUserDate');
-        });
     });
 });

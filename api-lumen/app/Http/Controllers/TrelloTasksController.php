@@ -3,21 +3,21 @@
 namespace App\Http\Controllers;
 
 use Laravel\Lumen\Routing\Controller as BaseController;
-use App\Models\TrelloTracks;
+use App\Models\TrelloTasks;
 use Exception;
 use Illuminate\Http\Request;
 
-class TrelloTracksController extends BaseController
+class TrelloTasksController extends BaseController
 {
     public function all($id = null)
     {
         try{
             if(!empty($id)){
-                return TrelloTracks::where('id', $id)->first();
+                return TrelloTasks::where('id', $id)->first();
             }
-            return TrelloTracks::paginate(15);
+            return TrelloTasks::paginate(15);
         }catch(Exceptio $e){
-            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks all"), 500));
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks trello all"), 500));
         }
     }
 
@@ -25,9 +25,9 @@ class TrelloTracksController extends BaseController
     {
         $this->validate($request, [
             "card_id" => "required",
-            "id_project" => "required|numeric",
-            "idProyecto" => "required|numeric",
-            "id_board" => "required",
+            "id_project" => "required|numeric|exists:projects,id",
+            "idProyecto" => "required|numeric|exists:projects,id",
+            "id_board" => "required|exists:trelloboard,tablero_id",
             "name" => "required",
             "project" => "required",
             "description" => "",
@@ -66,9 +66,9 @@ class TrelloTracksController extends BaseController
         );
         
         try{
-            return TrelloTracks::create($track);
+            return TrelloTasks::create($track);
         }catch(Exception $e){
-
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks trello new"), 500));
         }
     }
 }
