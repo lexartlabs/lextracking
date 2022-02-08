@@ -61,29 +61,31 @@ class WeeklyhoursController extends BaseController
             "id" => "required|numeric"
         ]);
 
-        $weeklyhours = $request->only([
-            "idUser",
-            "userName",
-            "costHour",
-            "workLoad",
-            "currency",
-            "borrado",
-        ]);
-
         try{
-            $id = $request->input("id");
-            $weeklyhours = WeeklyHours::where('id', $id)->first();
 
-            if(!$weeklyhours){
+            $weeklyhours = $request->only([
+                "idUser",
+                "userName",
+                "costHour",
+                "workLoad",
+                "currency",
+                "borrado",
+            ]);
+
+            $id = $request->input("id");
+            $weeklyhours_where = WeeklyHours::where('id', $id)->first();
+
+            if(!$weeklyhours_where){
                 return (new Response(array("Error" => ID_INVALID, "Operation" => "weeklyhours update"), 400));
             }
 
-            return WeeklyHours::where('id', $id)->update('idUser', $weeklyhours->idUser)
-                ->update("userName", $weeklyhours->userName)
-                ->update("costHour", $weeklyhours->costHour)
-                ->update("workLoad", $weeklyhours->workLoad)
-                ->update("currency", $weeklyhours->currency)
-                ->update("borrado", $weeklyhours->borrado);
+            return WeeklyHours::where('id', $id)->update([
+                'idUser' => $weeklyhours['idUser'],
+                "userName" => $weeklyhours['userName'],
+                "costHour" => $weeklyhours['costHour'],
+                "workLoad" => $weeklyhours['workLoad'],
+                "currency" => $weeklyhours['currency'],
+                "borrado" => $weeklyhours['borrado']]);
         }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "weeklyhours update"), 500));
         }
