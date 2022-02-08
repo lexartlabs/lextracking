@@ -20,7 +20,7 @@ class WeeklyhoursController extends BaseController
 
                 return $weeklyhours;
             }
-            $weeklyhours = Weeklyhours::paginate(15);
+            $weeklyhours = Weeklyhours::all();
 
             return $weeklyhours;
         }catch(Exceptio $e){
