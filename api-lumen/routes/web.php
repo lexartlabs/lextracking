@@ -26,8 +26,10 @@ Route::group(['prefix' => 'api'], function ($router) {
         
         Route::group(['middleware' => 'auth:api'], function () {
             Route::get('current', 'UserController@current');
-            Route::get('current/performance', 'PerformanceController@current');
-            
+
+            Route::group(['prefix' => 'performance'], function() {
+                Route::get('current', 'PerformanceController@current');
+            });
         });
 
         Route::group(['middleware' => 'admin:api'], function () {
