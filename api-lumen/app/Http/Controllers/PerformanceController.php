@@ -55,12 +55,10 @@ class PerformanceController extends BaseController
             "costHour" => "required|numeric",
         ]);
 
-        $performance = $request->only(["idUser", "year", "idMonth", "month", "salary", "costHour"]);
-
-        return Performance::create($performance);
-
         try{
-            
+            $performance = $request->only(["idUser", "year", "idMonth", "month", "salary", "costHour"]);
+
+            return Performance::create($performance);
         }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "performance new"), 500));
         }
