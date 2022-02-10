@@ -13,8 +13,6 @@ class Performance extends Model
 
     public $timestamps = false;
 
-    protected $fillable = [
-        'id', 'idUser', 'month', 'idMonth', 'year', 'costHour', "salary"
-    ];
+    protected $fillable = ['id', 'idUser', 'month', 'idMonth', 'year', 'costHour', "salary"];
 
 }

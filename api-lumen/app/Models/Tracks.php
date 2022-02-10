@@ -14,7 +14,7 @@ class Tracks extends Model
 
     protected $fillable = [
         'id', 'idTask', 'idUser', 'name', 'typeTrack',
-         'currency', 'trackCost', 'idProyecto', 'startTime', 'endTime'
+        'currency', 'trackCost', 'idProyecto', 'startTime', 'endTime'
     ];
 
 }
