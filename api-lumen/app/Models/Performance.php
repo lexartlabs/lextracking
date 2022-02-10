@@ -11,5 +11,8 @@ class Performance extends Model
 
     protected $table = 'performance';
 
-    protected $fillable = ['idUser', 'idMonth', 'year', 'idUser'];
+    public $timestamps = false;
+
+    protected $fillable = ['id', 'idUser', 'month', 'idMonth', 'year', 'costHour', "salary"];
+
 }

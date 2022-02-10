@@ -16,6 +16,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     protected $fillable = ['email', 'password','name','role'];
 
+    protected $hidden = ['created_at', 'updated_at', 'status'];
+
     public function getJWTIdentifier()
     {
         return $this->getKey();
