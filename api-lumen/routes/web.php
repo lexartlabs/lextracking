@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//ROUTES
+
 Route::get('/', function ($router) {
     return $router->app->version();
 });
