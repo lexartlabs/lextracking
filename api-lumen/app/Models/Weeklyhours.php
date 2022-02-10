@@ -12,8 +12,6 @@ class Weeklyhours extends Model
     protected $table = 'weeklyhours';
     public $timestamps = false;
 
-    protected $fillable = [
-        'id', 'idUser', 'userName', 'costHour', 'workLoad', 'currency', 'borrado'
-    ];
+    protected $fillable = ['id', 'idUser', 'userName', 'costHour', 'workLoad', 'currency', 'borrado'];
 
 }
