@@ -22,7 +22,7 @@ class AuthController extends BaseController
         }
         $bearer = $this->respondWithToken($token);
         $user = Auth::user();
-        $user->token = $bearer['access_token'];
+        $user->token = $bearer;
         return json_encode($user);
     }
 
@@ -42,7 +42,7 @@ class AuthController extends BaseController
     protected function respondWithToken($token)
     {
         return array('access_token' => $token,
-        'token_type' => 'bearer',
-        'expires_in' => Auth::factory()->getTTL() * 60);
+        'token_type' => 'bearer');
+        //'expires_in' => Auth::factory()->getTTL() * 60);
     }
 }
