@@ -28,14 +28,10 @@ Route::group(['prefix' => 'api'], function ($router) {
         
         Route::group(['middleware' => 'auth:api'], function () {
             Route::get('current', 'UserController@current');
-<<<<<<< HEAD
 
             Route::group(['prefix' => 'performance'], function() {
                 Route::get('current', 'PerformanceController@current');
             });
-=======
-            Route::get('current/performance', 'PerformanceController@current');
->>>>>>> lumen-migration
         });
 
         Route::group(['middleware' => 'admin:api'], function () {
