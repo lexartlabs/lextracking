@@ -25,7 +25,7 @@
             }
 
             $scope.authenticate = function() {
-                RestClient.post('login', $scope.user, function(err, result) {
+                RestClient.post('user/login', $scope.user, function(err, result) {
                     if (result == null) {
                         if (typeof callback === 'function') {
                             callback(err, result);
@@ -40,7 +40,7 @@
 
                         var user = result;
 
-                        $window.localStorage[TOKEN_KEY]   = user.token;
+                        $window.localStorage[TOKEN_KEY]   = 'Bearer ' +user.token;
                         $window.localStorage["userId"]    = user.id;
                         $window.localStorage["userName"]  = user.name;
                         $window.localStorage["userEmail"] = user.email;

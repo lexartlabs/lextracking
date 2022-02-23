@@ -16,7 +16,7 @@ class WeeklyhoursController extends BaseController
     {
         try{
             if(!empty($id)){
-                $weeklyhours = Weeklyhours::where('id', $id)->first();
+                $weeklyhours = Weeklyhours::where('id', $id)->get();
 
                 return $weeklyhours;
             }
@@ -32,7 +32,7 @@ class WeeklyhoursController extends BaseController
     {
         if($id){
             try{
-                return Weeklyhours::where('idUser', $id)->first();
+                return Weeklyhours::where('idUser', $id)->get();
             }catch(Exception $e){
                 return (new Response(array("Error" => BAD_REQUEST, "Operation" => "weeklyhours user id"), 500));
             }
@@ -46,7 +46,7 @@ class WeeklyhoursController extends BaseController
         $user = AuthController::current();
         $id = $user->id;
         
-        return $this->user($id);
+        return array('response' => $this->user($id));
     }
 
     public function update(Request $request)

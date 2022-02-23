@@ -6,7 +6,7 @@
 
   Module.factory('WeeklyHourServices', ['RestClient', function(RestClient){
 
-    var model = "weeklyHour";
+    var model = "weeklyhours";
 
     var factory = {
 
@@ -24,6 +24,12 @@
 
       verifyUSer: function (user, cb){
         RestClient.get(model + "/user/" + user, function(err, result){
+          cb(err,result);
+        })
+      },
+
+      currentUser: function (user, cb){
+        RestClient.get(model + "/user/current", function(err, result){
           cb(err,result);
         })
       },

@@ -30,7 +30,7 @@ Route::group(['prefix' => 'api'], function ($router) {
             Route::get('current', 'UserController@current');
 
             Route::group(['prefix' => 'performance'], function() {
-                Route::get('current', 'PerformanceController@current');
+                Route::post('current', 'PerformanceController@current');
             });
         });
 
@@ -92,13 +92,16 @@ Route::group(['prefix' => 'api'], function ($router) {
     Route::group(['prefix' => 'tracks', 'middleware' => 'auth:api'], function() {
         Route::get('all', 'TracksController@all');
         Route::get('{id}', 'TracksController@all');
-
+        
         Route::post('new', 'TracksController@new');
         Route::put('update', 'TracksController@update');
         
         Route::group(['prefix' => 'user'], function(){
             Route::get('current', 'TracksController@current');
+            Route::get('current/last', 'TracksController@currentUserLastTask');
             Route::post('current/date', 'TracksController@currentUserDate');
+            Route::post('current/calendar', 'TracksController@currentCalendar');
+            Route::post('current/month', 'TracksController@currentMonth'); 
         });
     });
 

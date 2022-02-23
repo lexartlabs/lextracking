@@ -18,7 +18,7 @@ class ClientsController extends BaseController
                return Clients::where('id', $id)->first(); 
             }
 
-            return Clients::all();
+            return array('response' => Clients::all());
         }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "clients all"), 500));
         }

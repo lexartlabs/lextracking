@@ -16,6 +16,12 @@
 		      	})
 		    },
 
+			currentUser: function(cb) {
+				RestClient.get(model + "/current", function(err, result) {
+		    		cb(err, result);
+		    	})
+			},
+
 		    findById: function(id, cb) {
 		    	RestClient.get(model + "/" + id, function(err, result) {
 		    		cb(err, result);
@@ -58,6 +64,12 @@
 		    	})
 		    },
 
+			getPerformanceCurrent: function(obj, cb){
+		    	RestClient.post(model + "/performance/current", obj, function(err, result){
+		    		cb(err, result);
+		    	})
+		    },
+
 		    allPerformances: function(obj, cb){
 		    	RestClient.post(model + "/all-performance", obj, function(err, result){
 		    		cb(err, result);
@@ -66,8 +78,7 @@
 
 		    //persistence: function(obj, cb) {
 		    persistence: function(cb) {
-		    	var obj = {"token": $window.localStorage['lextracking-web-token']}
-		    	RestClient.post("persistence" , obj, function(err, result) {
+		    	RestClient.get("user/current", function(err, result) {
 		        	cb(err, result);
 		        })
 		    }

@@ -32,7 +32,7 @@ class UserController extends BaseController
             }
 
             $auth = new AuthController();
-            return $auth->login($user);
+            return array('response' => json_decode($auth->login($user)));
 
         try {
 
@@ -74,7 +74,7 @@ class UserController extends BaseController
     public function all()
     {
         try {
-            return json_encode(User::all());
+            return array("response" => json_decode(User::all()));
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "login"), 500));
         }
@@ -94,9 +94,13 @@ class UserController extends BaseController
         }
     }
 
-    public function current()
+    public function current(Request $request)
     {
-        return json_encode(AuthController::current());
+        $auth_code = $request->header()['authorization'][0];
+        
+        $current = AuthController::current();
+        $current->token = $auth_code;
+        return array('response' => $current);
     }
 
     public function delete(Request $request)

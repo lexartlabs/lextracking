@@ -6,7 +6,7 @@
 
     Module.factory('TracksServices', ['RestClient', function(RestClient){
 
-	  	var model = "track";
+	  	var model = "tracks";
 
 	  	var factory = {
 
@@ -66,6 +66,12 @@
 
 			getLastUserTrack: function(idUser, cb) {
 				RestClient.get(model + "/user/" + idUser + "/last", function(err, result) {
+					cb(err, result);
+				})
+			},
+
+			getCurrentUserLastTrack: function(idUser, cb) {
+				RestClient.get(model + "/user/current/last", function(err, result) {
 					cb(err, result);
 				})
 			},
@@ -206,6 +212,13 @@
 
 			findByMonth: function(obj,cb) {
 				RestClient.post(model + "/month", obj, function(err, result){
+		    		cb(err, result);
+				})
+			},
+
+			findCurrentByMonth: function(obj,cb) {
+				RestClient.post(model + "/user/current/month", obj, function(err, result){
+					console.log(result);
 		    		cb(err, result);
 				})
 			}

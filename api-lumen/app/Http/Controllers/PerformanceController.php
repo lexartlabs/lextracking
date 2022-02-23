@@ -12,15 +12,15 @@ use Illuminate\Http\Request;
 
 class PerformanceController extends BaseController
 {
-    public function userId($id)
+    public function userId($id, $idMonth, $year)
     {
         try{
-            $performance = Performance::where('idUser', $id)->get();
+            $performance = Performance::where('idUser', $id)->where('idMonth', $idMonth)->where('year', $year)->get();
             if(!$performance) {
                 return (new Response(array("Error" => PERFORMANCE_NOT, "Operation" => "performance"), 400));
             }
 
-            return json_encode($performance);
+            return array('response' => $performance);
         }catch (Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "performance"), 500));
         }
@@ -36,12 +36,18 @@ class PerformanceController extends BaseController
         }
     }
 
-    public function current()
+    public function current(Request $request)
     {
-        $user = AuthController::current();
-        $user_id = $user->id;
+        $this->validate($request, [
+            "idMonth" => "required|numeric",
+            "year" => "required|numeric"
+        ]);
 
-        return $this->userId($user_id);
+        $user_id = AuthController::current()->id;
+        $idMonth = $request->input("idMonth");
+        $year = $request->input("year");
+        
+        return $this->userId($user_id, $idMonth, $year);
     }
 
     public function save(Request $request)

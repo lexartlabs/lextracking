@@ -12,6 +12,8 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Http\Response;
 use App\Models\TrelloTasks;
 use App\Models\Tasks;
+use Illuminate\Support\Facades\DB;
+use TrelloTask;
 
 class TracksController extends BaseController
 {
@@ -79,6 +81,23 @@ class TracksController extends BaseController
 
     public function trackResponse($track)
     {   
+        $id_task = $track->idTask;
+        $typeTrack = $track->typeTrack;
+
+        $task = null;
+
+        if($typeTrack == "trello") {
+            $task = TrelloTasksController::all($id_task);
+            
+        }
+
+        if($typeTrack == "manual") {
+            $task = TasksController::all($id_task);
+        }
+
+        $track->taskName = $task->name;
+        $track->projectName = $task->project;
+
         $track->duration = $this->duracionDiff($track->startTime, $track->endTime);
         $costHout = new CostHourController();
         $track->trackCost = $costHout->costHour($track->duration, $track->idUser);
@@ -165,6 +184,56 @@ class TracksController extends BaseController
             "startTime" => $startTime,
             "typeTrack" => $typeTrack
         );
+    }
+
+    public function currentUserLastTask()
+    {
+        $user_id = AuthController::current()->id;
+
+        try{
+            $tracks = Tracks::where('idUser', $user_id)->orderBy("startTime", 'desc')->get();
+            
+            if(count($tracks) > 0){
+                $track = $this->trackResponse($tracks[0]);
+                return array("response" => $track);
+            }
+            return $tracks;
+        }catch(Exception $e){
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks current last"), 500));
+        }
+    }
+
+    public function currentCalendar()
+    {
+        $user_id = AuthController::current()->id;
+
+        try{
+
+        }catch(Exception $e){
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks current calendar"), 500));
+        }
+    }
+
+    public function currentMonth(Request $request) {
+
+        $this->validate($request, [
+            "idMonth" => "required|numeric",
+            "year" => "required|numeric"
+        ]);
+
+        $user_id = AuthController::current()->id;
+        $idMonth = $request->input("idMonth");
+        $year = $request->input("year");
+        
+        
+        try{
+            $tracks = DB::select("SELECT SUM(trackCost) AS salary FROM tracks WHERE month(endTime) = $idMonth AND year(endTime) = $year AND tracks.idUser = $user_id AND tracks.trackCost IS NOT NULL");
+            $tracks[0]->salary = $tracks[0]->salary == null ? 0 : $tracks[0]->salary;
+
+            return array('response' => $tracks);
+        }catch(Exception $e){
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks current calendar"), 500));
+        }
     }
 }
 

@@ -6,7 +6,7 @@
 
     Module.factory('ClientServices', ['RestClient', function(RestClient){
 	  	
-	  	var model = "client";
+	  	var model = "clients";
 	  
 	  	var factory = {
 
