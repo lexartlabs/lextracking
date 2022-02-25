@@ -70,4 +70,28 @@ class PerformanceController extends BaseController
         }
 
     }
+
+    public function saveCurrent(Request $request)
+    {
+        $this->validate($request, [
+            "year" => "required|numeric",
+            "idMonth" => "required|numeric",
+            "month" => "required",
+            "salary" => "required|numeric",
+            "costHour" => "required|numeric",
+        ]);
+
+        $user_id = AuthController::current()->id;
+        $only = $request->only(["year", "idMonth", "month", "salary", "costHour"]);
+
+        $only['idUser'] = $user_id;
+
+        try{
+            $performance = $only;
+            Performance::create($performance);
+            return array('response' => 'Salario actualizado correctamente.');
+        }catch(Exception $e){
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "performance new"), 500));
+        }
+    }
 }

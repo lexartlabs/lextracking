@@ -58,6 +58,12 @@
 		    	})
 		    },
 
+			saveCurrentPerformance: function(obj, cb){
+		    	RestClient.post(model + "/performance/current/save", obj, function(err, result){
+		    		cb(err, result);
+		    	})
+		    },
+
 		    getPerformanceById: function(obj, cb){
 		    	RestClient.post(model + "/performance-id", obj, function(err, result){
 		    		cb(err, result);

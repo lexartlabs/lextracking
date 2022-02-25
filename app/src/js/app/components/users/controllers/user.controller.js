@@ -132,7 +132,7 @@
                     $scope.performance.actual.month.costHour = result[0].costHour;
 
                     console.log(result[0])
-                    UserServices.savePerformance($scope.performance.actual.month, function(err, result){
+                    UserServices.saveCurrentPerformance($scope.performance.actual.month, function(err, result){
                         console.log('save performance', err, result);
                     })
                 })

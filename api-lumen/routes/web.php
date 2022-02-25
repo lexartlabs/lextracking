@@ -31,6 +31,7 @@ Route::group(['prefix' => 'api'], function ($router) {
 
             Route::group(['prefix' => 'performance'], function() {
                 Route::post('current', 'PerformanceController@current');
+                Route::post('current/save', 'PerformanceController@saveCurrent');
             });
         });
 
