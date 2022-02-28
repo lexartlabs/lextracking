@@ -16,8 +16,9 @@
   "devDependencies": {
     "bower": "^1.7.9",
     "connect-modrewrite": "^0.10.2",
-    "grunt": "^1.2.1",
+    "grunt": "^1.4.1",
     "grunt-cli": "^1.2.0",
+    "grunt-contrib": "^0.11.0",
     "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-connect": "^1.0.2",
     "grunt-contrib-copy": "^1.0.0",
@@ -34,11 +35,16 @@
     "ngrok": "^3.2.7"
   },
   "dependencies": {
+    "@fullcalendar/core": "^5.8.0",
+    "@fullcalendar/daygrid": "^5.8.0",
+    "@fullcalendar/list": "^5.8.0",
+    "@fullcalendar/timegrid": "^5.8.0",
     "angular-base64-upload": "^0.1.23",
     "angular-bootstrap-datetimepicker": "^1.1.4",
     "angular-paging": "^2.2.2",
     "angular-ui-router": "^0.3.1",
     "bower": "^1.8.0",
+    "fullcalendar": "^5.8.0",
     "grunt-contrib-uglify-es": "^3.3.0",
     "highcharts-ng": "0.0.13",
     "node-fetch": "^2.6.0",

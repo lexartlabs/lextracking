@@ -21,8 +21,8 @@
                     $window.localStorage["isAdmin"] != $rootScope.isAdmin ||
                     $window.localStorage["isClient"] != $rootScope.isClient ||
                     $window.localStorage["isDeveloper"] != $rootScope.isDeveloper){
-                        $window.localStorage.clear();
-                        state.go("login")
+                      //  $window.localStorage.clear();
+                      //  state.go("login")
                     }
                 }, true);
                 if(response.headers()['content-type'] == "application/json"){

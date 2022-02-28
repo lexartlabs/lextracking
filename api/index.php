@@ -4,15 +4,16 @@ header('Access-Control-Allow-Methods: POST, GET, DELETE, PUT, PATCH, OPTIONS');
 header('Content-Type: application/json');
 header('Access-Control-Allow-Headers: *');
 
+define ("ENV", "/lextracking/api");
+
 require('config/conn.php');
 //require('server.config/conn_local.php');
 require('classes/AltoRouter.php');
 require('classes/Token.php');
 
+
 ini_set('display_errors', 'On');
 error_reporting(1);
-
-
 	// CALL OBJS
 	$router 	= new AltoRouter();
 	$conn 		= new Connection();
@@ -28,6 +29,18 @@ error_reporting(1);
 		if($access){       
 			if($permission == "developer") {
 				//TODAS LAS RUTAS ACEPTADAS A DEVELOPERS DEBERIAN IR EN ESTE IF
+
+				//HORARIOS USUARIO
+				$router->map('GET', '/user-hours/[i:id]', 'components/userHours/get.php', 'user-hours'); 
+				$router->map('GET', '/past-events/[i:id]/[*:date_ini]', 'components/userHours/get.php', 'user-tracks-events'); 
+				$router->map('POST', '/user-hours', 'components/userHours/post.php', 'save-fixed-hours'); 
+				$router->map('POST', '/user-hours/[i:id]', 'components/userHours/post.php', 'edit-fixed-hours'); 
+				$router->map('POST', '/user-hours', 'components/userHours/post.php', 'delete-fixed-hours'); 
+
+				//EXCEPCIONES USUARIO
+				$router->map('GET', '/user-exceptions/[i:id]/[*:date_ini]', 'components/userHours/get.php', 'user-exceptions'); 
+				$router->map('POST', '/user-exceptions/[i:id]/[*:date_ini]', 'components/userHours/post.php', 'save-exceptions'); 
+				
 				$router->map('POST', '/persistence', 'components/users/post.php', 'user-persistence'); 
 				// CRYPTO ALGORITHM
 				$router->map('GET','/crypto/[a:psw]', 'components/crypto/index.php', 'crypto');
@@ -116,6 +129,9 @@ error_reporting(1);
 				$router->map('GET','/weeklyHours/all', 			'components/weeklyHours/index.php', 'weeklyHour-all');
 				$router->map('GET','/weeklyHour/user/[i:id]', 		'components/weeklyHours/get.php', 	'weeklyHour-by-idUser');
 
+				// tracks for cube
+				$router->map('GET', '/public/tracks-by-year/[i:id]/[i:year]', 'components/tracks/get.php', 'tracks-by-user-by-year');
+
 				$match = $router->match();
 				if($match) {
 				require $match['target'];
@@ -124,6 +140,19 @@ error_reporting(1);
 				}
 			} elseif ($permission == "admin" || $permission == "pm"){
 				//EN ADMIN VAN TODAS LAS RUTAS
+				
+				//HORARIOS DE USUARIOS
+				$router->map('GET', '/user-hours/[i:id]', 'components/userHours/get.php', 'user-hours'); 
+				$router->map('GET', '/past-events/[i:id]/[*:date_ini]', 'components/userHours/get.php', 'user-tracks-events'); 
+				$router->map('POST', '/user-hours', 'components/userHours/post.php', 'save-fixed-hours'); 
+				$router->map('POST', '/user-hours/[i:id]', 'components/userHours/post.php', 'edit-fixed-hours'); 
+				$router->map('POST', '/user-hours', 'components/userHours/post.php', 'delete-fixed-hours'); 
+
+				//USER EXCEPCIONES
+				$router->map('GET', '/user-exceptions/[i:id]/[*:date_ini]', 'components/userHours/get.php', 'user-exceptions'); 
+				$router->map('POST', '/user-exceptions/[i:id]/[*:date_ini]', 'components/userHours/post.php', 'save-exceptions'); 
+
+
 				$router->map('POST', '/persistence', 'components/users/post.php', 'user-persistence'); 
 
 				// CRYPTO ALGORITHM
@@ -131,7 +160,7 @@ error_reporting(1);
 	
 				// USERS
 					// ALL USERS
-					$router->map('GET','/user/all', 'components/users/index.php', 'users-all');
+					$router->map('GET','/user/all/[a:active]', 'components/users/index.php', 'users-all');
 	
 					// GET USERS BY ID
 					$router->map('GET','/user/[i:id]', 'components/users/get.php', 'user-by-id');
@@ -142,6 +171,10 @@ error_reporting(1);
 					$router->map('POST','/user/save-performance', 'components/users/post.php', 'user-performance');
 					$router->map('POST','/user/performance-id', 'components/users/post.php', 'user-performance-by-id');
 					$router->map('POST','/user/all-performance', 'components/users/post.php', 'performance-all');
+
+					// SOFT DELETE USER
+					$router->map('DELETE', '/user/remove/[i:id]', 'components/users/delete.php', 'user-delete');
+					$router->map('PUT', '/user/remove-revert/[i:id]', 'components/users/put.php', 'user-delete-revert');
 	
 				// CLIENTS
 					// ALL CLIENTS
@@ -212,6 +245,12 @@ error_reporting(1);
 					 $router->map('POST','/track/track-trello-new', 'components/tracks/post.php', 'track-trello-new');
 					$router->map('POST','/track/track-trello-update', 'components/tracks/post.php', 'track-trello-update');
 					$router->map('POST','/track/track-jira-new', 'components/tracks/post.php', 'track-jira-new');
+
+					// EXTERNAL TASKS
+					$router->map('GET', '/track/externals/[i:id]', 'components/tracks/get.php', 'external-by-id');
+					$router->map('GET', '/track/externals/all', 'components/tracks/get.php', 'external-by-month');
+					$router->map('POST', '/track/externals', 'components/tracks/post.php', 'add-external');
+					$router->map('PUT', '/track/externals/[i:id]', 'components/tracks/put.php', 'update-external');
 	
 	
 					// GET USERS BY ID
@@ -301,6 +340,7 @@ error_reporting(1);
 					$router->map('GET','/sales/concepts', 			'components/sales/index.php', 'sales-concepts');
 					$router->map('GET','/sales/all/by-date/[*:date_ini]/[*:date_end]','components/sales/get.php', 'sales-by-date');
 					$router->map('GET','/sales/all/by-user-date/[*:date_ini]/[*:date_end]/[i:id]','components/sales/get.php', 'sales-by-user-date');
+					$router->map('GET','/sales/budgets/by-date/[*:date_ini]/[*:date_end]','components/sales/get.php', 'sales-total-by-date');
 	
 					$router->map('GET','/sale/[i:id]', 		'components/sales/get.php', 	'sale-by-id');
 	
@@ -360,7 +400,9 @@ error_reporting(1);
 					$router->map('POST','/biller/comprobantes/crear', 'components/biller/post.php', 'crear');
 					$router->map('POST','/biller/comprobantes/obtener', 'components/biller/post.php', 'obtener');
 					$router->map('POST','/biller/comprobantes/pdf', 'components/biller/post.php', 'pdf');
-	
+
+					// tracks for cube
+					$router->map('GET', '/public/tracks-by-year/[i:id]/[i:year]', 'components/tracks/get.php', 'tracks-by-user-by-year');
 	
 					
 				// match current request
@@ -390,7 +432,6 @@ error_reporting(1);
 		// PUBLIC APIS
 
 		$router->map('GET','/public/apps/easy-web/my-website/[*:token]', 'components/apps/easyweb/get.php', 'app-easyweb-by-token');
-
 		// match current request
 		$match = $router->match();
 		if($match) {

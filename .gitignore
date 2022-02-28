@@ -4,9 +4,14 @@
 #     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
 
 # Node artifact files
+app/grunt
 node_modules/
+app/bower_components/
+app/node_modules/
+app/grunt
 dist/
 bower_components/
+app/package-lock.json
 # Node artifact files
 app/node_modules/
 app/dist/
@@ -55,7 +60,7 @@ Thumbs.db
 *.mov
 *.wmv
 
-app/src/env.js
+/app/src/env.js
 api/conn.php
 
 # IGNORE LUMEN

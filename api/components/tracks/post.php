@@ -71,7 +71,6 @@
 
 			echo json_encode($response);
 		}
-
 		if($name == 'tracks-jira'){
 			$idClient 	= $params["idClient"];
 			$idProject 	= $params["idProject"];
@@ -83,9 +82,12 @@
 
 			echo json_encode($response);
 		}
-
 		if ($name == 'track-trello-update'){
 			$response = $objUsr->updateTrelloTrack($conn, $params);
+			echo json_encode($response);
+		}
+		if ($name == 'add-external') {
+			$response = $objUsr->create($conn, $params);
 			echo json_encode($response);
 		}
 	} else {
