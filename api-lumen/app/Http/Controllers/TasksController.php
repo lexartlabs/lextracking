@@ -15,10 +15,10 @@ class TasksController extends BaseController
     {
         try{
             if(!empty($id)){
-                return Tasks::where('tasks.id', $id)->join('projects', 'tasks.idProject', '=', 'projects.id')->select('tasks.*', 'projects.name as projectName')->first();
+                return array('response' => Tasks::where('tasks.id', $id)->join('projects', 'tasks.idProject', '=', 'projects.id')->select('tasks.*', 'projects.name as projectName')->first());
             }
             
-            return Tasks::join('projects', 'tasks.idProject', '=', 'projects.id')->select('tasks.*', 'projects.name as projectName')->get();
+            return array('response' => Tasks::join('projects', 'tasks.idProject', '=', 'projects.id')->select('tasks.*', 'projects.name as projectName')->get());
         }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tasks all"), 500));
         }

@@ -16,10 +16,12 @@ class ProjectsController extends BaseController
         
         try{
             if(!empty($id)){
-               return Projects::join('clients', 'projects.idClient', '=', 'clients.id')->select('projects.*', 'clients.name as clientName')->where('projects.id', $id)->first(); 
+               return array('response' => Projects::join('clients', 'projects.idClient', '=', 'clients.id')->select('projects.*', 'clients.name as clientName')->where('projects.id', $id)->first());
             }
 
-            return Projects::join('clients', 'projects.idClient', '=', 'clients.id')->select('projects.*', 'clients.name as clientName')->get();
+            $projects = Projects::join('clients', 'projects.idClient', '=', 'clients.id')->select('projects.*', 'clients.name as clientName')->get();
+
+            return array('response' => $projects);
         }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "projects all"), 500));
         }

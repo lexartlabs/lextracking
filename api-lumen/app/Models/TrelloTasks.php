@@ -18,4 +18,10 @@ class TrelloTasks extends Model
         'dateCreate', 'dateUpdate', 'startDate', 'endDate', 'status', 'client', 'active'
     ];
 
+    protected $casts = [
+        'id' => 'string',
+        'idProyecto' => 'string',
+        'id_project' => 'string',
+        'active' => 'string'
+    ];
 }

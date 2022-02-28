@@ -26,6 +26,7 @@
       if(idTask_trello){
       //TRAER TAREAS TRELLO DESDE TABLERO SELECCIONADO
         tasks_trelloServices.findById(idTask_trello, function(err, tasks_trello, countItems) {
+          console.log(tasks_trello);
           $scope.board = angular.copy(tasks_trello[0]);
           tasks_trelloServices.getBoardsId( $scope.board.tablero_id, function(resp, err){
             if(resp){

@@ -13,9 +13,9 @@ class BoardTrelloController extends BaseController
     {
         try{
             if(!empty($id)){
-                return TrelloBoard::where('id', $id)->first();
+                return array('response' => TrelloBoard::where('id', $id)->where('active', 1)->first());
             }
-            return TrelloBoard::paginate(15);
+            return array('response' => TrelloBoard::where('active', 1)->get());
         }catch(Exceptio $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks trello boards all"), 500));
         }

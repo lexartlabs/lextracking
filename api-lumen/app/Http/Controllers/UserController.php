@@ -74,7 +74,7 @@ class UserController extends BaseController
     public function all()
     {
         try {
-            return array("response" => json_decode(User::all()));
+            return array("response" => json_decode(User::get(['id', 'name'])));
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "login"), 500));
         }

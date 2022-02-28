@@ -28,6 +28,7 @@ Route::group(['prefix' => 'api'], function ($router) {
         
         Route::group(['middleware' => 'auth:api'], function () {
             Route::get('current', 'UserController@current');
+            Route::get('all', 'UserController@all');
 
             Route::group(['prefix' => 'performance'], function() {
                 Route::post('current', 'PerformanceController@current');
@@ -37,7 +38,7 @@ Route::group(['prefix' => 'api'], function ($router) {
 
         Route::group(['middleware' => 'admin:api'], function () {
             Route::post('register', 'UserController@register');
-            Route::get('all', 'UserController@all');
+            //Route::get('all', 'UserController@all');
             Route::get('{id}', 'UserController@userById');
             Route::delete('delete', 'UserController@delete');
             Route::post('undelete', 'UserController@undelete');
@@ -75,9 +76,13 @@ Route::group(['prefix' => 'api'], function ($router) {
             
             Route::group(['prefix' => 'trello'], function (){
                 Route::get('all', 'TrelloTasksController@all');
+                Route::get('allOld', 'TrelloTasksController@allOld');
                 Route::get('{id}', 'TrelloTasksController@all');
                 
                 Route::post('new', 'TrelloTasksController@new');
+                
+                Route::post('newOld', 'TrelloTasksController@taskNewFrontOld');
+
                 Route::put('update', 'TrelloTasksController@update');
     
                 Route::group(['prefix' => 'boards'], function (){
