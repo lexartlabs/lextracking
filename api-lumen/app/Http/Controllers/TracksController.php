@@ -88,7 +88,6 @@ class TracksController extends BaseController
 
         if($typeTrack == "trello") {
             $task = TrelloTasksController::all($id_task);
-            
         }
 
         if($typeTrack == "manual") {
@@ -186,18 +185,20 @@ class TracksController extends BaseController
         );
     }
 
-    public function currentUserLastTask()
+    public function currentUserLastTrack()
     {
         $user_id = AuthController::current()->id;
 
-        try{
-            $tracks = Tracks::where('idUser', $user_id)->orderBy("startTime", 'desc')->get();
+        $tracks = Tracks::where('idUser', $user_id)->orderBy("startTime", 'desc')->get();
             
-            if(count($tracks) > 0){
-                $track = $this->trackResponse($tracks[0]);
-                return array("response" => $track);
-            }
-            return $tracks;
+        if(count($tracks) > 0){
+            
+            return array("response" => $tracks[0]);
+        }
+        return $tracks;  
+
+        try{
+            
         }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks current last"), 500));
         }

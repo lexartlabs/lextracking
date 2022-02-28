@@ -104,7 +104,7 @@ Route::group(['prefix' => 'api'], function ($router) {
         
         Route::group(['prefix' => 'user'], function(){
             Route::get('current', 'TracksController@current');
-            Route::get('current/last', 'TracksController@currentUserLastTask');
+            Route::get('current/last', 'TracksController@currentUserLastTrack');
             Route::post('current/date', 'TracksController@currentUserDate');
             Route::post('current/calendar', 'TracksController@currentCalendar');
             Route::post('current/month', 'TracksController@currentMonth'); 

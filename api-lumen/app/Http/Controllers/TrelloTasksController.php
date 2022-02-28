@@ -22,6 +22,7 @@ class TrelloTasksController extends BaseController
                 foreach($trellos as $trello){
                     $trello->id = strval($trello->id);
                     $trello->proyecto_id = strval($trello->proyecto_id);
+                    $trello->url = urldecode($trello->url);
                     $trello->active = strval($trello->active);
     
                     array_push($array_trello, $trello);
@@ -35,6 +36,7 @@ class TrelloTasksController extends BaseController
             foreach($trellos as $trello){
                 $trello->id = strval($trello->id);
                 $trello->proyecto_id = strval($trello->proyecto_id);
+                $trello->url = urldecode($trello->url);
                 $trello->active = strval($trello->active);
 
                 array_push($array_trello, $trello);
@@ -114,7 +116,7 @@ class TrelloTasksController extends BaseController
             "idTask" => "required",
             "id_project" => "required|numeric",
             "idboard" => "required",
-            "isPlayable" => "required",
+            "isPlayable" => "",
             "longIdCard" => "required",
             "members" => "array",
             "name" => "required|string",
