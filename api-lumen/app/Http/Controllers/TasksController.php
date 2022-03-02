@@ -83,7 +83,12 @@ class TasksController extends BaseController
             }
 
             $model_like = '%{"idUser":"'.$id.'"}%'; //LIKE TO JSON USERS
-            return Tasks::join('projects', 'tasks.idProject', '=', 'projects.id')->select('tasks.*', 'projects.name as projectName')->where('users', 'LIKE', $model_like)->get();
+            $tasks = Tasks::join('projects', 'tasks.idProject', '=', 'projects.id')->select('tasks.*', 'projects.name as projectName')->where('users', 'LIKE', $model_like)->get();
+
+            return array('response' => [
+                "count" => count($tasks),
+                "task" => $tasks
+            ]);
         }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tasks undelete id invalid"), 500));
         }

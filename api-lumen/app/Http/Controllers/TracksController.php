@@ -14,6 +14,7 @@ use App\Models\TrelloTasks;
 use App\Models\Tasks;
 use Illuminate\Support\Facades\DB;
 use TrelloTask;
+use App\Models\User;
 
 class TracksController extends BaseController
 {
@@ -204,15 +205,26 @@ class TracksController extends BaseController
         }
     }
 
-    public function currentCalendar()
-    {
-        $user_id = AuthController::current()->id;
-
+    public function calendar($id, $fecha)
+    {   
         try{
+            $user = User::where('id', $id)->first();
+            
+            if(!$user){
+                return (new Response(array("Error" => ID_INVALID, "Operation" => "tracks current calendar"), 400));
+            }
 
+            return array('response' => DB::select("SELECT id AS id_track, name AS title, startTime AS start, endTime AS end FROM tracks WHERE idUser = ".$id." AND Month(startTime) = Month('".$fecha."') AND Year(startTime) = Year('".$fecha."')"));
         }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks current calendar"), 500));
         }
+    }
+
+    public function currentCalendar($fecha)
+    {
+        $user_id = AuthController::current()->id;
+        
+        return $this->calendar($user_id, $fecha);
     }
 
     public function currentMonth(Request $request) {

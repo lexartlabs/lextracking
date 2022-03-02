@@ -8,6 +8,10 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\AuthController;
+use App\Models\UserExceptions;
+use App\Models\UserHours;
+use Laravel\Ui\Presets\React;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends BaseController
 {
@@ -143,5 +147,65 @@ class UserController extends BaseController
         }catch (Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "undelete"), 500));
         }
+    }
+
+    public function hours($id) 
+    {
+        try{
+            $user = User::where('id', $id)->first();
+
+            if(!$user){
+                return (new Response(array("Error" => INVALID_LOGIN, "Operation" => "hours"), 400));
+            }
+
+            $hours = UserHours::where('user_id', $id)->get();
+
+            if(count($hours) == 0) {
+                return array('response' => 'Error al asignar proyecto');
+            }
+
+            return array('response' => $hours);
+        }catch(Exception $e) {
+
+        }
+    }
+
+    public function currentHours(Request $request)
+    {
+        $user = $this->current($request);
+        $user_id = $user['response']->id;
+
+        return $this->hours($user_id);
+    }
+
+    public function exceptions($id, $date)
+    {
+
+        $fullDate = explode("-", $date);
+        
+		$month = $fullDate[0];
+		$year = $fullDate[1];
+
+        try{
+            $user = User::where("id", $id)->first();
+            
+            if(!$user) {
+                return (new Response(array("Error" => INVALID_LOGIN, "Operation" => "hours"), 400));
+            }
+
+            $userExceptions = DB::select("SELECT * FROM user_exceptions WHERE user_id = ".$id." AND MONTH(`start`) =".$month." AND YEAR(`start`) = " .$year);
+            
+            return array('response' => $userExceptions);
+        }catch(Exception $e){
+            
+        }
+    }
+
+    public function currentExceptions(Request $request, $date)
+    {
+        $user = $this->current($request);
+        $user_id = $user['response']->id;
+
+        return $this->exceptions($user_id, $date);
     }
 }
