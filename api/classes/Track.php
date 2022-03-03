@@ -83,6 +83,9 @@ class Track {
 				WHERE Tracks.endTime is null OR Tracks.endTime='0000-00-00 00:00:00' AND TrelloTask.active = 1 AND Tracks.typeTrack = 'trello'";
 		$d 		= $conn->query($sql);
 		$d0 	= $conn->query($sql0);
+
+		if(empty($d)) { $d = []; }
+		if(empty($d0)) { $d0 = []; }
 		$dd 	= array_merge($d, $d0);
 		// CALLBACK
 		if(!empty($d) || !empty($d0)){
