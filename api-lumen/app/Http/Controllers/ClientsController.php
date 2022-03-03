@@ -12,10 +12,9 @@ class ClientsController extends BaseController
 {
     public function all($id = null) 
     {
-        
         try{
             if(!empty($id)){
-               return Clients::where('id', $id)->first(); 
+               return array('response' => Clients::where('id', $id)->first());
             }
 
             return array('response' => Clients::all());

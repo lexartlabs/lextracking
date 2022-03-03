@@ -59,23 +59,6 @@
                     cb(err, result); 
                 })
             },
-
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         };
         return factory;
     }]);

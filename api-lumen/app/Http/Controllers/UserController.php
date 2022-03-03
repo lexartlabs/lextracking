@@ -75,10 +75,19 @@ class UserController extends BaseController
         }
     }
 
-    public function all()
+    public function all(Request $request)
     {
         try {
             return array("response" => json_decode(User::get(['id', 'name'])));
+        } catch (Exception $e) {
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "login"), 500));
+        }
+    }
+
+    public function allAdmin(Request $request)
+    {
+        try {
+            return array("response" => json_decode(User::get()));
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "login"), 500));
         }

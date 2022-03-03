@@ -44,10 +44,12 @@ Route::group(['prefix' => 'api'], function ($router) {
         });
         
         Route::group(['middleware' => 'admin:api'], function () {
-            Route::get('{id}', 'UserController@userById');
             Route::post('register', 'UserController@register');
             Route::delete('delete', 'UserController@delete');
             Route::post('undelete', 'UserController@undelete');
+            Route::get('all-admin', 'UserController@allAdmin');
+            Route::get('{id}', 'UserController@userById');
+            
 
             //Hours
             Route::get('{id}/hours', 'UserController@hours');
@@ -151,7 +153,7 @@ Route::group(['prefix' => 'api'], function ($router) {
     });
 
     //Clients
-    Route::group(['prefix' => 'clients', 'middleware' => 'auth:api'], function(){
+    Route::group(['prefix' => 'clients', 'middleware' => 'admin:api'], function(){
         Route::get('all', 'ClientsController@all');
         Route::get('{id}', 'ClientsController@all');
         

@@ -11,7 +11,13 @@
 	  	var factory = {
 
 		    find: function(page, q, cb) {
-		      	RestClient.get(model + "/all", function(err, result) {
+
+				const user = window.localStorage;
+				const role = user.userRole == 'admin' || user.userRole == 'pm' ? true : false;
+
+				let path = role == true ? '/all-admin' : '/all';
+
+		      	RestClient.get(model + path, function(err, result) {
 		        	cb(err, result);
 		      	})
 		    },
