@@ -21,33 +21,29 @@ class TracksController extends BaseController
     public function all($id = null)
     {
         try{
-            if(!empty($id)){
-                $track = Tracks::where('id', $id)->first();
-                $track = $this->trackResponse($track);
-
-                return $track;
-            }
-            $tracks = Tracks::paginate(15);
-
+            $tracks = Tracks::where('idUser', $id)->get();
             foreach($tracks as $track){
                 $track = $this->trackResponse($track);
             }
 
             return $tracks;
-        }catch(Exceptio $e){
+        }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks all"), 500));
         }
     }
 
-    public function current()
+    public function current(Request $request)
     {
+
+        $this->validate($request, [
+            "startTime" => "string",
+            "endTime" => "string",
+        ]);
+
         $user_id = AuthController::current()->id;
 
         try{
-            $tracks = Tracks::where('idUser', $user_id)->get();
-            foreach($tracks as $track){
-                $track = $this->trackResponse($track);
-            }
+            $tracks = $this->all($user_id);
 
             return $tracks;
         }catch(Exception $e){

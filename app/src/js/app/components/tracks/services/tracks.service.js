@@ -34,7 +34,13 @@
 			},
 
 			getTracks: function(filters, cb) {
-				RestClient.post("tracks", filters, function(err, result) {
+
+				const role = window.localStorage.userRole;
+				const user_id = filters.idUser && (role == 'admin' || role == 'pm') ? filters.idUser : '';
+				
+				let path = (role == 'admin' || role == 'pm') ? user_id == '' ? '/all' : '/' + user_id : '/current';
+
+				RestClient.post("tracks/user" + path, filters, function(err, result) {
 					cb(err, result);
 				})
 			},

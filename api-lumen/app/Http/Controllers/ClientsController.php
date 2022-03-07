@@ -10,7 +10,7 @@ use Illuminate\Http\Response;
 
 class ClientsController extends BaseController
 {
-    public function all($id = null) 
+    public function all(Request $request, $id = null) 
     {
         try{
             if(!empty($id)){

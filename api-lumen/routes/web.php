@@ -116,9 +116,6 @@ Route::group(['prefix' => 'api'], function ($router) {
 
     //Tracks
     Route::group(['prefix' => 'tracks', 'middleware' => 'auth:api'], function() {
-        Route::get('all', 'TracksController@all');
-        Route::get('{id}', 'TracksController@all');
-        
         Route::post('new', 'TracksController@new');
         Route::put('update', 'TracksController@update');
         
@@ -128,11 +125,18 @@ Route::group(['prefix' => 'api'], function ($router) {
             Route::get('current/last', 'TracksController@currentUserLastTrack');
             Route::post('current/date', 'TracksController@currentUserDate');
             Route::get('current/calendar/{fecha}', 'TracksController@currentCalendar');
-            Route::post('current/month', 'TracksController@currentMonth'); 
+            Route::post('current/month', 'TracksController@currentMonth');
+
+            Route::post('current/all', 'TracksController@currentAll');
         });
         
         //User tracks - admin
         Route::group(['prefix' => 'user', 'middleware' => 'admin:api'], function () {
+            Route::post('all', 'TracksController@all');
+            Route::post('{id}/all', 'TracksController@all');
+            
+            Route::get('{id}', 'TracksController@all');
+
             Route::get('{id}/calendar/{fecha}', 'TracksController@calendar');
         });
     });

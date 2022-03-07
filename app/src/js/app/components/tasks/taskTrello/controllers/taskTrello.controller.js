@@ -128,10 +128,7 @@
 
           tasks_trelloServices.getMembers($scope.board.tablero_id, function (res, err) {
             var idMembers = angular.copy(res);
-<<<<<<< HEAD
             
-=======
->>>>>>> 799ed94c6deb3efadada9bc51073fe92e2c84a3a
             angular.forEach(idMembers, function (member) {
               tasks_trelloServices.getMemberById(member.id, function (res, err) {
                 if (res) {
