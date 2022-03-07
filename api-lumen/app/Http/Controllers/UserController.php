@@ -21,9 +21,7 @@ class UserController extends BaseController
         $email = $request->input('email');
         $password = md5($request->input('password'));
 
-        try {
-
-            $user = User::where('email', $email)->where('status', 0)->first();
+        $user = User::where('email', $email)->where('status', 0)->first();
 
             if (!$user) {
                 return (new Response(array("Error" => INVALID_LOGIN, "Operation" => "login"), 400));
@@ -35,6 +33,10 @@ class UserController extends BaseController
 
             $auth = new AuthController();
             return $auth->login($user);
+
+        try {
+
+            
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "login"), 500));
         }

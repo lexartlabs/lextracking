@@ -106,7 +106,7 @@ class TasksController extends BaseController
     {
         $this->validate($request, [
             "name" => "required|string",
-            "idProject" => "required",
+            "idProject" => "required|numeric|exists:projects,id",
             "description" => "string",
             "comments" => "string|string",
             "duration" => "required|string",
@@ -147,7 +147,7 @@ class TasksController extends BaseController
     {
         $this->validate($request, [
             "name" => "required|string",
-            "idProject" => "required",
+            "idProject" => "required|numeric|exists:projects,id",
             "description" => "string",
             "comments" => "string|string",
             "duration" => "required|string",

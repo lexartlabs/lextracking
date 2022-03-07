@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CostHour extends Model
+class Weeklyhours extends Model
 {
     use HasFactory;
 
     protected $table = 'weeklyhours';
+    public $timestamps = false;
 
-    protected $fillable = [
-        'idUser', 'userName', 'costHour', 'workLoad', 'currency', 'borrado'
-    ];
+    protected $fillable = ['id', 'idUser', 'userName', 'costHour', 'workLoad', 'currency', 'borrado'];
 
 }
