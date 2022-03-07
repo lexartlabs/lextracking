@@ -78,7 +78,7 @@ class TracksController extends BaseController
     }
 
     public function trackResponse($track)
-    {   
+    {
         $track->duration = $this->duracionDiff($track->startTime, $track->endTime);
         $costHout = new CostHourController();
         $track->trackCost = $costHout->costHour($track->duration, $track->idUser);
@@ -89,7 +89,7 @@ class TracksController extends BaseController
     {
         $date1=new \DateTime($start); //2022-02-04 15:21:19
         $date2=new \DateTime($end);
-        
+
         return $date2->diff($date1, true)->format("%H:%I:%S");;
     }
 
@@ -112,7 +112,7 @@ class TracksController extends BaseController
         $name = $request->input("name");
         $startTime = $request->input("startTime");
         $typeTrack = $request->input("typeTrack");
-        
+
         if($typeTrack == "manual"){
             $task_manual = Tasks::where('id', $idTask)->first();
 
@@ -166,6 +166,32 @@ class TracksController extends BaseController
             "typeTrack" => $typeTrack
         );
     }
+
+    public function getUserHoursByYear(Request $request, $idUser, $year) {
+        $month = $request->input('month');
+        $filter = "AND MONTH(startTime) = ".$month;
+		$sql = "
+			SELECT
+				MONTH(startTime) AS 'month',
+				'seconds' AS 'metric',
+				(CASE WHEN typeTrack = 'external'
+						THEN SUM(TIME_TO_SEC(duracion))
+						ELSE SUM(TIME_TO_SEC((TIMEDIFF(endTime, startTime))))
+				END) AS 'tracks'
+			FROM Tracks
+			WHERE YEAR(startTime) = ".$year." AND idUser = ".$idUser."
+		";
+        if($month) { $sql .= $filter; }
+        $sql .= "GROUP BY MONTH(startTime);";
+
+		$d = DB::select($sql);
+
+		if(!empty($d)){
+			return array("response" => $d);
+		} else {
+			return array("error" => "Error: no se encontraron tracks con estos filtros.");
+		}
+	}
 }
 
 
