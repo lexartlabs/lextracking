@@ -12,6 +12,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Http\Response;
 use App\Models\TrelloTasks;
 use App\Models\Tasks;
+use Illuminate\Support\Facades\DB;
 
 class TracksController extends BaseController
 {
@@ -169,28 +170,30 @@ class TracksController extends BaseController
 
     public function getUserHoursByYear(Request $request, $idUser, $year) {
         $month = $request->input('month');
-        $filter = "AND MONTH(startTime) = ".$month;
-		$sql = "
-			SELECT
-				MONTH(startTime) AS 'month',
-				'seconds' AS 'metric',
-				(CASE WHEN typeTrack = 'external'
-						THEN SUM(TIME_TO_SEC(duracion))
-						ELSE SUM(TIME_TO_SEC((TIMEDIFF(endTime, startTime))))
-				END) AS 'tracks'
-			FROM Tracks
-			WHERE YEAR(startTime) = ".$year." AND idUser = ".$idUser."
-		";
-        if($month) { $sql .= $filter; }
-        $sql .= "GROUP BY MONTH(startTime);";
+        $filter = "MONTH(startTime) = ".$month;
 
-		$d = DB::select($sql);
+        try{
+            $tracks = DB::table("tracks")
+                ->select(DB::raw("MONTH(startTime) AS 'month'"), DB::raw("'seconds' AS 'metric'"), DB::raw("(CASE WHEN 'typeTrack' = 'external'
+                THEN SUM(TIME_TO_SEC(duracion))
+                ELSE SUM(TIME_TO_SEC((TIMEDIFF(endTime, startTime))))
+                END) AS 'tracks'"))
+                ->whereRaw("YEAR(startTime) = ? AND idUser = ?", [$year, $idUser]);
 
-		if(!empty($d)){
-			return array("response" => $d);
-		} else {
-			return array("error" => "Error: no se encontraron tracks con estos filtros.");
-		}
+            if($month) {
+                $tracks->whereRaw($filter);
+            }
+
+            $tracks = $tracks->groupBy("month")->get();
+
+            if(!empty($tracks)){
+                return array("response" => $tracks);
+            } else {
+                return array("error" => "Error: no se encontraron tracks con estos filtros.");
+            }
+        }catch(Exception $e) {
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "track get user hours by year"), 500));
+        }
 	}
 }
 
