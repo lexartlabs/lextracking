@@ -234,7 +234,6 @@ class TracksController extends BaseController
         $idMonth = $request->input("idMonth");
         $year = $request->input("year");
         
-        
         try{
             $tracks = DB::select("SELECT SUM(trackCost) AS salary FROM tracks WHERE month(endTime) = $idMonth AND year(endTime) = $year AND tracks.idUser = $user_id AND tracks.trackCost IS NOT NULL");
             $tracks[0]->salary = $tracks[0]->salary == null ? 0 : $tracks[0]->salary;
@@ -243,6 +242,31 @@ class TracksController extends BaseController
         }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks current calendar"), 500));
         }
+    }
+
+    public function trelloTracks(Request $request, $user_id) 
+    {
+        $user_id = $user_id ? $user_id : $request->input('idUser');
+
+        if(empty($user_id)){
+
+        }
+
+        try{
+            $tracks = Tracks::where("typeTrack", "trello")->where("idUser", $user_id)->get();
+
+            return array("response" => $tracks);
+
+        }catch(Exception $e){
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks trello"), 500));
+        }
+    }
+
+    public function trelloTracksCurrent(Request $request)
+    {
+        $user_id = AuthController::current()->id;
+
+        return $this->trelloTracks($request, $user_id);
     }
 }
 

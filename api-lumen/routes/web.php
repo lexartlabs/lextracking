@@ -128,6 +128,7 @@ Route::group(['prefix' => 'api'], function ($router) {
             Route::post('current/month', 'TracksController@currentMonth');
 
             Route::post('current/all', 'TracksController@currentAll');
+            Route::post('current/trello', 'TracksController@trelloTracksCurrent');
         });
         
         //User tracks - admin
