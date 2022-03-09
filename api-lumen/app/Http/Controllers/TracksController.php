@@ -249,14 +249,26 @@ class TracksController extends BaseController
         $user_id = $user_id ? $user_id : $request->input('idUser');
 
         if(empty($user_id)){
-
+            
         }
 
+        $startTime = $request->input("startTime");
+        $endTime = $request->input("endTime");
+
         try{
-            $tracks = Tracks::where("typeTrack", "trello")->where("idUser", $user_id)->get();
+            $tracks = Tracks::select("*", DB::raw("users.name AS usersName"), DB::raw("trelloTask.name AS taskName"), DB::raw("trelloTask.project AS projectName"), DB::raw("clients.name AS client"), DB::raw("TIMEDIFF( tracks.endTime, tracks.startTime ) AS durations"))
+                ->join("users", DB::raw("tracks.idUser"), "=", DB::raw("Users.id"))
+                ->join("TrelloTask", DB::raw("tracks.idTask"), "=", DB::raw("TrelloTask.id"))
+                ->join("Projects", DB::raw("Projects.id"), "=", DB::raw("TrelloTask.idProyecto"))
+                ->join("Clients", DB::raw("Clients.id"), "=", DB::raw("Projects.idClient"))
+                ->where("startTime", ">=", $startTime)
+                ->where("endTime", "<=", $endTime)
+                ->where("typeTrack", "trello")
+                ->whereRaw("TrelloTask.active = 1")
+                ->where("idUser", $user_id)
+                ->get();
 
             return array("response" => $tracks);
-
         }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks trello"), 500));
         }

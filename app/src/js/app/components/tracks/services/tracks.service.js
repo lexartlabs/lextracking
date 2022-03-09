@@ -52,7 +52,17 @@
 			},
 
 			getTrelloTrack: function(filters, cb) {
-				RestClient.post("tracks-trello", filters, function(err, result) {
+
+				const user = window.localStorage;
+				const role = user.role;
+				const ids = filers.user
+
+				let path = "";
+
+				path = role == 'admin' || role == 'pm' ? 'admin' : 'current';
+				
+
+				RestClient.post("tracks/user/current/trello", filters, function(err, result) {
 					cb(err, result);
 				})
 			},

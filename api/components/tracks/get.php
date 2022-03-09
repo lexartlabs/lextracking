@@ -1,4 +1,4 @@
-<?php 
+ <?php 
 	// INCLUDE CLASS
 	require("classes/Track.php");
 
@@ -63,11 +63,7 @@
 			$response 	= $objUsr->getAllTracksActiveTracks($conn);
 			echo json_encode($response);
 		}
-<<<<<<< HEAD
 		if($name == 'external-by-month') {
-=======
-		else if($name == 'external-by-month') {
->>>>>>> 799ed94c6deb3efadada9bc51073fe92e2c84a3a
 			$month = $_GET['month'];
 			$response 	= $objUsr->all($conn,$month);
 			echo json_encode($response);
@@ -76,6 +72,4 @@
 			echo json_encode( array("response" => 'err') );
 		}
 	}
-
-	
 ?>
