@@ -18,7 +18,9 @@ error_reporting(1);
 	$router 	= new AltoRouter();
 	$conn 		= new Connection();
 	$objToken	= new Token();
-	$router->setBasePath(ENV);
+	if(ENV != "ENV"){
+		$router->setBasePath(ENV);
+	}
 	if($_SERVER["HTTP_TOKEN"]){
 		$token 	= $_SERVER["HTTP_TOKEN"];
 		$access = $objToken->checkToken($conn, $token);
