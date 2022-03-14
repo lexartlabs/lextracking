@@ -34,13 +34,12 @@
 			},
 
 			getTracks: function(filters, cb) {
-
 				const role = window.localStorage.userRole;
-				const user_id = filters.idUser && (role == 'admin' || role == 'pm') ? filters.idUser : '';
-				
-				let path = (role == 'admin' || role == 'pm') ? user_id == '' ? '/all' : '/' + user_id : '/current';
+				const ids = filters.idUser && (role == 'admin' || role == 'pm') ? filters.idUser : '';
 
-				RestClient.post("tracks/user" + path, filters, function(err, result) {
+				let path = role == 'admin' || role == 'pm' ? ids == '' ? 'all' : ids : 'current';
+
+				RestClient.post(model + "/user/" + path, filters, function(err, result) {
 					cb(err, result);
 				})
 			},
@@ -52,17 +51,13 @@
 			},
 
 			getTrelloTrack: function(filters, cb) {
-
 				const user = window.localStorage;
-				const role = user.role;
-				const ids = filers.user
+				const role = user.userRole;
+				const ids = filters.idUser && (role == 'admin' || role == 'pm') ? filters.idUser : '';
 
-				let path = "";
+				let path = role == 'admin' || role == 'pm' ? ids == '' ? 'trello/all' : "trello/" + ids : 'current/trello';
 
-				path = role == 'admin' || role == 'pm' ? 'admin' : 'current';
-				
-
-				RestClient.post("tracks/user/current/trello", filters, function(err, result) {
+				RestClient.post(model + "/user/" + path, filters, function(err, result) {
 					cb(err, result);
 				})
 			},
@@ -75,6 +70,14 @@
 
 
 			getUserTracks: function(idUser, cb) {
+				const user = window.localStorage;
+				const role = user.userRole;
+				const ids = idUser;
+
+				let path = "";
+
+				path = role == 'admin' || role == 'pm' ? ids == '' ? 'trello/all' : "trello/" + ids : 'current/trello';
+
 				RestClient.get(model + "/user/" + idUser, function(err, result) {
 					cb(err, result);
 				})

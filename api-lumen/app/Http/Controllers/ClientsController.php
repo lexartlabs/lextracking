@@ -55,5 +55,15 @@ class ClientsController extends BaseController
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "clients update"), 500));
         }   
     }
+
+    public function current(Request $request)
+    {
+        try{
+            $clients = Clients::select("id", "name")->get();
+            return array("response" => $clients);
+        }catch(Exception $e){
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "clients current"), 500));
+        }
+    }
 }
 

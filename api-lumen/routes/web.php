@@ -121,22 +121,23 @@ Route::group(['prefix' => 'api'], function ($router) {
         
         //User tracks
         Route::group(['prefix' => 'user'], function(){
-            Route::get('current', 'TracksController@current');
+            Route::post('current', 'TracksController@current');
             Route::get('current/last', 'TracksController@currentUserLastTrack');
             Route::post('current/date', 'TracksController@currentUserDate');
             Route::get('current/calendar/{fecha}', 'TracksController@currentCalendar');
             Route::post('current/month', 'TracksController@currentMonth');
 
-            Route::post('current/all', 'TracksController@currentAll');
+            Route::post('current/all', 'TracksController@current');
             Route::post('current/trello', 'TracksController@trelloTracksCurrent');
         });
         
         //User tracks - admin
         Route::group(['prefix' => 'user', 'middleware' => 'admin:api'], function () {
             Route::post('all', 'TracksController@all');
-            Route::post('{id}/all', 'TracksController@all');
+            Route::post('{id}', 'TracksController@all');
             
-            Route::get('{id}', 'TracksController@all');
+            Route::post('trello/all', 'TracksController@trelloTracks');
+            Route::post('trello/{id}', 'TracksController@trelloTracks');
 
             Route::get('{id}/calendar/{fecha}', 'TracksController@calendar');
         });
@@ -144,26 +145,38 @@ Route::group(['prefix' => 'api'], function ($router) {
 
     //Weeklyhours
     Route::group(['prefix' => 'weeklyhours', 'middleware' => 'auth:api'], function(){
-        Route::get('all', 'WeeklyhoursController@all');
-        Route::get('{id}', 'WeeklyhoursController@all');
-
-        Route::put('update', 'WeeklyhoursController@update');
-        Route::post('new', 'WeeklyhoursController@new');
-
         //User weeklyhours
         Route::group(['prefix' => 'user'], function(){
             Route::get('current', 'WeeklyhoursController@current');
-            Route::get('{id}', 'WeeklyhoursController@user'); 
+        });
+
+        Route::group(['middleware' => 'admin:api'], function () {
+            Route::get('all', 'WeeklyhoursController@all');
+            Route::get('{id}', 'WeeklyhoursController@all');
+
+            Route::put('update', 'WeeklyhoursController@update');
+            Route::post('new', 'WeeklyhoursController@new');
+
+            //User weeklyhours admin
+            Route::group(['prefix' => 'user'], function(){
+                
+                Route::get('{id}', 'WeeklyhoursController@user');
+            });
         });
     });
 
     //Clients
-    Route::group(['prefix' => 'clients', 'middleware' => 'admin:api'], function(){
-        Route::get('all', 'ClientsController@all');
-        Route::get('{id}', 'ClientsController@all');
+    Route::group(['prefix' => 'clients'], function(){
         
-        Route::put('update', 'ClientsController@update');
-        Route::post('new', 'ClientsController@new');
+        Route::get('current', 'ClientsController@current');
+
+        Route::group(['middleware' => 'admin:api'], function(){
+            Route::get('all', 'ClientsController@all');
+            Route::get('{id}', 'ClientsController@all');
+            
+            Route::put('update', 'ClientsController@update');
+            Route::post('new', 'ClientsController@new');
+        });
     });
 
     //Sales
