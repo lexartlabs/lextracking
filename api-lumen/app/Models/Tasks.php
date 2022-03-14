@@ -14,8 +14,8 @@ class Tasks extends Model
 
     protected $fillable = [
         'id', 'idProject', 'name', 'description', 'comments',
-         'duration', 'users', 'type', 'startDate', 'endDate',
-          'status', 'active'
+        'duration', 'users', 'type', 'startDate', 'endDate',
+        'status', 'active'
     ];
 
 }

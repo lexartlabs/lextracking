@@ -14,8 +14,8 @@ class TrelloTasks extends Model
 
     protected $fillable = [
         'id', 'card_id', 'id_project', 'idProyecto', 'id_board', 'name',
-         'project', 'description', 'comments', 'duration', 'users',
-         'type', 'dateCreate', 'dateUpdate', 'startDate', 'endDate', 'status', 'client', 'active'
+        'project', 'description', 'comments', 'duration', 'users', 'type',
+        'dateCreate', 'dateUpdate', 'startDate', 'endDate', 'status', 'client', 'active'
     ];
 
 }

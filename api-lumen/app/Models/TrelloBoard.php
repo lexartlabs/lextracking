@@ -12,7 +12,5 @@ class TrelloBoard extends Model
     protected $table = 'trelloboard';
     public $timestamps = false;
 
-    protected $fillable = [
-        'id', 'tablero_id', 'proyecto_id', 'url', 'activo', 'dateCreate', 'dateUpdate', 'active'
-    ];
+    protected $fillable = ['id', 'tablero_id', 'proyecto_id', 'url', 'activo', 'dateCreate', 'dateUpdate', 'active'];
 }

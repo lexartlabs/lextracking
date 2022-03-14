@@ -114,4 +114,23 @@ Route::group(['prefix' => 'api'], function ($router) {
             Route::get('{id}', 'WeeklyhoursController@user'); 
         });
     });
+
+    Route::group(['prefix' => 'clients', 'middleware' => 'auth:api'], function(){
+        Route::get('all', 'ClientsController@all');
+        Route::get('{id}', 'ClientsController@all');
+        
+        Route::put('update', 'ClientsController@update');
+        Route::post('new', 'ClientsController@new');
+    });
+
+
+    Route::group(['prefix' => 'sales', 'middleware' => 'auth:api'], function(){
+        Route::get('all', 'SalesController@all');
+        Route::get('{id}', 'SalesController@all');
+
+        Route::post('new', 'SalesController@new');
+        Route::put('update', 'SalesController@update');
+        Route::delete('delete', 'SalesController@delete');
+        Route::post('undelete', 'SalesController@undelete');
+    });
 });
