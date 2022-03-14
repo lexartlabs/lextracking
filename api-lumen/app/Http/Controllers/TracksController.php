@@ -18,7 +18,7 @@ use App\Models\User;
 use App\Models\Weeklyhours;
 
 class TracksController extends BaseController
-{   
+{
     //Function all nao retorna uma em especifico somente a do usuario selecionado pelo id
     public function all(Request $request, $id = null)
     {
@@ -29,93 +29,92 @@ class TracksController extends BaseController
 
         $startTime = $request->input("startTime");
         $endTime = $request->input("endTime");
-        
+
         $user_id = $id;
         $client_id = $request->input("idClient") ? $request->input("idClient") : null;
         $project_id = $request->input("idProject") ? $request->input("idProject") : null;
 
-        $tracks = Tracks::select(
-            "Tracks.*",
-            DB::raw("Projects.name AS projectName"),
-            DB::raw("Weeklyhours.costHour"),
-            DB::raw("Tasks.name AS taskName"),
-            DB::raw("Users.name AS userName"),
-            DB::raw("Clients.name AS clientName"),
-            DB::raw("TIMEDIFF(Tracks.endTime, Tracks.startTime) AS duration")
-        )
-            ->join("Tasks", DB::raw("Tracks.idTask"), "=", DB::raw("Tasks.id"))
-            ->join("Users", DB::raw("Tracks.idUser"), "=", DB::raw("Users.id"))
-            ->join("Projects", DB::raw("Projects.id"), "=", DB::raw("Tasks.idProject"))
-            ->join("Clients", DB::raw("Clients.id"), "=", DB::raw("Projects.idClient"))
-            ->join("Weeklyhours", "Weeklyhours.idUser", "=", "Tracks.idUser")
-            ->whereRaw("(Tracks.startTime >= ?)", [$startTime])
-            ->whereRaw("(Tracks.endTime <= ?)", [$endTime])
-            ->whereRaw("(Tracks.typeTrack = ?)", ['manual'])
-        ->whereRaw("(Tasks.active >= ?)", [1]);
         
-        if (!empty($user_id)) {
-            $tracks = $tracks->whereRaw("(Tracks.idUser) = ?", [$user_id]);
-            
-            if(!empty($client_id)){
-                $tracks = $tracks->whereRaw("(Projects.idClient) = ?", [$client_id]);
-
-                if(!empty($project_id)){
+        try {
+            $tracks = Tracks::select(
+                "Tracks.*",
+                DB::raw("Projects.name AS projectName"),
+                DB::raw("Weeklyhours.costHour"),
+                DB::raw("Tasks.name AS taskName"),
+                DB::raw("Users.name AS userName"),
+                DB::raw("Clients.name AS clientName"),
+                DB::raw("TIMEDIFF(Tracks.endTime, Tracks.startTime) AS duration")
+            )
+                ->join("Tasks", DB::raw("Tracks.idTask"), "=", DB::raw("Tasks.id"))
+                ->join("Users", DB::raw("Tracks.idUser"), "=", DB::raw("Users.id"))
+                ->join("Projects", DB::raw("Projects.id"), "=", DB::raw("Tasks.idProject"))
+                ->join("Clients", DB::raw("Clients.id"), "=", DB::raw("Projects.idClient"))
+                ->join("Weeklyhours", "Weeklyhours.idUser", "=", "Tracks.idUser")
+                ->whereRaw("(Tracks.startTime >= ?)", [$startTime])
+                ->whereRaw("(Tracks.endTime <= ?)", [$endTime])
+                ->whereRaw("(Tracks.typeTrack = ?)", ['manual'])
+                ->whereRaw("(Tasks.active >= ?)", [1]);
+    
+            if (!empty($user_id)) {
+                $tracks = $tracks->whereRaw("(Tracks.idUser) = ?", [$user_id]);
+    
+                if (!empty($client_id)) {
+                    $tracks = $tracks->whereRaw("(Projects.idClient) = ?", [$client_id]);
+    
+                    if (!empty($project_id)) {
+                        $tracks = $tracks->whereRaw("(Projects.id) = ?", [$project_id])->get();
+    
+                        $tracks = $this->calcCosto($tracks);
+    
+                        return array("response" => $tracks);
+                    }
+    
+                    $tracks = $tracks->get();
+    
+                    $tracks = $this->calcCosto($tracks);
+    
+                    return array("response" => $tracks);
+                }
+    
+                if (!empty($$project_id)) {
                     $tracks = $tracks->whereRaw("(Projects.id) = ?", [$project_id])->get();
     
                     $tracks = $this->calcCosto($tracks);
     
                     return array("response" => $tracks);
                 }
-                
+    
                 $tracks = $tracks->get();
-                
+    
                 $tracks = $this->calcCosto($tracks);
-
+    
                 return array("response" => $tracks);
             }
-
-            if(!empty($$project_id)){
+    
+            if (!empty($client_id)) {
+                $tracks = $tracks->whereRaw("(Projects.idClient) = ?", [$client_id]);
+    
+                if (!empty($project_id)) {
+                    $tracks = $tracks->whereRaw("(Projects.id) = ?", [$project_id])->get();
+                    $tracks = $this->calcCosto($tracks);
+    
+                    return array("response" => $tracks);
+                }
+    
+                $tracks = $tracks->get();
+                $tracks = $this->calcCosto($tracks);
+    
+                return array("response" => $tracks);
+            }
+    
+            if (!empty($project_id)) {
                 $tracks = $tracks->whereRaw("(Projects.id) = ?", [$project_id])->get();
-
-                $tracks = $this->calcCosto($tracks);
-
-                return array("response" => $tracks);
             }
-
-            $tracks = $tracks->get();
-
-            $tracks = $this->calcCosto($tracks);
-
-            return array("response" => $tracks);
-        }
-
-        if(!empty($client_id)){
-            $tracks = $tracks->whereRaw("(Projects.idClient) = ?", [$client_id]);
-
-            if(!empty($project_id)){
-                $tracks = $tracks->whereRaw("(Projects.id) = ?", [$project_id])->get();
-                $tracks = $this->calcCosto($tracks);
-
-                return array("response" => $tracks);
-            }
-
+    
             $tracks = $tracks->get();
             $tracks = $this->calcCosto($tracks);
-
+    
             return array("response" => $tracks);
-        }
-
-        if(!empty($project_id)){
-            $tracks = $tracks->whereRaw("(Projects.id) = ?", [$project_id])->get();
-        }
-        
-        $tracks = $tracks->get();
-        $tracks = $this->calcCosto($tracks);
-
-        return array("response" => $tracks);
-
-        try {
-            
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks all"), 500));
         }
@@ -136,7 +135,6 @@ class TracksController extends BaseController
         return $tracks;
 
         try {
-            
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks all"), 500));
         }
@@ -170,19 +168,19 @@ class TracksController extends BaseController
         $startTime = $request->input("startTime");
         $typeTrack = $request->input("typeTrack");
 
-        if ($typeTrack == "manual") {
-            $task_manual = Tasks::where('id', $idTask)->first();
-
-            if (!$task_manual) {
-                $task_trello = TrelloTasks::where('id', $idTask)->first();
-
-                if (!$task_trello) {
-                    return (new Response(array("Error" => TASK_INVALID, "Operation" => "tracks new"), 500));
+        try {
+            if ($typeTrack == "manual") {
+                $task_manual = Tasks::where('id', $idTask)->first();
+    
+                if (!$task_manual) {
+                    $task_trello = TrelloTasks::where('id', $idTask)->first();
+    
+                    if (!$task_trello) {
+                        return (new Response(array("Error" => TASK_INVALID, "Operation" => "tracks new"), 500));
+                    }
                 }
             }
-        }
 
-        try {
             $track = $this->arrayTracks($currency, $idProyecto, $idTask, $idUser, $name, $startTime, $typeTrack);
 
             return Tracks::create($track);
@@ -200,7 +198,6 @@ class TracksController extends BaseController
         ]);
 
         try {
-
             $duracion = 0;
             $endTime = $request->input("endTime");
             $id = $request->input("id");
@@ -231,11 +228,10 @@ class TracksController extends BaseController
         $tracks = Tracks::where('idUser', $user_id)->orderBy("startTime", 'desc')->get();
 
         if (count($tracks) > 0) {
-
             return array("response" => $tracks[0]);
         }
-        return $tracks;
 
+        return $tracks;
         try {
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks current last"), 500));
@@ -288,42 +284,58 @@ class TracksController extends BaseController
 
     public function trelloTracks(Request $request, $id = null)
     {
-        $user_id = $id;
-        $client_id = $request->input("idClient") ? $request->input("idClient") : null;
-        $project_id = $request->input("idProject") ? $request->input("idProject") : null;
+        try {
+            $user_id = $id;
+            $client_id = $request->input("idClient") ? $request->input("idClient") : null;
+            $project_id = $request->input("idProject") ? $request->input("idProject") : null;
 
-        $startTime = $request->input("startTime");
-        $endTime = $request->input("endTime");
+            $startTime = $request->input("startTime");
+            $endTime = $request->input("endTime");
 
-        $tracks = Tracks::select(
-                DB::raw("Tracks.*"), 
-                DB::raw("Weeklyhours.costHour"), 
-                DB::raw("users.name AS usersName"), 
+            $tracks = Tracks::select(
+                DB::raw("Tracks.*"),
+                DB::raw("Weeklyhours.costHour"),
+                DB::raw("users.name AS usersName"),
                 DB::raw("trelloTask.name AS taskName"),
-                DB::raw("trelloTask.project AS projectName"), 
-                DB::raw("clients.name AS client"), 
-                DB::raw("TIMEDIFF( tracks.endTime, tracks.startTime ) AS durations"))
-            ->join("users", DB::raw("tracks.idUser"), "=", DB::raw("Users.id"))
-            ->join("TrelloTask", DB::raw("tracks.idTask"), "=", DB::raw("TrelloTask.id"))
-            ->join("Projects", DB::raw("Projects.id"), "=", DB::raw("TrelloTask.idProyecto"))
-            ->join("Clients", DB::raw("Clients.id"), "=", DB::raw("Projects.idClient"))
-            ->join("Weeklyhours", "Weeklyhours.idUser", "=", "Tracks.idUser")
-            ->where("startTime", ">=", $startTime)
-            ->where("endTime", "<=", $endTime)
-            ->where("typeTrack", "trello")
-        ->whereRaw("TrelloTask.active = 1");
-        
-        if (!empty($user_id)) {
-            $tracks = $tracks->where("Tracks.idUser", $user_id);
+                DB::raw("trelloTask.project AS projectName"),
+                DB::raw("clients.name AS client"),
+                DB::raw("TIMEDIFF( tracks.endTime, tracks.startTime ) AS durations")
+            )
+                ->join("users", DB::raw("tracks.idUser"), "=", DB::raw("Users.id"))
+                ->join("TrelloTask", DB::raw("tracks.idTask"), "=", DB::raw("TrelloTask.id"))
+                ->join("Projects", DB::raw("Projects.id"), "=", DB::raw("TrelloTask.idProyecto"))
+                ->join("Clients", DB::raw("Clients.id"), "=", DB::raw("Projects.idClient"))
+                ->join("Weeklyhours", "Weeklyhours.idUser", "=", "Tracks.idUser")
+                ->where("startTime", ">=", $startTime)
+                ->where("endTime", "<=", $endTime)
+                ->where("typeTrack", "trello")
+                ->whereRaw("TrelloTask.active = 1");
 
-            if(!empty($client_id)){
-                $tracks = $tracks->whereRaw("(Projects.idClient) = ?", [$client_id]);
-                
-                if(!empty($project_id)){
-                    $tracks = $tracks->whereRaw("(Projects.id) = ?", [$project_id])->get();
-                    
+            if (!empty($user_id)) {
+                $tracks = $tracks->where("Tracks.idUser", $user_id);
+
+                if (!empty($client_id)) {
+                    $tracks = $tracks->whereRaw("(Projects.idClient) = ?", [$client_id]);
+
+                    if (!empty($project_id)) {
+                        $tracks = $tracks->whereRaw("(Projects.id) = ?", [$project_id])->get();
+
+                        $tracks = $this->calcCosto($tracks);
+
+                        return array("response" => $tracks);
+                    }
+
+                    $tracks = $tracks->get();
                     $tracks = $this->calcCosto($tracks);
-    
+
+                    return array("response" => $tracks);
+                }
+
+                if (!empty($project_id)) {
+                    $tracks = $tracks->whereRaw("(Projects.id) = ?", [$project_id])->get();
+
+                    $tracks = $this->calcCosto($tracks);
+
                     return array("response" => $tracks);
                 }
 
@@ -333,52 +345,35 @@ class TracksController extends BaseController
                 return array("response" => $tracks);
             }
 
-            if(!empty($project_id)){
+            if (!empty($client_id)) {
+                $tracks = $tracks->whereRaw("(Projects.idClient) = ?", [$client_id]);
+
+                if (!empty($project_id)) {
+                    $tracks = $tracks->whereRaw("(Projects.id) = ?", [$project_id])->get();
+
+                    $tracks = $this->calcCosto($tracks);
+
+                    return array("response" => $tracks);
+                }
+
+                $tracks = $tracks->get();
+
+                $tracks = $this->calcCosto($tracks);
+
+                return array("response" => $tracks);
+            }
+
+            if (!empty($project_id)) {
                 $tracks = $tracks->whereRaw("(Projects.id) = ?", [$project_id])->get();
-                
+
                 $tracks = $this->calcCosto($tracks);
 
                 return array("response" => $tracks);
             }
 
             $tracks = $tracks->get();
-            $tracks = $this->calcCosto($tracks);
 
             return array("response" => $tracks);
-        }
-
-        if(!empty($client_id)){
-            $tracks = $tracks->whereRaw("(Projects.idClient) = ?", [$client_id]);
-            
-            if(!empty($project_id)){
-                $tracks = $tracks->whereRaw("(Projects.id) = ?", [$project_id])->get();
-                
-                $tracks = $this->calcCosto($tracks);
-
-                return array("response" => $tracks);
-            }
-
-            $tracks = $tracks->get();
-
-            $tracks = $this->calcCosto($tracks);
-
-            return array("response" => $tracks);
-        }
-
-        if(!empty($project_id)){
-            $tracks = $tracks->whereRaw("(Projects.id) = ?", [$project_id])->get();
-            
-            $tracks = $this->calcCosto($tracks);
-
-            return array("response" => $tracks);
-        }
-
-        $tracks = $tracks->get();
-
-        return array("response" => $tracks);
-
-        try {
-            
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks trello"), 500));
         }
@@ -391,22 +386,23 @@ class TracksController extends BaseController
         return $this->trelloTracks($request, $user_id);
     }
 
-    public function convertTimeToDecimal($value){
-		$time = explode(":",$value);
-		$horas = floatval($time[0]);
-		$minutes = floatval($time[1])/60;
-		$seconds = floatval($time[2])/3600;
-		$fraccionaria = $minutes + $seconds;
-		$decimal = floatval($horas+$fraccionaria);
-		return $decimal;
-	}
+    public function convertTimeToDecimal($value)
+    {
+        $time = explode(":", $value);
+        $horas = floatval($time[0]);
+        $minutes = floatval($time[1]) / 60;
+        $seconds = floatval($time[2]) / 3600;
+        $fraccionaria = $minutes + $seconds;
+        $decimal = floatval($horas + $fraccionaria);
+        return $decimal;
+    }
 
     public function calcCosto($tracks)
     {
-        foreach($tracks as $track) {
+        foreach ($tracks as $track) {
             $cost = $track['costHour'];
             $costDecimal = $this->ConvertTimeToDecimal($track['durations'] ? $track['durations'] : $track['duration']);
-            $track['trackCost'] = round(round(($costDecimal * ($cost)), 2) ? round(($costDecimal * ($cost)), 2) : 0 );
+            $track['trackCost'] = round(round(($costDecimal * ($cost)), 2) ? round(($costDecimal * ($cost)), 2) : 0);
         }
 
         return $tracks;
