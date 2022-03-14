@@ -793,7 +793,7 @@ class Track {
   }
 
 	// For cube
-	public function getUserHoursByYear($conn, $id, $year) {
+	public function getUserHoursByYear($conn, $id, $year, $month) {
 		$sql = "
 			SELECT
 				MONTH(startTime) AS 'month',
@@ -804,8 +804,11 @@ class Track {
 				END) AS 'tracks'
 			FROM ".$this->model."
 			WHERE YEAR(startTime) = ".$year." AND idUser = ".$id."
-			GROUP BY MONTH(startTime);
 		";
+		if($month) {
+			$sql .= "AND MONTH(startTime) = ".$month;
+		}
+		$sql .= " GROUP BY MONTH(startTime);";
 
 		$d = $conn->query($sql);
 
