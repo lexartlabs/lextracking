@@ -4,7 +4,7 @@ header('Access-Control-Allow-Methods: POST, GET, DELETE, PUT, PATCH, OPTIONS');
 header('Content-Type: application/json');
 header('Access-Control-Allow-Headers: *');
 
-define ("ENV", "/lextracking/api");
+
 
 require('config/conn.php');
 //require('server.config/conn_local.php');
