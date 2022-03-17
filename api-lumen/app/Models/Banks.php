@@ -13,5 +13,5 @@ class Banks extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['id', 'name', 'branchOffice', 'holder', 'type', 'currency', "identificationCard", "account", "priceUsd", "borrado"];
+    protected $fillable = ['id', 'name', 'branchOffice', 'userId', 'type', 'currency', "identificationCard", "account", "priceUsd", "active", "borrado"];
 }

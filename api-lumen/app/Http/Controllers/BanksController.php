@@ -8,7 +8,7 @@ use Exception;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AuthController;
-
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class BanksController extends BaseController
 {
@@ -57,14 +57,52 @@ class BanksController extends BaseController
         return $this->user($request, $userId);
     }
 
-    public function update()
+    public function update(Request $request)
     {
-        
+        $this->validate($request, [
+            "id" => "required|exists:banks",
+            "name" => "required",
+            "branchOffice" => "required|numeric",
+            "userId" => "required|exists:users,id|numeric",
+            "type" => "required",
+            "identificationCard" => "required",
+            "account" => "required",
+            "priceUsd" => "required|numeric",
+        ]);
+
+        $id = $request->input("id");
+        $bank = $request->only(["name", "branchOffice", "userId", "type", "identificationCard", "account", "priceUsd"]);
+
+        try{
+            $bank = Banks::where("id", $id)->update($bank);
+
+            return array("response" => $bank);
+        }catch(Exception $e){
+
+        }
     }
 
-    public function new()
+    public function new(Request $request)
     {
+        $this->validate($request, [
+            "name" => "required|",
+            "branchOffice" => "required|numeric",
+            "userId" => "required|exists:users,id|numeric",
+            "type" => "required",
+            "identificationCard" => "required",
+            "account" => "required",
+            "priceUsd" => "required|numeric",
+        ]);
 
+        $bank = $request->only(["name", "branchOffice", "userId", "type", "identificationCard", "account", "priceUsd"]);
+
+        try{
+            $bank = Banks::create($bank);
+
+            return array("response" => $bank);
+        }catch(Exception $e){
+
+        }
     }
 
     public function active(Request $request, $id, $userID){
