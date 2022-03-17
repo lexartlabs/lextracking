@@ -152,14 +152,14 @@ Route::group(['prefix' => 'api'], function ($router) {
             });
         });
 
-        Route::group(['middleware' => 'pm:api'], function(){
+        Route::group(['middleware' => 'admin:api'], function(){
             Route::get('all', 'BanksController@all');
             Route::get('{id}', 'BanksController@all');
         });
 
         Route::group(['prefix' => 'user', 'middleware' => 'pm:api'], function(){
-            Route::get('{id}', 'BanksController@user')->middleware('admin:api');
-            Route::put('update', 'BanksController@update')->middleware('admin:api');
+            Route::get('{id}', ["middleware" => "admin:api", "uses" => "BanksController@user"]);
+            Route::put('update', ["middleware" => "admin:api", "uses" => "BanksController@update"]);
 
             Route::delete('{userID}/delete/{id}', 'BanksController@delete');
             Route::get('{userID}/undelete/{id}', 'BanksController@undelete');
