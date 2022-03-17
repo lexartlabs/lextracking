@@ -133,4 +133,38 @@ Route::group(['prefix' => 'api'], function ($router) {
         Route::delete('delete', 'SalesController@delete');
         Route::post('undelete', 'SalesController@undelete');
     });
+
+    Route::group(['prefix' => 'banks', 'middleware' => 'auth:api'], function(){
+
+        Route::group(['prefix' => 'user'], function(){
+            Route::get('current', 'BanksController@current');
+
+            Route::group(['prefix' => 'current'], function(){
+                Route::put('update', 'BanksController@currentUpdate');
+                Route::delete('delete/{id}', 'BanksController@currentDelete');
+                Route::get('undelete/{id}', 'BanksController@currentUndelete');
+
+                Route::get('active/{id}', 'BanksController@currentActive');
+                Route::get('deactive/{id}', 'BanksController@currentDeActive');
+            });
+        });
+
+        Route::group(['middleware' => 'admin:api'], function(){
+            Route::get('all', 'BanksController@all');
+            Route::get('{id}', 'BanksController@all');
+        });
+
+        Route::group(['prefix' => 'user', 'middleware' => 'admin:api'], function(){
+            Route::get('{id}', 'BanksController@user');
+
+            Route::post('new', 'BanksController@new');
+            Route::put('update', 'BanksController@update');
+
+            Route::delete('{userID}/delete/{id}', 'BanksController@delete');
+            Route::get('{userID}/undelete/{id}', 'BanksController@undelete');
+
+            Route::get('{userID}/active/{id}', 'BanksController@active');
+            Route::get('{userID}/deactive/{id}', 'BanksController@deActive');
+        });
+    });
 });
