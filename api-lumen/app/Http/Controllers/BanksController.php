@@ -57,13 +57,12 @@ class BanksController extends BaseController
         return $this->user($request, $userId);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $user_id = null)
     {
         $this->validate($request, [
             "id" => "required|exists:banks",
             "name" => "required",
             "branchOffice" => "required|numeric",
-            "userId" => "required|exists:users,id|numeric",
             "type" => "required",
             "identificationCard" => "required",
             "account" => "required",
@@ -71,15 +70,40 @@ class BanksController extends BaseController
         ]);
 
         $id = $request->input("id");
-        $bank = $request->only(["name", "branchOffice", "userId", "type", "identificationCard", "account", "priceUsd"]);
+        
 
         try{
-            $bank = Banks::where("id", $id)->update($bank);
+            $bank = Banks::where("id", $id);
+
+            if(!empty($user_id)){
+                $request["userId"] = $user_id;
+
+                
+                $this->validate($request, ["userId" => "exists:users,id"]);
+
+                $bank = $bank->where("userId", $user_id);
+
+                $bank_where = $bank->where("userId", $user_id)->get();
+
+                if(count($bank_where) == 0){
+                    return array("response" => BANK_NOT_ASSOCIED);
+                }
+            };
+
+            $bank_update = $request->only(["name", "branchOffice", "type", "identificationCard", "account", "priceUsd"]);
+            $bank = $bank->update($bank_update);
 
             return array("response" => $bank);
         }catch(Exception $e){
 
         }
+    }
+
+    public function updateCurrent(Request $request) 
+    {
+        $user_id = AuthController::current()->id;
+
+        return $this->update($request, $user_id);
     }
 
     public function new(Request $request)

@@ -139,10 +139,13 @@ Route::group(['prefix' => 'api'], function ($router) {
         Route::group(['prefix' => 'user'], function(){
             Route::get('current', 'BanksController@current');
 
+            Route::post('new', 'BanksController@new');
+
             Route::group(['prefix' => 'current'], function(){
-                Route::put('update', 'BanksController@currentUpdate');
                 Route::delete('delete/{id}', 'BanksController@currentDelete');
                 Route::get('undelete/{id}', 'BanksController@currentUndelete');
+
+                Route::put('update', 'BanksController@updateCurrent');
 
                 Route::get('active/{id}', 'BanksController@currentActive');
                 Route::get('deactive/{id}', 'BanksController@currentDeActive');
@@ -156,8 +159,6 @@ Route::group(['prefix' => 'api'], function ($router) {
 
         Route::group(['prefix' => 'user', 'middleware' => 'admin:api'], function(){
             Route::get('{id}', 'BanksController@user');
-
-            Route::post('new', 'BanksController@new');
             Route::put('update', 'BanksController@update');
 
             Route::delete('{userID}/delete/{id}', 'BanksController@delete');
