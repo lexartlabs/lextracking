@@ -71,14 +71,12 @@ class BanksController extends BaseController
 
         $id = $request->input("id");
         
-
         try{
             $bank = Banks::where("id", $id);
 
             if(!empty($user_id)){
                 $request["userId"] = $user_id;
 
-                
                 $this->validate($request, ["userId" => "exists:users,id"]);
 
                 $bank = $bank->where("userId", $user_id);
