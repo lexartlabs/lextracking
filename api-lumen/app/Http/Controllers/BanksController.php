@@ -62,6 +62,7 @@ class BanksController extends BaseController
         $this->validate($request, [
             "id" => "required|exists:banks",
             "name" => "required",
+            "country" => "required",
             "branchOffice" => "required|numeric",
             "type" => "required",
             "identificationCard" => "required",
@@ -88,7 +89,7 @@ class BanksController extends BaseController
                 }
             };
 
-            $bank_update = $request->only(["name", "branchOffice", "type", "identificationCard", "account", "priceUsd"]);
+            $bank_update = $request->only(["name", "country",  "branchOffice", "type", "identificationCard", "account", "priceUsd"]);
             $bank = $bank->update($bank_update);
 
             return array("response" => $bank);
@@ -109,6 +110,7 @@ class BanksController extends BaseController
         $this->validate($request, [
             "name" => "required|",
             "branchOffice" => "required|numeric",
+            "country" => "required",
             "userId" => "required|exists:users,id|numeric",
             "type" => "required",
             "identificationCard" => "required",
@@ -116,7 +118,7 @@ class BanksController extends BaseController
             "priceUsd" => "required|numeric",
         ]);
 
-        $bank = $request->only(["name", "branchOffice", "userId", "type", "identificationCard", "account", "priceUsd"]);
+        $bank = $request->only(["name", "country", "branchOffice", "userId", "type", "identificationCard", "account", "priceUsd"]);
 
         try{
             $bank = Banks::create($bank);
