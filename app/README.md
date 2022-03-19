@@ -17,4 +17,3 @@ This runs a *connect* server with *livereload* and a *watch* task to rebuild the
 To build the app and compress the assets we run:
 ```grunt build```
 
- 
