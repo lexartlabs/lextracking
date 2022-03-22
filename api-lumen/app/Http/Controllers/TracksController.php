@@ -12,6 +12,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Http\Response;
 use App\Models\TrelloTasks;
 use App\Models\Tasks;
+use Illuminate\Support\Facades\DB;
 
 class TracksController extends BaseController
 {
@@ -78,7 +79,7 @@ class TracksController extends BaseController
     }
 
     public function trackResponse($track)
-    {   
+    {
         $track->duration = $this->duracionDiff($track->startTime, $track->endTime);
         $costHout = new CostHourController();
         $track->trackCost = $costHout->costHour($track->duration, $track->idUser);
@@ -89,7 +90,7 @@ class TracksController extends BaseController
     {
         $date1=new \DateTime($start); //2022-02-04 15:21:19
         $date2=new \DateTime($end);
-        
+
         return $date2->diff($date1, true)->format("%H:%I:%S");;
     }
 
@@ -112,7 +113,7 @@ class TracksController extends BaseController
         $name = $request->input("name");
         $startTime = $request->input("startTime");
         $typeTrack = $request->input("typeTrack");
-        
+
         if($typeTrack == "manual"){
             $task_manual = Tasks::where('id', $idTask)->first();
 
@@ -166,6 +167,34 @@ class TracksController extends BaseController
             "typeTrack" => $typeTrack
         );
     }
+
+    public function getUserHoursByYear(Request $request, $idUser, $year) {
+        $month = $request->input('month');
+        $filter = "MONTH(startTime) = ".$month;
+
+        try{
+            $tracks = DB::table("tracks")
+                ->select(DB::raw("MONTH(startTime) AS 'month'"), DB::raw("'seconds' AS 'metric'"), DB::raw("(CASE WHEN 'typeTrack' = 'external'
+                THEN SUM(TIME_TO_SEC(duracion))
+                ELSE SUM(TIME_TO_SEC((TIMEDIFF(endTime, startTime))))
+                END) AS 'tracks'"))
+                ->whereRaw("YEAR(startTime) = ? AND idUser = ?", [$year, $idUser]);
+
+            if($month) {
+                $tracks->whereRaw($filter);
+            }
+
+            $tracks = $tracks->groupBy("month")->get();
+
+            if(!empty($tracks)){
+                return array("response" => $tracks);
+            } else {
+                return array("error" => "Error: no se encontraron tracks con estos filtros.");
+            }
+        }catch(Exception $e) {
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "track get user hours by year"), 500));
+        }
+	}
 }
 
 
