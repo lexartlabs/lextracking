@@ -151,7 +151,7 @@ Route::group(['prefix' => 'api'], function ($router) {
             Route::get('current', 'WeeklyhoursController@current');
         });
 
-        Route::group(['middleware' => 'admin:api'], function () {
+        Route::group(['middleware' => 'pm:api'], function () {
             Route::get('all', 'WeeklyhoursController@all');
             Route::get('{id}', 'WeeklyhoursController@all');
 
