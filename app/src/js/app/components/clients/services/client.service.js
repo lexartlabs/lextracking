@@ -12,10 +12,10 @@
 
 		    find: function(page, q, cb) {
 
-				const user = window.localStorage;
-				const role = user.userRole;
+				var user = window.localStorage;
+				var role = user.userRole;
 
-				let path = role == "developer" ? "current" : "all";
+				var path = role == "developer" ? "current" : "all";
 
 		      	RestClient.get(model + "/" + path, function(err, result, countItems) {
 		        	cb(err, result, countItems);
