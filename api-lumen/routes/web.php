@@ -71,6 +71,7 @@ Route::group(['prefix' => 'api'], function ($router) {
     Route::group(['prefix' => 'projects', 'middleware' => 'auth:api'], function() {
         Route::get('all', 'ProjectsController@all');
         Route::get('{id}', 'ProjectsController@all');
+        Route::put('update', ["middleware" => "pm:api", "uses" => 'ProjectsController@update']);
 
         Route::get('client/{id}', 'ProjectsController@client');
 
@@ -83,6 +84,8 @@ Route::group(['prefix' => 'api'], function ($router) {
             Route::put('update', 'TasksController@update');
             Route::post('create', 'TasksController@create');
             Route::get('project/{id}', 'TasksController@project');
+            Route::post('id-user/{id}', 'TasksController@getTasksByUserFilter');
+
 
             //User
             Route::group(['prefix' => 'user'], function(){
@@ -171,7 +174,7 @@ Route::group(['prefix' => 'api'], function ($router) {
 
         Route::get('current', 'ClientsController@current');
 
-        Route::group(['middleware' => 'admin:api'], function(){
+        Route::group(['middleware' => 'pm:api'], function(){
             Route::get('all', 'ClientsController@all');
             Route::get('{id}', 'ClientsController@all');
 

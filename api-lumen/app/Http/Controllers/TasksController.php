@@ -11,13 +11,13 @@ use Illuminate\Support\Facades\DB;
 
 class TasksController extends BaseController
 {
-    public function all($id = null) 
+    public function all($id = null)
     {
         try{
             if(!empty($id)){
                 return array('response' => Tasks::where('tasks.id', $id)->join('projects', 'tasks.idProject', '=', 'projects.id')->select('tasks.*', 'projects.name as projectName')->first());
             }
-            
+
             return array('response' => Tasks::join('projects', 'tasks.idProject', '=', 'projects.id')->select('tasks.*', 'projects.name as projectName')->get());
         }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tasks all"), 500));
@@ -135,7 +135,7 @@ class TasksController extends BaseController
 
         try{
             $tasks = Tasks::where('id', $id);
-            
+
             if(!$tasks){
                 return (new Response(array("Error" => ID_INVALID, "Operation" => "tasks invalid id"), 500));
             }
@@ -195,7 +195,7 @@ class TasksController extends BaseController
                 "endDate" => $endDate,
             );
         }
-        
+
         return array(
             "name" => $name,
             "idProject" => $idProject,
@@ -208,5 +208,55 @@ class TasksController extends BaseController
             "duration" => $duration,
             "id" => $id,
         );
+    }
+
+    public function getTasksByUserFilter(Request $request, $iduser)
+    {
+		$filter = "";
+        $limit  = $request->input('limit');
+        $offset  = $request->input('offset');
+        $filter_params  = $request->input('filter');
+        $user = '%{"idUser":"'.$iduser.'"}%';
+
+        // Filters
+        if (count($filter_params) > 0) {
+			foreach ($filter_params as $key => $value) {
+				$keyName = array_keys($filter_params[$key])[0];
+				if($keyName == "projectName"){
+					$filter .= " AND projects.name LIKE '%".$value[$keyName]."%'";
+				}else if($keyName == "name"){
+					$filter .= " AND tasks.name LIKE '%".$value[$keyName]."%'";
+				}
+				else if($keyName == "description"){
+					$filter .= " AND tasks.description LIKE '%".$value[$keyName]."%'";
+				}
+			}
+		}
+
+        $d = Tasks::join('projects', $this->model.".idProject", '=', 'projects.id')
+            ->select("tasks.*, projects.name AS projectName")
+            ->where("tasks.users", 'LIKE', $user)
+            ->where('projects.active', '=', 1)
+            ->where("tasks.active", '=', 1)
+            ->whereRaw($filter)
+            ->orderByRaw("projectName");
+
+        $d_count = $d->get();
+
+        if (!empty($offset) && isset($offset)) {
+            $d->offset($offset);
+        }
+        if (!empty($limit) && isset($limit)) {
+            $d->limit($limit);
+        }
+
+        $d = $d->get();
+
+		// CALLBACK
+		if(!empty($d)){
+			return (new Response(array("response" => array("task"=>$d, "count"=>count($d_count)))));
+		} else {
+			return (new Response(array("Error" => "Error: no existen tareas.")));
+		}
     }
 }
