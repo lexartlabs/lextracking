@@ -18,4 +18,10 @@ class Tasks extends Model
         'status', 'active'
     ];
 
+    protected $casts = [
+        'id' => 'string',
+        'idProject' => 'string',
+        'active' => 'string'
+    ];
+
 }
