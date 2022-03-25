@@ -57,7 +57,7 @@ Route::group(['prefix' => 'api'], function ($router) {
         Route::get('client/{id}', 'ProjectsController@client');
 
         Route::group(['prefix' => 'tasks'], function() {
-            Route::get('all', 'TasksController@all');
+            Route::post('all', 'TasksController@all');
             Route::get('{id}', 'TasksController@all');
             Route::delete('delete', 'TasksController@delete');
             Route::post('undelete', 'TasksController@undelete');
@@ -67,10 +67,9 @@ Route::group(['prefix' => 'api'], function ($router) {
             Route::get('project/{id}', 'TasksController@project');
 
             Route::group(['prefix' => 'user'], function(){
-                Route::get('current', 'TasksController@currentUser');
+                Route::post('current', 'TasksController@currentUser');
                 Route::get('{id}', 'TasksController@userId');
             });
-            
             
             Route::group(['prefix' => 'trello'], function (){
                 Route::get('all', 'TrelloTasksController@all');
