@@ -84,7 +84,7 @@ Route::group(['prefix' => 'api'], function ($router) {
             Route::put('update', 'TasksController@update');
             Route::post('create', 'TasksController@create');
             Route::get('project/{id}', 'TasksController@project');
-            Route::post('id-user/{id}', 'TasksController@getTasksByUserFilter');
+            Route::post('id-user/{idUser}', 'TasksController@getTasksByUserFilter');
 
 
             //User

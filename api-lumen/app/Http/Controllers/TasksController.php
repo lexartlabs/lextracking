@@ -210,13 +210,13 @@ class TasksController extends BaseController
         );
     }
 
-    public function getTasksByUserFilter(Request $request, $iduser)
+    public function getTasksByUserFilter(Request $request, $idUser)
     {
 		$filter = "";
         $limit  = $request->input('limit');
         $offset  = $request->input('offset');
         $filter_params  = $request->input('filter');
-        $user = '%{"idUser":"'.$iduser.'"}%';
+        $user = '%{"idUser":"'.$idUser.'"}%';
 
         // Filters
         if (count($filter_params) > 0) {
@@ -233,13 +233,16 @@ class TasksController extends BaseController
 			}
 		}
 
-        $d = Tasks::join('projects', $this->model.".idProject", '=', 'projects.id')
-            ->select("tasks.*, projects.name AS projectName")
+        $d = Tasks::join('projects', 'tasks.idProject', '=', 'projects.id')
+            ->select('tasks.*', 'projects.name AS projectName')
             ->where("tasks.users", 'LIKE', $user)
             ->where('projects.active', '=', 1)
             ->where("tasks.active", '=', 1)
-            ->whereRaw($filter)
             ->orderByRaw("projectName");
+
+        if(!empty($filter)) {
+            $d->whereRaw($filter);
+        }
 
         $d_count = $d->get();
 
