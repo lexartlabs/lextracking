@@ -74,7 +74,7 @@
 		    save: function(obj, cb) {
 		    	if (obj.id) {
 		    		console.log("OBJ SAVE UPDATE", obj);
-		        	RestClient.post(model + "/update", obj, function(err, result) {
+		        	RestClient.put(model + "/update", obj, function(err, result) {
 		          		cb(err, result);
 		        	})
 		      	} else {
