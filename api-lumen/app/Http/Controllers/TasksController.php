@@ -31,7 +31,8 @@ class TasksController extends BaseController
                 return (new Response(array("Error" => ID_INVALID, "Operation" => "tasks projecs id"), 500));
             }
 
-            return Tasks::join('projects', 'tasks.idProject', '=', 'projects.id')->select('tasks.*', 'projects.name as projectName')->where('idProject', $id)->get();
+            $response = Tasks::join('projects', 'tasks.idProject', '=', 'projects.id')->select('tasks.*', 'projects.name as projectName')->where('idProject', $id)->get();
+            return array('response' => $response);
         }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tasks projecs id"), 500));
         }

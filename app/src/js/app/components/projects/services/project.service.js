@@ -29,7 +29,7 @@
 			},
 
 			getProjectTasks: function(idProject,  cb) {
-				RestClient.get(model + "/task/project/" + idProject, function(err, result) {
+				RestClient.get(model + "/tasks/project/" + idProject, function(err, result) {
 					cb(err, result);
 				})
 			},
