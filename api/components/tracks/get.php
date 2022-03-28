@@ -55,7 +55,8 @@
 		if ($name == 'tracks-by-user-by-year') {
 			$year = $params["year"];
 			$id = $params["id"];
-			$response 	= $objUsr->getUserHoursByYear($conn, $id, $year);
+			$month = $_GET['month'];
+			$response 	= $objUsr->getUserHoursByYear($conn, $id, $year, $month);
 			echo json_encode($response);
 		}
 	}else {
