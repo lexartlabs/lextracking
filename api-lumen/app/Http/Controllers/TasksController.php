@@ -60,7 +60,7 @@ class TasksController extends BaseController
                             $tasks = $tasks->whereRaw("tasks.name LIKE ?", "%$value%");
                             break;
                         case "description":
-                            var_dump($value);
+                            // var_dump($value);
                             $tasks = $tasks->whereRaw("tasks.description LIKE ?", "%$value%");
                             break;
                     }
