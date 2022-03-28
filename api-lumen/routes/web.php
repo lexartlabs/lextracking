@@ -42,8 +42,8 @@ Route::group(['prefix' => 'api'], function ($router) {
                 Route::post('current/save', 'PerformanceController@saveCurrent');
             });
         });
-        
-        Route::group(['middleware' => 'admin:api'], function () {
+
+        Route::group(['middleware' => 'pm:api'], function () {
             Route::post('register', 'UserController@register');
             Route::delete('delete', 'UserController@delete');
             Route::post('undelete', 'UserController@undelete');
@@ -188,5 +188,40 @@ Route::group(['prefix' => 'api'], function ($router) {
         Route::put('update', 'SalesController@update');
         Route::delete('delete', 'SalesController@delete');
         Route::post('undelete', 'SalesController@undelete');
+    });
+
+    Route::group(['prefix' => 'banks', 'middleware' => 'auth:api'], function(){
+
+        Route::group(['prefix' => 'user'], function(){
+            Route::get('current', 'BanksController@current');
+
+            Route::post('new', 'BanksController@new');
+
+            Route::group(['prefix' => 'current'], function(){
+                Route::delete('delete/{id}', 'BanksController@currentDelete');
+                Route::get('undelete/{id}', 'BanksController@currentUndelete');
+
+                Route::put('update', 'BanksController@updateCurrent');
+
+                Route::get('active/{id}', 'BanksController@currentActive');
+                Route::get('deactive/{id}', 'BanksController@currentDeActive');
+            });
+        });
+
+        Route::group(['middleware' => 'admin:api'], function(){
+            Route::get('all', 'BanksController@all');
+            Route::get('{id}', 'BanksController@all');
+        });
+
+        Route::group(['prefix' => 'user', 'middleware' => 'pm:api'], function(){
+            Route::get('{id}', ["middleware" => "admin:api", "uses" => "BanksController@user"]);
+            Route::put('update', ["middleware" => "admin:api", "uses" => "BanksController@update"]);
+
+            Route::delete('{userID}/delete/{id}', 'BanksController@delete');
+            Route::get('{userID}/undelete/{id}', 'BanksController@undelete');
+
+            Route::get('{userID}/active/{id}', 'BanksController@active');
+            Route::get('{userID}/deactive/{id}', 'BanksController@deActive');
+        });
     });
 });
