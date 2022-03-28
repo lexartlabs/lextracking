@@ -11,19 +11,63 @@ use Illuminate\Support\Facades\DB;
 
 class TasksController extends BaseController
 {
-    public function all($id = null) 
+    public function all(Request $request, $id = null) 
     {
+        $request["id"] = $id;
+
+        $this->validate($request, [
+            "filter" => "array",
+            "limit" => "numeric",
+            "offset" => "numeric",
+        ]);
+
+        $offset = $request->input("offset");
+        $limit = $request->input("limit");
+        $filters = $request->input("filter");
+
         try{
-            if(!empty($id)){
-                return array('response' => Tasks::where('tasks.id', $id)->join('projects', 'tasks.idProject', '=', 'projects.id')->select('tasks.*', 'projects.name as projectName')->first());
+            $tasks = Tasks::join('projects', 'tasks.idProject', '=', 'projects.id')->select('tasks.*', 'projects.name as projectName');
+            
+            $tasks = $tasks->offset(empty($offset) ? 0 : $offset );
+            $tasks = $tasks->limit(empty($limit) ? 15 : $limit);
+
+            if(count($filters) > 0){
+                foreach($filters as $filter) {
+    
+                    $key = array_keys($filter)[0];
+                    $value = $filter[$key];
+
+                    switch($key){
+                        case "projectName": 
+                            $tasks = $tasks->whereRaw("projects.name LIKE ?", $value);
+                            break;
+                        case "name":
+                            $tasks = $tasks->whereRaw("tasks.name LIKE ?", $value);
+                            break;
+                        case "description":
+                            $tasks = $tasks->whereRaw("tasks.description LIKE ?", $value);
+                            break;
+                    }
+                }
             }
             
-            return array('response' => Tasks::join('projects', 'tasks.idProject', '=', 'projects.id')->select('tasks.*', 'projects.name as projectName')->get());
+            if(!empty($id)){
+                $this->validate($request, ["id" => "numeric|exists:tasks,id"]);
+                $tasks = $tasks->whereRaw("tasks.id = ?", $id);
+            }
+
+            $tasks = $tasks->get();
+            $countTasks = strval(count($tasks));
+
+            return array("response" => array(
+                "count" => $countTasks,
+                "task" => $tasks
+            ));
         }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tasks all"), 500));
         }
     }
-
+    
     public function project($id)
     {
         try{
@@ -75,36 +119,69 @@ class TasksController extends BaseController
         }
     }
 
-    public function userId($id)
-    {
+    public function userId($id, Request $request)
+    {   
+
+        $request["id"] = $id;
+
+        $this->validate($request, [
+            "filter" => "array",
+            "limit" => "numeric",
+            "offset" => "numeric",
+            "id" => "exists:users"
+        ]);
+
+        $offset = $request->input("offset");
+        $limit = $request->input("limit");
+        $filters = $request->input("filter");
+
         try{
-            if(!$id){
-                return (new Response(array("Error" => ID_INVALID, "Operation" => "tasks user id"), 500));
-            }
-
             $model_like = '%{"idUser":"'.$id.'"}%'; //LIKE TO JSON USERS
-            $tasks = Tasks::join('projects', 'tasks.idProject', '=', 'projects.id')->select('tasks.*', 'projects.name as projectName')->where('users', 'LIKE', $model_like)->get();
+            $tasks = Tasks::join('projects', 'tasks.idProject', '=', 'projects.id')->select('tasks.*', 'projects.name as projectName');
 
-            return array('response' => [
-                "count" => count($tasks),
+            $tasks = $tasks->offset(empty($offset) ? 0 : $offset );
+            $tasks = $tasks->limit(empty($limit) ? 15 : $limit);
+
+            if(count($filters) > 0){
+                foreach($filters as $filter) {
+                    $key = array_keys($filter)[0];
+                    $value = $filter[$key];
+
+                    switch($key){
+                        case "projectName": 
+                            $tasks = $tasks->whereRaw("projects.name LIKE ?", "%$value%");
+                            break;
+                        case "name":
+                            $tasks = $tasks->whereRaw("tasks.name LIKE ?", "%$value%");
+                            break;
+                        case "description":
+                            $tasks = $tasks->whereRaw("tasks.description LIKE ?", "%$value%");
+                            break;
+                    }
+                }
+            }
+            
+            $tasks = $tasks->where('users', 'LIKE', $model_like)->get();
+            $countTasks = strval(count($tasks));
+
+            return array("response" => array(
+                "count" => $countTasks,
                 "task" => $tasks
-            ]);
+            ));
         }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tasks undelete id invalid"), 500));
         }
     }
 
-    public function currentUser()
+    public function currentUser(Request $request)
     {
-        $user = AuthController::current();
+        $user_id = AuthController::current()->id;
 
-        if(!$user){
+        if(!$user_id){
             return (new Response(array("Error" => ID_INVALID, "Operation" => "tasks current user id"), 500));
         }
 
-        $id = $user->id;
-
-        return $this->userId($id);
+        return $this->userId($user_id, $request);
     }
 
     public function update(Request $request)
