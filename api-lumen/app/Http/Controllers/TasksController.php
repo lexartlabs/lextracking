@@ -39,7 +39,8 @@ class TasksController extends BaseController
                     'tasks.active',
                     'projects.name as projectName'
                 )
-                ->selectRaw('IFNULL(tasks.users, "[]") AS users');
+                ->selectRaw('IFNULL(tasks.users, "[]") AS users')
+                ->where('projects.active', '=', '1');
 
             $count = Tasks::select("*");
 
@@ -60,7 +61,7 @@ class TasksController extends BaseController
                             $tasks = $tasks->whereRaw("tasks.name LIKE ?", "%$value%");
                             break;
                         case "description":
-                            var_dump($value);
+                            // var_dump($value);
                             $tasks = $tasks->whereRaw("tasks.description LIKE ?", "%$value%");
                             break;
                     }
@@ -94,8 +95,9 @@ class TasksController extends BaseController
                 return (new Response(array("Error" => ID_INVALID, "Operation" => "tasks projecs id"), 500));
             }
 
-            return Tasks::join('projects', 'tasks.idProject', '=', 'projects.id')->select('tasks.*', 'projects.name as projectName')->where('idProject', $id)->get();
-        } catch (Exception $e) {
+            $response = Tasks::join('projects', 'tasks.idProject', '=', 'projects.id')->select('tasks.*', 'projects.name as projectName')->where('idProject', $id)->get();
+            return array('response' => $response);
+        }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tasks projecs id"), 500));
         }
     }
@@ -304,5 +306,58 @@ class TasksController extends BaseController
             "duration" => $duration,
             "id" => $id,
         );
+    }
+
+    public function getTasksByUserFilter(Request $request, $idUser)
+    {
+		$filter = "";
+        $limit  = $request->input('limit');
+        $offset  = $request->input('offset');
+        $filter_params  = $request->input('filter');
+        $user = '%{"idUser":"'.$idUser.'"}%';
+
+        // Filters
+        if (count($filter_params) > 0) {
+			foreach ($filter_params as $key => $value) {
+				$keyName = array_keys($filter_params[$key])[0];
+				if($keyName == "projectName"){
+					$filter .= " AND projects.name LIKE '%".$value[$keyName]."%'";
+				}else if($keyName == "name"){
+					$filter .= " AND tasks.name LIKE '%".$value[$keyName]."%'";
+				}
+				else if($keyName == "description"){
+					$filter .= " AND tasks.description LIKE '%".$value[$keyName]."%'";
+				}
+			}
+		}
+
+        $d = Tasks::join('projects', 'tasks.idProject', '=', 'projects.id')
+            ->select('tasks.*', 'projects.name AS projectName')
+            ->where("tasks.users", 'LIKE', $user)
+            ->where('projects.active', '=', 1)
+            ->where("tasks.active", '=', 1)
+            ->orderByRaw("projectName");
+
+        if(!empty($filter)) {
+            $d->whereRaw($filter);
+        }
+
+        $d_count = $d->get();
+
+        if (!empty($offset) && isset($offset)) {
+            $d->offset($offset);
+        }
+        if (!empty($limit) && isset($limit)) {
+            $d->limit($limit);
+        }
+
+        $d = $d->get();
+
+		// CALLBACK
+		if(!empty($d)){
+			return (new Response(array("response" => array("task"=>$d, "count"=>count($d_count)))));
+		} else {
+			return (new Response(array("Error" => "Error: no existen tareas.")));
+		}
     }
 }
