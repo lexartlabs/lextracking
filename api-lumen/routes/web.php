@@ -132,4 +132,10 @@ Route::group(['prefix' => 'api'], function ($router) {
         Route::delete('delete', 'SalesController@delete');
         Route::post('undelete', 'SalesController@undelete');
     });
+
+    //Finanzas
+    Route::group(['prefix' => 'finances', 'middleware' => 'admin:api'], function(){
+        
+        Route::get("all/date/{firstDate}/{lastDate}", 'FinancesController@all');
+    });
 });
