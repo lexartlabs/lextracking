@@ -19,9 +19,9 @@ class Tasks extends Model
     ];
 
     protected $casts = [
-        'active' => 'string',
         'id' => 'string',
         'idProject' => 'string',
+        'active' => 'string'
     ];
 
 }

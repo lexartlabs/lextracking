@@ -76,7 +76,7 @@ Route::group(['prefix' => 'api'], function ($router) {
 
         //Tasks
         Route::group(['prefix' => 'tasks'], function() {
-            Route::get('all', 'TasksController@all');
+            Route::post('all', 'TasksController@all');
             Route::get('{id}', 'TasksController@all');
             Route::delete('delete', 'TasksController@delete');
             Route::post('undelete', 'TasksController@undelete');
