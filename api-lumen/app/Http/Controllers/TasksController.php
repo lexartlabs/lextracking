@@ -40,7 +40,7 @@ class TasksController extends BaseController
                     'projects.name as projectName'
                 )
                 ->selectRaw('IFNULL(tasks.users, "[]") AS users')
-                ->where('projects.active', '=', '1');
+                ->where('tasks.active', '=', '1');
 
             $count = Tasks::select("*");
 
@@ -83,7 +83,7 @@ class TasksController extends BaseController
                 "count" => "$countTasks",
                 "task" => $tasks
             ));
-        } catch (Exception $e) {
+        }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tasks all"), 500));
         }
     }
@@ -156,8 +156,8 @@ class TasksController extends BaseController
         $limit = $request->input("limit");
         $filters = $request->input("filter");
 
-        try {
-            $model_like = '%{"idUser":"' . $id . '"}%'; //LIKE TO JSON USERS
+        try{
+            $model_like = '%{"idUser":"'.$id.'"}%'; //LIKE TO JSON USERS
             $tasks = Tasks::join('projects', 'tasks.idProject', '=', 'projects.id')->select('tasks.*', 'projects.name as projectName');
 
             $tasks = $tasks->offset(empty($offset) ? 0 : $offset);
@@ -189,7 +189,7 @@ class TasksController extends BaseController
                 "count" => $countTasks,
                 "task" => $tasks
             ));
-        } catch (Exception $e) {
+        }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tasks undelete id invalid"), 500));
         }
     }

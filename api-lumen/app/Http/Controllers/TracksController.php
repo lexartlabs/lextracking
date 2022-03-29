@@ -132,7 +132,7 @@ class TracksController extends BaseController
 
         $tracks = $this->all($request, $user_id);
 
-        return $tracks;
+        return array("response" => $tracks);
 
         try {
         } catch (Exception $e) {
@@ -183,7 +183,7 @@ class TracksController extends BaseController
 
             $track = $this->arrayTracks($currency, $idProyecto, $idTask, $idUser, $name, $startTime, $typeTrack);
 
-            return Tracks::create($track);
+            return array("response" => Tracks::create($track));
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks new"), 500));
         }
@@ -192,17 +192,22 @@ class TracksController extends BaseController
     public function update(Request $request)
     {
         $this->validate($request, [
-            "duracion" => "required|regex:/(\d+\:\d+)/",
+            "duracion" => "regex:/(\d+\:\d+)/",
             "endTime" => "required|date",
+            "startTime" => "required|date",
             "id" => "required|numeric",
         ]);
 
         try {
             $duracion = 0;
             $endTime = $request->input("endTime");
+            $startTime = $request->input("startTime");
             $id = $request->input("id");
 
-            return Tracks::where("id", $id)->update(["duracion" => $duracion, "endTime" => $endTime]);
+            $update = empty($duracion) ? ["endTime" => $endTime, "startTime" => $startTime] : ["duracion" => $duracion, "endTime" => $endTime, "startTime" => $startTime];
+            var_dump($id);
+
+            return Tracks::where("id", $id)->update($update);
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "track update"), 500));
         }
@@ -293,8 +298,17 @@ class TracksController extends BaseController
             $endTime = $request->input("endTime");
 
             $tracks = Tracks::select(
-                DB::raw("Tracks.*"),
-                DB::raw("Weeklyhours.costHour"),
+                "Tracks.id",
+                "Tracks.idTask",
+                "Tracks.idUser",
+                "Tracks.name",
+                "Tracks.typeTrack",
+                "Tracks.currency",
+                "Tracks.idProyecto",
+                "Tracks.duracion",
+                "Tracks.startTime",
+                "Tracks.endTime",
+                DB::raw("Weeklyhours.costHour AS costHour" ),
                 DB::raw("users.name AS usersName"),
                 DB::raw("trelloTask.name AS taskName"),
                 DB::raw("trelloTask.project AS projectName"),
@@ -372,6 +386,7 @@ class TracksController extends BaseController
             }
 
             $tracks = $tracks->get();
+            $tracks = $this->calcCosto($tracks);
 
             return array("response" => $tracks);
         } catch (Exception $e) {

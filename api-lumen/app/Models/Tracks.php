@@ -22,7 +22,8 @@ class Tracks extends Model
         'idUser' => 'string',
         'idProyecto' => 'string',
         'duracion' => 'string',
-        'idTask' => 'string'
+        'idTask' => 'string',
+        'costHour' => 'string'
     ];
 
 }

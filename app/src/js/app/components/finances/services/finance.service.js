@@ -17,7 +17,7 @@
 		    },
 
 		    findByMonth: function(page, q, cb) {
-		      	RestClient.get( "finances/all/by-date/" + q, function(err, result, countItems) {
+		      	RestClient.get( "finances/all/date/" + q, function(err, result, countItems) {
 		        	cb(err, result, countItems);
 		      	})
 		    },

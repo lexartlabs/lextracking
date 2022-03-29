@@ -228,4 +228,10 @@ Route::group(['prefix' => 'api'], function ($router) {
             Route::get('{userID}/deactive/{id}', 'BanksController@deActive');
         });
     });
+
+    //Finanzas
+    Route::group(['prefix' => 'finances', 'middleware' => 'admin:api'], function(){
+        
+        Route::get("all/date/{firstDate}/{lastDate}", 'FinancesController@all');
+    });
 });

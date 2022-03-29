@@ -141,7 +141,7 @@
 					typeTrack  : obj.typeTrack,
 					currency : obj.currency
 					}
-					RestClient.post(model + "/track-trello-new", track, function(err, result) {
+					RestClient.post(model + "/new", track, function(err, result) {
 						console.log("resultTrello::", err, result);
 						cb(err, result);
 					})
@@ -182,7 +182,7 @@
 						currency   : obj.currency
 			    	}
 			    	console.log('track to update', track);
-		        	RestClient.post(model + "/update", track, function(err, result) {
+		        	RestClient.put(model + "/update", track, function(err, result) {
 		          		cb(err, result);
 		        	})
 				} else if(obj.typeTrack == "trello"){
@@ -198,7 +198,7 @@
 						currency : obj.currency
 					}
 					console.log('track trelloTrack to update', track);
-		        	RestClient.post(model + "/track-trello-update", track, function(err, result) {
+		        	RestClient.put(model + "/update", track, function(err, result) {
 						console.log("updateTrello:: ", result);
 						  cb(err, result);
 					})
