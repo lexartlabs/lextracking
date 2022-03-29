@@ -20,8 +20,11 @@
     "bill"        : "Factura",
     "my-profile"  : "Mi perfil",
     "logout"      : "Salir",
-    "jira"        : "Tareas Jira"
+    "jira"        : "Tareas Jira",
+    "calendar"    : "Calendario"
   },
+
+
 
   "evaluate": {
     "title" : "Evaluación",
@@ -157,6 +160,12 @@
     "projectName"   : "Nombre proyecto"
   },
 
+  "calendar": {
+    "title"   :"Título",
+    "user"    : "Usuario",
+    "users"   : "Usuarios"
+  },
+
   "reports": {
     "title"             : "Reportes Tareas",
     "project"           : "Proyecto",
@@ -189,7 +198,10 @@
     "totalCost"         : "Costo Total",
     "presupuesto"       : "Presupuesto",
     "trackCost"         : "Costo",
-    "currency"          : "Moneda"
+    "currency"          : "Moneda",
+    "trello"            : "Trello",
+    "manual"            : "Manual",
+    "tipo"              : "Tipo"
   },
 
 

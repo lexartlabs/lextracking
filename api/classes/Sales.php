@@ -23,15 +23,18 @@ class Sale {
 
 	public function totalAmount($arr,$key){
 		$totalDolares 	= 0;
-		$totalPesos			=0;
+		$totalPesos			= 0;
+		$totalReales    = 0;
 		for ($i=0; $i < count($arr) ; $i++) {
 			if ($arr[$i]["currency"]=="$") {
 				$totalPesos = $totalPesos + (float) $arr[$i][$key];
-			}else {
+			}elseif ($arr[$i]["currency"]=="R$") {
+				$totalReales = $totalReales + (float) $arr[$i][$key];
+			} else {
 				$totalDolares=$totalDolares +(float) $arr[$i][$key];
 			}
 		}
-		return array("totalPesos" => $totalPesos,"totalDolares" =>  $totalDolares);
+		return array("totalPesos" => $totalPesos,"totalDolares" =>  $totalDolares, "totalReales" => $totalReales);
 	}
 
 	// CRYPTO FUNCTION
@@ -169,6 +172,46 @@ class Sale {
 						array("type" => "PAYMENT" ,		"name" => "PAGO"),
 					);
 		return array("response" => $types);
+	}
+
+	public function getSalesTotalsMonth($conn,$dateIni,$dateEnd){
+		$sql = "
+			SELECT SUM(s.amount) AS 'total', c.name AS 'Client'
+			FROM `Sales` AS s
+			LEFT JOIN `Clients` AS c ON s.idClient = c.id
+			WHERE `currency` = 'R$' AND `date` >= '$dateIni' AND `date` <= ('$dateEnd' + INTERVAL 1 DAY)
+			GROUP BY `idClient`";
+
+		$sql2 = "
+			SELECT SUM(s.amount) AS 'total', c.name AS 'Client'
+			FROM `Sales` AS s
+			LEFT JOIN `Clients` AS c ON s.idClient = c.id
+			WHERE `currency` = '$' AND `date` >= '$dateIni' AND `date` <= ('$dateEnd' + INTERVAL 1 DAY)
+			GROUP BY `idClient`
+		";
+		$sql3 = "
+			SELECT SUM(s.amount) AS 'total', c.name AS 'Client'
+			FROM `Sales` AS s
+			LEFT JOIN `Clients` AS c ON s.idClient = c.id
+			WHERE `currency` = 'USD' AND `date` >= '$dateIni' AND `date` <= ('$dateEnd' + INTERVAL 1 DAY)
+			GROUP BY `idClient`
+		";
+		
+		
+		$d 		= $conn->query($sql);
+		$d2		= $conn->query($sql2);
+		$d3		= $conn->query($sql3);
+
+		if(!empty($d) || !empty($d2) || !empty($d3)){
+			$res = array(
+				'Reales' => $d,
+				'Pesos' => $d2,
+				'Dolares' => $d3,
+			);
+			return array("response" => $res );
+		} else {
+			return array("error" => "Error: no existen ventas.","sql"=>$sql);
+		}
 	}
 }
 

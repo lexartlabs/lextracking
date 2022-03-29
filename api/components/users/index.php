@@ -5,7 +5,10 @@
 	$conn 		= new Connection();
 	$objUsr		= new User();
 
-	$response 	= $objUsr->getAllUsers($conn);
+	$params 	= $match['params'];
+	$params["active"] = empty($params["active"]) ? true : filter_var($params["active"], FILTER_VALIDATE_BOOLEAN);
+	
+	$response 	= $objUsr->getAllUsers($conn, $params);
 
 	echo json_encode($response);
 ?>

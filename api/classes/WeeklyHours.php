@@ -48,7 +48,12 @@ class WeeklyHour {
 	}
 
 	public function getWeeklyHourByIdUser($conn,$id){
-		$sql	="SELECT * FROM ".$this->model." WHERE idUser=".$id;
+		$sql	="
+			SELECT wh.*, u.role AS 'userRole'
+			FROM ".$this->model." AS wh
+			INNER JOIN `Users` AS u ON u.id = wh.idUser
+			WHERE idUser=".$id;
+
 		$d 		= $conn->query($sql);
 
 		// CALLBACK
