@@ -25,7 +25,7 @@ class BoardTrelloController extends BaseController
     {
         $this->validate($request, [
             "tablero_id" => "required|unique:trelloboard",
-            "proyecto_id" => "required|exists:projects, id",
+            "proyecto_id" => "required|exists:projects,id",
             "url" => "required",
             "activo" => "required|numeric",
             "dateCreate" => "required|date",
