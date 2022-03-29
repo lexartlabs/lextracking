@@ -34,8 +34,6 @@
                                 }else {
                                     var rest = $injector.get('UserServices');
                                     
-                                    console.log("Jeferson")
-
                                     if(!$window.localStorage[TOKEN_KEY]){
                                         rest.persistence( function(error, response){
                                             var user = angular.copy(response);

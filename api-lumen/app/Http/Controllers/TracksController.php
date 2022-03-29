@@ -132,7 +132,7 @@ class TracksController extends BaseController
 
         $tracks = $this->all($request, $user_id);
 
-        return $tracks;
+        return array("response" => $tracks);
 
         try {
         } catch (Exception $e) {
@@ -183,7 +183,7 @@ class TracksController extends BaseController
 
             $track = $this->arrayTracks($currency, $idProyecto, $idTask, $idUser, $name, $startTime, $typeTrack);
 
-            return Tracks::create($track);
+            return array("response" => Tracks::create($track));
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks new"), 500));
         }

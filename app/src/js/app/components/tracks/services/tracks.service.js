@@ -182,7 +182,7 @@
 						currency   : obj.currency
 			    	}
 			    	console.log('track to update', track);
-		        	RestClient.post(model + "/update", track, function(err, result) {
+		        	RestClient.put(model + "/update", track, function(err, result) {
 		          		cb(err, result);
 		        	})
 				} else if(obj.typeTrack == "trello"){
