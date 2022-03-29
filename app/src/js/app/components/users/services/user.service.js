@@ -12,10 +12,10 @@
 
 		    find: function(page, q, cb) {
 
-				const user = window.localStorage;
-				const role = user.userRole == 'admin' || user.userRole == 'pm' ? true : false;
+				var user = window.localStorage;
+				var role = user.userRole == 'admin' || user.userRole == 'pm' ? true : false;
 
-				let path = role == true ? '/all-admin' : '/all';
+				var path = role == true ? '/all-admin' : '/all';
 
 		      	RestClient.get(model + path, function(err, result) {
 		        	cb(err, result);

@@ -11,9 +11,9 @@
             
 
             getUserEvents: function(id, cb){
-                const authUserId = window.localStorage.userId; //se for mudado o backend retorna erro
+                var authUserId = window.localStorage.userId; //se for mudado o backend retorna erro
 
-                let path = authUserId == id ? '/current/hours' : '/' + id +'/hours';
+                var path = authUserId == id ? '/current/hours' : '/' + id +'/hours';
 
                 RestClient.get(model + path, function(err, result){
                     cb(err, result);
@@ -21,9 +21,9 @@
             },
 
             getUserExceptions: function(id, fecha, cb){
-                const authUserId = window.localStorage.userId; //se for mudado o backend retorna erro
+                var authUserId = window.localStorage.userId; //se for mudado o backend retorna erro
 
-                let path = authUserId == id ? '/current/exceptions/' : '/' + id +'/exceptions/';
+                var path = authUserId == id ? '/current/exceptions/' : '/' + id +'/exceptions/';
 
                 RestClient.get(model + path + fecha, function(err, result){
                     cb(err, result);
@@ -51,9 +51,9 @@
             },
 
             getTrackedHours: function(id, fecha, cb){
-                const authUserId = window.localStorage.userId; //se for mudado o backend retorna erro
+                var authUserId = window.localStorage.userId; //se for mudado o backend retorna erro
 
-                let path = authUserId == id ? 'tracks/user/current' : 'tracks/user/' + id;
+                var path = authUserId == id ? 'tracks/user/current' : 'tracks/user/' + id;
 
                 RestClient.get(path + '/calendar/' + fecha, function(err, result){
                     cb(err, result); 

@@ -1,0 +1,30 @@
+default:
+  - build
+
+build:
+  - less
+  - svg_sprite:template
+  - processhtml:dev
+  - copy:conf
+  - copy:partials
+  - copy:images
+  - copy:fonts
+  - copy:languages
+  - copy:deps
+  - copy:dev_js
+  - uglify:dev
+
+dev:
+  - less
+  - svg_sprite:template
+  - processhtml:dev
+  - copy:conf
+  - copy:partials
+  - copy:images
+  - copy:fonts
+  - copy:languages
+  - copy:deps
+  - copy:dev_js
+  - uglify:dev
+  - connect:server
+  - watch

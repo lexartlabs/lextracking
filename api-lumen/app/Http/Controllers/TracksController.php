@@ -34,7 +34,7 @@ class TracksController extends BaseController
         $client_id = $request->input("idClient") ? $request->input("idClient") : null;
         $project_id = $request->input("idProject") ? $request->input("idProject") : null;
 
-        
+
         try {
             $tracks = Tracks::select(
                 "Tracks.*",
@@ -54,66 +54,66 @@ class TracksController extends BaseController
                 ->whereRaw("(Tracks.endTime <= ?)", [$endTime])
                 ->whereRaw("(Tracks.typeTrack = ?)", ['manual'])
                 ->whereRaw("(Tasks.active >= ?)", [1]);
-    
+
             if (!empty($user_id)) {
                 $tracks = $tracks->whereRaw("(Tracks.idUser) = ?", [$user_id]);
-    
+
                 if (!empty($client_id)) {
                     $tracks = $tracks->whereRaw("(Projects.idClient) = ?", [$client_id]);
-    
+
                     if (!empty($project_id)) {
                         $tracks = $tracks->whereRaw("(Projects.id) = ?", [$project_id])->get();
-    
+
                         $tracks = $this->calcCosto($tracks);
-    
+
                         return array("response" => $tracks);
                     }
-    
+
                     $tracks = $tracks->get();
-    
+
                     $tracks = $this->calcCosto($tracks);
-    
+
                     return array("response" => $tracks);
                 }
-    
+
                 if (!empty($$project_id)) {
                     $tracks = $tracks->whereRaw("(Projects.id) = ?", [$project_id])->get();
-    
+
                     $tracks = $this->calcCosto($tracks);
-    
+
                     return array("response" => $tracks);
                 }
-    
+
                 $tracks = $tracks->get();
-    
+
                 $tracks = $this->calcCosto($tracks);
-    
+
                 return array("response" => $tracks);
             }
-    
+
             if (!empty($client_id)) {
                 $tracks = $tracks->whereRaw("(Projects.idClient) = ?", [$client_id]);
-    
+
                 if (!empty($project_id)) {
                     $tracks = $tracks->whereRaw("(Projects.id) = ?", [$project_id])->get();
                     $tracks = $this->calcCosto($tracks);
-    
+
                     return array("response" => $tracks);
                 }
-    
+
                 $tracks = $tracks->get();
                 $tracks = $this->calcCosto($tracks);
-    
+
                 return array("response" => $tracks);
             }
-    
+
             if (!empty($project_id)) {
                 $tracks = $tracks->whereRaw("(Projects.id) = ?", [$project_id])->get();
             }
-    
+
             $tracks = $tracks->get();
             $tracks = $this->calcCosto($tracks);
-    
+
             return array("response" => $tracks);
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks all"), 500));
@@ -171,10 +171,10 @@ class TracksController extends BaseController
         try {
             if ($typeTrack == "manual") {
                 $task_manual = Tasks::where('id', $idTask)->first();
-    
+
                 if (!$task_manual) {
                     $task_trello = TrelloTasks::where('id', $idTask)->first();
-    
+
                     if (!$task_trello) {
                         return (new Response(array("Error" => TASK_INVALID, "Operation" => "tracks new"), 500));
                     }

@@ -18,7 +18,9 @@ error_reporting(1);
 	$router 	= new AltoRouter();
 	$conn 		= new Connection();
 	$objToken	= new Token();
-	$router->setBasePath(ENV);
+	if(ENV != "ENV"){
+		$router->setBasePath(ENV);
+	}
 	if($_SERVER["HTTP_TOKEN"]){
 		$token 	= $_SERVER["HTTP_TOKEN"];
 		$access = $objToken->checkToken($conn, $token);
@@ -130,7 +132,7 @@ error_reporting(1);
 				$router->map('GET','/weeklyHour/user/[i:id]', 		'components/weeklyHours/get.php', 	'weeklyHour-by-idUser');
 
 				// tracks for cube
-				$router->map('GET', '/public/tracks-by-year/[i:id]/[i:year]', 'components/tracks/get.php', 'tracks-by-user-by-year');
+				$router->map('GET', '/tracks-by-year/[i:id]/[i:year]', 'components/tracks/get.php', 'tracks-by-user-by-year');
 
 				$match = $router->match();
 				if($match) {
@@ -402,7 +404,7 @@ error_reporting(1);
 					$router->map('POST','/biller/comprobantes/pdf', 'components/biller/post.php', 'pdf');
 
 					// tracks for cube
-					$router->map('GET', '/public/tracks-by-year/[i:id]/[i:year]', 'components/tracks/get.php', 'tracks-by-user-by-year');
+					$router->map('GET', '/tracks-by-year/[i:id]/[i:year]', 'components/tracks/get.php', 'tracks-by-user-by-year');
 	
 					
 				// match current request
