@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\Pm;
+
 require_once __DIR__.'/../vendor/autoload.php';
 require_once __DIR__.'./../config/const.php';
 
@@ -80,6 +82,7 @@ $app->configure('app');
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
     'admin' =>  App\Http\Middleware\Admin::class,
+    'pm' => App\Http\Middleware\Pm::class,
 ]);
 
 /*
