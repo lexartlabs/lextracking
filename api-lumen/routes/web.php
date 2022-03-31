@@ -28,6 +28,9 @@ Route::group(['prefix' => 'api'], function ($router) {
         Route::post('login', 'UserController@login');
 
         Route::group(['middleware' => 'auth:api'], function () {
+            Route::get('current', 'UserController@current');
+
+        Route::group(['middleware' => 'auth:api'], function () {
 
             Route::get('all', 'UserController@all');
 
@@ -83,6 +86,10 @@ Route::group(['prefix' => 'api'], function ($router) {
             Route::post('undelete', 'TasksController@undelete');
             Route::put('update', 'TasksController@update');
             Route::post('create', 'TasksController@create');
+<<<<<<< HEAD
+=======
+
+>>>>>>> develop
             Route::get('project/{id}', 'TasksController@project');
             Route::post('id-user/{idUser}', 'TasksController@getTasksByUserFilter');
 
@@ -152,6 +159,7 @@ Route::group(['prefix' => 'api'], function ($router) {
         //User weeklyhours
         Route::group(['prefix' => 'user'], function(){
             Route::get('current', 'WeeklyhoursController@current');
+<<<<<<< HEAD
         });
 
         Route::group(['middleware' => 'pm:api'], function () {
@@ -181,6 +189,18 @@ Route::group(['prefix' => 'api'], function ($router) {
             Route::put('update', 'ClientsController@update');
             Route::post('new', 'ClientsController@new');
         });
+=======
+            Route::get('{id}', 'WeeklyhoursController@user');
+        });
+    });
+
+    Route::group(['prefix' => 'clients', 'middleware' => 'auth:api'], function(){
+        Route::get('all', 'ClientsController@all');
+        Route::get('{id}', 'ClientsController@all');
+
+        Route::put('update', 'ClientsController@update');
+        Route::post('new', 'ClientsController@new');
+>>>>>>> develop
     });
 
     //Sales
