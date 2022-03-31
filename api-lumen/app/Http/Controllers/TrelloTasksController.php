@@ -30,7 +30,7 @@ class TrelloTasksController extends BaseController
 
                 return array('response' => $array_trello);
             }
-            $trellos = DB::select('SELECT TrelloBoard.*, Projects.name AS projectName FROM TrelloBoard INNER JOIN Projects ON TrelloBoard.proyecto_id=Projects.id AND active= 1');
+            $trellos = DB::select('SELECT TrelloBoard.*, Projects.name AS projectName FROM TrelloBoard INNER JOIN Projects ON TrelloBoard.proyecto_id=Projects.id AND Projects.active= 1');
             
             $array_trello = array();
             foreach($trellos as $trello){

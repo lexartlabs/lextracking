@@ -40,7 +40,7 @@ class TasksController extends BaseController
                     'projects.name as projectName'
                 )
                 ->selectRaw('IFNULL(tasks.users, "[]") AS users')
-                ->where('tasks.active', '=', '1');
+                ->where('projects.active', '=', '1');
 
             $count = Tasks::select("*");
 
