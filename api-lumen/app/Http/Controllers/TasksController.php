@@ -40,7 +40,7 @@ class TasksController extends BaseController
                     'projects.name as projectName'
                 )
                 ->selectRaw('IFNULL(tasks.users, "[]") AS users')
-                ->where('projects.active', '=', '1');
+                ->whereRaw('projects.active = ?', 1);
 
             $count = Tasks::select("*");
 
@@ -280,21 +280,7 @@ class TasksController extends BaseController
 
     public function returnArrayTasks($name, $idProject, $description, $comments, $users, $status, $startDate, $endDate, $duration, $id = null)
     {
-        if (empty($id)) {
-            return array(
-                "name" => $name,
-                "idProject" => $idProject,
-                "description" => $description,
-                "comments" => $comments,
-                "users" => json_encode($users),
-                "status" => $status,
-                "startDate" => $startDate,
-                "duration" => $duration,
-                "endDate" => $endDate,
-            );
-        }
-
-        return array(
+        $array = array(
             "name" => $name,
             "idProject" => $idProject,
             "description" => $description,
@@ -302,10 +288,15 @@ class TasksController extends BaseController
             "users" => json_encode($users),
             "status" => $status,
             "startDate" => $startDate,
-            "endDate" => $endDate,
             "duration" => $duration,
-            "id" => $id,
+            "endDate" => $endDate,
         );
+
+        if (!empty($id)) {
+            $array["id"] = $id;
+        }
+
+        return $array;
     }
 
     public function getTasksByUserFilter(Request $request, $idUser)
