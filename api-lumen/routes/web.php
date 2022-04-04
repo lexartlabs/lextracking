@@ -89,6 +89,10 @@ Route::group(['prefix' => 'api'], function ($router) {
     });
 
     Route::group(['prefix' => 'tracks', 'middleware' => 'auth:api'], function() {
+        Route::group(['middleware' => 'pm:api'], function(){
+            Route::get('tracking', 'TracksController@endlessTracks');
+        });
+        
         Route::get('all', 'TracksController@all');
         Route::get('{id}', 'TracksController@all');
         Route::get('tracks-by-year/{idUser}/{year}', 'TracksController@getUserHoursByYear');
