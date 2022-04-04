@@ -22,7 +22,7 @@
 		    	})
 		    },
         findActives: function( cb) {
-		    	RestClient.get(model + "/active" , function(err, result) {
+		    	RestClient.get(model + "/tracking" , function(err, result) {
 		    		cb(err, result);
 		    	})
 		    },
