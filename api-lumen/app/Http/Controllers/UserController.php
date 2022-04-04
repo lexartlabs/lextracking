@@ -93,15 +93,19 @@ class UserController extends BaseController
         }
     }
 
-    public function userById($id)
+    public function userById(Request $request, $id)
     {
+
+        $request["id"] = $id;
+
+        $this->validate($request, [
+            "id" => "exists:users"
+        ]);
+
         try {
             $user = User::where('id', $id)->first();
-            if(!$user) {
-                return (new Response(array("Error" => USER_NOT, "Operation" => "user"), 500));
-            }
 
-            return json_encode($user);
+            return array("response" => $user);
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "user"), 500));
         }
