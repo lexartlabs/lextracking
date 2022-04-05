@@ -16,9 +16,9 @@ class WeeklyhoursController extends BaseController
     {
         try{
             if(!empty($id)){
-                $weeklyhours = Weeklyhours::where('id', $id)->get();
+                $weeklyhours = Weeklyhours::where('id', $id)->first();
 
-                return $weeklyhours;
+                return array("response" => $weeklyhours);
             }
             $weeklyhours = Weeklyhours::all();
 

@@ -29,6 +29,7 @@
 			},
 
 		    findById: function(id, cb) {
+
 		    	RestClient.get(model + "/" + id, function(err, result) {
 		    		cb(err, result);
 		    	})
