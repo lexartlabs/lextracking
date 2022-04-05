@@ -157,4 +157,29 @@ class SalesController extends BaseController
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "sales undelete"), 500));
         }
     }
+
+    public function getAllSaelsByMonth(Request $request, $dateIni, $dateEnd, $idUser)
+    {
+
+        $request["idUser"] = $idUser;
+
+        try{
+            $sales = Sales::whereRaw("date >= ?", [$dateIni])->whereRaw("date <= (? + INTERVAL 1 DAY)", [$dateEnd]);
+
+            if(!empty($idUser)){
+                $this->validate($request, [
+                    "idUser" => "exists:users,id"
+                ]);
+
+                $sales = $sales->where("idUser", $idUser);
+            }
+
+            $sales = $sales->get();
+            
+            return array("response" => $sales);
+        }catch(Exception $e){
+
+        }
+    }
+
 }

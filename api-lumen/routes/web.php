@@ -128,9 +128,11 @@ Route::group(['prefix' => 'api'], function ($router) {
     });
 
 
-    Route::group(['prefix' => 'sales', 'middleware' => 'auth:api'], function(){
+    Route::group(['prefix' => 'sales', 'middleware' => 'pm:api'], function(){
         Route::get('all', 'SalesController@all');
         Route::get('{id}', 'SalesController@all');
+
+        Route::get('all/by-date/{dateIni}/{dateEnd}/{idUser}', 'SalesController@getAllSaelsByMonth');
 
         Route::post('new', 'SalesController@new');
         Route::put('update', 'SalesController@update');
