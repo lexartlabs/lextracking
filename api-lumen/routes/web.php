@@ -28,7 +28,7 @@ Route::group(['prefix' => 'api'], function ($router) {
         Route::post('login', 'UserController@login');
 
         Route::group(['middleware' => 'auth:api'], function () {
-
+            
             Route::get('all', 'UserController@all');
 
             //Current
@@ -83,6 +83,7 @@ Route::group(['prefix' => 'api'], function ($router) {
             Route::post('undelete', 'TasksController@undelete');
             Route::put('update', 'TasksController@update');
             Route::post('create', 'TasksController@create');
+
             Route::get('project/{id}', 'TasksController@project');
             Route::post('id-user/{idUser}', 'TasksController@getTasksByUserFilter');
 
@@ -117,6 +118,10 @@ Route::group(['prefix' => 'api'], function ($router) {
 
     //Tracks
     Route::group(['prefix' => 'tracks', 'middleware' => 'auth:api'], function() {
+        Route::group(['middleware' => 'pm:api'], function(){
+            Route::get('tracking', 'TracksController@endlessTracks');
+        });
+        
         Route::get('all', 'TracksController@all');
         Route::get('{id}', 'TracksController@all');
         Route::get('tracks-by-year/{idUser}/{year}', 'TracksController@getUserHoursByYear');
@@ -194,6 +199,7 @@ Route::group(['prefix' => 'api'], function ($router) {
         Route::post('undelete', 'SalesController@undelete');
     });
 
+    //Banks
     Route::group(['prefix' => 'banks', 'middleware' => 'auth:api'], function(){
 
         Route::group(['prefix' => 'user'], function(){

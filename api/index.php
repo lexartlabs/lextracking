@@ -162,7 +162,7 @@ error_reporting(1);
 	
 				// USERS
 					// ALL USERS
-					$router->map('GET','/user/all', 'components/users/index.php', 'users-all');
+					$router->map('GET','/user/all/[a:active]', 'components/users/index.php', 'users-all');
 	
 					// GET USERS BY ID
 					$router->map('GET','/user/[i:id]', 'components/users/get.php', 'user-by-id');
