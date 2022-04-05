@@ -166,6 +166,17 @@ class TracksController extends BaseController
             "typeTrack" => $typeTrack
         );
     }
+
+    public function endlessTracks(Request $request)
+    {
+        try{
+            $endless = Tracks::whereRaw("endTime IS NULL")->get();
+
+            return array("response" => $endless);
+        }catch(Exception $e){
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "endless tracks"), 500));
+        }
+    }
 }
 
 
