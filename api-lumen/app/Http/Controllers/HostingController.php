@@ -24,18 +24,10 @@ class HostingController extends BaseController
 
                 $hosting = $hostings->where("id", $id)->where("borrado", 0)->first();
 
-                $hosting->contact = json_decode($hosting->contact);
-                $hosting->products = json_decode($hosting->products);
-
                 return array("response" => $hosting);
             }
 
             $hostings = $hostings->where("borrado", 0)->get();
-
-            foreach($hostings as $hosting) {
-                $hosting->contact = json_decode($hosting->contact);
-                $hosting->products = json_decode($hosting->products);
-            }
 
             return array("response" => $hostings);
         }catch(Exception $e) {

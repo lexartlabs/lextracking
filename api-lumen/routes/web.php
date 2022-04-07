@@ -257,4 +257,12 @@ Route::group(['prefix' => 'api'], function ($router) {
         Route::get('all', 'ProductsController@all');
         Route::get('{id}', 'ProductsController@all');
     });
+
+    //EasyWeb
+
+    Route::group(['prefix' => 'easy-web', 'middleware' => 'admin:api'], function(){
+
+        Route::get('all', 'EasyWebController@all');
+        Route::get('{id}', 'EasyWebController@all');
+    });
 });

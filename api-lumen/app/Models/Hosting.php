@@ -15,4 +15,10 @@ class Hosting extends Model
 
     protected $fillable = ['id', 'fullName', "account", 'serviceNumber', 'finalClient', 'company', 'accountStatus', "serviceDescription", "serviceCost",
      "contractType", "billingAddress", "businessName", "contact", "rut", "document", "phone", "email", "products", "startDate", "borrado"];
+
+    
+    protected $casts = [
+        "contact" => "json",
+        "products" => "json"
+    ];
 }
