@@ -180,4 +180,10 @@ Route::group(['prefix' => 'api'], function ($router) {
         
         Route::get("all/date/{firstDate}/{lastDate}", 'FinancesController@all');
     });
+
+    //Housting
+    Route::group(['prefix' => 'hosting', 'middleware' => 'admin:api'], function() {
+        
+        Route::get('all', 'HostingController@all');
+    });
 });
