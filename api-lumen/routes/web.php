@@ -193,6 +193,7 @@ Route::group(['prefix' => 'api'], function ($router) {
         Route::get('all', 'SalesController@all');
         Route::get('{id}', 'SalesController@all');
 
+        Route::get('all/by-date/{dateIni}/{dateEnd}', 'SalesController@getAllSaelsByMonth');
         Route::get('all/by-date/{dateIni}/{dateEnd}/{idUser}', 'SalesController@getAllSaelsByMonth');
 
         Route::post('new', 'SalesController@new');

@@ -21,8 +21,8 @@
 		        	cb(err, result, countItems);
 		      	})
 		    },
-        findByUserMonth: function(page, q, cb) {
-		      	RestClient.get( "sales/all/by-user-date/" + q, function(err, result, countItems) {
+        findByUserMonth: function(page, q, id, cb) {
+		      	RestClient.get( "sales/all/by-date/" + q + "/" + id, function(err, result, countItems) {
 		        	cb(err, result, countItems);
 		      	})
 		    },

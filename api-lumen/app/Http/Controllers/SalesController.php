@@ -158,7 +158,7 @@ class SalesController extends BaseController
         }
     }
 
-    public function getAllSaelsByMonth(Request $request, $dateIni, $dateEnd, $idUser)
+    public function getAllSaelsByMonth(Request $request, $dateIni, $dateEnd, $idUser = null)
     {
 
         $request["idUser"] = $idUser;
@@ -175,11 +175,39 @@ class SalesController extends BaseController
             }
 
             $sales = $sales->get();
-            
-            return array("response" => $sales);
+            $totalSales = $this->addAmountsToCurrency($sales);
+
+            return array("response" => array("sales" => $sales, "totalSales" => $totalSales));
         }catch(Exception $e){
 
         }
     }
 
+    public function addAmountsToCurrency($sales)
+    {
+
+        $totalPesos = 0;
+        $totalDolares = 0;
+        $totalReales = 0;
+
+        foreach($sales as $sale) {
+            if($sale->currency === "R$" ){
+                $totalReales += floatval($sale->amount);
+            }
+
+            if($sale->currency === "USD" ){
+                $totalDolares += floatval($sale->amount);
+            }
+
+            if($sale->currency === "$" ){
+                $totalPesos += floatval($sale->amount);
+            }
+        }
+
+        return array(
+            "totalPesos" => $totalPesos,
+            "totalDolares" => $totalDolares,
+            "totalReales" => $totalReales
+        );
+    }
 }
