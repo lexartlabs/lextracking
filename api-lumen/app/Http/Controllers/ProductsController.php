@@ -24,7 +24,7 @@ class ProductsController extends BaseController
                 $products = $products->where("id", $id);
             }
 
-            $products = $products->get();
+            $products = $products->where("borrado", 0)->get();
 
             return array("response" => $products);
         }catch(Exception $e) {

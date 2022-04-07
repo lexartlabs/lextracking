@@ -24,7 +24,7 @@ class HostingController extends BaseController
                 $hostings = $hostings->where("id", $id);
             }
 
-            $hostings = $hostings->get();
+            $hostings = $hostings->where("borrado", 0)->get();
 
             foreach($hostings as $hosting) {
                 $hosting->contact = json_decode($hosting->contact);
