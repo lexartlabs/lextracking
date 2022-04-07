@@ -6,6 +6,7 @@ use Exception;
 use App\Models\Hosting;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class HostingController extends BaseController
 {
@@ -21,7 +22,12 @@ class HostingController extends BaseController
                     "id" => "exists:hosting,id"
                 ]);
 
-                $hostings = $hostings->where("id", $id);
+                $hosting = $hostings->where("id", $id)->where("borrado", 0)->first();
+
+                $hosting->contact = json_decode($hosting->contact);
+                $hosting->products = json_decode($hosting->products);
+
+                return array("response" => $hosting);
             }
 
             $hostings = $hostings->where("borrado", 0)->get();
@@ -29,7 +35,7 @@ class HostingController extends BaseController
             foreach($hostings as $hosting) {
                 $hosting->contact = json_decode($hosting->contact);
                 $hosting->products = json_decode($hosting->products);
-            } 
+            }
 
             return array("response" => $hostings);
         }catch(Exception $e) {
