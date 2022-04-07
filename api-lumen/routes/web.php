@@ -187,4 +187,11 @@ Route::group(['prefix' => 'api'], function ($router) {
         Route::get('all', 'HostingController@all');
         Route::get('{id}', 'HostingController@all');
     });
+
+    //Productos
+    Route::group(['prefix' => 'products', 'middleware' => 'admin:api'], function(){
+        
+        Route::get('all', 'ProductsController@all');
+        Route::get('{id}', 'ProductsController@all');
+    });
 });
