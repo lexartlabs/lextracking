@@ -5,13 +5,26 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Models\Hosting;
 use Laravel\Lumen\Routing\Controller as BaseController;
+use Illuminate\Http\Request;
 
 class HostingController extends BaseController
 {
-    public function all()
+    public function all(Request $request, $id = null)
     {
         try{
-            $hostings = Hosting::get();
+            $hostings = Hosting::select();
+
+            if(!empty($id)){
+                $request["id"] = $id;
+    
+                $this->validate($request, [
+                    "id" => "exists:hosting,id"
+                ]);
+
+                $hostings = $hostings->where("id", $id);
+            }
+
+            $hostings = $hostings->get();
 
             foreach($hostings as $hosting) {
                 $hosting->contact = json_decode($hosting->contact);
