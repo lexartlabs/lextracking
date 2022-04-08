@@ -188,10 +188,13 @@ Route::group(['prefix' => 'api'], function ($router) {
         });
     });
 
-    //Sales
-    Route::group(['prefix' => 'sales', 'middleware' => 'auth:api'], function(){
+
+    Route::group(['prefix' => 'sales', 'middleware' => 'pm:api'], function(){
         Route::get('all', 'SalesController@all');
         Route::get('{id}', 'SalesController@all');
+
+        Route::get('all/by-date/{dateIni}/{dateEnd}', 'SalesController@getAllSaelsByMonth');
+        Route::get('all/by-date/{dateIni}/{dateEnd}/{idUser}', 'SalesController@getAllSaelsByMonth');
 
         Route::post('new', 'SalesController@new');
         Route::put('update', 'SalesController@update');
@@ -239,5 +242,27 @@ Route::group(['prefix' => 'api'], function ($router) {
     Route::group(['prefix' => 'finances', 'middleware' => 'admin:api'], function(){
         
         Route::get("all/date/{firstDate}/{lastDate}", 'FinancesController@all');
+    });
+
+    //Housting
+    Route::group(['prefix' => 'hosting', 'middleware' => 'admin:api'], function() {
+        
+        Route::get('all', 'HostingController@all');
+        Route::get('{id}', 'HostingController@all');
+    });
+
+    //Productos
+    Route::group(['prefix' => 'products', 'middleware' => 'admin:api'], function(){
+        
+        Route::get('all', 'ProductsController@all');
+        Route::get('{id}', 'ProductsController@all');
+    });
+
+    //EasyWeb
+
+    Route::group(['prefix' => 'easy-web', 'middleware' => 'admin:api'], function(){
+
+        Route::get('all', 'EasyWebController@all');
+        Route::get('{id}', 'EasyWebController@all');
     });
 });

@@ -157,4 +157,57 @@ class SalesController extends BaseController
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "sales undelete"), 500));
         }
     }
+
+    public function getAllSaelsByMonth(Request $request, $dateIni, $dateEnd, $idUser = null)
+    {
+
+        $request["idUser"] = $idUser;
+
+        try{
+            $sales = Sales::whereRaw("date >= ?", [$dateIni])->whereRaw("date <= (? + INTERVAL 1 DAY)", [$dateEnd]);
+
+            if(!empty($idUser)){
+                $this->validate($request, [
+                    "idUser" => "exists:users,id"
+                ]);
+
+                $sales = $sales->where("idUser", $idUser);
+            }
+
+            $sales = $sales->get();
+            $totalSales = $this->addAmountsToCurrency($sales);
+
+            return array("response" => array("sales" => $sales, "totalSales" => $totalSales));
+        }catch(Exception $e){
+
+        }
+    }
+
+    public function addAmountsToCurrency($sales)
+    {
+
+        $totalPesos = 0;
+        $totalDolares = 0;
+        $totalReales = 0;
+
+        foreach($sales as $sale) {
+            if($sale->currency === "R$" ){
+                $totalReales += floatval($sale->amount);
+            }
+
+            if($sale->currency === "USD" ){
+                $totalDolares += floatval($sale->amount);
+            }
+
+            if($sale->currency === "$" ){
+                $totalPesos += floatval($sale->amount);
+            }
+        }
+
+        return array(
+            "totalPesos" => $totalPesos,
+            "totalDolares" => $totalDolares,
+            "totalReales" => $totalReales
+        );
+    }
 }
