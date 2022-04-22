@@ -139,8 +139,6 @@ class UserController extends BaseController
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "undelete"), 500));
         }
     }
-<<<<<<< Updated upstream
-=======
 
     public function update(Request $request, $id) 
     {
@@ -223,5 +221,4 @@ class UserController extends BaseController
 
         return $this->exceptions($user_id, $date);
     }
->>>>>>> Stashed changes
 }

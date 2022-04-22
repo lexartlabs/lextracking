@@ -37,8 +37,6 @@ class ProjectsController extends BaseController
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "projects client id"), 500));
         }
     }
-<<<<<<< Updated upstream
-=======
 
     public function update(Request $request)
     {
@@ -127,5 +125,4 @@ class ProjectsController extends BaseController
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "projects new"), 500));
         }
     } 
->>>>>>> Stashed changes
 }
