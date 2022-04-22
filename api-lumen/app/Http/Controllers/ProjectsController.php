@@ -37,4 +37,95 @@ class ProjectsController extends BaseController
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "projects client id"), 500));
         }
     }
+<<<<<<< Updated upstream
+=======
+
+    public function update(Request $request)
+    {
+        $tracked = $request->input('tracked');
+        $filter = $request->input('filter');
+        $id = $request->input('id');
+        $cost = $request->input('cost');
+        $user = $request->input();
+
+        try {
+            if ($tracked) {
+                if ($filter == 'rest' || $filter == 'update') {
+                    $c = DB::table('projects')
+                        ->select("totalCost")
+                        ->where('id', '=', $id);
+
+                    $totalCost = $cost - $c[0]['totalCost'];
+
+                    $b = DB::table('projects')
+                        ->where('id', $id)
+                        ->update(['tracked' => $tracked, 'totalCost' => $totalCost]);
+
+                    if (empty($b)) {
+                        return array("response" => 'OK');
+                    } else {
+                        return array("Error" => "Error al actualizar el Proyecto.");
+                    }
+                } elseif ($filter == 'TotalUpdate') {
+                    $u = DB::table('projects')
+                        ->where('id', $id)
+                        ->update(['tracked' => $tracked, 'totalCost' => $cost]);
+
+                    if (empty($u)) {
+                        return array("response" => 'OK');
+                    } else {
+                        return array("Error" => "Error al actualizar el Proyecto.");
+                    }
+                } else {
+                    $d = Projects::where('id', $id)
+                        ->update([
+                            'name' => $user['name'],
+                            'idClient' => $user['idClient'],
+                            'description' => $user['description'],
+                            'comments' => $user['comments'],
+                            'duration' => $user['duration'],
+                            'presupuesto' => $user['presupuesto'],
+                            'active' => $user['active'],
+                        ]);
+
+
+                    // CALLBACK
+                    if (empty($d)) {
+                        return array("response" => 'OK');
+                    } else {
+                        return array("Error" => "Error al actualizar el Proyecto.");
+                    }
+                }
+            }
+        } catch (Exception $e) {
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "update a project"), 500));
+        }
+    }
+
+    public function new(Request $request) 
+    {
+        $request["tracked"] = "0:0:0";
+        $request["presupuesto"] = $request->input("presupuesto") ? $request->input("presupuesto") : "0";
+
+        $this->validate($request, [
+            "active" => "required",
+            "comments" => "required",
+            "description" => "required",
+            "duration" => "required",
+            "idClient" => "required|exists:clients,id",
+            "name" => "required|string",
+            "presupuesto" => "numeric",
+        ]);
+
+        $projectData = $request->only(["active", "comments", "description", "duration", "idClient", "name", "tracked", "presupuesto"]);
+        
+        try{
+            $project = Projects::create($projectData);
+
+            return array("response" => $project);
+        }catch(Exception $e) {
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "projects new"), 500));
+        }
+    } 
+>>>>>>> Stashed changes
 }

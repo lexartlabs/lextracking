@@ -41,8 +41,10 @@ class ClientsController extends BaseController
 
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        $request["id"] = $id;
+        
         $this->validate($request, [
             "name" => "required",
             "company" => "required",

@@ -48,7 +48,6 @@ class UserController extends BaseController
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8|string',
-            'password_confirm' => 'required|same:password|string',
             'role' => 'required'
         ]);
 
@@ -140,4 +139,89 @@ class UserController extends BaseController
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "undelete"), 500));
         }
     }
+<<<<<<< Updated upstream
+=======
+
+    public function update(Request $request, $id) 
+    {
+        $request["id"] = $id;
+        $this->validate($request, [
+            "id" => "required|exists:users,id",
+            "email" => "email",
+            "password" => "min:8",
+            "role" => "string",
+            "idClient" => "exists:clients,id"
+        ]);
+
+        $update = $request->only(['id', 'email', 'password', 'role', 'idClient']);
+
+        try{
+            $user = User::where("id", $id)->update($update);
+            
+            return array("response" => $user);
+        }catch(Exception $e) {
+            return array('response' => 'Update User');
+        }
+    }
+
+    public function hours($id) 
+    {
+        try{
+            $user = User::where('id', $id)->first();
+
+            if(!$user){
+                return (new Response(array("Error" => INVALID_LOGIN, "Operation" => "hours"), 400));
+            }
+
+            $hours = UserHours::where('user_id', $id)->get();
+
+            if(count($hours) == 0) {
+                return array('response' => 'Error al asignar proyecto');
+            }
+
+            return array('response' => $hours);
+        }catch(Exception $e) {
+
+        }
+    }
+
+    public function currentHours(Request $request)
+    {
+        $user = $this->current($request);
+        $user_id = $user['response']->id;
+
+        return $this->hours($user_id);
+    }
+
+    public function exceptions($id, $date)
+    {
+
+        $fullDate = explode("-", $date);
+        
+		$month = $fullDate[0];
+		$year = $fullDate[1];
+
+        try{
+            $user = User::where("id", $id)->first();
+            
+            if(!$user) {
+                return (new Response(array("Error" => INVALID_LOGIN, "Operation" => "hours"), 400));
+            }
+
+            $userExceptions = DB::select("SELECT * FROM user_exceptions WHERE user_id = ".$id." AND MONTH(`start`) =".$month." AND YEAR(`start`) = " .$year);
+            
+            return array('response' => $userExceptions);
+        }catch(Exception $e){
+            
+        }
+    }
+
+    public function currentExceptions(Request $request, $date)
+    {
+        $user = $this->current($request);
+        $user_id = $user['response']->id;
+
+        return $this->exceptions($user_id, $date);
+    }
+>>>>>>> Stashed changes
 }
