@@ -227,6 +227,12 @@ class TasksController extends BaseController
 
     public function create(Request $request)
     {
+        $startDate = $request->input("startDate");
+        $endDate = $request->input("endDate");
+
+        $request["startDate"] = explode("T", $startDate)[0];
+        $request["endDate"] = explode("T", $endDate)[0];
+
         $this->validate($request, [
             "name" => "required|string",
             "idProject" => "required|numeric|exists:projects,id",

@@ -14,10 +14,14 @@ class SalesController extends BaseController
     {
         try{
             if(!empty($id)){
-                return Sales::where('id', $id)->where("active", 1)->first();
+
+                $sales = Sales::where('id', $id)->where("active", 1)->first();
+
+                return array("response" => $sales);
             }
             
-            return Sales::where("active", 1)->get();
+            $sales = Sales::where("active", 1)->get();
+            return array("response" => $sales);
         }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "sales all"), 500));
         }
@@ -76,15 +80,17 @@ class SalesController extends BaseController
             "type" => "required",
             "currency" => "required",
             "active" => "required|numeric",
-            "date" => "required|date",
+            "date" => "required",
             "status" => "string",
             "client" => "required",
             "idClient" => "required|numeric|exists:clients,id",
             "seller" => "required",
-            "payType" => "date",
-            "card" =>  "",
             "idUser" => "required|numeric|exists:users,id"
         ]);
+
+        if($request->input("payType") != null) {
+            $this->validate($request, ["payType" => "date"]);
+        }
 
         $sale = $request->only([
             "id",
@@ -182,4 +188,56 @@ class SalesController extends BaseController
         }
     }
 
+    public function addAmountsToCurrency($sales)
+    {
+
+        $totalPesos = 0;
+        $totalDolares = 0;
+        $totalReales = 0;
+
+        foreach($sales as $sale) {
+            if($sale->currency === "R$" ){
+                $totalReales += floatval($sale->amount);
+            }
+
+            if($sale->currency === "USD" ){
+                $totalDolares += floatval($sale->amount);
+            }
+
+            if($sale->currency === "$" ){
+                $totalPesos += floatval($sale->amount);
+            }
+        }
+
+        return array(
+            "totalPesos" => $totalPesos,
+            "totalDolares" => $totalDolares,
+            "totalReales" => $totalReales
+        );
+    }
+
+    //Isso deveria ter uma tabela
+    public function concepts() 
+    {
+        $concepts = array(
+            array("concept" => "WEB"),
+            array("concept" => "SOFTWARE"),
+            array("concept" => "INFRAESTRUCTURA"),
+            array("concept" => "ASESORAMIENTO"),
+        );
+
+        return array("response" => $concepts);
+    }
+
+    //Isso deveria ter uma tabela
+    public function types() 
+    {
+        $types = array(
+            array("type" => "RE_SELLING", 		"name" => "REVENTA"),
+            array("type" => "NEW_SELL", 	"name" => "NUEVA VENTA"),
+            array("type" => "PAYMENT" ,		"name" => "PAGO"),
+        );
+
+        return array("response" => $types);
+    }
 }
