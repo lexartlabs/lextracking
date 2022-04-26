@@ -70,7 +70,7 @@
                         }else{
                             $state.go('app.users');
                         }
-                    }catch {
+                    }catch(error) {
                         $state.go('app.users');
                     }
                 }
