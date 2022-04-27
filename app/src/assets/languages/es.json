@@ -48,7 +48,7 @@
     "modal" : {
       "confirmation"  : "Confirm",
       "are_you_sure"  : "Are you sure?",
-      "confirm_delete": "are you sure to want delete this?",
+      "confirm_delete": "are you sure want delete this?",
       "delete"        : "Delete",
       "cancel"        : "Cancel",
       "accept"        : "Accept",
