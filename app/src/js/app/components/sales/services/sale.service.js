@@ -6,7 +6,7 @@
 
     Module.factory('SaleServices', ['RestClient', function(RestClient){
 
-	  	var model = "sale";
+	  	var model = "sales";
 
 	  	var factory = {
 
@@ -55,7 +55,7 @@
 
 		    save: function(obj, cb) {
 		    	if (obj.id) {
-		        	RestClient.post(model + "/update", obj, function(err, result) {
+		        	RestClient.put(model + "/update", obj, function(err, result) {
 		          		cb(err, result);
 		        	})
 		      	} else {

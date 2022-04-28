@@ -16,13 +16,19 @@
         $scope.vinculate    = false;
 
 
-        if (idUser) {
+        if (!idUser) {
             UserServices.currentUser(function(err, user) {
                 if (!err) {
                     console.log('user', user);
                     $scope.user = angular.copy(user);
                     $rootScope.jiraUser = user;
                 }
+            });
+        }
+
+        if(idUser) {
+            UserServices.findById(idUser, function (err, result) {
+                $scope.user = result;
             });
         }
 
@@ -57,11 +63,15 @@
                     $scope.error = err.message || err.error.message || err.error || err;
                     $sendingData = false;
                 } else {
-                    if (result != 'OK') {
-                        alert(result);
+                    try{
+                        if (result.status != 'Successfully registered') {
+                            alert(result);
+                            $state.go('app.users');
+                        }else{
+                            $state.go('app.users');
+                        }
+                    }catch(error) {
                         $state.go('app.users');
-                    }else{
-                    $state.go('app.users');
                     }
                 }
             });

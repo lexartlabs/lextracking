@@ -43,11 +43,11 @@
 
 		    save: function(obj, cb) {
 		    	if (obj.id) {
-		        	RestClient.post(model + "/update" , obj, function(err, result) {
+		        	RestClient.put(model + "/update/" + obj.id , obj, function(err, result) {
 		          		cb(err, result);
 		        	})
 		      	} else {
-		        	RestClient.post(model + "/new", obj, function(err, result) {
+		        	RestClient.post(model + "/register", obj, function(err, result) {
 		          		cb(err, result);
 		        	})
 		      	}
