@@ -8,6 +8,10 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\AuthController;
+use App\Models\UserExceptions;
+use App\Models\UserHours;
+use Laravel\Ui\Presets\React;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends BaseController
 {
@@ -32,7 +36,7 @@ class UserController extends BaseController
             }
 
             $auth = new AuthController();
-            return $auth->login($user);
+            return array('response' => json_decode($auth->login($user)));
 
         try {
 
@@ -70,32 +74,49 @@ class UserController extends BaseController
         }
     }
 
-    public function all()
+    public function all(Request $request)
     {
         try {
-            return json_encode(User::all());
+            return array("response" => json_decode(User::get(['id', 'name'])));
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "login"), 500));
         }
     }
 
-    public function userById($id)
+    public function allAdmin(Request $request)
     {
         try {
-            $user = User::where('id', $id)->first();
-            if(!$user) {
-                return (new Response(array("Error" => USER_NOT, "Operation" => "user"), 500));
-            }
+            return array("response" => json_decode(User::get()));
+        } catch (Exception $e) {
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "login"), 500));
+        }
+    }
 
-            return json_encode($user);
+    public function userById(Request $request, $id)
+    {
+
+        $request["id"] = $id;
+
+        $this->validate($request, [
+            "id" => "exists:users"
+        ]);
+
+        try {
+            $user = User::where('id', $id)->first();
+
+            return array("response" => $user);
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "user"), 500));
         }
     }
 
-    public function current()
+    public function current(Request $request)
     {
-        return json_encode(AuthController::current());
+        $auth_code = $request->header()['authorization'][0];
+        
+        $current = AuthController::current();
+        $current->token = $auth_code;
+        return array('response' => $current);
     }
 
     public function delete(Request $request)

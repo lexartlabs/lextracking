@@ -20,9 +20,8 @@ class AuthController extends BaseController
                 'error' => 'Unauthorized'
             ], 401);
         }
-        $bearer = $this->respondWithToken($token);
         $user = Auth::user();
-        $user->token = $bearer;
+        $user->token = $token;
         return json_encode($user);
     }
 

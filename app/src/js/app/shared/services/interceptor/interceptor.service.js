@@ -32,20 +32,23 @@
                                 if (response.isTrello) {
                                     return response;
                                 }else {
-                                var rest = $injector.get('UserServices');
-                                rest.persistence( function(error, response){
-                                    var user = angular.copy(response);
-                                    $window.localStorage[TOKEN_KEY]   = user.token;
-                                    $window.localStorage["userId"]    = user.id;
-                                    $window.localStorage["userName"]  = user.name;
-                                    $window.localStorage["userEmail"] = user.email;
-                                    $window.localStorage["userRole"]  = user.role;
-                                    $window.localStorage["isAdmin"]   = user.role == 'admin';
-                                    $window.localStorage["isClient"]  = user.role == 'client';
-                                    $window.localStorage["isDeveloper"]  = user.role == 'developer';
-                                    $window.localStorage["idUserClient"]  =user.idClient;
-                                    return;
-                                });
+                                    var rest = $injector.get('UserServices');
+                                    
+                                    if(!$window.localStorage[TOKEN_KEY]){
+                                        rest.persistence( function(error, response){
+                                            var user = angular.copy(response);
+                                            $window.localStorage[TOKEN_KEY]   = user.token;
+                                            $window.localStorage["userId"]    = user.id;
+                                            $window.localStorage["userName"]  = user.name;
+                                            $window.localStorage["userEmail"] = user.email;
+                                            $window.localStorage["userRole"]  = user.role;
+                                            $window.localStorage["isAdmin"]   = user.role == 'admin';
+                                            $window.localStorage["isClient"]  = user.role == 'client';
+                                            $window.localStorage["isDeveloper"]  = user.role == 'developer';
+                                            $window.localStorage["idUserClient"]  =user.idClient;
+                                            return;
+                                        });
+                                    }
                                 }
                             } else if(response && response.data && response.data.code === 401 ||response && response.data && response.data.code === 403 ){
                                 $window.localStorage.clear();

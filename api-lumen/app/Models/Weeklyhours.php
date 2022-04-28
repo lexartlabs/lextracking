@@ -14,4 +14,11 @@ class Weeklyhours extends Model
 
     protected $fillable = ['id', 'idUser', 'userName', 'costHour', 'workLoad', 'currency', 'borrado'];
 
+    protected $casts = [
+        'id' => 'string',
+        'idUser' => 'string',
+        'costHour' => 'string',
+        'borrado' => 'string',
+        'workLoad' => 'string'
+    ];
 }

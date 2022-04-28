@@ -10,15 +10,14 @@ use Illuminate\Http\Response;
 
 class ClientsController extends BaseController
 {
-    public function all($id = null) 
+    public function all(Request $request, $id = null) 
     {
-        
         try{
             if(!empty($id)){
-               return Clients::where('id', $id)->first(); 
+               return array('response' => Clients::where('id', $id)->first());
             }
 
-            return Clients::all();
+            return array('response' => Clients::all());
         }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "clients all"), 500));
         }
@@ -57,6 +56,16 @@ class ClientsController extends BaseController
         }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "clients update"), 500));
         }   
+    }
+
+    public function current(Request $request)
+    {
+        try{
+            $clients = Clients::select("id", "name")->get();
+            return array("response" => $clients);
+        }catch(Exception $e){
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "clients current"), 500));
+        }
     }
 }
 

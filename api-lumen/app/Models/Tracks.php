@@ -14,7 +14,16 @@ class Tracks extends Model
 
     protected $fillable = [
         'id', 'idTask', 'idUser', 'name', 'typeTrack',
-        'currency', 'trackCost', 'idProyecto', 'startTime', 'endTime'
+        'currency', 'trackCost', 'idProyecto', 'startTime', 'endTime', 'duracion'
+    ];
+
+    protected $casts = [
+        'id' => 'string',
+        'idUser' => 'string',
+        'idProyecto' => 'string',
+        'duracion' => 'string',
+        'idTask' => 'string',
+        'costHour' => 'string'
     ];
 
 }

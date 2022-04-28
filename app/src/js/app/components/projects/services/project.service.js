@@ -6,7 +6,7 @@
 
     Module.factory('ProjectsServices', ['RestClient', function(RestClient){
 
-	  	var model = "project";
+	  	var model = "projects";
 
 	  	var factory = {
 
@@ -29,7 +29,7 @@
 			},
 
 			getProjectTasks: function(idProject,  cb) {
-				RestClient.get(model + "/task/id-project/" + idProject, function(err, result) {
+				RestClient.get(model + "/tasks/project/" + idProject, function(err, result) {
 					cb(err, result);
 				})
 			},
@@ -74,7 +74,7 @@
 		    save: function(obj, cb) {
 		    	if (obj.id) {
 		    		console.log("OBJ SAVE UPDATE", obj);
-		        	RestClient.post(model + "/update", obj, function(err, result) {
+		        	RestClient.put(model + "/update", obj, function(err, result) {
 		          		cb(err, result);
 		        	})
 		      	} else {

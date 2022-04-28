@@ -16,13 +16,19 @@
         $scope.vinculate    = false;
 
 
-        if (idUser) {
-            UserServices.findById(idUser, function(err, user) {
+        if (!idUser) {
+            UserServices.currentUser(function(err, user) {
                 if (!err) {
                     console.log('user', user);
                     $scope.user = angular.copy(user);
                     $rootScope.jiraUser = user;
                 }
+            });
+        }
+
+        if(idUser) {
+            UserServices.findById(idUser, function (err, result) {
+                $scope.user = result;
             });
         }
 
@@ -57,11 +63,15 @@
                     $scope.error = err.message || err.error.message || err.error || err;
                     $sendingData = false;
                 } else {
-                    if (result != 'OK') {
-                        alert(result);
+                    try{
+                        if (result.status != 'Successfully registered') {
+                            alert(result);
+                            $state.go('app.users');
+                        }else{
+                            $state.go('app.users');
+                        }
+                    }catch(error) {
                         $state.go('app.users');
-                    }else{
-                    $state.go('app.users');
                     }
                 }
             });
@@ -113,30 +123,32 @@
             $scope.performance.actual.month = {
                 'idMonth': actualMonth+1,
                 'month'  : allMonths[actualMonth],                
-                'idUser' : idUser,
+                //'idUser' : idUser,
                 'year'   : moment().year()
             }
 
             $scope.performance.past.month = {
                 'idMonth': pastMonth+1,
                 'month'  : allMonths[pastMonth],
-                'idUser' : idUser,
+                //'idUser' : idUser,
                 'year'   : moment().year()
             };
 
             $scope.performance.actual.month.year = moment().year();
             $scope.performance.past.month.year = moment().year();
-            TracksServices.findByMonth($scope.performance.actual.month, function(err, result){
+            TracksServices.findCurrentByMonth($scope.performance.actual.month, function(err, result){
                 $scope.performance.actual.month.salary = Object.values(result[0])[0];
-                WeeklyHourServices.verifyUSer(idUser, function(err, result){
+                WeeklyHourServices.currentUser(idUser, function(err, result){
                     $scope.performance.actual.month.costHour = result[0].costHour;
-                    UserServices.savePerformance($scope.performance.actual.month, function(err, result){
+
+                    console.log(result[0])
+                    UserServices.saveCurrentPerformance($scope.performance.actual.month, function(err, result){
                         console.log('save performance', err, result);
                     })
                 })
             })
 
-            UserServices.getPerformanceById($scope.performance.past.month, function(err,result){
+            UserServices.getPerformanceCurrent($scope.performance.past.month, function(err,result){
                 console.log('Result past month', result, err);
                 $scope.performance.past.month = result[0];
             })

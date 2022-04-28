@@ -177,54 +177,54 @@
         } else {
           var idHourCost = $rootScope.userId;
         }
-        WeeklyHourServices.find(
-          $scope.currentPage,
-          $scope.query,
-          function (err, weeklyHours, countItems) {
-            if (!err) {
-              angular.forEach(weeklyHours, function (value, key) {
-                if (value.idUser == idHourCost) {
-                  //$scope.CurrTotalCost = value.currency;
-                  var costo = value.costHour;
-                  var result = (ms / 3600 / 1000) * costo;
+        // WeeklyHourServices.find(
+        //   $scope.currentPage,
+        //   $scope.query,
+        //   function (err, weeklyHours, countItems) {
+        //     if (!err) {
+        //       angular.forEach(weeklyHours, function (value, key) {
+        //         if (value.idUser == idHourCost) {
+        //           //$scope.CurrTotalCost = value.currency;
+        //           var costo = value.costHour;
+        //           var result = (ms / 3600 / 1000) * costo;
                   
-                  $scope.arrSubtotal.push(result);
-                  // $scope.totalcost = result;
-                  var cost = { value: result };
-                  if (cost.value != undefined) {
-                    $scope.finalTotal = cost.value;
-                  } else {
-                  }
-                }
-              });
-              //getTotal($scope.finalTotal);
-            }
-          }
-        );
+        //           $scope.arrSubtotal.push(result);
+        //           // $scope.totalcost = result;
+        //           var cost = { value: result };
+        //           if (cost.value != undefined) {
+        //             $scope.finalTotal = cost.value;
+        //           } else {
+        //           }
+        //         }
+        //       });
+        //       //getTotal($scope.finalTotal);
+        //     }
+        //   }
+        // );
       }
 
       //Calcular hora y costo de automaticas y Trello.
 
       function getSubTotalCost(mss) {
         $scope.mssArr.push(mss.mss);
-        WeeklyHourServices.find(
-          $scope.currentPage,
-          $scope.query,
-          function (err, weeklyHours, countItems) {
-            if (!err) {
-              //for (var i = 0; i < $scope.mssArr.length; i++) {
-              angular.forEach(weeklyHours, function (value, key) {
-                if (value.idUser == mss.idUser) {
-                  var costo = (value.costHour);
-                  var result = (mss.mss / 3600 / 1000) * costo;                  
-                  $scope.subTotalCost.push(result);
-                  //proyectSubTotal($scope.subTotalCost);
-                }
-              });
-              //}
-            }
-          }
-        );
+        // WeeklyHourServices.find(
+        //   $scope.currentPage,
+        //   $scope.query,
+        //   function (err, weeklyHours, countItems) {
+        //     if (!err) {
+        //       //for (var i = 0; i < $scope.mssArr.length; i++) {
+        //       angular.forEach(weeklyHours, function (value, key) {
+        //         if (value.idUser == mss.idUser) {
+        //           var costo = (value.costHour);
+        //           var result = (mss.mss / 3600 / 1000) * costo;                  
+        //           $scope.subTotalCost.push(result);
+        //           //proyectSubTotal($scope.subTotalCost);
+        //         }
+        //       });
+        //       //}
+        //     }
+        //   }
+        // );
       }
 
       function getTotalTime(ms, cost) {
@@ -242,27 +242,27 @@
         } else {
           var idHourCost = $rootScope.userId;
         }
-        WeeklyHourServices.find(
-          $scope.currentPage,
-          $scope.query,
-          function (err, weeklyHours, countItems) {
-            if (!err) {
-              angular.forEach(weeklyHours, function (value, key) {
-                if (value.idUser == idHourCost) {
-                  var costo = parseInt(value.costHour);
-                  var result2 = (msc / 3600 / 1000) * costo;
-                  result2 = Math.ceil(result2);
-                  var cost = { value: result2 };
-                  if (cost.value != undefined) {
-                    $scope.finalTotal = cost.value;
-                  } else {
-                  }
-                }
-              });
-              //getTotalAuto($scope.finalTotal);
-            }
-          }
-        );
+        // WeeklyHourServices.find(
+        //   $scope.currentPage,
+        //   $scope.query,
+        //   function (err, weeklyHours, countItems) {
+        //     if (!err) {
+        //       angular.forEach(weeklyHours, function (value, key) {
+        //         if (value.idUser == idHourCost) {
+        //           var costo = parseInt(value.costHour);
+        //           var result2 = (msc / 3600 / 1000) * costo;
+        //           result2 = Math.ceil(result2);
+        //           var cost = { value: result2 };
+        //           if (cost.value != undefined) {
+        //             $scope.finalTotal = cost.value;
+        //           } else {
+        //           }
+        //         }
+        //       });
+        //       //getTotalAuto($scope.finalTotal);
+        //     }
+        //   }
+        // );
       }
 
       function getTotalTimeAuto(msc, cost) {
@@ -280,28 +280,28 @@
         } else {
           var idHourCost = $rootScope.userId;
         }
-        WeeklyHourServices.find(
-          $scope.currentPage,
-          $scope.query,
-          function (err, weeklyHours, countItems) {
-            if (!err) {
-              angular.forEach(weeklyHours, function (value, key) {
-                if (value.idUser == idHourCost) {
-                  var costo = parseInt(value.costHour);
-                  var result3 = (mst / 3600 / 1000) * costo;
-                  result3 = Math.ceil(result3);
-                  var cost = { value: result3 };
-                  if (cost.value != undefined) {
-                    $scope.finalTotal = cost.value;
-                  } else {
-                  }
-                }
-              });
-              //getTotal($scope.finalTotal);
-              //getTotalTrello($scope.finalTotal);
-            }
-          }
-        );
+        // WeeklyHourServices.find(
+        //   $scope.currentPage,
+        //   $scope.query,
+        //   function (err, weeklyHours, countItems) {
+        //     if (!err) {
+        //       angular.forEach(weeklyHours, function (value, key) {
+        //         if (value.idUser == idHourCost) {
+        //           var costo = parseInt(value.costHour);
+        //           var result3 = (mst / 3600 / 1000) * costo;
+        //           result3 = Math.ceil(result3);
+        //           var cost = { value: result3 };
+        //           if (cost.value != undefined) {
+        //             $scope.finalTotal = cost.value;
+        //           } else {
+        //           }
+        //         }
+        //       });
+        //       //getTotal($scope.finalTotal);
+        //       //getTotalTrello($scope.finalTotal);
+        //     }
+        //   }
+        // );
       }
 
       function getTotalTimeTrello(mst, cost) {
@@ -491,16 +491,16 @@
         $scope.cleanTotals();
 
         if(userRole == "admin") {
-          SaleServices.getAllClientBudgets(
-            moment(filters.startTime).format('YYYY-MM-DD') +  '/' + moment(filters.endTime).format('YYYY-MM-DD'),
-            function(err, res) {
-              if(!err) {
-                angular.forEach(res, function(v, k) {
-                  groupBudgetsByClient(v, k);
-                });
-              }
-            }
-          );
+          // SaleServices.getAllClientBudgets(
+          //   moment(filters.startTime).format('YYYY-MM-DD') +  '/' + moment(filters.endTime).format('YYYY-MM-DD'),
+          //   function(err, res) {
+          //     if(!err) {
+          //       angular.forEach(res, function(v, k) {
+          //         groupBudgetsByClient(v, k);
+          //       });
+          //     }
+          //   }
+          // );
         }
 
         var calculeTotalHrDesarollo = function (array, clientKeyName) {
@@ -539,25 +539,25 @@
               sumTotalcost(tempTotal);
               if (userRole == "admin" || userRole == "pm") {
                 if ($scope.tableTrack.length < 1) {
-                  WeeklyHourServices.find(
-                    $scope.currentPage,
-                    $scope.query,
-                    function (err, weeklyHours, countItems) {
-                      if (!err) {
-                        var object = weeklyHours.find(function (value) {
-                          if(value.currency == null || value.currency == ''){
-                            track.currency = '$'
-                          }
+                  // WeeklyHourServices.find(
+                  //   $scope.currentPage,
+                  //   $scope.query,
+                  //   function (err, weeklyHours, countItems) {
+                  //     if (!err) {
+                  //       var object = weeklyHours.find(function (value) {
+                  //         if(value.currency == null || value.currency == ''){
+                  //           track.currency = '$'
+                  //         }
                           
-                          return track.idUser == value.idUser;
-                        });
-                        // track.currency = object.currency;
-                        if (typeof index !== 'undefined') {
-                          // $scope.tableTrack[index].currency = object.currency;
-                        }
-                      }
-                    }
-                  );
+                  //         return track.idUser == value.idUser;
+                  //       });
+                  //       // track.currency = object.currency;
+                  //       if (typeof index !== 'undefined') {
+                  //         // $scope.tableTrack[index].currency = object.currency;
+                  //       }
+                  //     }
+                  //   }
+                  // );
                   $scope.tableTrack.push({
                     idUser: track.idUser,
                     duration: track.duration,
@@ -569,22 +569,22 @@
                     // currency: track.currency,
                   });
                 } else {
-                  WeeklyHourServices.find(
-                    $scope.currentPage,
-                    $scope.query,
-                    function (err, weeklyHours, countItems) {
-                      if (!err) {
-                        var object = weeklyHours.find(function (value) {
-                          return track.idUser == value.idUser;
-                        });
-                        // track.currency = object.currency;
-                        if (typeof index !== 'undefined') {
-                          // $scope.tableTrack[index].currency = object.currency;
-                          // console.log(track);
-                        }
-                      }
-                    }
-                  );
+                  // WeeklyHourServices.find(
+                  //   $scope.currentPage,
+                  //   $scope.query,
+                  //   function (err, weeklyHours, countItems) {
+                  //     if (!err) {
+                  //       var object = weeklyHours.find(function (value) {
+                  //         return track.idUser == value.idUser;
+                  //       });
+                  //       // track.currency = object.currency;
+                  //       if (typeof index !== 'undefined') {
+                  //         // $scope.tableTrack[index].currency = object.currency;
+                  //         // console.log(track);
+                  //       }
+                  //     }
+                  //   }
+                  // );
                   var exist = false;
                   $scope.tableTrack.forEach(function (element, index) {
                     if (element.idUser == track.idUser && exist == false) {
@@ -593,20 +593,20 @@
                         track.trackCost ? track.trackCost : 0
                       );
 
-                      WeeklyHourServices.find(
-                        $scope.currentPage,
-                        $scope.query,
-                        function (err, weeklyHours, countItems) {
-                          if (!err) {
-                            var object = weeklyHours.find(function (value) {
-                              return track.idUser == value.idUser;
-                            });
-                            // track.currency = object.currency;
-                            // element.currency = object.currency;
-                            // console.log(track);
-                          }
-                        }
-                      );
+                      // WeeklyHourServices.find(
+                      //   $scope.currentPage,
+                      //   $scope.query,
+                      //   function (err, weeklyHours, countItems) {
+                      //     if (!err) {
+                      //       var object = weeklyHours.find(function (value) {
+                      //         return track.idUser == value.idUser;
+                      //       });
+                      //       // track.currency = object.currency;
+                      //       // element.currency = object.currency;
+                      //       // console.log(track);
+                      //     }
+                      //   }
+                      // );
                       element.tracks.push(track);
                       element.duration = convertTime(
                         moment.duration(element.duration).add(track.duration)
@@ -626,20 +626,20 @@
                 }
               } else {
                 if ($scope.tableTrack.length < 1) {
-                  WeeklyHourServices.find(
-                    $scope.currentPage,
-                    $scope.query,
-                    function (err, weeklyHours, countItems) {
-                      if (!err) {
-                        var object = weeklyHours.find(function (value) {
-                          return track.idUser == value.idUser;
-                        });
-                        // track.currency = object.currency;
-                        // $scope.tableTrack[index].currency = object.currency;
-                        // console.log(track);
-                      }
-                    }
-                  );
+                  // WeeklyHourServices.find(
+                  //   $scope.currentPage,
+                  //   $scope.query,
+                  //   function (err, weeklyHours, countItems) {
+                  //     if (!err) {
+                  //       var object = weeklyHours.find(function (value) {
+                  //         return track.idUser == value.idUser;
+                  //       });
+                  //       // track.currency = object.currency;
+                  //       // $scope.tableTrack[index].currency = object.currency;
+                  //       // console.log(track);
+                  //     }
+                  //   }
+                  // );
                   $scope.tableTrack.push({
                     idProyecto: track.idProyecto,
                     duration: track.duration,
@@ -659,20 +659,20 @@
                       element.subTotalCost += (
                         track.trackCost ? track.trackCost : 0
                       );
-                      WeeklyHourServices.find(
-                        $scope.currentPage,
-                        $scope.query,
-                        function (err, weeklyHours, countItems) {
-                          if (!err) {
-                            var object = weeklyHours.find(function (value) {
-                              return track.idUser == value.idUser;
-                            });
-                            // track.currency = object.currency;
-                            // element.currency = object.currency;
-                            // console.log(track);
-                          }
-                        }
-                      );
+                      // WeeklyHourServices.find(
+                      //   $scope.currentPage,
+                      //   $scope.query,
+                      //   function (err, weeklyHours, countItems) {
+                      //     if (!err) {
+                      //       var object = weeklyHours.find(function (value) {
+                      //         return track.idUser == value.idUser;
+                      //       });
+                      //       // track.currency = object.currency;
+                      //       // element.currency = object.currency;
+                      //       // console.log(track);
+                      //     }
+                      //   }
+                      // );
                       element.tracks.push(track);
                       element.duration = convertTime(
                         moment.duration(element.duration).add(track.duration)
@@ -714,18 +714,18 @@
               el.tracks.forEach(function (track, index) {
                 // recorremos los tracks
                 if (el.byProject.length < 1) {
-                  WeeklyHourServices.find(
-                    $scope.currentPage,
-                    $scope.query,
-                    function (err, weeklyHours, countItems) {
-                      if (!err) {
-                        var object = weeklyHours.find(function (value) {
-                          return track.idUser == value.idUser;
-                        });
-                        // el.byProject = object.currency;
-                      }
-                    }
-                  );
+                  // WeeklyHourServices.find(
+                  //   $scope.currentPage,
+                  //   $scope.query,
+                  //   function (err, weeklyHours, countItems) {
+                  //     if (!err) {
+                  //       var object = weeklyHours.find(function (value) {
+                  //         return track.idUser == value.idUser;
+                  //       });
+                  //       // el.byProject = object.currency;
+                  //     }
+                  //   }
+                  // );
                   el.byProject.push({
                     idProyecto: track.idProyecto,
                     projectName: track.projectName,
@@ -883,223 +883,223 @@
           }
         });
 
-        TracksServices.getAutoTracks(filters, function (err, tracks) {
-          if (!err && tracks) {
-            $scope.autoTracks = tracks;
-            calculeTotalHrDesarollo(tracks, 'clientName');
-            var tempTotal = 0;
-            tracks.forEach(function (track) {
-              tempTotal += parseInt(track.trackCost ? track.trackCost : 0);
-              $scope.totalcost2 = tempTotal;
-              sumTotalcost(tempTotal);
-              if (userRole == "admin" || userRole == "pm") {
-                if ($scope.tableTrackAuto.length < 1) {
-                  WeeklyHourServices.find(
-                    $scope.currentPage,
-                    $scope.query,
-                    function (err, weeklyHours, countItems) {
-                      if (!err) {
-                        var object = weeklyHours.find(function (value) {
-                          return track.idUser == value.idUser;
-                        });
-                        track.currency = object.currency;
-                        $scope.tableTrack[index].currency = object.currency;
-                      }
-                    }
-                  );
-                  $scope.tableTrackAuto.push({
-                    idUser: track.idUser,
-                    idProyecto: track.idProyecto,
-                    duration: track.durations,
-                    currency : track.currency,
-                    subTotalCost: parseInt(
-                      track.trackCost ? track.trackCost : 0
-                    ),
-                    currency: track.currency,
-                    tracks: [track],
-                  });
+        // TracksServices.getAutoTracks(filters, function (err, tracks) {
+        //   if (!err && tracks) {
+        //     $scope.autoTracks = tracks;
+        //     calculeTotalHrDesarollo(tracks, 'clientName');
+        //     var tempTotal = 0;
+        //     tracks.forEach(function (track) {
+        //       tempTotal += parseInt(track.trackCost ? track.trackCost : 0);
+        //       $scope.totalcost2 = tempTotal;
+        //       sumTotalcost(tempTotal);
+        //       if (userRole == "admin" || userRole == "pm") {
+        //         if ($scope.tableTrackAuto.length < 1) {
+        //           WeeklyHourServices.find(
+        //             $scope.currentPage,
+        //             $scope.query,
+        //             function (err, weeklyHours, countItems) {
+        //               if (!err) {
+        //                 var object = weeklyHours.find(function (value) {
+        //                   return track.idUser == value.idUser;
+        //                 });
+        //                 track.currency = object.currency;
+        //                 $scope.tableTrack[index].currency = object.currency;
+        //               }
+        //             }
+        //           );
+        //           $scope.tableTrackAuto.push({
+        //             idUser: track.idUser,
+        //             idProyecto: track.idProyecto,
+        //             duration: track.durations,
+        //             currency : track.currency,
+        //             subTotalCost: parseInt(
+        //               track.trackCost ? track.trackCost : 0
+        //             ),
+        //             currency: track.currency,
+        //             tracks: [track],
+        //           });
 
-                } else {
-                  var exist = false;
-                  $scope.tableTrackAuto.forEach(function (element) {
-                    if (element.idUser == track.idUser && exist == false) {
-                      exist = true;
-                      element.subTotalCost += parseInt(
-                        track.trackCost ? track.trackCost : 0
-                      );
-                      WeeklyHourServices.find(
-                        $scope.currentPage,
-                        $scope.query,
-                        function (err, weeklyHours, countItems) {
-                          if (!err) {
-                            var object = weeklyHours.find(function (value) {
-                              return track.idUser == value.idUser;
-                            });
-                            // track.currency = object.currency;
-                            element.currency = object.currency;
-                          }
-                        }
-                      );
-                      element.tracks.push(track);
-                      element.duration = convertTime(
-                        moment.duration(element.duration).add(track.durations)
-                      );
-                    }
-                  });
-                  if (exist === false) {
-                    $scope.tableTrackAuto.push({
-                      idUser: track.idUser,
-                      idProyecto: track.idProyecto,
-                      duration: track.durations,
-                      currency : track.currency,
-                      subTotalCost: parseInt(
-                        track.trackCost ? track.trackCost : 0
-                      ),
-                      tracks: [track],
-                    });
-                  }
-                }
-              } else {
-                if ($scope.tableTrackAuto.length < 1) {
-                  $scope.tableTrackAuto.push({
-                    idUser: track.idUser,
-                    idProyecto: track.idProyecto,
-                    duration: track.durations,
-                    currency : track.currency,
-                    subTotalCost: parseInt(
-                      track.trackCost ? track.trackCost : 0
-                    ),
-                    tracks: [track],
-                  });
-                } else {
-                  var exist = false;
-                  $scope.tableTrackAuto.forEach(function (element) {
-                    if (
-                      element.idProyecto == track.idProyecto &&
-                      exist == false
-                    ) {
-                      exist = true;
-                      element.subTotalCost += parseInt(
-                        track.trackCost ? track.trackCost : 0
-                      );
-                      element.tracks.push(track);
-                      element.duration = convertTime(
-                        moment.duration(element.duration).add(track.durations)
-                      );
-                    }
-                  });
-                  if (exist === false) {
-                    $scope.tableTrackAuto.push({
-                      idProyecto: track.idProyecto,
-                      duration: track.durations,
-                      currency : track.currency,
-                      subTotalCost: parseInt(
-                        track.trackCost ? track.trackCost : 0
-                      ),
-                      tracks: [track],
-                    });
-                  }
-                }
-              }
-            });
-            $scope.tableTrackAuto.forEach(function (el) {
-              el.byProject = []; //aca vamos a ir pusheando cada track
-              el.tracks.forEach(function (track, index) {
-                // recorremos los tracks
-                if (el.byProject.length < 1) {
-                  el.byProject.push({
-                    idProyecto: track.idProyecto,
-                    projectName: track.projectName,
-                    duration: track.durations,
-                    currency : track.currency,
-                    subTotalCost: parseInt(
-                      track.trackCost ? track.trackCost : 0
-                    ),
-                    tracks: [track],
-                  });
-                } else {
-                  var exist = false;
-                  el.byProject.forEach(function (element) {
-                    if (
-                      element.idProyecto == track.idProyecto &&
-                      exist == false
-                    ) {
-                      exist = true;
-                      element.subTotalCost += parseInt(
-                        track.trackCost ? track.trackCost : 0
-                      );
-                      element.tracks.push(track);
-                      element.duration = convertTime(
-                        moment.duration(element.duration).add(track.durations)
-                      );
-                    }
-                  });
-                  if (exist === false) {
-                    el.byProject.push({
-                      idProyecto: track.idProyecto,
-                      projectName: track.projectName,
-                      duration: track.durations,
-                      currency : track.currency,
-                      subTotalCost: parseInt(
-                        track.trackCost ? track.trackCost : 0
-                      ),
-                      tracks: [track],
-                    });
-                  }
-                }
-              });
-            });
-            //Llamada a graficas de barras
-            bargraphUsers();
-            bargraphClients();
-            var msc = 0;
-            var now = new Date().getTime();
-            _.each(tracks, function (track) {
-              if (!$scope.subtotals2[track.projectError]) {
-                $scope.subtotals2[track.projectError] = 0;
-              }
-              track.startTime = new Date(track.startTime).getTime();
-              track.endTime = new Date(track.endTime).getTime();
-              if (track.durations.indexOf("-") !== -1) {
-                track.durations = getTotalTimeAuto(
-                  (now - track.startTime) / 1000
-                );
-                msc += now - track.startTime;
-                $scope.subtotals2[track.projectError] += now - track.startTime;
-              } else {
-                msc += track.endTime - track.startTime;
-                $scope.subtotals2[track.projectError] +=
-                  track.endTime - track.startTime;
-              }
-            });
+        //         } else {
+        //           var exist = false;
+        //           $scope.tableTrackAuto.forEach(function (element) {
+        //             if (element.idUser == track.idUser && exist == false) {
+        //               exist = true;
+        //               element.subTotalCost += parseInt(
+        //                 track.trackCost ? track.trackCost : 0
+        //               );
+        //               WeeklyHourServices.find(
+        //                 $scope.currentPage,
+        //                 $scope.query,
+        //                 function (err, weeklyHours, countItems) {
+        //                   if (!err) {
+        //                     var object = weeklyHours.find(function (value) {
+        //                       return track.idUser == value.idUser;
+        //                     });
+        //                     // track.currency = object.currency;
+        //                     element.currency = object.currency;
+        //                   }
+        //                 }
+        //               );
+        //               element.tracks.push(track);
+        //               element.duration = convertTime(
+        //                 moment.duration(element.duration).add(track.durations)
+        //               );
+        //             }
+        //           });
+        //           if (exist === false) {
+        //             $scope.tableTrackAuto.push({
+        //               idUser: track.idUser,
+        //               idProyecto: track.idProyecto,
+        //               duration: track.durations,
+        //               currency : track.currency,
+        //               subTotalCost: parseInt(
+        //                 track.trackCost ? track.trackCost : 0
+        //               ),
+        //               tracks: [track],
+        //             });
+        //           }
+        //         }
+        //       } else {
+        //         if ($scope.tableTrackAuto.length < 1) {
+        //           $scope.tableTrackAuto.push({
+        //             idUser: track.idUser,
+        //             idProyecto: track.idProyecto,
+        //             duration: track.durations,
+        //             currency : track.currency,
+        //             subTotalCost: parseInt(
+        //               track.trackCost ? track.trackCost : 0
+        //             ),
+        //             tracks: [track],
+        //           });
+        //         } else {
+        //           var exist = false;
+        //           $scope.tableTrackAuto.forEach(function (element) {
+        //             if (
+        //               element.idProyecto == track.idProyecto &&
+        //               exist == false
+        //             ) {
+        //               exist = true;
+        //               element.subTotalCost += parseInt(
+        //                 track.trackCost ? track.trackCost : 0
+        //               );
+        //               element.tracks.push(track);
+        //               element.duration = convertTime(
+        //                 moment.duration(element.duration).add(track.durations)
+        //               );
+        //             }
+        //           });
+        //           if (exist === false) {
+        //             $scope.tableTrackAuto.push({
+        //               idProyecto: track.idProyecto,
+        //               duration: track.durations,
+        //               currency : track.currency,
+        //               subTotalCost: parseInt(
+        //                 track.trackCost ? track.trackCost : 0
+        //               ),
+        //               tracks: [track],
+        //             });
+        //           }
+        //         }
+        //       }
+        //     });
+        //     $scope.tableTrackAuto.forEach(function (el) {
+        //       el.byProject = []; //aca vamos a ir pusheando cada track
+        //       el.tracks.forEach(function (track, index) {
+        //         // recorremos los tracks
+        //         if (el.byProject.length < 1) {
+        //           el.byProject.push({
+        //             idProyecto: track.idProyecto,
+        //             projectName: track.projectName,
+        //             duration: track.durations,
+        //             currency : track.currency,
+        //             subTotalCost: parseInt(
+        //               track.trackCost ? track.trackCost : 0
+        //             ),
+        //             tracks: [track],
+        //           });
+        //         } else {
+        //           var exist = false;
+        //           el.byProject.forEach(function (element) {
+        //             if (
+        //               element.idProyecto == track.idProyecto &&
+        //               exist == false
+        //             ) {
+        //               exist = true;
+        //               element.subTotalCost += parseInt(
+        //                 track.trackCost ? track.trackCost : 0
+        //               );
+        //               element.tracks.push(track);
+        //               element.duration = convertTime(
+        //                 moment.duration(element.duration).add(track.durations)
+        //               );
+        //             }
+        //           });
+        //           if (exist === false) {
+        //             el.byProject.push({
+        //               idProyecto: track.idProyecto,
+        //               projectName: track.projectName,
+        //               duration: track.durations,
+        //               currency : track.currency,
+        //               subTotalCost: parseInt(
+        //                 track.trackCost ? track.trackCost : 0
+        //               ),
+        //               tracks: [track],
+        //             });
+        //           }
+        //         }
+        //       });
+        //     });
+        //     //Llamada a graficas de barras
+        //     bargraphUsers();
+        //     bargraphClients();
+        //     var msc = 0;
+        //     var now = new Date().getTime();
+        //     _.each(tracks, function (track) {
+        //       if (!$scope.subtotals2[track.projectError]) {
+        //         $scope.subtotals2[track.projectError] = 0;
+        //       }
+        //       track.startTime = new Date(track.startTime).getTime();
+        //       track.endTime = new Date(track.endTime).getTime();
+        //       if (track.durations.indexOf("-") !== -1) {
+        //         track.durations = getTotalTimeAuto(
+        //           (now - track.startTime) / 1000
+        //         );
+        //         msc += now - track.startTime;
+        //         $scope.subtotals2[track.projectError] += now - track.startTime;
+        //       } else {
+        //         msc += track.endTime - track.startTime;
+        //         $scope.subtotals2[track.projectError] +=
+        //           track.endTime - track.startTime;
+        //       }
+        //     });
 
-            //Subotales de horas po proyecto
-            for (var k in $scope.subtotals2) {
-              if ($scope.subtotals2.hasOwnProperty(k)) {
-                $scope.subtotals2[k] = getTotalTimeAuto(
-                  $scope.subtotals2[k] / 1000
-                );
-                $scope.sumHoursAuto.push($scope.subtotals2[k]);
-              }
-            }
+        //     //Subotales de horas po proyecto
+        //     for (var k in $scope.subtotals2) {
+        //       if ($scope.subtotals2.hasOwnProperty(k)) {
+        //         $scope.subtotals2[k] = getTotalTimeAuto(
+        //           $scope.subtotals2[k] / 1000
+        //         );
+        //         $scope.sumHoursAuto.push($scope.subtotals2[k]);
+        //       }
+        //     }
 
-            for (var i = 0; i < $scope.sumHoursAuto.length; i++) {
-              var th = moment.duration(th).add($scope.sumHoursAuto[i]);
-            }
-            $scope.total2 = convertTime(th);
+        //     for (var i = 0; i < $scope.sumHoursAuto.length; i++) {
+        //       var th = moment.duration(th).add($scope.sumHoursAuto[i]);
+        //     }
+        //     $scope.total2 = convertTime(th);
 
-            $scope.sumHoursAuto = [];
+        //     $scope.sumHoursAuto = [];
 
-            //Total tareas automaticas
-            getTotalAutoCost(msc);
+        //     //Total tareas automaticas
+        //     getTotalAutoCost(msc);
 
-            getHours($scope.total2);
+        //     getHours($scope.total2);
 
-            //llamada a graficas de tortas
-            roundgraphUser();
-            roundgraphClient();
-          }
-        });
+        //     //llamada a graficas de tortas
+        //     roundgraphUser();
+        //     roundgraphClient();
+        //   }
+        // });
         TracksServices.getTrelloTrack(filters, function (err, tracks) {
           if (!err && tracks) {
             $scope.trelloTracks = tracks;
@@ -1609,48 +1609,48 @@
                 } else {
                   var idHourCost = $rootScope.userId;
                 }
-                WeeklyHourServices.find(
-                  $scope.currentPage,
-                  $scope.query,
-                  function (err, weeklyHours, countItems) {
-                    if (!err) {
-                      if (weeklyHours.length > 0) {
-                        var exist = false;
-                        angular.forEach(weeklyHours, function (value, key) {
-                          if (value.idUser == idHourCost) {
-                            exist = true;
-                            var costo = parseInt(value.costHour);
-                            var result2 = (msc / 3600 / 1000) * costo;
-                            result2 = Math.ceil(result2);
-                            newCostTracked(result2);
-                          }
-                        });
-                        if (exist === false) {
-                          TracksServices.update(
-                            objTrack,
-                            function (err, result) {
-                              if (!err) {
-                                //$scope.search();
-                                ngDialog.close();
-                              } else {
-                                $scope.error = err;
-                              }
-                            }
-                          );
-                        }
-                      } else {
-                        TracksServices.update(objTrack, function (err, result) {
-                          if (!err) {
-                            //$scope.search();
-                            ngDialog.close();
-                          } else {
-                            $scope.error = err;
-                          }
-                        });
-                      }
-                    }
-                  }
-                );
+                // WeeklyHourServices.find(
+                //   $scope.currentPage,
+                //   $scope.query,
+                //   function (err, weeklyHours, countItems) {
+                //     if (!err) {
+                //       if (weeklyHours.length > 0) {
+                //         var exist = false;
+                //         angular.forEach(weeklyHours, function (value, key) {
+                //           if (value.idUser == idHourCost) {
+                //             exist = true;
+                //             var costo = parseInt(value.costHour);
+                //             var result2 = (msc / 3600 / 1000) * costo;
+                //             result2 = Math.ceil(result2);
+                //             newCostTracked(result2);
+                //           }
+                //         });
+                //         if (exist === false) {
+                //           TracksServices.update(
+                //             objTrack,
+                //             function (err, result) {
+                //               if (!err) {
+                //                 //$scope.search();
+                //                 ngDialog.close();
+                //               } else {
+                //                 $scope.error = err;
+                //               }
+                //             }
+                //           );
+                //         }
+                //       } else {
+                //         TracksServices.update(objTrack, function (err, result) {
+                //           if (!err) {
+                //             //$scope.search();
+                //             ngDialog.close();
+                //           } else {
+                //             $scope.error = err;
+                //           }
+                //         });
+                //       }
+                //     }
+                //   }
+                // );
               }
               var newCostTracked = function (value) {
                 // console.log(value)
