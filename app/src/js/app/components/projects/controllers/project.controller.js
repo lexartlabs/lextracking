@@ -548,7 +548,7 @@
             })
           })
         })
-        $state.go('app.tasks');
+        $state.go('app.projects');
       }
     });
   } else {
@@ -663,6 +663,7 @@
           "footer_two": "<a class='email_link' href='"+current_host+"'>Ir a Lextracking<a/>"
         }
       }
+      console.log('TO AQUI');
       console.log("MAIL TO SEND",mailSend);
       $http({
         method: 'POST',

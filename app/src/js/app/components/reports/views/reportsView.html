@@ -10,9 +10,9 @@
     <li class="imm-tabs__item" ng-click="tabReport = 1" ng-class="{'imm-tabs__item--selected' : tabReport == 1}">
       Reportes Tareas
     </li>
-    <li class="imm-tabs__item" ng-click="tabReport = 2" ng-class="{'imm-tabs__item--selected' : tabReport == 2}">
+    <!-- <li class="imm-tabs__item" ng-click="tabReport = 2" ng-class="{'imm-tabs__item--selected' : tabReport == 2}">
       Reportes Proyectos
-    </li>
+    </li> -->
   </ul>
 </div>
 <div ng-if="tabReport == 1">
@@ -920,9 +920,9 @@
 <div ng-if="tabReport == 2">
   <div class="imm-wa__hdr imm-flex" style="margin-top: 10px">
     <div class="imm-flex-5">
-      <h1 class="imm-wa__tit">
+      <!-- <h1 class="imm-wa__tit">
         <a class="imm-bc-item">Reportes Proyectos</a>
-      </h1>
+      </h1> -->
       <button class="imm-btn" ng-if="tracks.length" ng-click="exportToCSV()">
         Descargar CSV
       </button>
