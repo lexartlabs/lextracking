@@ -85,143 +85,145 @@
 
   </div>
   </form>
-
-  <div class="imm-frm__fld">
-    <ul class="imm-tabs">
-        <li class="imm-tabs__item" ng-init="tabUser = 1; tab1()" ng-click="tabUser = 1; tab1()" ng-class="{'imm-tabs__item--selected' : tabUser == 1}">Mi rendimiento</li>
-        <li class="imm-tabs__item" ng-click="tabUser = 2; tab2()" ng-class="{'imm-tabs__item--selected' : tabUser == 2}">Integraciones</li>
-        <li class="imm-tabs__item" ng-click="tabUser = 3; tab3()" ng-class="{'imm-tabs__item--selected' : tabUser == 3}">Evaluaciones</li>
-    </ul>
-  </div>
-
-<div class="imm-wa__cnt" ng-if="tabUser == 1">
-  <div class="imm-frm imm-frm--center">
-    <div class="imm-frm__fldgrp">
-      <div class="imm-frm__fld">
-        <label class="imm-frm__lbl">
-            <b class="imm-frm__lbl-name">{{'Año'}}</b>  
-            <input  moment-picker="date.year" 
-                    placeholder="Seleccionar año" 
-                    start-view="decade" 
-                    format="YYYY" 
-                    min-date="date.minDate" 
-                    max-date="date.maxDate" 
-                    max-view="decade" 
-                    start-date="date.startDate" 
-                    ng-model="date.year"
-                    >
-        </label>
-      </div>
-      <div class="imm-frm__fld">
-        <button class="imm-btn" ng-click="filterYear(date.year)">{{ 'reports.search' | translate }}</button>
-      </div>
-      <div class="imm-frm__fld">
-      </div>
+  
+  <div ng-if="user.id">
+    <div class="imm-frm__fld">
+      <ul class="imm-tabs">
+          <li class="imm-tabs__item" ng-init="tabUser = 1; tab1()" ng-click="tabUser = 1; tab1()" ng-class="{'imm-tabs__item--selected' : tabUser == 1}">Mi rendimiento</li>
+          <li class="imm-tabs__item" ng-click="tabUser = 2; tab2()" ng-class="{'imm-tabs__item--selected' : tabUser == 2}">Integraciones</li>
+          <li class="imm-tabs__item" ng-click="tabUser = 3; tab3()" ng-class="{'imm-tabs__item--selected' : tabUser == 3}">Evaluaciones</li>
+      </ul>
     </div>
-  </div>
-    <table>
-        <thead>
-            <tr>
-              <th>{{ 'users.month' | translate }}</th>
-              <th>{{ 'users.year' | translate }}</th>
-              <th>{{ 'users.salary' | translate }}</th>
-              <th>{{ 'users.costhour' | translate }}</th>
-            </tr>
-        </thead>
-        <tbody ng-if="identify == true">
-            <tr ng-repeat="month in performance.actual" style="background-color: lightgreen;">
-                <td>{{month.month}}</td>
-                <td>{{month.year}}</td>
-                <td>{{month.salary}}</td>
-                <td>{{month.costHour}}</td>
-            </tr>
-            <tr ng-repeat="month in performance.past" style="background-color: lightblue;">
-                <td>{{month.month}}</td>
-                <td>{{month.year}}</td>
-                <td>{{month.salary}}</td>
-                <td>{{month.costHour}}</td>
-            </tr>
-            <tr ng-click="moreMonths(); show='false'" ng-init="show='true'">
-              <th style="cursor: pointer;" ng-if="show=='true'">Mostrar meses anteriores <i style="margin-left: 10px;">▼</i></th>
-              <th ng-if="show=='true'"></th>
-              <th ng-if="show=='true'"></th>
-              <th ng-if="show=='true'"></th>
-            </tr>
-            <tr ng-repeat="month in performance.moreMonths" ng-if="show=='false'">
+
+    <div class="imm-wa__cnt" ng-if="tabUser == 1">
+      <div class="imm-frm imm-frm--center">
+        <div class="imm-frm__fldgrp">
+          <div class="imm-frm__fld">
+            <label class="imm-frm__lbl">
+                <b class="imm-frm__lbl-name">{{'Año'}}</b>  
+                <input  moment-picker="date.year" 
+                        placeholder="Seleccionar año" 
+                        start-view="decade" 
+                        format="YYYY" 
+                        min-date="date.minDate" 
+                        max-date="date.maxDate" 
+                        max-view="decade" 
+                        start-date="date.startDate" 
+                        ng-model="date.year"
+                        >
+            </label>
+          </div>
+          <div class="imm-frm__fld">
+            <button class="imm-btn" ng-click="filterYear(date.year)">{{ 'reports.search' | translate }}</button>
+          </div>
+          <div class="imm-frm__fld">
+          </div>
+        </div>
+      </div>
+        <table>
+            <thead>
+                <tr>
+                  <th>{{ 'users.month' | translate }}</th>
+                  <th>{{ 'users.year' | translate }}</th>
+                  <th>{{ 'users.salary' | translate }}</th>
+                  <th>{{ 'users.costhour' | translate }}</th>
+                </tr>
+            </thead>
+            <tbody ng-if="identify == true">
+                <tr ng-repeat="month in performance.actual" style="background-color: lightgreen;">
+                    <td>{{month.month}}</td>
+                    <td>{{month.year}}</td>
+                    <td>{{month.salary}}</td>
+                    <td>{{month.costHour}}</td>
+                </tr>
+                <tr ng-repeat="month in performance.past" style="background-color: lightblue;">
+                    <td>{{month.month}}</td>
+                    <td>{{month.year}}</td>
+                    <td>{{month.salary}}</td>
+                    <td>{{month.costHour}}</td>
+                </tr>
+                <tr ng-click="moreMonths(); show='false'" ng-init="show='true'">
+                  <th style="cursor: pointer;" ng-if="show=='true'">Mostrar meses anteriores <i style="margin-left: 10px;">▼</i></th>
+                  <th ng-if="show=='true'"></th>
+                  <th ng-if="show=='true'"></th>
+                  <th ng-if="show=='true'"></th>
+                </tr>
+                <tr ng-repeat="month in performance.moreMonths" ng-if="show=='false'">
+                    <td>{{month.month}}</td>
+                    <td>{{month.year}}</td>
+                    <td>{{month.salary}}</td>
+                    <td>{{month.costHour}}</td>             
+                </tr>
+            </tbody>
+            <tbody ng-if="identify == false">
+              <tr ng-repeat="month in performance.allMonths">
                 <td>{{month.month}}</td>
                 <td>{{month.year}}</td>
                 <td>{{month.salary}}</td>
                 <td>{{month.costHour}}</td>             
-            </tr>
-        </tbody>
-        <tbody ng-if="identify == false">
-          <tr ng-repeat="month in performance.allMonths">
-            <td>{{month.month}}</td>
-            <td>{{month.year}}</td>
-            <td>{{month.salary}}</td>
-            <td>{{month.costHour}}</td>             
-          </tr>
-        </tbody>
-    </table>
-</div>
-
-<div ng-if="tabUser == 2" class="imm-wa__cnt" style="text-align: left; margin-right: 70%;">
-  <p style="font-size: 14px; font-weight: bold">Integrar con:</p>
-    <div class="imm-frm__fldgrp">
-      <div class="imm-frm__fld" ng-if="user.id">
-        <label class="imm-frm__lbl">
-          <img src="/assets/images/icons/trello-icon.png" style="width: 60px; height: 60px;cursor: not-allowed"></img>
-          <b class="imm-frm__lbl-name">{{ 'Trello' }}</b>
-        </label>
-      </div>
-
-      <div class="imm-frm__fld">
-        <label class="imm-frm__lbl">
-          <img src="/assets/images/icons/teamwork-icon.png" style="width: 60px; height: 60px;cursor: not-allowed"></img>
-          <b class="imm-frm__lbl-name">{{ 'Teamwork' }}</b>
-        </label>
-      </div>
-
-      <div class="imm-frm__fld" ng-click="jiraInt()">
-        <label class="imm-frm__lbl">
-          <img src="/assets/images/Jira-PBXDom.png" style="width: 90px; height: 60px"></img>
-          <b class="imm-frm__lbl-name">{{ 'Jira' }}</b>
-        </label>
-        <p ng-if="vinculate == true" style="font-size: 10px; color: red">*Usuario ya vinculado</p>
-      </div>
+              </tr>
+            </tbody>
+        </table>
     </div>
-</div>
 
-<div class="imm-wa__cnt" ng-if="tabUser == 3">
-    <div class="imm-wa__cnt">
-    <div class="imm-flex">
-    <div class='flex-table'>
-        <div class='flex-head'>
-            <div class="flex-item">ID</div>
-            <div class="flex-item">Evaluación</div>
-            <div class="flex-item">Puntaje</div>
-            <div class="flex-item">Evaluador</div>
-            <div style="flex: 5%;width: 5%;"></div>
+    <div ng-if="tabUser == 2" class="imm-wa__cnt" style="text-align: left; margin-right: 70%;">
+      <p style="font-size: 14px; font-weight: bold">Integrar con:</p>
+        <div class="imm-frm__fldgrp">
+          <div class="imm-frm__fld" ng-if="user.id">
+            <label class="imm-frm__lbl">
+              <img src="/assets/images/icons/trello-icon.png" style="width: 60px; height: 60px;cursor: not-allowed"></img>
+              <b class="imm-frm__lbl-name">{{ 'Trello' }}</b>
+            </label>
+          </div>
+
+          <div class="imm-frm__fld">
+            <label class="imm-frm__lbl">
+              <img src="/assets/images/icons/teamwork-icon.png" style="width: 60px; height: 60px;cursor: not-allowed"></img>
+              <b class="imm-frm__lbl-name">{{ 'Teamwork' }}</b>
+            </label>
+          </div>
+
+          <div class="imm-frm__fld" ng-click="jiraInt()">
+            <label class="imm-frm__lbl">
+              <img src="/assets/images/Jira-PBXDom.png" style="width: 90px; height: 60px"></img>
+              <b class="imm-frm__lbl-name">{{ 'Jira' }}</b>
+            </label>
+            <p ng-if="vinculate == true" style="font-size: 10px; color: red">*Usuario ya vinculado</p>
+          </div>
         </div>
-        <!-- ORDENADO POR USUARIO -->
-                <!-- TRACKS -->
-                <div ng-repeat="eval in evaluacion track by $index" class='flex-column-wrap' id="datatable">
-                    <div class='flex-row'>
-                        <div class="flex-item">{{eval.id}}</div>
-                        <div class="flex-item">{{eval.evaluacion}}</div>
-                        <div class="flex-item">{{eval.puntaje | truncateTail:true:20:'...'}}</div>
-                        <div class="flex-item">{{eval.admin}}</div>
-                        <div style="flex: 5%;width: 5%;" ng-click="showEval(eval.evaluacion)">
-                            <a>
-                                <img src="assets/images/icons/pencil-ico.svg">
-                            </a>
+    </div>
+
+    <div class="imm-wa__cnt" ng-if="tabUser == 3">
+        <div class="imm-wa__cnt">
+        <div class="imm-flex">
+        <div class='flex-table'>
+            <div class='flex-head'>
+                <div class="flex-item">ID</div>
+                <div class="flex-item">Evaluación</div>
+                <div class="flex-item">Puntaje</div>
+                <div class="flex-item">Evaluador</div>
+                <div style="flex: 5%;width: 5%;"></div>
+            </div>
+            <!-- ORDENADO POR USUARIO -->
+                    <!-- TRACKS -->
+                    <div ng-repeat="eval in evaluacion track by $index" class='flex-column-wrap' id="datatable">
+                        <div class='flex-row'>
+                            <div class="flex-item">{{eval.id}}</div>
+                            <div class="flex-item">{{eval.evaluacion}}</div>
+                            <div class="flex-item">{{eval.puntaje | truncateTail:true:20:'...'}}</div>
+                            <div class="flex-item">{{eval.admin}}</div>
+                            <div style="flex: 5%;width: 5%;" ng-click="showEval(eval.evaluacion)">
+                                <a>
+                                    <img src="assets/images/icons/pencil-ico.svg">
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-         </div>
-</div>
-</div>
-</div>
+            </div>
+    </div>
+    </div>
+    </div>
+  </div>
 </div>
 <div class="imm-wa__actions">
   <p ng-if="error" class="err-display">{{error}} {{ 'general.cant_be_empty' | translate }}</p>

@@ -29,7 +29,7 @@
 			},
 
 		    findById: function(id, cb) {
-
+				console.log(id);
 		    	RestClient.get(model + "/" + id, function(err, result) {
 		    		cb(err, result);
 		    	})
@@ -59,8 +59,8 @@
 		      	})
 		    },
 
-		    savePerformance: function(obj, cb){
-		    	RestClient.post(model + "/save-performance", obj, function(err, result){
+		    savePerformance: function(obj, id, cb){
+		    	RestClient.post(model + "/performance/" + id + "/save", obj, function(err, result){
 		    		cb(err, result);
 		    	})
 		    },
@@ -71,8 +71,9 @@
 		    	})
 		    },
 
-		    getPerformanceById: function(obj, cb){
-		    	RestClient.post(model + "/performance-id", obj, function(err, result){
+		    getPerformanceById: function(obj, id, cb){
+				console.log(obj);
+		    	RestClient.post(model + '/' + id + "/performance", obj, function(err, result){
 		    		cb(err, result);
 		    	})
 		    },
