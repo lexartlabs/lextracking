@@ -5,23 +5,30 @@
     var Module = ng.module('Imm');
 
     Module.factory('CalendarServices', ['RestClient', function(RestClient){
-        var model = 'user-hours';
+        var model = 'user';
 
         var factory = {
             
 
             getUserEvents: function(id, cb){
-                RestClient.get(model + '/' + id, function(err, result){
+                var authUserId = window.localStorage.userId; //se for mudado o backend retorna erro
+
+                var path = authUserId == id ? '/current/hours' : '/' + id +'/hours';
+
+                RestClient.get(model + path, function(err, result){
                     cb(err, result);
                 })
             },
 
             getUserExceptions: function(id, fecha, cb){
-                RestClient.get('user-exceptions'+ '/' + id + '/' + fecha, function(err, result){
+                var authUserId = window.localStorage.userId; //se for mudado o backend retorna erro
+
+                var path = authUserId == id ? '/current/exceptions/' : '/' + id +'/exceptions/';
+
+                RestClient.get(model + path + fecha, function(err, result){
                     cb(err, result);
                 })
             },
-
 
             postUserEvents: function(obj, cb){
                 RestClient.post(model, obj, function(err, result){
@@ -44,27 +51,14 @@
             },
 
             getTrackedHours: function(id, fecha, cb){
-                RestClient.get ('past-events'+ '/' + id + '/' + fecha, function(err, result){
+                var authUserId = window.localStorage.userId; //se for mudado o backend retorna erro
+
+                var path = authUserId == id ? 'tracks/user/current' : 'tracks/user/' + id;
+
+                RestClient.get(path + '/calendar/' + fecha, function(err, result){
                     cb(err, result); 
                 })
             },
-
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         };
         return factory;
     }]);

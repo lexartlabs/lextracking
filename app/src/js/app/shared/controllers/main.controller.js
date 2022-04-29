@@ -530,7 +530,7 @@
             if ($rootScope.isClient == 'true') {
                 $rootScope.userIdClient = $window.localStorage["idUserClient"];
             }
-            TracksServices.getLastUserTrack($rootScope.userId, function (err, track) {
+            TracksServices.getCurrentUserLastTrack($rootScope.userId, function (err, track) {
                 if (!err) {
                     if (track) {
                         console.log('track', track);

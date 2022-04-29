@@ -6,12 +6,18 @@
 
     Module.factory('ClientServices', ['RestClient', function(RestClient){
 	  	
-	  	var model = "client";
+	  	var model = "clients";
 	  
 	  	var factory = {
 
 		    find: function(page, q, cb) {
-		      	RestClient.get(model + "/all", function(err, result, countItems) {
+
+				var user = window.localStorage;
+				var role = user.userRole;
+
+				var path = role == "developer" ? "current" : "all";
+
+		      	RestClient.get(model + "/" + path, function(err, result, countItems) {
 		        	cb(err, result, countItems);
 		      	})
 		    },
@@ -30,7 +36,7 @@
 
 		    save: function(obj, cb) {
 		    	if (obj.id) {
-		        	RestClient.post(model + "/update", obj, function(err, result) {
+		        	RestClient.put(model + "/update/" + obj.id , obj, function(err, result) {
 		          		cb(err, result);
 		        	})
 		      	} else {

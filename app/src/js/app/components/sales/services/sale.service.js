@@ -6,7 +6,7 @@
 
     Module.factory('SaleServices', ['RestClient', function(RestClient){
 
-	  	var model = "sale";
+	  	var model = "sales";
 
 	  	var factory = {
 
@@ -21,8 +21,8 @@
 		        	cb(err, result, countItems);
 		      	})
 		    },
-        findByUserMonth: function(page, q, cb) {
-		      	RestClient.get( "sales/all/by-user-date/" + q, function(err, result, countItems) {
+        findByUserMonth: function(page, q, id, cb) {
+		      	RestClient.get( "sales/all/by-date/" + q + "/" + id, function(err, result, countItems) {
 		        	cb(err, result, countItems);
 		      	})
 		    },
@@ -55,7 +55,7 @@
 
 		    save: function(obj, cb) {
 		    	if (obj.id) {
-		        	RestClient.post(model + "/update", obj, function(err, result) {
+		        	RestClient.put(model + "/update", obj, function(err, result) {
 		          		cb(err, result);
 		        	})
 		      	} else {

@@ -17,7 +17,7 @@ console.log('Reading BASE URL', BASE_URL);
         function getConfig() {
             var config = {
                 headers: {
-                    token: $window.localStorage[TOKEN_KEY]
+                    Authorization: $window.localStorage[TOKEN_KEY]
                 }
             };
             return config;
