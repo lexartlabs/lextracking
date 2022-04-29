@@ -368,10 +368,6 @@ class TracksController extends BaseController
                 ->whereRaw("TrelloTask.active = 1");
 
             if (!empty($user_id)) {
-<<<<<<< HEAD
-
-=======
->>>>>>> lumen-migration-front
                 $tracks = $tracks->where("Tracks.idUser", $user_id);
 
                 if (!empty($client_id)) {
