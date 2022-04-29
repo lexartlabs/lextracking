@@ -15,9 +15,9 @@
         <a href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.dashboard">
             <i class="imm-icon imm-icon--analytics-ico"></i> <span ng-show="!thisHide">{{ 'navigation.dashboard' | translate }}</span>
         </a>
-        <a href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.calendar">
+        <!-- <a href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.calendar">
             <i class="imm-icon imm-icon--analytics-ico"></i> <span ng-show="!thisHide">{{ 'navigation.calendar' | translate }}</span>
-        </a>
+        </a> -->
         <a ng-if="isAdmin == 'true' || userRole == 'pm'" href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.users">
             <i class="imm-icon imm-icon--users-ico"></i> <span ng-show="!thisHide">{{ 'navigation.users' | translate }}</span>
         </a>
