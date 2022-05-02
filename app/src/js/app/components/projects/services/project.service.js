@@ -60,12 +60,13 @@
 
 
 			saveProjectTask: function(obj, cb) {
+				obj.idProject = Number(obj.idProject)
 		    	if (obj.id) {
-		        	RestClient.post(model + "/task/update", obj, function(err, result) {
+		        	RestClient.post(model + "/tasks/update", obj, function(err, result) {
 		          		cb(err, result);
 		        	})
 		      	} else {
-		        	RestClient.post(model + "/task/new", obj, function(err, result) {
+		        	RestClient.post(model + "/tasks/new", obj, function(err, result) {
 		          		cb(err, result);
 		        	})
 		      	}
@@ -78,6 +79,7 @@
 		          		cb(err, result);
 		        	})
 		      	} else {
+
 		        	RestClient.post(model + "/new", obj, function(err, result) {
 		          		cb(err, result);
 		        	})

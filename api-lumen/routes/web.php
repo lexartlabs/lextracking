@@ -83,7 +83,7 @@ Route::group(['prefix' => 'api'], function () {
             Route::delete('delete', 'TasksController@delete');
             Route::post('undelete', 'TasksController@undelete');
             Route::put('update', 'TasksController@update');
-            Route::post('create', 'TasksController@create');
+            Route::post('new', 'TasksController@create');
 
             Route::get('project/{id}', 'TasksController@project');
             Route::post('id-user/{idUser}', 'TasksController@getTasksByUserFilter');
