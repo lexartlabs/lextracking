@@ -12,8 +12,16 @@ use Illuminate\Http\Request;
 
 class PerformanceController extends BaseController
 {
-    public function userId($id, $idMonth, $year)
-    {
+    public function userId(Request $request, $id)
+    {   
+        $this->validate($request, [
+            "idMonth" => "required",
+            "year" => "required"
+        ]);
+
+        $idMonth = $request->input("idMonth");
+        $year = $request->input("year");
+
         try{
             $performance = Performance::where('idUser', $id)->where('idMonth', $idMonth)->where('year', $year)->get();
             if(!$performance) {
@@ -50,8 +58,11 @@ class PerformanceController extends BaseController
         return $this->userId($user_id, $idMonth, $year);
     }
 
-    public function save(Request $request)
+    public function save(Request $request, $id)
     {
+
+        if(!empty($id)) $request["idUser"] = $id;
+
         $this->validate($request, [
             "idUser" => "required|numeric|exists:users,id",
             "year" => "required|numeric",
@@ -64,7 +75,8 @@ class PerformanceController extends BaseController
         try{
             $performance = $request->only(["idUser", "year", "idMonth", "month", "salary", "costHour"]);
 
-            return Performance::create($performance);
+            $performance = Performance::create($performance);
+            return array("response" => $performance);
         }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "performance new"), 500));
         }

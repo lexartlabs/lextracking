@@ -169,10 +169,10 @@ class UserController extends BaseController
             "email" => "email",
             "password" => "min:8",
             "role" => "string",
-            "idClient" => "exists:clients,id"
+            "name" => "string"
         ]);
 
-        $update = $request->only(['id', 'email', 'password', 'role', 'idClient']);
+        $update = $request->only(['email', 'password', 'role', 'name']);
 
         try{
             $user = User::where("id", $id)->update($update);

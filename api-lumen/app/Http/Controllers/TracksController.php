@@ -307,15 +307,13 @@ class TracksController extends BaseController
         return $this->calendar($user_id, $fecha);
     }
 
-    public function currentMonth(Request $request)
-    {
-
+    public function month(Request $request, $id) {
         $this->validate($request, [
             "idMonth" => "required|numeric",
             "year" => "required|numeric"
         ]);
 
-        $user_id = AuthController::current()->id;
+        $user_id = $id;
         $idMonth = $request->input("idMonth");
         $year = $request->input("year");
 
@@ -327,6 +325,12 @@ class TracksController extends BaseController
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks current calendar"), 500));
         }
+    }
+
+    public function currentMonth(Request $request)
+    {
+        $user_id = AuthController::current()->id;
+        return $this->month($request, $user_id);
     }
 
     public function trelloTracks(Request $request, $id = null)

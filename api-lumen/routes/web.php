@@ -48,6 +48,7 @@ Route::group(['prefix' => 'api'], function () {
             Route::delete('delete', 'UserController@delete');
             Route::post('undelete', 'UserController@undelete');
             Route::get('all-admin', 'UserController@allAdmin');
+            Route::put('update/{id}', 'UserController@update');
             Route::get('{id}', 'UserController@userById');
 
 
@@ -58,11 +59,11 @@ Route::group(['prefix' => 'api'], function () {
             Route::get('{id}/exceptions/{date}', 'UserController@exceptions');
 
             //Performances
-            Route::get('{id}/performance', 'PerformanceController@userId');
+            Route::post('{id}/performance', 'PerformanceController@userId');
 
             Route::group(['prefix' => 'performance'], function() {
                 Route::get('all', 'PerformanceController@all');
-                Route::post('save', 'PerformanceController@save');
+                Route::post('{id}/save', 'PerformanceController@save');
             });
         });
     });
@@ -120,6 +121,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::group(['prefix' => 'tracks', 'middleware' => 'auth:api'], function() {
         Route::group(['middleware' => 'pm:api'], function(){
             Route::get('tracking', 'TracksController@endlessTracks');
+            Route::post('{id}/month', 'TracksController@month');
         });
         
         Route::get('all', 'TracksController@all');

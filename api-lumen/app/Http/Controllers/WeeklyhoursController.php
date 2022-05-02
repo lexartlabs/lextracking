@@ -33,7 +33,7 @@ class WeeklyhoursController extends BaseController
         if($id){
             try{
                 $weeklyhours = Weeklyhours::where('idUser', $id)->get();
-                return $weeklyhours;
+                return array("response" => $weeklyhours);
             }catch(Exception $e){
                 return (new Response(array("Error" => BAD_REQUEST, "Operation" => "weeklyhours user id"), 500));
             }

@@ -234,8 +234,9 @@
 				})	
 			},
 
-			findByMonth: function(obj,cb) {
-				RestClient.post(model + "/month", obj, function(err, result){
+			findByMonth: function(obj, id,cb) {
+				console.log(id)
+				RestClient.post(model + '/' + id +"/month", obj, function(err, result){
 		    		cb(err, result);
 				})
 			},
