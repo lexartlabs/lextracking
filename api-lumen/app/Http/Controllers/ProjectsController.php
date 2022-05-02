@@ -119,7 +119,6 @@ class ProjectsController extends BaseController
         ]);
 
         $projectData = $request->only(["active", "comments", "description", "duration", "idClient", "name", "tracked", "presupuesto"]);
-        
         try{
             $project = Projects::create($projectData);
 
