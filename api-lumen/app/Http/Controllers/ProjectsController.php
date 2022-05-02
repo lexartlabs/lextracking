@@ -110,7 +110,6 @@ class ProjectsController extends BaseController
 
         $this->validate($request, [
             "active" => "required",
-            "comments" => "required",
             "description" => "required",
             "duration" => "required",
             "idClient" => "required|exists:clients,id",
