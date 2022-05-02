@@ -161,7 +161,9 @@
 		                  var arrStart= $scope.task.endDate.split("/");
 		                  $scope.task.endDate=new Date(arrStart[2],arrStart[1]-1,arrStart[0]);
 		                }
+						$scope.task.users= JSON.parse($scope.task.users)
 		                console.log("TASK TO UPDATE else",$scope.task);
+
 		                ProjectsServices.saveProjectTask($scope.task, function (err, result) {
 		                  console.log("result:: ", result);
 		                  if (!err) {
