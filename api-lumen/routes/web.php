@@ -69,11 +69,11 @@ Route::group(['prefix' => 'api'], function () {
     });
 
     //Projects
-    Route::group(['prefix' => 'projects', 'middleware' => 'auth:api'], function() {
+    Route::group(['prefix' => 'projects', 'middleware' => 'auth:api'], function() { 
         Route::get('all', 'ProjectsController@all');
         Route::get('{id}', 'ProjectsController@all');
+        Route::post('new', 'ProjectsController@new');
         Route::put('update', ["middleware" => "pm:api", "uses" => 'ProjectsController@update']);
-
         Route::get('client/{id}', 'ProjectsController@client');
 
         //Tasks
