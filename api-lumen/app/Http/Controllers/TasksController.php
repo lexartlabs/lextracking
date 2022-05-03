@@ -215,39 +215,20 @@ class TasksController extends BaseController
         $this->validate($request, [
             "name" => "required|string",
             "idProject" => "required|numeric|exists:projects,id",
-            "description" => "string",
             "comments" => "string|string",
-            "duration" => "required|string",
-            "users" => "required|array",
+            "duration" => "required|string|",
+            "users" => "array",
             "status" => "required|string",
-            "startDate" => "required|date_format:Y/m/d",
-            "endDate" => "required|date_format:Y/m/d|after:startDate",
-            "id" => "required"
+            "id" => "required|exists:tasks,id"
         ]);
 
-        $name = $request->input("name");
-        $idProject = $request->input("idProject");
-        $description = $request->input("description");
-        $comments = $request->input("comments");
-        $users = $request->input("users");
-        $status = $request->input("status");
-        $startDate = $request->input("startDate");
-        $duration = $request->input("duration");
-        $endDate = $request->input("endDate");
         $id = $request->input("id");
+        $task = $request->only(["name", "idProject", "comments", "duration", "users", "status"]);
 
         try {
-            $tasks = Tasks::where('id', $id);
-
-            if (!$tasks) {
-                return (new Response(array("Error" => ID_INVALID, "Operation" => "tasks invalid id"), 500));
-            }
-
-            $update = $this->returnArrayTasks($name, $idProject, $description, $comments, $users, $status, $startDate, $endDate, $duration, $id);
-
-            return Tasks::where('id', $id)->update($update);
+            return Tasks::where('id', $id)->update($task);
         } catch (Exception $e) {
-            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tasks undelete id invalid"), 500));
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tasks update"), 500));
         }
     }
 
@@ -262,52 +243,24 @@ class TasksController extends BaseController
         $this->validate($request, [
             "name" => "required|string",
             "idProject" => "required|numeric|exists:projects,id",
-            "description" => "string",
             "comments" => "string|string",
             "duration" => "required|string",
-            "users" => "required|array",
+            "users" => "array",
             "status" => "required|string",
             "startDate" => "required|date_format:Y-m-d",
             "endDate" => "required|date_format:Y-m-d|after:startDate"
         ]);
 
-        $name = $request->input("name");
-        $idProject = $request->input("idProject");
-        $description = $request->input("description");
-        $comments = $request->input("comments");
-        $duration = $request->input("duration");
-        $users = $request->input("users");
-        $status = $request->input("status");
-        $startDate = $request->input("startDate");
-        $endDate = $request->input("endDate");
+        $task = $request->only(["name", "idProject", "comments", "duration", "users", "status", "startDate", "endDate"]);
+        $task["users"] = json_encode($task["users"]);
 
         try {
-            $create = $this->returnArrayTasks($name, $idProject, $description, $comments, $users, $status, $startDate, $endDate, $duration);
-            return Tasks::create($create);
+            $task = Tasks::create($task);
+
+            return array("response" => $task);
         } catch (Exception $e) {
-            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tasks undelete id invalid"), 500));
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tasks create invalid"), 500));
         }
-    }
-
-    public function returnArrayTasks($name, $idProject, $description, $comments, $users, $status, $startDate, $endDate, $duration, $id = null)
-    {
-        $array = array(
-            "name" => $name,
-            "idProject" => $idProject,
-            "description" => $description,
-            "comments" => $comments,
-            "users" => json_encode($users),
-            "status" => $status,
-            "startDate" => $startDate,
-            "duration" => $duration,
-            "endDate" => $endDate,
-        );
-
-        if (!empty($id)) {
-            $array["id"] = $id;
-        }
-
-        return $array;
     }
 
     public function getTasksByUserFilter(Request $request, $idUser)
