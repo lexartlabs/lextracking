@@ -37,6 +37,8 @@ class TasksController extends BaseController
                     'tasks.type',
                     'tasks.status',
                     'tasks.active',
+                    'tasks.startDate',
+                    'tasks.endDate',
                     'projects.name as projectName'
                 )
                 ->selectRaw('IFNULL(tasks.users, "[]") AS users')
@@ -218,8 +220,8 @@ class TasksController extends BaseController
             "duration" => "required|string",
             "users" => "required|array",
             "status" => "required|string",
-            "startDate" => "required|date_format:Y-m-d",
-            "endDate" => "required|date_format:Y-m-d|after:startDate",
+            "startDate" => "required|date_format:Y/m/d",
+            "endDate" => "required|date_format:Y/m/d|after:startDate",
             "id" => "required"
         ]);
 
