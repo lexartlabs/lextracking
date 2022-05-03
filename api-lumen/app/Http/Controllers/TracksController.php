@@ -173,7 +173,7 @@ class TracksController extends BaseController
 
             $track = $this->arrayTracks($currency, $idProyecto, $idTask, $idUser, $name, $startTime, $typeTrack);
 
-            return array("response" => Tracks::create($track)->get());
+            return array("response" => array(Tracks::create($track)));
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks new"), 500));
         }
@@ -211,8 +211,11 @@ class TracksController extends BaseController
             $update = empty($duracion) ?
                 ["endTime" => $endTime, "startTime" => $startTime, "trackCost" => $trackCost] :
                 ["duracion" => 0, "endTime" => $endTime, "startTime" => $startTime, "trackCost" => $trackCost];
+            
+            Tracks::where("id", $id)->update($update);
+            $track = Tracks::where("id", $id)->get();
 
-            return Tracks::where("id", $id)->update($update);
+            return array("response" => $track);
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "track update"), 500));
         }
