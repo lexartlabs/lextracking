@@ -132,7 +132,7 @@
 		              if ($scope.task.startDate) {
 		              var arrStart= $scope.task.startDate.split("/");
 
-		              $scope.task.startDate= `${arrStart[2]}/${arrStart[1]}/${arrStart[0]}`
+		              $scope.task.startDate = arrStart[2] + '/' + arrStart[1] + '/' + arrStart[0];
 		              // $scope.task.startDate = convertTime($scope.task.startDate);
 		              // console.log("TASK TO UPDATE",$scope.task.startDate);
 		              }
@@ -140,7 +140,7 @@
 
 		                var arrStart= $scope.task.endDate.split("/");
 
-		                $scope.task.endDate= `${arrStart[2]}/${arrStart[1]}/${arrStart[0]}`
+		                $scope.task.endDate= arrStart[2] + '/' + arrStart[1] + '/' + arrStart[0];
 		                // $scope.task.endDate = convertTime($scope.task.endDate);
 		                // console.log("TASK TO UPDATE",$scope.task.endDate);
 		              }
