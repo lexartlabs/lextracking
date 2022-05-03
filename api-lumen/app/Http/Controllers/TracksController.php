@@ -173,7 +173,7 @@ class TracksController extends BaseController
 
             $track = $this->arrayTracks($currency, $idProyecto, $idTask, $idUser, $name, $startTime, $typeTrack);
 
-            return array("response" => Tracks::create($track)->get());
+            return array("response" => array(Tracks::create($track)));
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks new"), 500));
         }
@@ -211,8 +211,11 @@ class TracksController extends BaseController
             $update = empty($duracion) ?
                 ["endTime" => $endTime, "startTime" => $startTime, "trackCost" => $trackCost] :
                 ["duracion" => 0, "endTime" => $endTime, "startTime" => $startTime, "trackCost" => $trackCost];
+            
+            Tracks::where("id", $id)->update($update);
+            $track = Tracks::where("id", $id)->get();
 
-            return Tracks::where("id", $id)->update($update);
+            return array("response" => $track);
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "track update"), 500));
         }
@@ -235,7 +238,6 @@ class TracksController extends BaseController
     {
         $user_id = AuthController::current()->id;
 
-        try {
 
             $tracks = Tracks::whereRaw('Tracks.idUser = ?', [$user_id])
                 ->orderBy("Tracks.id", 'DESC')->limit(1)
@@ -254,6 +256,7 @@ class TracksController extends BaseController
                         ->join("Users", "Tracks.idUser", "=", "Users.id")
                         ->join("Projects", "Projects.id", "=", "TrelloTask.idProyecto")
                         ->whereRaw("Tracks.idUser = ?", [$user_id])
+                        ->whereNull(DB::raw("Tracks.endTime"))
                         ->whereRaw("TrelloTask.active = ?", [1])
                         ->orderBy("Tracks.id", "DESC")
                         ->limit(1)
@@ -271,6 +274,7 @@ class TracksController extends BaseController
                         ->join("Users", "Tracks.idUser", "=", "Users.id")
                         ->join("Projects", "Projects.id", "=", "Tasks.idProject")
                         ->whereRaw("Tracks.idUser = ?", [$user_id])
+                        ->whereNull(DB::raw("Tracks.endTime"))
                         ->whereRaw("Tasks.active = ?", [1])
                         ->orderBy("Tracks.id", "DESC")
                         ->limit(1)
@@ -279,10 +283,7 @@ class TracksController extends BaseController
             );
 
             return array("response" => $handler[$tracks["typeTrack"]]($user_id));
-            
-        } catch (Exception $e) {
-            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks current last"), 500));
-        }
+
     }
 
     public function calendar($id, $fecha)
