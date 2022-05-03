@@ -131,13 +131,16 @@
 		            if ($scope.task.id) {
 		              if ($scope.task.startDate) {
 		              var arrStart= $scope.task.startDate.split("/");
-		              $scope.task.startDate=new Date(arrStart[2],arrStart[1]-1,arrStart[0]);
+
+		              $scope.task.startDate= `${arrStart[2]}/${arrStart[1]}/${arrStart[0]}`
 		              // $scope.task.startDate = convertTime($scope.task.startDate);
 		              // console.log("TASK TO UPDATE",$scope.task.startDate);
 		              }
 		              if ($scope.task.endDate) {
+
 		                var arrStart= $scope.task.endDate.split("/");
-		                $scope.task.endDate=new Date(arrStart[2],arrStart[1]-1,arrStart[0]);
+
+		                $scope.task.endDate= `${arrStart[2]}/${arrStart[1]}/${arrStart[0]}`
 		                // $scope.task.endDate = convertTime($scope.task.endDate);
 		                // console.log("TASK TO UPDATE",$scope.task.endDate);
 		              }
@@ -154,13 +157,14 @@
 		            } else {
 		              if ($scope.task.idProject) {
 		                if ($scope.task.startDate) {
-		                var arrStart= $scope.task.startDate.split("/");
-		                $scope.task.startDate=new Date(arrStart[2],arrStart[1]-1,arrStart[0]);
+							var arrStart= $scope.task.startDate.split("/");
+							$scope.task.startDate=new Date(arrStart[2],arrStart[1]-1,arrStart[0]);
 		                }
 		                if ($scope.task.endDate) {
 		                  var arrStart= $scope.task.endDate.split("/");
 		                  $scope.task.endDate=new Date(arrStart[2],arrStart[1]-1,arrStart[0]);
 		                }
+						console.log('entrei aqui');
 						$scope.task.users= JSON.parse($scope.task.users)
 		                console.log("TASK TO UPDATE else",$scope.task);
 
@@ -174,10 +178,13 @@
 		              } else {
 		                if ($scope.task.startDate) {
 		                  var arrStart= $scope.task.startDate.split("/");
+						  console.log(arrStart);
 		                  $scope.task.startDate=new Date(arrStart[2],arrStart[1]-1,arrStart[0]);
 		                }
 		                if ($scope.task.endDate) {
 		                  var arrStart= $scope.task.endDate.split("/");
+						  console.log(arrStart);
+
 		                  $scope.task.endDate=new Date(arrStart[2],arrStart[1]-1,arrStart[0]);
 		                }
 		                console.log("TASK TO UPDATE else",$scope.task);
