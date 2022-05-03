@@ -6,6 +6,8 @@
 
     Module.controller('AuthCtrl', ['$scope', '$rootScope', '$window', 'RestClient', '$log', '$state', '$filter', 'WeeklyHourServices', function($scope, $rootScope, $window, RestClient, $log, $state, $filter, WeeklyHourServices) {
 
+            $rootScope.showToast('Prueba', 'PruebaSub', 'info');
+
             $scope.user = {
                 user: '',
                 password: ''
@@ -30,7 +32,7 @@
                         if (typeof callback === 'function') {
                             callback(err, result);
                         }
-
+                        toastr.error($filter('translate')('session.error_email_password'), 'Error');
                         $scope.error = $filter('translate')('session.error_email_password');
                     }
                     else {

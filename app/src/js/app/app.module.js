@@ -30,8 +30,8 @@ var Imm = Imm || {};
         'as.sortable',
         'naif.base64',
         'mgo-angular-wizard',
-        'ui.calendar'
-
+        'ui.calendar',
+        'toastr'
     ]).config(['$httpProvider', '$translateProvider', function ($httpProvider, $translateProvider) {
 
         $httpProvider.useApplyAsync(true);
