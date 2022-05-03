@@ -46,24 +46,25 @@ class TasksController extends BaseController
 
             $tasks = $tasks->offset(empty($offset) ? 0 : $offset);
             $tasks = $tasks->limit(empty($limit) ? 15 : $limit);
-
-            if (count($filters) > 0) {
-                foreach ($filters as $filter) {
-
-                    $key = array_keys($filter)[0];
-                    $value = $filter[$key];
-
-                    switch ($key) {
-                        case "projectName":
-                            $tasks = $tasks->whereRaw("projects.name LIKE ?", "%$value%");
-                            break;
-                        case "name":
-                            $tasks = $tasks->whereRaw("tasks.name LIKE ?", "%$value%");
-                            break;
-                        case "description":
-                            // var_dump($value);
-                            $tasks = $tasks->whereRaw("tasks.description LIKE ?", "%$value%");
-                            break;
+            if(!empty($filters)){
+                if (count($filters) > 0) {
+                    foreach ($filters as $filter) {
+    
+                        $key = array_keys($filter)[0];
+                        $value = $filter[$key];
+    
+                        switch ($key) {
+                            case "projectName":
+                                $tasks = $tasks->whereRaw("projects.name LIKE ?", "%$value%");
+                                break;
+                            case "name":
+                                $tasks = $tasks->whereRaw("tasks.name LIKE ?", "%$value%");
+                                break;
+                            case "description":
+                                // var_dump($value);
+                                $tasks = $tasks->whereRaw("tasks.description LIKE ?", "%$value%");
+                                break;
+                        }
                     }
                 }
             }
@@ -72,6 +73,8 @@ class TasksController extends BaseController
                 $this->validate($request, ["id" => "numeric|exists:tasks,id"]);
                 $tasks = $tasks->whereRaw("tasks.id = ?", $id);
                 $count = $count->whereRaw("tasks.id = ?", $id);
+                $task = $tasks-> first();
+                return array("response" => $task);
             }
 
             $tasks = $tasks->get();
