@@ -235,7 +235,6 @@ class TracksController extends BaseController
     {
         $user_id = AuthController::current()->id;
 
-        try {
 
             $tracks = Tracks::whereRaw('Tracks.idUser = ?', [$user_id])
                 ->orderBy("Tracks.id", 'DESC')->limit(1)
@@ -254,6 +253,7 @@ class TracksController extends BaseController
                         ->join("Users", "Tracks.idUser", "=", "Users.id")
                         ->join("Projects", "Projects.id", "=", "TrelloTask.idProyecto")
                         ->whereRaw("Tracks.idUser = ?", [$user_id])
+                        ->whereNull(DB::raw("Tracks.endTime"))
                         ->whereRaw("TrelloTask.active = ?", [1])
                         ->orderBy("Tracks.id", "DESC")
                         ->limit(1)
@@ -271,6 +271,7 @@ class TracksController extends BaseController
                         ->join("Users", "Tracks.idUser", "=", "Users.id")
                         ->join("Projects", "Projects.id", "=", "Tasks.idProject")
                         ->whereRaw("Tracks.idUser = ?", [$user_id])
+                        ->whereNull(DB::raw("Tracks.endTime"))
                         ->whereRaw("Tasks.active = ?", [1])
                         ->orderBy("Tracks.id", "DESC")
                         ->limit(1)
@@ -279,10 +280,7 @@ class TracksController extends BaseController
             );
 
             return array("response" => $handler[$tracks["typeTrack"]]($user_id));
-            
-        } catch (Exception $e) {
-            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks current last"), 500));
-        }
+
     }
 
     public function calendar($id, $fecha)

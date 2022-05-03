@@ -271,8 +271,9 @@
 					}
 				})
 				console.log("ObjBoard::", obj);
-				xhr.open("POST", BASE_URL + 'trello/new', true);
+				xhr.open("POST", BASE_URL + 'projects/tasks/trello/boards/new', true);
 				xhr.setRequestHeader('Content-Type', 'application/json');
+				xhr.setRequestHeader('Authorization', window.localStorage["lextracking-web-token"]);
 				xhr.send(JSON.stringify(obj));
 			},
 
