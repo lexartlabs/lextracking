@@ -17,30 +17,30 @@ class TrelloTasksController extends BaseController
         
         try{
             if(!empty($id)){
-                $trelloBoards = TrelloBoard::select("trelloBoard.active AS activo",
-                            "trelloBoard.dateCreate",
-                            "trelloBoard.dateUpdate",
-                            "trelloBoard.id",
-                            "trelloBoard.tablero_id",
-                            "trelloBoard.proyecto_id",
-                            "trelloBoard.url",
+                $trelloBoards = TrelloBoard::select("trelloboard.active AS activo",
+                            "trelloboard.dateCreate",
+                            "trelloboard.dateUpdate",
+                            "trelloboard.id",
+                            "trelloboard.tablero_id",
+                            "trelloboard.proyecto_id",
+                            "trelloboard.url",
                             DB::raw("projects.name AS projectName"))
-                    ->join("projects", "trelloBoard.proyecto_id", "=", "projects.id")
-                    ->whereRaw("trelloBoard.id = ?", [$id])
+                    ->join("projects", "trelloboard.proyecto_id", "=", "projects.id")
+                    ->whereRaw("trelloboard.id = ?", [$id])
                     ->whereRaw("projects.active = ?", [1])
                 ->get();
 
                 return array('response' => $trelloBoards);
             }
-            $trelloBoards = TrelloBoard::select("trelloBoard.activo",
-                            "trelloBoard.dateCreate",
-                            "trelloBoard.dateUpdate",
-                            "trelloBoard.id",
-                            "trelloBoard.tablero_id",
-                            "trelloBoard.proyecto_id",
-                            "trelloBoard.url",
+            $trelloBoards = TrelloBoard::select("trelloboard.activo",
+                            "trelloboard.dateCreate",
+                            "trelloboard.dateUpdate",
+                            "trelloboard.id",
+                            "trelloboard.tablero_id",
+                            "trelloboard.proyecto_id",
+                            "trelloboard.url",
                             DB::raw("projects.name AS projectName"))
-                    ->join("projects", "trelloBoard.proyecto_id", "=", "projects.id")
+                    ->join("projects", "trelloboard.proyecto_id", "=", "projects.id")
                     ->whereRaw("projects.active = ?", [1])
                 ->get();
             
