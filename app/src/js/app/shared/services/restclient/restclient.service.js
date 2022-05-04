@@ -57,21 +57,32 @@ console.log('Reading BASE URL', BASE_URL);
                 });
             },
             post: function(url, data, callback) {
-                progressbar.start();
+                progressbar.start();                  
+                    $http.post(K.URL + url, data, getConfig()).then(function (response) {
+                        progressbar.complete();
+                        if(response && response.data){
+                            callback(null,response.data.response)
+                        }else{
+                            callback(null,response)
 
-                $http.post(K.URL + url, data, getConfig()).
-                success(function(data, status, headers, config) {
-                    progressbar.complete();
-                    callback(null, data.response);
-                }).
-                error(function(data, status, headers, config) {
-                    progressbar.complete();
-                    if (status == 401 && $state.current.name != "login" && $state.current.name != "recovery") { //Go to login
-                        $state.go('login');
-                    } else {
-                        callback(data);
-                    }
-                });
+                        }                     
+                    })
+                    // .
+                    // success(function(data, status, headers, config) {
+                    //     progressbar.complete();
+                    //     console.log(data);
+                    //     callback(null, data.response);
+                    // }).
+                    // error(function(data, status, headers, config) {
+                    //     progressbar.complete();
+                    //     console.log(data);
+                    //     if (status == 401 && $state.current.name != "login" && $state.current.name != "recovery") { //Go to login
+                    //         $state.go('login');
+                    //     } else {
+                    //         callback(data);
+                    //     }
+                    // });
+
             },
             put: function(url, data, callback) {
                 if (K.progressFlag) {
