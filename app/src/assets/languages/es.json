@@ -131,7 +131,7 @@
     "task"                  : "Task",
     "add_task"              : "Agregar Task",
     "assign"                : "Assign",
-    "presupuesto"           : "Presupuesto",
+    "presupuesto"           : "Budget",
     "totalCost"             : "Total Cost",
     "tracked"               : "Tracked"
   },
@@ -195,7 +195,7 @@
     "description"       : "Description",
     "tracked"           : "Tracked",
     "totalCost"         : "Total Cost",
-    "presupuesto"       : "Presupuesto",
+    "presupuesto"       : "Budget",
     "trackCost"         : "Cost",
     "currency"          : "Currency",
     "trello"            : "Trello",
@@ -205,8 +205,8 @@
 
 
   "budgets": {
-    "title"             : "Presupuestos",
-    "budget"            : "Presupuestos",
+    "title"             : "Budgets",
+    "budget"            : "Budgets",
     "id"                : "Id",
     "idClient"          : "Id Client",
     "concept"           : "Concept",

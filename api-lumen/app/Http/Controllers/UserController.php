@@ -10,8 +10,10 @@ use Illuminate\Http\Response;
 use App\Http\Controllers\AuthController;
 use App\Models\UserExceptions;
 use App\Models\UserHours;
+use App\Models\Weeklyhours;
 use Laravel\Ui\Presets\React;
 use Illuminate\Support\Facades\DB;
+use WeeklyHour;
 
 class UserController extends BaseController
 {
@@ -25,7 +27,9 @@ class UserController extends BaseController
         $email = $request->input('email');
         $password = md5($request->input('password'));
 
-        $user = User::where('email', $email)->where('status', 0)->first();
+        try {
+            
+            $user = User::where('email', $email)->where('status', 0)->first();
 
             if (!$user) {
                 return (new Response(array("Error" => INVALID_LOGIN, "Operation" => "login"), 400));
@@ -38,9 +42,6 @@ class UserController extends BaseController
             $auth = new AuthController();
             return array('response' => json_decode($auth->login($user)));
 
-        try {
-
-            
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "login"), 500));
         }
@@ -60,15 +61,24 @@ class UserController extends BaseController
         $password = md5($request->input('password')); //REVER O METODO DE ENCRYPT
         $role = $request->input('role');
 
-        try {
-            User::create(array(
-                "name" => $name,
-                "email" => $email,
-                "password" => $password,
-                "role" => $role
-            ));
+        $user = $request->only(["name", "email", "password", "role"]);
 
-            return (new Response(array("status" => REGISTRED, "operation" => "register")));
+        try {
+            $user = User::create($user);
+            $id = $user->id;
+
+            if(!empty($id)){
+                Weeklyhours::create(array(
+                    "idUser" => $id,
+                    "userName" => $name,
+                    "costHour" => 1,
+                    "workLoad" => 40,
+                    "currency" => "USD",
+                    "borrado" => 0
+                ));
+            }
+
+            return array("response" => array("status" => REGISTRED, "operation" => "register"));
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "login"), 500));
         }
