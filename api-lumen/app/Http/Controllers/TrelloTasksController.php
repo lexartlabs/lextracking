@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TrelloBoard;
+use App\Models\trelloBoard;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use App\Models\TrelloTasks;
 use Exception;
@@ -17,31 +17,31 @@ class TrelloTasksController extends BaseController
         
         try{
             if(!empty($id)){
-                $trelloBoards = TrelloBoard::select("TrelloBoard.active AS activo",
-                            "TrelloBoard.dateCreate",
-                            "TrelloBoard.dateUpdate",
-                            "TrelloBoard.id",
-                            "TrelloBoard.tablero_id",
-                            "TrelloBoard.proyecto_id",
-                            "TrelloBoard.url",
-                            DB::raw("Projects.name AS projectName"))
-                    ->join("Projects", "TrelloBoard.proyecto_id", "=", "Projects.id")
-                    ->whereRaw("TrelloBoard.id = ?", [$id])
-                    ->whereRaw("Projects.active = ?", [1])
+                $trelloBoards = trelloBoard::select("trelloBoard.active AS activo",
+                            "trelloBoard.dateCreate",
+                            "trelloBoard.dateUpdate",
+                            "trelloBoard.id",
+                            "trelloBoard.tablero_id",
+                            "trelloBoard.proyecto_id",
+                            "trelloBoard.url",
+                            DB::raw("projects.name AS projectName"))
+                    ->join("projects", "trelloBoard.proyecto_id", "=", "projects.id")
+                    ->whereRaw("trelloBoard.id = ?", [$id])
+                    ->whereRaw("projects.active = ?", [1])
                 ->get();
 
                 return array('response' => $trelloBoards);
             }
-            $trelloBoards = TrelloBoard::select("TrelloBoard.activo",
-                            "TrelloBoard.dateCreate",
-                            "TrelloBoard.dateUpdate",
-                            "TrelloBoard.id",
-                            "TrelloBoard.tablero_id",
-                            "TrelloBoard.proyecto_id",
-                            "TrelloBoard.url",
-                            DB::raw("Projects.name AS projectName"))
-                    ->join("Projects", "TrelloBoard.proyecto_id", "=", "Projects.id")
-                    ->whereRaw("Projects.active = ?", [1])
+            $trelloBoards = trelloBoard::select("trelloBoard.activo",
+                            "trelloBoard.dateCreate",
+                            "trelloBoard.dateUpdate",
+                            "trelloBoard.id",
+                            "trelloBoard.tablero_id",
+                            "trelloBoard.proyecto_id",
+                            "trelloBoard.url",
+                            DB::raw("projects.name AS projectName"))
+                    ->join("projects", "trelloBoard.proyecto_id", "=", "projects.id")
+                    ->whereRaw("projects.active = ?", [1])
                 ->get();
             
             return array('response' => $trelloBoards);
