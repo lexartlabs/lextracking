@@ -1598,6 +1598,8 @@
           data: {
             confirm: function () {
               var objTrack = angular.copy($scope.track);
+
+              objTrack.duracion = objTrack.duration;
               objTrack.endTime = parseTrackTime(objTrack.endTime);
               objTrack.startTime = parseTrackTime(objTrack.startTime);
               var newDuration = moment.duration($scope.track.trackDuration);
@@ -1609,48 +1611,48 @@
                 } else {
                   var idHourCost = $rootScope.userId;
                 }
-                // WeeklyHourServices.find(
-                //   $scope.currentPage,
-                //   $scope.query,
-                //   function (err, weeklyHours, countItems) {
-                //     if (!err) {
-                //       if (weeklyHours.length > 0) {
-                //         var exist = false;
-                //         angular.forEach(weeklyHours, function (value, key) {
-                //           if (value.idUser == idHourCost) {
-                //             exist = true;
-                //             var costo = parseInt(value.costHour);
-                //             var result2 = (msc / 3600 / 1000) * costo;
-                //             result2 = Math.ceil(result2);
-                //             newCostTracked(result2);
-                //           }
-                //         });
-                //         if (exist === false) {
-                //           TracksServices.update(
-                //             objTrack,
-                //             function (err, result) {
-                //               if (!err) {
-                //                 //$scope.search();
-                //                 ngDialog.close();
-                //               } else {
-                //                 $scope.error = err;
-                //               }
-                //             }
-                //           );
-                //         }
-                //       } else {
-                //         TracksServices.update(objTrack, function (err, result) {
-                //           if (!err) {
-                //             //$scope.search();
-                //             ngDialog.close();
-                //           } else {
-                //             $scope.error = err;
-                //           }
-                //         });
-                //       }
-                //     }
-                //   }
-                // );
+                WeeklyHourServices.find(
+                  $scope.currentPage,
+                  $scope.query,
+                  function (err, weeklyHours, countItems) {
+                    if (!err) {
+                      if (weeklyHours.length > 0) {
+                        var exist = false;
+                        angular.forEach(weeklyHours, function (value, key) {
+                          if (value.idUser == idHourCost) {
+                            exist = true;
+                            var costo = parseInt(value.costHour);
+                            var result2 = (msc / 3600 / 1000) * costo;
+                            result2 = Math.ceil(result2);
+                            newCostTracked(result2);
+                          }
+                        });
+                        if (exist === false) {
+                          TracksServices.update(
+                            objTrack,
+                            function (err, result) {
+                              if (!err) {
+                                $scope.search();
+                                ngDialog.close();
+                              } else {
+                                $scope.error = err;
+                              }
+                            }
+                          );
+                        }
+                      } else {
+                        TracksServices.update(objTrack, function (err, result) {
+                          if (!err) {
+                            $scope.search();
+                            ngDialog.close();
+                          } else {
+                            $scope.error = err;
+                          }
+                        });
+                      }
+                    }
+                  }
+                );
               }
               var newCostTracked = function (value) {
                 // console.log(value)
