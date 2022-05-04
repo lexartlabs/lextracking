@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\trelloBoard;
+use App\Models\TrelloBoard;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use App\Models\TrelloTasks;
 use Exception;
@@ -17,7 +17,7 @@ class TrelloTasksController extends BaseController
         
         try{
             if(!empty($id)){
-                $trelloBoards = trelloBoard::select("trelloBoard.active AS activo",
+                $trelloBoards = TrelloBoard::select("trelloBoard.active AS activo",
                             "trelloBoard.dateCreate",
                             "trelloBoard.dateUpdate",
                             "trelloBoard.id",
@@ -32,7 +32,7 @@ class TrelloTasksController extends BaseController
 
                 return array('response' => $trelloBoards);
             }
-            $trelloBoards = trelloBoard::select("trelloBoard.activo",
+            $trelloBoards = TrelloBoard::select("trelloBoard.activo",
                             "trelloBoard.dateCreate",
                             "trelloBoard.dateUpdate",
                             "trelloBoard.id",
