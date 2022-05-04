@@ -143,11 +143,11 @@ class TrelloTasksController extends BaseController
             
             if(!empty($task)){
                 
-                DB::update("UPDATE trelloTask SET name = '$name', project = '$project', description = '', status = '' WHERE card_id='$card_id'");
+                DB::update("UPDATE trellotask SET name = '$name', project = '$project', description = '', status = '' WHERE card_id='$card_id'");
                 return array('response' => "OK");
             }
             
-            $insert = DB::insert("INSERT INTO trelloTask (id_project, idProyecto, id_board, card_id, name, project, description, comments, duration, users, dateCreate, dateUpdate, startDate, endDate, status, client) VALUES ('$id_project', '$idProyecto', '$id_board', '$card_id', '$name', '$project', '', 'nulo', '00:00:00', 'user', NOW(), NOW(), NOW(), NOW(), '', '')");
+            $insert = DB::insert("INSERT INTO trellotask (id_project, idProyecto, id_board, card_id, name, project, description, comments, duration, users, dateCreate, dateUpdate, startDate, endDate, status, client) VALUES ('$id_project', '$idProyecto', '$id_board', '$card_id', '$name', '$project', '', 'nulo', '00:00:00', 'user', NOW(), NOW(), NOW(), NOW(), '', '')");
             
             return array('response' => $insert);
 

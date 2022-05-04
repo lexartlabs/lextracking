@@ -64,6 +64,7 @@ class UserController extends BaseController
         $user = $request->only(["name", "email", "password", "role"]);
 
         try {
+            $user["password"] = $password;
             $user = User::create($user);
             $id = $user->id;
 
