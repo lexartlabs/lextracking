@@ -13,6 +13,7 @@ use App\Models\TrelloTasks;
 use App\Models\Tasks;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\Weeklyhours;
 use Illuminate\Support\Carbon;
 
 class TracksController extends BaseController
@@ -140,6 +141,13 @@ class TracksController extends BaseController
 
     public function new(Request $request)
     {
+
+        $user_id = AuthController::current()->id;
+
+        if(!empty($user_id)){
+            $request["currency"] = Weeklyhours::select("currency")->where("idUser", $user_id)->limit(1)->first()->currency;
+        }
+
         $this->validate($request, [
             "currency" => "required",
             "idProyecto" => "required|numeric|exists:projects,id",
