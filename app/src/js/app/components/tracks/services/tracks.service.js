@@ -166,6 +166,9 @@
 
 		    update: function(obj, cb) {
 				console.log("OBJ::",obj);
+				var path = window.localStorage.isDeveloper == "true" ? model + "/user/current" : model;
+
+
 		    	if (obj.typeTrack == "manual") {
 		    		var track = {
 		    			id 		   : obj.id,
@@ -182,7 +185,7 @@
 						currency   : obj.currency
 			    	}
 			    	console.log('track to update', track);
-		        	RestClient.put(model + "/update", track, function(err, result) {
+		        	RestClient.put(path + "/update", track, function(err, result) {
 		          		cb(err, result);
 		        	})
 				} else if(obj.typeTrack == "trello"){
@@ -198,7 +201,7 @@
 						currency : obj.currency
 					}
 					console.log('track trelloTrack to update', track);
-		        	RestClient.put(model + "/update", track, function(err, result) {
+		        	RestClient.put(path + "/update", track, function(err, result) {
 						console.log("updateTrello:: ", result);
 						  cb(err, result);
 					})

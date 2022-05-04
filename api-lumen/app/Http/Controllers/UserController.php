@@ -194,16 +194,18 @@ class UserController extends BaseController
         }
     }
 
-    public function hours($id) 
+    public function hours(Request $request, $userId) 
     {
         try{
-            $user = User::where('id', $id)->first();
+            $hours = new UserHours;
+            if($userId != 0) {
+                $request["userId"] = $userId;
+                $this->validate($request, ["userId" => "required|exists:users,id"]);
+                
+                $hours = $hours->where('user_id', $userId);
+            } 
 
-            if(!$user){
-                return (new Response(array("Error" => INVALID_LOGIN, "Operation" => "hours"), 400));
-            }
-
-            $hours = UserHours::where('user_id', $id)->get();
+            $hours = $hours->get();
 
             if(count($hours) == 0) {
                 return array('response' => 'Error al asignar proyecto');
@@ -211,19 +213,18 @@ class UserController extends BaseController
 
             return array('response' => $hours);
         }catch(Exception $e) {
-
+            
         }
     }
 
     public function currentHours(Request $request)
     {
-        $user = $this->current($request);
-        $user_id = $user['response']->id;
+        $user_id = AuthController::current()->id;
 
-        return $this->hours($user_id);
+        return $this->hours($request, $user_id);
     }
 
-    public function exceptions($id, $date)
+    public function exceptions(Request $request, $userId, $date)
     {
 
         $fullDate = explode("-", $date);
@@ -232,13 +233,18 @@ class UserController extends BaseController
 		$year = $fullDate[1];
 
         try{
-            $user = User::where("id", $id)->first();
-            
-            if(!$user) {
-                return (new Response(array("Error" => INVALID_LOGIN, "Operation" => "hours"), 400));
+            $userExceptions = new UserExceptions;
+
+            if($userId != 0) {
+                $request["user_id"] = $userId;
+                $this->validate($request, ["user_id" => "required|exists:users,id"]);
+
+                $userExceptions = $userExceptions->where("user_id", $userId);
             }
 
-            $userExceptions = DB::select("SELECT * FROM user_exceptions WHERE user_id = ".$id." AND MONTH(`start`) =".$month." AND YEAR(`start`) = " .$year);
+            $userExceptions = $userExceptions->whereRaw("MONTH(start) = ?", [$month])
+                ->whereRaw("YEAR(start) = ?", [$year])
+            ->get();
             
             return array('response' => $userExceptions);
         }catch(Exception $e){
@@ -248,9 +254,8 @@ class UserController extends BaseController
 
     public function currentExceptions(Request $request, $date)
     {
-        $user = $this->current($request);
-        $user_id = $user['response']->id;
+        $user_id = AuthController::current()->id;
 
-        return $this->exceptions($user_id, $date);
+        return $this->exceptions($request, $user_id, $date);
     }
 }
