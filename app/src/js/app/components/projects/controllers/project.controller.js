@@ -6,7 +6,9 @@
 
   Module.controller('ProjectCtrl', ['$scope','$rootScope', '$state', '$stateParams', '$filter','$http', 'ProjectsServices', 'ClientServices', 'UserServices', 'ngDialog', 'TasksServices', function($scope,$rootScope, $state, $stateParams, $filter,$http, ProjectsServices, ClientServices, UserServices, ngDialog, TasksServices) {
 
-    $scope.project      = {};
+    $scope.project      = {
+      active: {name:'Active', value: 1}
+    };
     $scope.task         = {};
     $scope.duration     = {};
     $scope.tasks        = [];
