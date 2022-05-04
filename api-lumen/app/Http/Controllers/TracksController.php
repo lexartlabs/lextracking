@@ -260,15 +260,15 @@ class TracksController extends BaseController
                     return Tracks::select(
                         DB::raw("tracks.*"),
                         DB::raw("projects.name AS projectName"),
-                        DB::raw("trelloTask.name AS taskName"),
+                        DB::raw("trellotask.name AS taskName"),
                         DB::raw("users.name AS userName"),
                         DB::raw("TIMEDIFF( tracks.endTime, tracks.startTime ) AS duration")
                     )
-                        ->join("trelloTask", "tracks.idTask", "=", "trelloTask.id")
+                        ->join("trellotask", "tracks.idTask", "=", "trellotask.id")
                         ->join("users", "tracks.idUser", "=", "users.id")
-                        ->join("projects", "projects.id", "=", "trelloTask.idProyecto")
+                        ->join("projects", "projects.id", "=", "trellotask.idProyecto")
                         ->whereRaw("tracks.idUser = ?", [$user_id])
-                        ->whereRaw("trelloTask.active = ?", [1])
+                        ->whereRaw("trellotask.active = ?", [1])
                         ->orderBy("tracks.id", "DESC")
                         ->limit(1)
                         ->first();
@@ -366,20 +366,20 @@ class TracksController extends BaseController
                 "tracks.endTime",
                 DB::raw("weeklyhours.costHour AS costHour"),
                 DB::raw("users.name AS usersName"),
-                DB::raw("trelloTask.name AS taskName"),
-                DB::raw("trelloTask.project AS projectName"),
+                DB::raw("trellotask.name AS taskName"),
+                DB::raw("trellotask.project AS projectName"),
                 DB::raw("clients.name AS client"),
                 DB::raw("TIMEDIFF( tracks.endTime, tracks.startTime ) AS durations")
             )
                 ->join("users", DB::raw("tracks.idUser"), "=", DB::raw("users.id"))
-                ->join("TrelloTask", DB::raw("tracks.idTask"), "=", DB::raw("trelloTask.id"))
-                ->join("projects", DB::raw("projects.id"), "=", DB::raw("trelloTask.idProyecto"))
+                ->join("trellotask", DB::raw("tracks.idTask"), "=", DB::raw("trellotask.id"))
+                ->join("projects", DB::raw("projects.id"), "=", DB::raw("trellotask.idProyecto"))
                 ->join("clients", DB::raw("clients.id"), "=", DB::raw("projects.idClient"))
                 ->join("weeklyhours", "weeklyhours.idUser", "=", "tracks.idUser")
                 ->where("startTime", ">=", $startTime)
                 ->where("endTime", "<=", $endTime)
                 ->where("typeTrack", "trello")
-                ->whereRaw("TrelloTask.active = 1");
+                ->whereRaw("trellotask.active = 1");
 
             if (!empty($user_id)) {
                 $tracks = $tracks->where("tracks.idUser", $user_id);
