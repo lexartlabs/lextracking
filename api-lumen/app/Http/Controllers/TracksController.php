@@ -243,6 +243,10 @@ class TracksController extends BaseController
                 ->orderBy("tracks.id", 'DESC')->limit(1)
                 ->first();
 
+            if(empty($tracks)){
+                return $tracks;
+            }
+
             $handler = array(
                 "trello" => function ($user_id) {
                     return Tracks::select(
@@ -281,7 +285,6 @@ class TracksController extends BaseController
             );
 
             return array("response" => $handler[$tracks["typeTrack"]]($user_id));
-
     }
 
     public function calendar($id, $fecha)
