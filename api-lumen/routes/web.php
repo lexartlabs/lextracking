@@ -45,8 +45,8 @@ Route::group(['prefix' => 'api'], function () {
 
         Route::group(['middleware' => 'pm:api'], function () {
             Route::post('register', 'UserController@register');
-            Route::delete('delete', 'UserController@delete');
-            Route::post('undelete', 'UserController@undelete');
+            //Route::delete('delete', 'UserController@delete');
+            //Route::post('undelete', 'UserController@undelete');
             Route::get('all-admin', 'UserController@allAdmin');
             Route::put('update/{id}', 'UserController@update');
             Route::get('{id}', 'UserController@userById');

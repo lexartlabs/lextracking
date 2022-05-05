@@ -14,9 +14,11 @@ use App\Models\Weeklyhours;
 use Laravel\Ui\Presets\React;
 use Illuminate\Support\Facades\DB;
 use WeeklyHour;
+use Illuminate\Validation\Rule;
 
 class UserController extends BaseController
 {
+
     public function login(Request $request)
     {
         $this->validate($request, [
@@ -81,7 +83,7 @@ class UserController extends BaseController
 
             return array("response" => array("status" => REGISTRED, "operation" => "register"));
         } catch (Exception $e) {
-            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "login"), 500));
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "register"), 500));
         }
     }
 
@@ -90,16 +92,26 @@ class UserController extends BaseController
         try {
             return array("response" => json_decode(User::get(['id', 'name'])));
         } catch (Exception $e) {
-            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "login"), 500));
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "all"), 500));
         }
     }
 
     public function allAdmin(Request $request)
     {
+        $role = AuthController::current()->role;
+
         try {
-            return array("response" => json_decode(User::get()));
+            $users = new User;
+
+            if($role != "admin"){
+                $users = $users->where("role", "!=", "admin");
+            }
+
+            $users = $users->get();
+
+            return array("response" => $users);
         } catch (Exception $e) {
-            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "login"), 500));
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "all-admin"), 500));
         }
     }
 
@@ -117,7 +129,7 @@ class UserController extends BaseController
 
             return array("response" => $user);
         } catch (Exception $e) {
-            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "user"), 500));
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "user by id"), 500));
         }
     }
 
@@ -133,18 +145,12 @@ class UserController extends BaseController
     public function delete(Request $request)
     {
         $this->validate($request, [
-            "id" => "required",
+            "id" => "required|exists:users,id",
         ]);
 
         $id = $request->input("id");
         
         try{
-            $user = User::where("id", $id)->where("status", 0)->first();
-
-            if(!$user) {
-               return (new Response(array("Error" => USER_NOT, "Operation" => "delete"), 400));
-            }
-
             return User::where("id", $id)->update(["status" => 1]);
         }catch (Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "delete"), 500));
@@ -175,8 +181,12 @@ class UserController extends BaseController
     public function update(Request $request, $id) 
     {
         $request["id"] = $id;
+        $this->role = AuthController::current()->role;
+
         $this->validate($request, [
-            "id" => "required|exists:users,id",
+            "id" => ["required", Rule::exists("users", "id")->where(function($query) {
+                if($this->role != "admin") $query->where("role", "!=", "admin");
+            })],
             "email" => "email",
             "password" => "min:8",
             "role" => "string",
