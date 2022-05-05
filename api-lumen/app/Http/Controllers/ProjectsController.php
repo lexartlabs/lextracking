@@ -110,7 +110,6 @@ class ProjectsController extends BaseController
 
         $this->validate($request, [
             "active" => "required",
-            "description" => "required",
             "duration" => "required",
             "idClient" => "required|exists:clients,id",
             "name" => "required|string",
@@ -118,6 +117,7 @@ class ProjectsController extends BaseController
         ]);
 
         $projectData = $request->only(["active", "comments", "description", "duration", "idClient", "name", "tracked", "presupuesto"]);
+        
         try{
             $project = Projects::create($projectData);
 
