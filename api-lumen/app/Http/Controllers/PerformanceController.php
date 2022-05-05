@@ -46,16 +46,9 @@ class PerformanceController extends BaseController
 
     public function current(Request $request)
     {
-        $this->validate($request, [
-            "idMonth" => "required|numeric",
-            "year" => "required|numeric"
-        ]);
-
         $user_id = AuthController::current()->id;
-        $idMonth = $request->input("idMonth");
-        $year = $request->input("year");
         
-        return $this->userId($user_id, $idMonth, $year);
+        return $this->userId($request, $user_id);
     }
 
     public function save(Request $request, $id)

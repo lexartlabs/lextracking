@@ -187,23 +187,28 @@ class TracksController extends BaseController
         }
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $idUser = null)
     {
+        if(!empty($idUser)) {
+            $request["idUser"] = $idUser;
+        }
+
         $this->validate($request, [
             "duracion" => "regex:/(\d+\:\d+)/",
             "endTime" => "required|date",
             "startTime" => "required|date",
             "id" => "required|numeric",
+            "idUser" => "required|exists:users,id"
         ]);
 
         $endTime = $request->input("endTime");
         $startTime = $request->input("startTime");
         $id = $request->input("id");
+        $idUser = $request->input("idUser");
 
         $duracion = $this->duracionDiff($startTime, $endTime);
 
         try {
-
             $trackWhere = Tracks::select(
                 DB::raw("tracks.*"),
                 DB::raw("TIMEDIFF(tracks.endTime, tracks.startTime) AS duration"),
@@ -211,6 +216,7 @@ class TracksController extends BaseController
             )
                 ->join("weeklyhours", "weeklyhours.idUser", "=", "tracks.idUser")
                 ->whereRaw("tracks.id = ?", [$id])
+                ->whereRaw("tracks.idUser = ?", [$idUser])
                 ->get();
 
             $trackWhere[0]->duration = $duracion;
@@ -295,26 +301,33 @@ class TracksController extends BaseController
             return array("response" => $handler[$tracks["typeTrack"]]($user_id));
     }
 
-    public function calendar($id, $fecha)
-    {
+    public function calendar(Request $request, $id, $fecha)
+    {   
         try {
-            $user = User::where('id', $id)->first();
+            $calendar = Tracks::select("id AS id_track", "name AS title", "startTime AS start", "endTime AS end");
 
-            if (!$user) {
-                return (new Response(array("Error" => ID_INVALID, "Operation" => "tracks current calendar"), 400));
+            if($id != 0) {
+                $request["id"] = $id;
+                $this->validate($request, ["id" => "required|exists:users,id"]);
+
+                $calendar = $calendar->where("idUser", $id);
             }
 
-            return array('response' => DB::select("SELECT id AS id_track, name AS title, startTime AS start, endTime AS end FROM tracks WHERE idUser = " . $id . " AND Month(startTime) = Month('" . $fecha . "') AND Year(startTime) = Year('" . $fecha . "')"));
+            $calendar = $calendar->whereRaw("Month(startTime) = Month(?)", [$fecha])
+                ->whereRaw("Year(startTime) = Year(?)", [$fecha])
+            ->get();
+    
+            return array("response" => $calendar); 
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks current calendar"), 500));
         }
     }
 
-    public function currentCalendar($fecha)
+    public function currentCalendar(Request $request, $fecha)
     {
         $user_id = AuthController::current()->id;
 
-        return $this->calendar($user_id, $fecha);
+        return $this->calendar($request, $user_id, $fecha);
     }
 
     public function month(Request $request, $id) {
@@ -527,5 +540,12 @@ class TracksController extends BaseController
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "endless tracks"), 500));
         }
+    }
+
+    public function currentUpdate(Request $request) 
+    {
+        $user_id = AuthController::current()->id;
+
+        return $this->update($request, $user_id);
     }
 }
