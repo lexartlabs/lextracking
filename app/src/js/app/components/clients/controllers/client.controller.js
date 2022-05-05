@@ -27,6 +27,7 @@
             $scope.sendingData = true;
             if (!$scope.client.company || !$scope.client.name) {
                 $rootScope.showToast('Error', 'Please fill all fields', 'error');
+                $scope.sendingData = false;
                 return;
             }
 
