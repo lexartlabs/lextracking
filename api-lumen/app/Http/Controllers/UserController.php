@@ -23,7 +23,7 @@ class UserController extends BaseController
     {
         $this->validate($request, [
             'email' => 'required|email',
-            'password' => 'required|min:8|string',
+            'password' => 'required|string',
         ]);
 
         $email = $request->input('email');
@@ -188,12 +188,16 @@ class UserController extends BaseController
                 if($this->role != "admin") $query->where("role", "!=", "admin");
             })],
             "email" => "email",
-            "password" => "min:8",
+            "password" => "string",
             "role" => "string",
             "name" => "string"
         ]);
 
-        $update = $request->only(['email', 'password', 'role', 'name']);
+        $update = $request->only(['email', 'password', 'name']);
+
+        if($this->role == "admin") {
+            $update["role"] = $request->input('role');
+        }
 
         try{
             $user = User::where("id", $id)->update($update);
