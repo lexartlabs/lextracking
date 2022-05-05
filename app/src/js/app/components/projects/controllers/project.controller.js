@@ -66,7 +66,11 @@
         if (!err) {
           console.log('project:', project);
           $scope.project = project;
-
+          if($scope.project.active === '1'){
+            $scope.project.active = {name:'Active', value: 1}
+          }else{
+            $scope.project.active = {name:'Inactive', value: 0}
+          }
           //Separar formato date
           if ($scope.project.duration) {
             var newDate = $scope.project.duration.split(":",3);
