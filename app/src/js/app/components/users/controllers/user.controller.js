@@ -42,15 +42,16 @@
             $scope.error = '';
             console.log('user to save', $scope.user);
 
-            if (!$scope.user.name) {
-                $scope.error = $filter('translate')('users.first_name');
+            if (!$scope.user.name || !$scope.user.email || !$scope.user.role) {
+                $rootScope.showToast('Error', 'Please fill all fields', 'error');
                 return;
             }
 
-            if (!$scope.user.email) {
-                $scope.error = $filter('translate')('users.email');
+            if($scope.user.password.length < 8){
+                $rootScope.showToast('Error', 'The password must be at least 8 characters', 'error');
                 return;
             }
+
 
             $scope.sendingData = true;
             console.log("RES: ", $scope.user);
@@ -60,6 +61,7 @@
                     console.log("error", err);
                     $scope.error = err.message || err.error.message || err.error || err;
                     $sendingData = false;
+                    console.log('dale');
                 } else {
                     try{
                         if (result.status != 'Successfully registered') {
