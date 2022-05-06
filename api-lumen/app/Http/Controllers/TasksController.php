@@ -223,7 +223,7 @@ class TasksController extends BaseController
         ]);
 
         $id = $request->input("id");
-        $task = $request->only(["name", "idProject", "comments", "duration", "users", "status"]);
+        $task = $request->only(["name", "idProject", "comments", "duration", "users", "status", "description"]);
 
         try {
             return Tasks::where('id', $id)->update($task);
@@ -251,7 +251,7 @@ class TasksController extends BaseController
             "endDate" => "required|date_format:Y-m-d|after:startDate"
         ]);
 
-        $task = $request->only(["name", "idProject", "comments", "duration", "users", "status", "startDate", "endDate"]);
+        $task = $request->only(["name", "idProject", "comments", "duration", "users", "status", "startDate", "endDate", "description"]);
         $task["users"] = json_encode($task["users"]);
 
         try {
