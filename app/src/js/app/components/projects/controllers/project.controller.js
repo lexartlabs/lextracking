@@ -496,28 +496,21 @@
 
     $scope.save = function () {
       $scope.error = '';
-      console.log('project to save', $scope.duration.hours);
-      if ($scope.project.name === undefined || $scope.project.idClient === undefined) {
+      console.log('project to save', $scope.project);
+      if ($scope.project.name === undefined || $scope.project.idClient === undefined || $scope.project.presupuesto === undefined) {
         if ($scope.project.name === undefined) {
           var msg = "El campo Nombre no puede estar vacio."
         } else if ($scope.project.idClient === undefined) {
           var msg = "El campo Cliente no puede estar vacio."
+        } else if ($scope.project.presupuesto === undefined) {
+          var msg = "El campo Budget no puede estar vacio."
         }
 
-        ngDialog.open({
-          template: '/app/shared/views/alert.modal.html',
-          showClose: true,
-          scope: $scope,
-          disableAnimation: true,
-          data: {
-            msg: msg,
-            titleRequired: "Alerta",
-          }
-        });
+        $rootScope.showToast('Error', msg, 'error');
     } else {
 
       if ($scope.duration.hours == undefined || $scope.duration.hours == null) {
-        $scope.duration.hour = parseInt("00");
+        $scope.duration.hours = parseInt("00");
       }
       if ($scope.duration.minutes == undefined || $scope.duration.minutes == null) {
         $scope.duration.minutes = parseInt("00");
