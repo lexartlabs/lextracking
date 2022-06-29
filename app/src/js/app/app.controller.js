@@ -18,6 +18,9 @@
             $window.localStorage.clear();
             $rootScope.userName = '';
             $rootScope.token = '';
+            $rootScope.darkModeSwitch = 0;
+            $rootScope.darkMode = 0;
+            $window.sessionStorage["darkMode"] = 0;
             $state.go('login');
         };
 

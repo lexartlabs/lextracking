@@ -1,0 +1,616 @@
+//Initial Styles for redesign.
+.imm-wa{
+    background: @color-light-gray;
+}
+table{
+    padding: 10px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+}
+thead, tbody{
+    padding: 10px;
+    font-size: 1.2rem;
+}
+
+//Modificador para darkMode
+.dark-mode{
+
+    table, thead, tbody, tr, td{
+        background: @color-bk-dark-mode-secondary;
+    }
+    tr:nth-child(odd) {
+        background-color:@color-bk-dark-mode-third;
+    }
+    .imm-wa{
+        color:@color-dark-white;
+    }
+    .imm-wa{
+        background: @color-bk-dark-mode;
+    }   
+    .imm-menu {
+      background: @color-bk-dark-mode-secondary;
+      // border-right: 1px solid @color-bk-dark-mode-secondary;
+    } 
+    .imm-menu__nav-item {
+      color: @color-dark-mode;
+    }
+    .imm-menu__nav-item:hover{
+      background: @color-bk-dark-mode;
+      box-shadow: none;
+      // color: @color-bk-dark-mode-secondary;
+    }
+    .imm-menu__submenu{
+      background: @color-bk-dark-mode-secondary;
+      color: @color-dark-mode;
+    }
+    .imm-menu__submenu > ul li a{
+      color: @color-dark-mode;
+    }
+    .imm-menu__submenu > ul li a:hover{
+      background: @color-bk-dark-mode-third;
+      color: @color-dark-white;
+    }
+    .imm-menu__nav-item:nth-child(1){
+      margin-top: 10px;
+    }
+    /* Begin Alternative selected item navbar */
+    .imm-menu__nav-item--selected {
+      background: @color-bk-dark-mode;
+      box-shadow: none;
+      color: @color-dark-white;
+      margin-left: 10px;
+      // border: 1px solid @color-bk-dark-mode;
+      border-radius: 10px;
+      transition: all 0.5s ease;
+    }
+    .imm-menu__nav-item b:nth-child(1){
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      height: 10px;
+      width: 100%;
+      background: @color-bk-dark-mode;
+      display: block;
+      opacity: 0;
+      transition: opacity .5s ease-out;
+  
+    }
+    .imm-menu__nav-item b:nth-child(1)::before{
+      content : '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-bottom-right-radius: 10px;
+      background: @color-bk-dark-mode-secondary;
+    }  
+    .imm-menu__nav-item b:nth-child(2){
+      position: absolute;
+      bottom: -10px;
+      left: -10px;
+      height: 10px;
+      width: 100%;
+      background: @color-bk-dark-mode;
+      display: block;
+      opacity: 0;
+      transition: opacity .5s ease-out;
+    }
+    .imm-menu__nav-item b:nth-child(2)::before{
+      content : '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-top-right-radius: 10px;
+      background: @color-bk-dark-mode-secondary;
+    }  
+    .imm-menu__nav-item--selected b:nth-child(1), .imm-menu__nav-item--selected b:nth-child(2){
+      display: block;
+      opacity: 1;
+    }
+    
+    /* End Alternative selected item navbar */
+    .panel-gray{
+      background-color: @color-bk-dark-mode !important;
+    }
+    .imm-form--subtitle_label{
+      color : @color-dark-mode;
+    }
+    a.imm-bc-item{
+      color: @color-dark-white;
+      font-family: 'Roboto', sans-serif;
+    }
+    .topNavBar{
+      background-color: @color-bk-dark-mode-secondary;
+      border-bottom: 1px solid @color-bk-dark-mode-secondary;
+    }
+    .iconNavColaps {
+      color: @color-dark-mode;
+      background-color: @color-bk-dark-mode;
+      border: 8px solid @color-bk-dark-mode-secondary;
+    }
+    .app-section-main{
+      background-color: transparent;
+      // border: 1px solid @color-dark-mode;
+      border-radius: 5px;
+    }
+    .app-selected, .app-status, .profile-topnavbar, .profile-name, .profile-enterprise, .imm-wa__tit, .imm-frm__lbl-name, .imm-bc-item{
+      color: @color-dark-mode !important;
+    }
+    .app-section-profile{
+      background-color: transparent !important;
+      // border: 1px solid @color-dark-mode;
+      border-radius: 5px;
+    }
+    .pnl-customize{
+      background-color: @color-bk-dark-mode-secondary;
+      color: @color-dark-mode !important;
+    }
+    .highcharts-background{
+      background-color: transparent;
+    }
+    .highcharts-stack-labels text{
+      fill: @color-bk-dark-mode !important;
+      // color: @color-dark-mode !important;
+    }
+    .imm-dashboard--table{
+      color: @color-dark-mode;
+    }
+    .chart-container{
+      background-color: transparent;
+    }
+    .imm-tabs__item{
+      background-color: @color-bk-dark-mode-secondary;
+      color: @color-dark-mode;
+      border-top-right-radius: 5px;
+      border-top-left-radius: 5px;
+    }
+    .imm-tabs__item:hover{
+      background-color: @color-bk-dark-mode-third;
+    }
+    .pnl-dashboard-yellow{
+      border: 1px solid @color-bk-dark-mode-secondary;
+    }
+    .pnl-dashboard-blue{
+      border: 1px solid @color-bk-dark-mode-secondary;
+    }
+    .pnl-dashboard-orange{
+      border: 1px solid @color-bk-dark-mode-secondary;
+    }
+    .pnl-dashboard-green{
+      border: 1px solid @color-bk-dark-mode-secondary;
+    }
+    .pnl-dashboard-bluemarine{
+      border: 1px solid @color-bk-dark-mode-secondary;
+    }
+    .highcharts-container svg .highcharts-background {
+      fill: transparent;
+    }
+    .highcharts-axis-labels text{
+      color: @color-dark-mode !important;
+      fill: @color-dark-mode !important;
+    }
+    .imm-multiselect button{
+      color: @color-dark-input;
+      background-color: @color-bk-dark-mode-secondary;
+      border: 1px solid @color-bk-dark-mode;
+    }
+    .imm-select.ui-select-container .selectize-input{
+      border: 1px solid @color-bk-dark-mode;
+      color: @color-dark-input;
+      background-color: @color-bk-dark-mode-secondary;
+    }
+    .selectize-input input{
+      // border: 1px solid @color-bk-dark-mode;
+      color: @color-dark-input;
+      background-color: @color-bk-dark-mode-secondary;
+    }
+    .imm-frm__lbl input[type=text]{
+      color: @color-dark-input;
+      background-color: @color-bk-dark-mode-secondary;
+      border: 1px solid @color-bk-dark-mode;
+    }
+    .imm-frm__lbl input[type=number]{
+      color: @color-dark-input;
+      background-color: @color-bk-dark-mode-secondary;
+      border: 1px solid @color-bk-dark-mode;
+    }
+    .field-filter {
+      color: @color-dark-input;
+      background-color: @color-bk-dark-mode-secondary;
+      border: 1px solid @color-bk-dark-mode;
+    }
+    .imm-table th select{
+      color: @color-dark-input;
+      background-color: @color-bk-dark-mode-secondary;
+      border: 1px solid @color-bk-dark-mode;
+    }
+    .imm-frm__lbl{
+      color: @color-dark-mode;
+    }
+    .imm-catalog--category-header{
+      background-color: @color-bk-dark-mode-secondary;
+      color: @color-dark-mode;
+    }
+    .imm-catalog--img{
+      background-color: @color-bk-dark-mode;
+    }
+    .imm-catalog--label{
+      color : @color-dark-mode;
+    }
+    .imm-catalog--search-wrapper .imm-catalog--search{
+      border: 1px solid @color-bk-dark-mode;
+      color: @color-dark-input;
+      background-color: @color-bk-dark-mode-secondary;
+    }
+    .navtop-svg path{
+      fill: @color-dark-mode;
+    }
+    table.imm-table thead{
+      background: @color-bk-dark-mode-third;
+      color: @color-dark-white;
+    }
+    table.imm-table thead th{
+      background: @color-bk-dark-mode-third;
+      color: @color-dark-white;
+    }
+    table.imm-table tr{
+      background: @color-bk-dark-mode-secondary;
+      color: @color-dark-white;
+      border-bottom: 2px solid @color-bk-dark-mode-third;
+    }
+    table.imm-table tr:nth-child(odd){
+      background: @color-bk-dark-mode-secondary;
+      color: @color-dark-white;
+    }
+    .imm-project-bar-table__row{
+      background: @color-bk-dark-mode-secondary !important;
+      color: @color-dark-white !important;
+    }
+    .profile-options{
+      background: @color-bk-dark-mode-secondary;
+      color: @color-dark-mode;
+    }
+    .btn-profile > span{
+      color: @color-dark-mode;
+    }
+    .btn-profile > i{
+      color: @color-dark-mode;
+    }
+    .ngdialog-overlay, .imm-modal-backdrop{
+      background-color: rgba(100, 100, 100, 0.5)
+    }
+    // .imm-modal__header{
+    //   background: @color-bk-dark-mode-secondary;
+    // }
+    // .imm-modal__title{
+    //   color: @color-dark-white;
+    // }
+    input[readonly], select[readonly], select:disabled{
+      color: @color-dark-input;
+      background-color: @color-bk-dark-mode-third !important;
+      border: 1px solid @color-bk-dark-mode; 
+      cursor: not-allowed;
+    }
+    .imm-select.ui-select-container .selectize-input.disabled{
+      color: @color-dark-input;
+      background-color: @color-bk-dark-mode-third !important;
+      border: 1px solid @color-bk-dark-mode; 
+      cursor: not-allowed;
+    }
+    .imm-multiselect .dropdown-menu{
+      background: @color-bk-dark-mode;
+      color: @color-dark-mode;
+    }
+    .imm-multiselect .dropdown-menu > li > a{
+      color: @color-dark-mode;
+    }
+  
+    input[type=text], input[type=password], input[type=number], input[type=email], select, textarea, input[type='search']{
+      // color: @color-dark-mode;
+      color: @color-dark-input !important;
+      background-color: @color-bk-dark-mode-secondary !important;
+      border: 1px solid @color-bk-dark-mode !important;
+    }
+    .imm-wa__actions{
+      background: @color-bk-dark-mode-secondary;
+    }
+    .imm-wa__cnt_light{
+      background: @color-bk-dark-mode;
+      border: 1px solid @color-bk-dark-mode-secondary;
+    }
+    .imm-catalog--title_label{
+      color: @color-dark-white;
+    }
+    .imm-wa__hdr-tools{
+      color: @color-dark-mode;
+    }
+    .imm-wa__hdr-tools a{
+      color: @color-dark-mode !important;
+    }
+    .imm-wa__hdr-tools a span{
+      color: @color-dark-mode !important;
+    }
+    .pagination > .disabled > span, .pagination > .disabled > span:hover, .pagination > .disabled > span:focus, .pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus {
+        color: @color-dark-mode;
+        cursor: not-allowed;
+        background-color: @color-bk-dark-mode-secondary;
+        border-color: @color-dark-mode;
+    }
+    .pagination > li > a, .pagination > li > span{
+      background-color: @color-bk-dark-mode-secondary;
+      color: @color-dark-white;
+      border-color: @color-dark-mode;
+    }
+    .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+      color: @color-bk-dark-mode-secondary;
+      background-color: @color-dark-white;
+      border-color: @color-bk-dark-mode-secondary;
+    }
+    .imm-table--agreement-list .imm-table--fixed-cell{
+      background: @color-bk-dark-mode-secondary;
+      margin-top: 3px;
+      border-bottom: 2px solid @color-dark-white;
+    }
+    textarea{
+      background: @color-bk-dark-mode-secondary;
+    }
+    form, input, textarea, select, option{
+      color: @color-dark-mode;
+    }
+    .imm-table--promo-tab tr th{
+      background-color: @color-bk-dark-mode-secondary !important;
+    }
+    .top-selected {
+      // box-shadow: 0 1px 2px 0 rgba(255,255,255,.4);
+    }
+    .collapse-icon-container:hover{
+      box-shadow: 0 1px 2px 0 rgba(255,255,255,.4);
+    }  
+    .bg-white{
+      background: @color-bk-dark-mode-secondary !important;
+      color: @color-dark-mode;
+    }
+    .app-list{
+      background: @color-bk-dark-mode-secondary !important;
+      color : @color-dark-mode;
+    }
+    .accordion-label{
+      background: @color-bk-dark-mode-third;
+      color: @color-dark-white;
+    }
+    .section-imm{
+      background: @color-bk-dark-mode-secondary;
+    }
+    .accordion-label:hover, .accordion-label:focus{
+      background: @color-bk-dark-mode-third;
+    }
+    .gantt{
+      color: @color-dark-mode !important;
+      background: @color-bk-dark-mode-secondary;
+    }
+    .gantt-row-even{
+      color: @color-dark-mode !important;
+      background: @color-bk-dark-mode !important;
+    }
+    .gantt-table-content .gantt-table-row:nth-child(2n) {
+      background: @color-bk-dark-mode !important;
+    }
+    .input-disabled .dropdown-multiselect button{
+      background: @color-bk-dark-mode-third !important;
+    }
+    .imm-table tbody tr td:nth-child(6) .imm-table tbody tr:nth-child(odd){
+      background: @color-bk-dark-mode-fourth !important;
+      color: @color-dark-gray;
+    }
+    .imm-table tbody tr td:nth-child(6) .imm-table tbody tr:nth-child(even){
+      background: @color-bk-dark-mode-third !important;
+      color: @color-dark-white;
+    }
+  
+    .imm-wa--session{
+      background: @color-bk-dark-mode-secondary;
+      // @color-bk-dark-mode-third
+    }
+    .imm-modal{
+      background: @color-bk-dark-mode-secondary;
+    }
+    .imm-project-bar__item-graph--alt {
+      height: auto;
+      line-height: 1;
+      border: 1px solid @color-bk-dark-mode-secondary;
+      // border-bottom: 1px solid @color-bk-dark-mode-secondary;
+    }
+    .imm-project-bar__item-graph {
+      border-radius: 5px;
+      color: @color-dark-white !important;
+      background: @color-bk-dark-mode-secondary !important;
+    }
+    .imm-session--choose-app{
+      color: @color-dark-white;
+    }
+    .market-section{
+      color: @color-dark-white;
+    }
+    .imm-session--market .section-imm{
+      color: @color-dark-white !important;
+    }
+    .imm-session--market .accordion > input[type="checkbox"]:checked ~ .content {
+      border: 1px solid @color-bk-dark-mode-third;
+    }
+    table.imm-table select{
+      color: @color-dark-input;
+      background-color: @color-bk-dark-mode-secondary;
+      border: 1px solid @color-bk-dark-mode;
+    }
+    
+  }
+  
+  .collapse-icon-container{
+    position: absolute;
+    left: 12px;
+    top: 10px;
+    font-size: 1.9rem;
+    color: #b7bcc9 !important;
+    padding: 15px 10px 10px 10px;
+    // border: 1px solid #b7bcc9;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .collapse-icon-container:hover{
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.4);
+  }
+  
+  .imm-menu__collapsed{
+    width: @navbar-width-collapsed !important;
+    transition: all .5s ease;
+  }
+  .imm-menu__collapsed .imm-menu__nav-item{
+    text-align: center;
+    transition: all .5s ease;
+  }
+  .imm-menu__collapsed .imm-menu__nav-item .imm-icon-wrapper{
+    font-size: 1.2rem;
+    transition: all .5s ease;
+  }
+  .imm-menu__collapsable .imm-menu__nav-item .imm-icon-wrapper{
+    font-size: .9rem !important;
+    transition: all .5s ease;
+  }
+  .imm-menu__collapsable .imm-menu__nav-item{
+    text-align: left;
+    transition: all .5s ease;
+  }
+  .imm-menu__collapsable{
+    width: @navbar-width !important;
+    transition: all .5s ease;
+  }
+  .imm-menu-top-nav-bar__collapsed{
+    left: @navbar-width-collapsed !important;
+    transition: all .5s ease;
+  }
+  .imm-menu-top-nav-bar__collapsable{
+    left: @navbar-width !important;
+    transition: all .5s ease;
+  }
+  .imm-menu__collapsed .imm-menu__hdr{
+    width: @navbar-width-collapsed !important;
+    transition: all .5s ease;
+  }
+  .imm-menu__collapsable .imm-menu__hdr{
+    width: @navbar-width !important;
+    transition: all .5s ease;
+  }
+  .app-section-main{
+    left: 40px;
+    transition: all .5s ease;
+  }
+  .imm-menu__collapsed .imm-menu__submenu{
+    left: 83px;
+    text-align: left;
+    transition: all .5s ease;
+  }
+  .imm-menu__collapsable .imm-menu__submenu{
+    left: 165px;
+    text-align: left;
+    transition: all .5s ease;
+  }
+  .imm-menu__collapsed .imm-menu__nav-item--selected{
+    margin-left: 10px;
+    transition: all .5s ease;
+  }
+  
+  .imm-menu__collapsable .imm-menu__nav-item--selected{
+    margin-left: 10px;
+    transition: all .5s ease;
+  }
+  .imm-menu__collapsed .imm-menu__tit {
+    margin-left: 12px;
+    margin-top: 2px;
+  }
+  .imm-menu__collapsable .imm-menu__tit {
+    margin-left: 18px;
+    margin-top: 2px;
+  }
+  
+  .imm-menu__collapsed .imm-menu__tit img{
+    height: 48px;
+    transition: all .5s ease;
+  }
+  .imm-menu__collapsable .imm-menu__tit img{
+    height: 25px;
+    transition: all .5s ease;
+  }
+  
+  .imm-menu__collapsed .imm-menu__nav-item{
+    padding: 0.8rem 0.75rem;
+    transition: all .5s ease;
+  }
+  .imm-menu__collapsable .imm-menu__nav-item{
+    padding: .625rem .75rem;
+    transition: all .5s ease;
+  }
+  .imm-table a i{
+    background-color: @color-blue;
+    color: @color-white;
+    padding: 5px;
+    font-size: 1rem;
+    border-radius: 5px;
+  }
+  .imm-wa__cnt a i, .imm-table--fixed-cell button i{
+    background-color: @color-blue;
+    color: @color-white;
+    padding: 5px;
+    font-size: 1rem;
+    border-radius: 100%;
+  }
+  .imm-wa__cnt .imm-download-excel i{
+    background: inherit;
+    color: inherit;
+  }
+  .imm-table--fixed-cell a{
+    position: relative;
+    top: 10px
+  }
+  // .imm-table--fixed-cell button{
+  //   position: relative;
+  //   top: 10px
+  // }
+  // .imm-table--fixed-cell button i{
+  //   background-color: transparent;
+  //   color: @color-white;
+  //   padding: 5px;
+  //   font-size: 1rem;
+  //   border-radius: 5px;
+  //   border: 1px solid @color-bk-tables-light;
+  // }
+  .imm-wa__cnt .imm-filters-btn i{
+    background-color: transparent;
+    color: inherit;
+  }
+  .btn-profile > i{
+    font-size: 1rem;
+  }
+  .header-tabs .navtop-container .imm-icon-wrapper i{
+    font-size: 1.5rem;
+  } 
+  
+  // .ri-close-line{
+  //   color: #E34949 !important;
+  //   background-color: transparent !important;
+  //   font-size: 1rem;
+  // }
+  
+  // .ri-close-line{
+  //   background-color: #E34949 !important;
+  //   font-size: 1rem;
+  // }
+  
+  // .ri-check-line{
+  //   color: @color-effective !important;
+  //   font-size: 1rem;
+  //   background-color: transparent !important
+  // }
+  
