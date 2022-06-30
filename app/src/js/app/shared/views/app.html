@@ -1,4 +1,5 @@
 <div class="app-container">
-    <div class="imm-menu" ng-class="{'imm-menu__collapsed': thisHide == true}" ng-include="'app/shared/views/navbar.html'"></div>
+    <nav class="imm-topbar-menu" ng-include="'app/shared/views/topbar.html'"></nav>
+    <nav class="imm-menu" ng-class="{'imm-menu__collapsed': thisHide == true}" ng-include="'app/shared/views/navbar.html'"></nav>
     <div class="imm-wa" ui-view></div>
 </div>
