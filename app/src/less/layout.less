@@ -12,8 +12,14 @@
 
 .imm-menu,
 .imm-wa {
-  display: table-cell;
-  vertical-align: top;
+  // display: table-cell;
+  // vertical-align: top;
+  display: block;
+  float: right;
+  width: 85%;
+  margin-top: @topbar-height;
+  height: 100vh;
+  padding: 20px;
 }
 
 .imm-wa--session {
@@ -166,12 +172,6 @@ button.imm-menu__icon--collapsed {
 }
 
 // WORKAREA
-
-.imm-wa {
-  padding: 30px 40px 80px;
-  position: relative;
-}
-
 .imm-wa__hdr {
   margin-bottom: 2rem;
 }

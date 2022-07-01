@@ -1,3 +1,13 @@
 <div class="top-bar__container">
-
+    <div class="top-bar__logo_container">
+        <a ng-href="/" class="imm-menu__tit">
+            <img src="/assets/images/lextracking-logo.svg" width="150px" title="LexTracking" alt="LexTracking" ng-show="!thisHide">
+        </a>
+    </div>
+    <div class="top-bar__current_tracking_container">
+        <p style="color: #fff; font-weight: 800; margin: 0 23px; font-size: 10px; line-height: 1.5;" ng-show="timerRunning">
+            <label title="{{currentTrack.projectName + ' - ' + currentTrack.taskName}}">{{currentTrack.projectName + ' - ' + currentTrack.taskName | truncateTail:true:45:'...'}}</label>
+            <label style="display: block;"><span style="vertical-align: super;">{{timer}}</span><span ng-click="stopTrack()">&nbsp;&nbsp;<img class="img_stop" src="/assets/images/stopNavBar.png"></span></label>
+        </p>
+    </div>
 </div>

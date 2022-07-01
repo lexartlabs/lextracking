@@ -4,6 +4,9 @@
   overflow: hidden;
   position: relative;
   z-index: 99;
+  display: block;
+  float: left;
+  width: 15%;
   .imm-menu__wrp {
     display: block;
     width: @navbar-width;
@@ -33,13 +36,13 @@
   position: relative;
   z-index: 5;
   +.imm-menu__nav {
-    top: 70px;
+    // top: 70px;
   }
   &.imm-menu__app-list-block {
     height: @navbar-logo-height + 90px;
   }
   &.imm-menu__app-list-block + .imm-menu__nav {
-    top: @navbar-logo-height + 90px;
+    // top: @navbar-logo-height + 90px;
   }
   .imm-menu__app {
     padding: 5px 0 5px 30px;
@@ -125,11 +128,11 @@
 // NAVIGATION
 .imm-menu__nav {
   transition: all 0.5s ease;
-  position: absolute;
+  // position: absolute;
   width: 100%;
   //bottom: 174px;
   padding-bottom: 30px;
-  top: @navbar-logo-height + 10px;
+  // top: @navbar-logo-height + 10px;
   overflow: auto;
   // border-right: 1px solid rgba(0,0,0,0.05);
   -ms-scrollbar-face-color: #5D6266;
@@ -404,16 +407,6 @@
   }
   .imm-menu__nav-item:nth-child(1){
     margin-top: 10px;
-  }
-  /* Begin Alternative selected item navbar */
-  .imm-menu__nav-item--selected {
-    background: @color-light-gray;
-    box-shadow: none;
-    color: @color-blue;
-    margin-left: 10px;
-    // border: 1px solid @color-bk-dark-mode;
-    border-radius: 10px;
-    transition: all 0.5s ease;
   }
   .imm-menu__nav-item b:nth-child(1){
     position: absolute;
