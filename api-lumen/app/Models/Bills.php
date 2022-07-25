@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Weeklyhours extends Model
+class Clients extends Model
 {
     use HasFactory;
-
-    protected $table = 'WeeklyHours';
     public $timestamps = false;
 
-    protected $fillable = ['id', 'idUser', 'userName', 'costHour', 'workLoad', 'currency', 'borrado'];
+    protected $table = 'Bills';
 
+    protected $fillable = ['billNumber', 'borrado', 'concept', 'date', 'expirationTime', 'name', 'price', 'rut'];
 }

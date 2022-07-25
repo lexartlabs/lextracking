@@ -10,7 +10,7 @@ class EasyWeb extends Model
     use HasFactory;
     public $timestamps = false;
 
-    protected $table = 'easyweb';
+    protected $table = 'Easyweb';
 
     protected $fillable = [
         'id', 'name', 'domain', 'description', 'jsonMenu', 'jsonSections', 'jsonSliders', 'jsonForm', 'jsonFooter', 'active',

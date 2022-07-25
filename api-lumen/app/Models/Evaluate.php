@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Performance extends Model
+class Banks extends Model
 {
     use HasFactory;
 
-    protected $table = 'Performance';
+    protected $table = 'Evaluate';
 
     public $timestamps = false;
 
-    protected $fillable = ['id', 'idUser', 'month', 'idMonth', 'year', 'costHour', "salary"];
-
+    protected $fillable = ['idUser', "idAdmin", 'idTask', 'evaluacion', 'puntaje', 'fecha'];
 }

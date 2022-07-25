@@ -5,16 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tracks extends Model
+class TrelloTasks extends Model
 {
     use HasFactory;
 
-    protected $table = 'Tracks';
+    protected $table = 'UserExceptions';
     public $timestamps = false;
 
     protected $fillable = [
-        'id', 'idTask', 'idUser', 'name', 'typeTrack',
-        'currency', 'trackCost', 'idProyecto', 'startTime', 'endTime'
+        'user_exceptions_id', 'user_id', 'day', 'title', 'start', 'end', 'deleted_at'
     ];
 
 }
