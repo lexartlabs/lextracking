@@ -56,7 +56,7 @@ a {
 .container {
   width: 1170px;
   position: relative;
-  margin-left: auto;
+  // margin-left: auto;
   margin-right: auto;
   padding-left: 15px;
   padding-right: 15px;
@@ -65,12 +65,13 @@ a {
 // Start navbar
 
 .navbar,
-.navbar > .container {
+.navbar>.container {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+
   @media (max-width: 768px) {
     display: block;
   }
@@ -86,12 +87,15 @@ a {
     @media (min-width: 576px) {
       max-width: 540px;
     }
+
     @media (min-width: 768px) {
       max-width: 720px;
     }
+
     @media (min-width: 992px) {
       max-width: 960px;
     }
+
     @media (min-width: 1200px) {
       max-width: 1140px;
     }
@@ -105,6 +109,8 @@ a {
   .navbar-header {
     display: flex;
     align-items: center;
+    width: 15%;
+    ;
 
     @media (max-width: 768px) {
       width: 100%;
@@ -122,7 +128,9 @@ a {
       display: none;
       outline: none;
 
-      @media (max-width: 768px) { display: block }
+      @media (max-width: 768px) {
+        display: block
+      }
 
       span {
         height: 2px;
@@ -130,12 +138,13 @@ a {
         background-color: lighten(@text-dark, 35%);
         display: block;
       }
+
       span:not(:last-child) {
         margin-bottom: 0.2rem;
       }
     }
 
-    > a {
+    >a {
       font-weight: 500;
       color: @text-dark;
     }
@@ -173,19 +182,22 @@ a {
         margin-top: 1rem;
       }
 
-      > li {
-        > a {
-          color: @text-dark;
+      >li {
+        >a {
+          // color: @text-dark;
           text-decoration: none;
           display: inline-block;
           padding: @navbar-link-padding-y @navbar-link-padding-x;
+
           &:hover {
             color: @navbar-link-hover;
           }
+
           @media (max-width: 768px) {
             border-bottom: 1px solid @border-color;
           }
         }
+
         &.active {
           a {
             color: @base-color;
@@ -209,25 +221,27 @@ a {
           z-index: 99999;
           border-radius: @navbar-dropdown-radius;
           display: none;
+
           @media (max-width: 768px) {
             position: relative;
             box-shadow: none;
           }
+
           li {
             a {
               color: @text-dark;
-              padding: @navbar-dropdown-item-padding-y
-                       @navbar-dropdown-item-padding-x;
+              padding: @navbar-dropdown-item-padding-y @navbar-dropdown-item-padding-x;
               display: block;
             }
           }
+
           &.show {
             display: block !important;
           }
         }
       }
 
-      .dropdown > .separator {
+      .dropdown>.separator {
         height: 1px;
         width: 100%;
         margin-top: @navbar-dropdown-separator-margin-y;
@@ -244,12 +258,14 @@ a {
 
 
 // Custom
-.navbar .navbar-header > a span {
+.navbar .navbar-header>a span {
   color: @base-color;
 }
+
 .navbar .navbar-header h4 {
   font-weight: 500;
   font-size: 1.25rem;
+
   @media (max-width: 768px) {
     font-size: 1.05rem;
   }
