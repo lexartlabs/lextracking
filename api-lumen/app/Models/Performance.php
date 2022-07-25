@@ -9,7 +9,7 @@ class Performance extends Model
 {
     use HasFactory;
 
-    protected $table = 'performance';
+    protected $table = 'Performance';
 
     public $timestamps = false;
 

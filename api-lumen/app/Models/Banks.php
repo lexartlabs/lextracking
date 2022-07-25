@@ -9,7 +9,7 @@ class Banks extends Model
 {
     use HasFactory;
 
-    protected $table = 'banks';
+    protected $table = 'Banks';
 
     public $timestamps = false;
 

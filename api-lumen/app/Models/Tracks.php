@@ -9,7 +9,7 @@ class Tracks extends Model
 {
     use HasFactory;
 
-    protected $table = 'tracks';
+    protected $table = 'Tracks';
     public $timestamps = false;
 
     protected $fillable = [

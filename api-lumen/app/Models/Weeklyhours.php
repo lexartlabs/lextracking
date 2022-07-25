@@ -9,7 +9,7 @@ class Weeklyhours extends Model
 {
     use HasFactory;
 
-    protected $table = 'weeklyhours';
+    protected $table = 'WeeklyHours';
     public $timestamps = false;
 
     protected $fillable = ['id', 'idUser', 'userName', 'costHour', 'workLoad', 'currency', 'borrado'];
