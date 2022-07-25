@@ -10,7 +10,7 @@ class Clients extends Model
     use HasFactory;
     public $timestamps = false;
 
-    protected $table = 'Bills';
+    protected $table = 'Budgets';
 
     protected $fillable = ['idClient', 'idUser', 'concept', 'amount', 'currency', 'active', 'date', 'description', 'hoursTotal', 'hoursPayable', 'status'];
 }
