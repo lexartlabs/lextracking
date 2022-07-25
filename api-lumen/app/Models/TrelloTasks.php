@@ -9,7 +9,7 @@ class TrelloTasks extends Model
 {
     use HasFactory;
 
-    protected $table = 'trellotask';
+    protected $table = 'TrelloTask';
     public $timestamps = false;
 
     protected $fillable = [

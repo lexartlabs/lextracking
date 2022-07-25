@@ -10,7 +10,7 @@ class TrelloBoard extends Model
 {
     use HasFactory;
 
-    protected $table = 'trelloboard';
+    protected $table = 'TrelloBoard';
     public $timestamps = false;
 
     protected $fillable = ['id', 'tablero_id', 'proyecto_id', 'url', 'activo', 'dateCreate', 'dateUpdate', 'active'];

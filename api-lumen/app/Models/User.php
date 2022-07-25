@@ -14,6 +14,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 {
     use Authenticatable, Authorizable, HasFactory;
 
+    protected $table = 'User';
     protected $fillable = ['email', 'password','name','role'];
 
     protected $hidden = ['created_at', 'updated_at', 'status'];

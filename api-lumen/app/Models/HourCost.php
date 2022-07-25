@@ -9,9 +9,9 @@ class Banks extends Model
 {
     use HasFactory;
 
-    protected $table = 'Banks';
+    protected $table = 'HoursCost';
 
     public $timestamps = false;
 
-    protected $fillable = ['id', 'name', "country", 'branchOffice', 'userId', 'type', 'currency', "identificationCard", "account", "priceUsd", "active", "borrado"];
+    protected $fillable = ['id', 'idUser', 'idClient', 'costUser', 'costClient', 'currencyClient', 'currencyUser', 'date', 'active'];
 }
