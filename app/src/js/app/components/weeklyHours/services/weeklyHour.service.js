@@ -6,12 +6,18 @@
 
   Module.factory('WeeklyHourServices', ['RestClient', function(RestClient){
 
-    var model = "weeklyHour";
+    var model = "weeklyhours";
 
     var factory = {
 
       find: function(page, q, cb) {
-        RestClient.get( "weeklyHours/all", function(err, result, countItems) {
+
+        var user = window.localStorage;
+        var role = user.userRole;
+
+        var path = role == "developer" ? "user/current" : "all";
+
+        RestClient.get( "weeklyhours/" + path, function(err, result, countItems) {
           cb(err, result, countItems);
         })
       },
@@ -24,6 +30,18 @@
 
       verifyUSer: function (user, cb){
         RestClient.get(model + "/user/" + user, function(err, result){
+          cb(err,result);
+        })
+      },
+
+      findByIdUser: function (user, cb){
+        RestClient.get(model + "/user/" + user, function(err, result){
+          cb(err,result);
+        })
+      },
+
+      currentUser: function (user, cb){
+        RestClient.get(model + "/user/current", function(err, result){
           cb(err,result);
         })
       },

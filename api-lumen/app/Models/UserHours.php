@@ -13,7 +13,7 @@ class TrelloTasks extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'user_hour_id', 'user_id', 'day', 'title', 'start', 'end', 'deleted_at'
+        'user_hour_id', 'user_id', 'day', 'title', 'start', 'end', 'deleted_at', 'created_at', 'updated_at',
     ];
 
 }

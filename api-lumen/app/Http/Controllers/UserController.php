@@ -8,20 +8,30 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\AuthController;
+use App\Models\UserExceptions;
+use App\Models\UserHours;
+use App\Models\Weeklyhours;
+use Laravel\Ui\Presets\React;
+use Illuminate\Support\Facades\DB;
+use WeeklyHour;
+use Illuminate\Validation\Rule;
 
 class UserController extends BaseController
 {
+
     public function login(Request $request)
     {
         $this->validate($request, [
             'email' => 'required|email',
-            'password' => 'required|min:8|string',
+            'password' => 'required|string',
         ]);
 
         $email = $request->input('email');
         $password = md5($request->input('password'));
 
-        $user = User::where('email', $email)->where('status', 0)->first();
+        try {
+            
+            $user = User::where('email', $email)->where('status', 0)->first();
 
             if (!$user) {
                 return (new Response(array("Error" => INVALID_LOGIN, "Operation" => "login"), 400));
@@ -32,11 +42,8 @@ class UserController extends BaseController
             }
 
             $auth = new AuthController();
-            return $auth->login($user);
+            return array('response' => json_decode($auth->login($user)));
 
-        try {
-
-            
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "login"), 500));
         }
@@ -56,63 +63,94 @@ class UserController extends BaseController
         $password = md5($request->input('password')); //REVER O METODO DE ENCRYPT
         $role = $request->input('role');
 
-        try {
-            User::create(array(
-                "name" => $name,
-                "email" => $email,
-                "password" => $password,
-                "role" => $role
-            ));
+        $user = $request->only(["name", "email", "password", "role"]);
 
-            return (new Response(array("status" => REGISTRED, "operation" => "register")));
-        } catch (Exception $e) {
-            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "login"), 500));
-        }
-    }
-
-    public function all()
-    {
         try {
-            return json_encode(User::all());
-        } catch (Exception $e) {
-            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "login"), 500));
-        }
-    }
+            $user["password"] = $password;
+            $user = User::create($user);
+            $id = $user->id;
 
-    public function userById($id)
-    {
-        try {
-            $user = User::where('id', $id)->first();
-            if(!$user) {
-                return (new Response(array("Error" => USER_NOT, "Operation" => "user"), 500));
+            if(!empty($id)){
+                Weeklyhours::create(array(
+                    "idUser" => $id,
+                    "userName" => $name,
+                    "costHour" => 1,
+                    "workLoad" => 40,
+                    "currency" => "USD",
+                    "borrado" => 0
+                ));
             }
 
-            return json_encode($user);
+            return array("response" => array("status" => REGISTRED, "operation" => "register"));
         } catch (Exception $e) {
-            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "user"), 500));
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "register"), 500));
         }
     }
 
-    public function current()
+    public function all(Request $request)
     {
-        return json_encode(AuthController::current());
+        try {
+            return array("response" => json_decode(User::get(['id', 'name'])));
+        } catch (Exception $e) {
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "all"), 500));
+        }
+    }
+
+    public function allAdmin(Request $request)
+    {
+        $role = AuthController::current()->role;
+
+        try {
+            $users = new User;
+
+            if($role != "admin"){
+                $users = $users->where("role", "!=", "admin");
+            }
+
+            $users = $users->get();
+
+            return array("response" => $users);
+        } catch (Exception $e) {
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "all-admin"), 500));
+        }
+    }
+
+    public function userById(Request $request, $id)
+    {
+
+        $request["id"] = $id;
+
+        $this->validate($request, [
+            "id" => "exists:users"
+        ]);
+
+        try {
+            $user = User::where('id', $id)->first();
+
+            return array("response" => $user);
+        } catch (Exception $e) {
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "user by id"), 500));
+        }
+    }
+
+    public function current(Request $request)
+    {
+        $auth_code = $request->header()['authorization'][0];
+        
+        $current = AuthController::current();
+        $current->token = $auth_code;
+        return array('response' => $current);
     }
 
     public function delete(Request $request)
     {
         $this->validate($request, [
-            "id" => "required",
+            "id" => "required|exists:users,id",
         ]);
 
         $id = $request->input("id");
         
         try{
-            $user = User::where("id", $id)->where("status", 0)->first();
-
-            if(!$user) {
-               return (new Response(array("Error" => USER_NOT, "Operation" => "delete"), 400));
-            }
-
             return User::where("id", $id)->update(["status" => 1]);
         }catch (Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "delete"), 500));
@@ -143,15 +181,23 @@ class UserController extends BaseController
     public function update(Request $request, $id) 
     {
         $request["id"] = $id;
+        $this->role = AuthController::current()->role;
+
         $this->validate($request, [
-            "id" => "required|exists:users,id",
+            "id" => ["required", Rule::exists("users", "id")->where(function($query) {
+                if($this->role != "admin") $query->where("role", "!=", "admin");
+            })],
             "email" => "email",
-            "password" => "min:8",
+            "password" => "string",
             "role" => "string",
-            "idClient" => "exists:clients,id"
+            "name" => "string"
         ]);
 
-        $update = $request->only(['id', 'email', 'password', 'role', 'idClient']);
+        $update = $request->only(['email', 'password', 'name']);
+
+        if($this->role == "admin") {
+            $update["role"] = $request->input('role');
+        }
 
         try{
             $user = User::where("id", $id)->update($update);
@@ -162,16 +208,18 @@ class UserController extends BaseController
         }
     }
 
-    public function hours($id) 
+    public function hours(Request $request, $userId) 
     {
         try{
-            $user = User::where('id', $id)->first();
+            $hours = new UserHours;
+            if($userId != 0) {
+                $request["userId"] = $userId;
+                $this->validate($request, ["userId" => "required|exists:users,id"]);
+                
+                $hours = $hours->where('user_id', $userId);
+            } 
 
-            if(!$user){
-                return (new Response(array("Error" => INVALID_LOGIN, "Operation" => "hours"), 400));
-            }
-
-            $hours = UserHours::where('user_id', $id)->get();
+            $hours = $hours->get();
 
             if(count($hours) == 0) {
                 return array('response' => 'Error al asignar proyecto');
@@ -179,19 +227,18 @@ class UserController extends BaseController
 
             return array('response' => $hours);
         }catch(Exception $e) {
-
+            
         }
     }
 
     public function currentHours(Request $request)
     {
-        $user = $this->current($request);
-        $user_id = $user['response']->id;
+        $user_id = AuthController::current()->id;
 
-        return $this->hours($user_id);
+        return $this->hours($request, $user_id);
     }
 
-    public function exceptions($id, $date)
+    public function exceptions(Request $request, $userId, $date)
     {
 
         $fullDate = explode("-", $date);
@@ -200,13 +247,18 @@ class UserController extends BaseController
 		$year = $fullDate[1];
 
         try{
-            $user = User::where("id", $id)->first();
-            
-            if(!$user) {
-                return (new Response(array("Error" => INVALID_LOGIN, "Operation" => "hours"), 400));
+            $userExceptions = new UserExceptions;
+
+            if($userId != 0) {
+                $request["user_id"] = $userId;
+                $this->validate($request, ["user_id" => "required|exists:users,id"]);
+
+                $userExceptions = $userExceptions->where("user_id", $userId);
             }
 
-            $userExceptions = DB::select("SELECT * FROM user_exceptions WHERE user_id = ".$id." AND MONTH(`start`) =".$month." AND YEAR(`start`) = " .$year);
+            $userExceptions = $userExceptions->whereRaw("MONTH(start) = ?", [$month])
+                ->whereRaw("YEAR(start) = ?", [$year])
+            ->get();
             
             return array('response' => $userExceptions);
         }catch(Exception $e){
@@ -216,9 +268,8 @@ class UserController extends BaseController
 
     public function currentExceptions(Request $request, $date)
     {
-        $user = $this->current($request);
-        $user_id = $user['response']->id;
+        $user_id = AuthController::current()->id;
 
-        return $this->exceptions($user_id, $date);
+        return $this->exceptions($request, $user_id, $date);
     }
 }

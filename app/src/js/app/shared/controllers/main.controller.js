@@ -190,6 +190,7 @@
                     };
                     TracksServices.create($rootScope.currentTrack, function (err, result) {
                         if (!err) {
+                            result = result[0];
                             console.log('saved task', result);
                             $rootScope.currentTrack.id = result.id;
                             $scope.toggleTimer();
@@ -421,7 +422,7 @@
 
         $scope.stopTrack = function () {
             var ms = 0;
-            console.log("stopTrack::", $rootScope.currentTrack);
+            console.log("stopTrack::", $rootScope.currentTrack, $rootScope.currentTrack.id);
 
             if ($rootScope.currentTrack && $rootScope.currentTrack.id) {
                 $rootScope.currentTrack.endTime = getCurrentDate();
@@ -530,7 +531,7 @@
             if ($rootScope.isClient == 'true') {
                 $rootScope.userIdClient = $window.localStorage["idUserClient"];
             }
-            TracksServices.getLastUserTrack($rootScope.userId, function (err, track) {
+            TracksServices.getCurrentUserLastTrack($rootScope.userId, function (err, track) {
                 if (!err) {
                     if (track) {
                         console.log('track', track);

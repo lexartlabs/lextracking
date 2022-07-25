@@ -69,10 +69,10 @@
             <div class="imm-frm__fld">
                 <label class="imm-frm__lbl">
                     <!--<input type="text" ng-model="project.description">-->
-                    <input rows="7" ng-model="project.presupuesto">
+                    <input rows="7" ng-model="project.presupuesto" type="number">
 
                     </input>
-                    <b class="imm-frm__lbl-name">{{ 'projects.presupuesto' | translate }}</b>
+                    <b class="imm-frm__lbl-name">{{ 'projects.presupuesto' | translate }}<span class="required">*</span></b>
                 </label>
             </div>
             <div class="imm-frm__fld">
@@ -81,7 +81,7 @@
                     <textarea rows="7" cols="50" ng-model="project.description">
 
                     </textarea>
-                    <b class="imm-frm__lbl-name">{{ 'projects.description' | translate }}</b>
+                    <b class="imm-frm__lbl-name">{{ 'projects.description' | translate }}<span class="required">*</span></b>
                 </label>
             </div>
 
@@ -92,6 +92,23 @@
 
                     </textarea>
                     <b class="imm-frm__lbl-name">{{ 'projects.comments' | translate }}</b>
+                </label>
+            </div>
+
+            <div class="imm-frm__fld">  
+                <label class="imm-frm__lbl">
+                    <ui-select
+                            ng-model="project.active"
+                            class="imm-select imm-select--input"
+                            theme="selectize"
+                            append-to-body="true"
+                    >
+                        <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="option.value as option in [{name:'Active', value: 1}, {name:'Inactive', value: 0}]">
+                            <div ng-bind-html="option.name | highlight: $select.selected.name" value="option.value"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                    <b class="imm-frm__lbl-name">Active<span class="required">*</span></b>
                 </label>
             </div>
 

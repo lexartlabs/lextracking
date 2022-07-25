@@ -11,12 +11,25 @@
 	  	var factory = {
 
 		    find: function(page, q, cb) {
-		      	RestClient.get(model + "/all", function(err, result) {
+
+				var user = window.localStorage;
+				var role = user.userRole == 'admin' || user.userRole == 'pm' ? true : false;
+
+				var path = role == true ? '/all-admin' : '/all';
+
+		      	RestClient.get(model + path, function(err, result) {
 		        	cb(err, result);
 		      	})
 		    },
 
+			currentUser: function(cb) {
+				RestClient.get(model + "/current", function(err, result) {
+		    		cb(err, result);
+		    	})
+			},
+
 		    findById: function(id, cb) {
+				console.log(id);
 		    	RestClient.get(model + "/" + id, function(err, result) {
 		    		cb(err, result);
 		    	})
@@ -30,11 +43,11 @@
 
 		    save: function(obj, cb) {
 		    	if (obj.id) {
-		        	RestClient.post(model + "/update" , obj, function(err, result) {
+		        	RestClient.put(model + "/update/" + obj.id , obj, function(err, result) {
 		          		cb(err, result);
 		        	})
 		      	} else {
-		        	RestClient.post(model + "/new", obj, function(err, result) {
+		        	RestClient.post(model + "/register", obj, function(err, result) {
 		          		cb(err, result);
 		        	})
 		      	}
@@ -46,14 +59,27 @@
 		      	})
 		    },
 
-		    savePerformance: function(obj, cb){
-		    	RestClient.post(model + "/save-performance", obj, function(err, result){
+		    savePerformance: function(obj, id, cb){
+		    	RestClient.post(model + "/performance/" + id + "/save", obj, function(err, result){
 		    		cb(err, result);
 		    	})
 		    },
 
-		    getPerformanceById: function(obj, cb){
-		    	RestClient.post(model + "/performance-id", obj, function(err, result){
+			saveCurrentPerformance: function(obj, cb){
+		    	RestClient.post(model + "/performance/current/save", obj, function(err, result){
+		    		cb(err, result);
+		    	})
+		    },
+
+		    getPerformanceById: function(obj, id, cb){
+				console.log(obj);
+		    	RestClient.post(model + '/' + id + "/performance", obj, function(err, result){
+		    		cb(err, result);
+		    	})
+		    },
+
+			getPerformanceCurrent: function(obj, cb){
+		    	RestClient.post(model + "/performance/current", obj, function(err, result){
 		    		cb(err, result);
 		    	})
 		    },
@@ -66,8 +92,7 @@
 
 		    //persistence: function(obj, cb) {
 		    persistence: function(cb) {
-		    	var obj = {"token": $window.localStorage['lextracking-web-token']}
-		    	RestClient.post("persistence" , obj, function(err, result) {
+		    	RestClient.get("user/current", function(err, result) {
 		        	cb(err, result);
 		        })
 		    }

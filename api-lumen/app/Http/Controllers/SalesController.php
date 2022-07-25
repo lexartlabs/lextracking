@@ -164,7 +164,7 @@ class SalesController extends BaseController
         }
     }
 
-    public function getAllSaelsByMonth(Request $request, $dateIni, $dateEnd, $idUser)
+    public function getAllSaelsByMonth(Request $request, $dateIni, $dateEnd, $idUser = null)
     {
 
         $request["idUser"] = $idUser;
@@ -181,8 +181,9 @@ class SalesController extends BaseController
             }
 
             $sales = $sales->get();
-            
-            return array("response" => $sales);
+            $totalSales = $this->addAmountsToCurrency($sales);
+
+            return array("response" => array("sales" => $sales, "totalSales" => $totalSales));
         }catch(Exception $e){
 
         }
