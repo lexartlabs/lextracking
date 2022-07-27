@@ -14,7 +14,7 @@
             $log.info("Async calls..");
         });
 
-        $rootScope.darkMode = 1;
+        $rootScope.darkMode = 0;
 
         $rootScope.logout = function () {
             $window.localStorage.clear();

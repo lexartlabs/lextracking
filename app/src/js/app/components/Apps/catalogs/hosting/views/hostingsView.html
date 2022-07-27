@@ -32,7 +32,7 @@
         <td>{{hosting.company == "1" && hosting.businessName || hosting.fullName}}</td>
         <td>
           <a ui-sref="app.hostingEdit({id: hosting.id})">
-            <img src="assets/images/icons/pencil-ico.svg">
+            <i class="ri-edit-line"></i>
           </a>
         </td>
       </tr>
@@ -56,7 +56,7 @@
       <div class="imm-frm__fld" style='text-align: left;' ng-click='hosting.showProduct == "table_show" ? hosting.showProduct = "table_hide" : hosting.showProduct = "table_show"'>{{hosting.company == "1" && hosting.businessName || hosting.fullName}}</div>
       <div class="imm-frm__fld" style='text-align: center;'>
         <a ui-sref="app.hostingEdit({id: hosting.id})">
-          <img src="assets/images/icons/pencil-ico.svg">
+          <i class="ri-edit-line"></i>
         </a>
       </div>
     </div>

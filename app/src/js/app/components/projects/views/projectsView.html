@@ -46,7 +46,7 @@
                 <td title="{{project.presupuesto}}">$ {{ project.presupuesto | truncateTail:true:4:'...'}}</td>
                 <td >
                     <a ui-sref="app.projectEdit({id: project.id})">
-                        <img src="assets/images/icons/pencil-ico.svg">
+                        <i class="ri-edit-line"></i>
                     </a>
                 </td>
                 <td ng-if="isAdmin=='false' &&  isClient=='false' "></td>

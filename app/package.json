@@ -4,7 +4,7 @@
   "description": "Pernod Ricard - CRM - angular app",
   "main": "grunt",
   "scripts": {
-    "dev" : "grunt dev",
+    "dev": "grunt dev",
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "bower install"
   },
@@ -33,7 +33,9 @@
     "jit-grunt": "^0.10.0",
     "load-grunt-config": "^0.19.2",
     "load-grunt-tasks": "^5.1.0",
-    "ngrok": "^3.2.7"
+    "ngrok": "^3.2.7",
+    "vue-loader": "^17.0.0",
+    "vue-template-compiler": "^2.7.8"
   },
   "dependencies": {
     "@fullcalendar/core": "^5.8.0",
@@ -49,6 +51,7 @@
     "grunt-contrib-uglify-es": "^3.3.0",
     "highcharts-ng": "0.0.13",
     "node-fetch": "^2.6.0",
-    "npm": "^6.14.7"
+    "npm": "^6.14.7",
+    "remixicon": "^2.5.0"
   }
 }

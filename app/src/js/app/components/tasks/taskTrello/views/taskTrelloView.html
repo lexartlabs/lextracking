@@ -34,7 +34,7 @@
                 <td></td>
                 <td></td>
             </tr>
-            <tr ng-repeat="(index,task_trello) in tasks_trello" ng-class="{'active-task_trello': currentTrack.idtask_trello == task_trello.id}" ng-style="task_trello.status == 'Done' && {'background-color':'#3b0'}  || task_trello.status == 'In-Review' && {'background-color':'#AE2E2E'} || task_trello.status == 'In-Progress' && {'background-color':'#ccad16'}">
+            <tr ng-repeat="(index,task_trello) in tasks_trello" ng-class="{'active-task_trello': currentTrack.idtask_trello == task_trello.id}" ng-style="task_trello.status == 'Done' && {'background-color':'#a9e892'}  || task_trello.status == 'In-Review' && {'background-color':'#f08b8b'} || task_trello.status == 'In-Progress' && {'background-color':'#f2ecb8'}">
                 <td title="{{task_trello.id}}">{{task_trello.id | truncateTail:true:30:'...'}}</td>
                 <td>{{task_trello.projectName}}</td>
                 <td>{{task_trello.url}}</td>
@@ -45,7 +45,7 @@
                 </td>
                 <td>
                     <a href="" ng-click="editBoard(task_trello)">
-                        <img src="assets/images/icons/pencil-ico.svg">
+                        <i class="ri-edit-line"></i>
                     </a>
                 </td>
                 <td>

@@ -43,10 +43,10 @@
                 <td></td>
                 <td>
                     <a ng-if="jira.idProyecto" ui-sref="app.jiraTasks({id: jira.idBoard})">
-                        <img src="assets/images/icons/pencil-ico.svg">
+                        <i class="ri-edit-line"></i>
                     </a>
                     <a ng-if="jira.idProyecto == null" ng-click="vinculate(jira.idProject, $index)">
-                        <img src="assets/images/icons/pencil-ico.svg">
+                        <i class="ri-edit-line"></i>
                     </a>
                 </td>             
             </tr>

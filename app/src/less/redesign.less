@@ -50,7 +50,7 @@ tbody {
   }
 
   tr:nth-child(odd) {
-    background-color: @color-bk-dark-mode-third;
+    // background-color: @color-bk-dark-mode-third;
   }
 
   .imm-wa {
@@ -336,10 +336,14 @@ tbody {
     border-bottom: 2px solid @color-bk-dark-mode-third;
   }
 
-  table.imm-table tr:nth-child(odd) {
-    background: @color-bk-dark-mode-secondary;
-    color: @color-dark-white;
+  tbody tr:hover {
+    background-color: @color-light-gray;
   }
+
+  // table.imm-table tr:nth-child(odd) {
+  //   background: @color-bk-dark-mode-secondary;
+  //   color: @color-dark-white;
+  // }
 
   .imm-project-bar-table__row {
     background: @color-bk-dark-mode-secondary  !important;
@@ -594,8 +598,13 @@ tbody {
   }
 
   .navbar {
-    background-color: @color-bk-dark-mode;
+    background-color: @color-bk-dark-mode-secondary;
     color: @color-dark-mode;
+  }
+
+  .imm-wa__cnt {
+    background-color: @color-bk-dark-mode-secondary;
+    // background-color: @navbar-body-color;
   }
 
 }
@@ -733,11 +742,13 @@ tbody {
 
 .imm-wa__cnt a i,
 .imm-table--fixed-cell button i {
-  background-color: @color-blue;
-  color: @color-white;
+  background-color: @color-light-gray;
+  color: @color-black;
   padding: 5px;
-  font-size: 1rem;
+  font-size: 1.1rem;
   border-radius: 100%;
+  cursor: pointer;
+  border: 1px solid @color-black;
 }
 
 .imm-wa__cnt .imm-download-excel i {

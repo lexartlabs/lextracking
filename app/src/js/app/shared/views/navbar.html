@@ -6,53 +6,53 @@
         <a href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.dashboard">
             <b></b>
             <b></b>
-            <i class="imm-icon imm-icon--analytics-ico"></i> <span ng-show="!thisHide">{{ 'navigation.dashboard' | translate }}</span>
+            <i class="ri-home-line"></i> <span ng-show="!thisHide">{{ 'navigation.dashboard' | translate }}</span>
         </a>
         
         <a href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.calendar">
             <b></b>
             <b></b>
-            <i class="imm-icon imm-icon--analytics-ico"></i> <span ng-show="!thisHide">{{ 'navigation.calendar' | translate }}</span>
+            <i class="ri-calendar-line"></i> <span ng-show="!thisHide">{{ 'navigation.calendar' | translate }}</span>
         </a>
         <a ng-if="isAdmin == 'true' || userRole == 'pm'" href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.users">
             <b></b>
             <b></b>
-            <i class="imm-icon imm-icon--users-ico"></i> <span ng-show="!thisHide">{{ 'navigation.users' | translate }}</span>
+            <i class="ri-user-line"></i> <span ng-show="!thisHide">{{ 'navigation.users' | translate }}</span>
         </a>
         <a ng-if="userRole == 'developer'" ui-sref="app.userEdit({id:userId})"" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected">
             <b></b>
             <b></b>
-            <i class="imm-icon imm-icon--users-ico"></i> <span ng-show="!thisHide">{{ 'navigation.my-profile' | translate }}</span>
+            <i class="ri-user-settings-line"></i> <span ng-show="!thisHide">{{ 'navigation.my-profile' | translate }}</span>
         </a>
         <a ng-if="isAdmin == 'true' || userRole == 'pm' " href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.clients">
             <b></b>
             <b></b>
-            <i class="imm-icon imm-icon--users-ico"></i> <span ng-show="!thisHide">{{ 'navigation.clients' | translate }}</span>
+            <i class="ri-user-shared-line"></i> <span ng-show="!thisHide">{{ 'navigation.clients' | translate }}</span>
         </a>
         <a href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.projects">
             <b></b>
             <b></b>
-            <i class="imm-icon imm-icon--proyectos-ico"></i> <span ng-show="!thisHide">{{ 'navigation.projects' | translate }}</span>
+            <i class="ri-briefcase-line"></i> <span ng-show="!thisHide">{{ 'navigation.projects' | translate }}</span>
         </a>
         <a href="#" ng-if="userRole != 'clients'" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.dashboardTasks">
             <b></b>
             <b></b>
-            <i class="imm-icon imm-icon--presupuesto-ico"></i> <span ng-show="!thisHide">{{ 'navigation.tasks' | translate }}</span>
+            <i class="ri-task-line"></i> <span ng-show="!thisHide">{{ 'navigation.tasks' | translate }}</span>
         </a>
         <a  href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.reports">
             <b></b>
             <b></b>
-            <i class="imm-icon imm-icon--analytics-ico"></i> <span ng-show="!thisHide">{{ 'Reportes' }}</span>
+            <i class="ri-bar-chart-line"></i> <span ng-show="!thisHide">{{ 'Reportes' }}</span>
         </a>
         <a ng-if="isAdmin == 'true'"  href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.CRM">
             <b></b>
             <b></b>
-            <i class="imm-icon imm-icon--catalogos-ico"></i> <span ng-show="!thisHide">{{ 'CRM'}}</span>
+            <i class="ri-folder-open-line"></i> <span ng-show="!thisHide">{{ 'CRM'}}</span>
         </a>
         <a ng-if="isAdmin == 'true'"  href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.apps">
             <b></b>
             <b></b>
-            <i class="imm-icon imm-icon--catalogos-ico"></i> <span ng-show="!thisHide">{{ 'APP’s'}}</span>
+            <i class="ri-google-play-line"></i> <span ng-show="!thisHide">{{ 'APP’s'}}</span>
         </a>
 
     </nav>

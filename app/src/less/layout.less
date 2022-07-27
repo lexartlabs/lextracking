@@ -72,6 +72,7 @@ div.imm-menu__collapsed,
   transition: width 0.05s ease;
   width: 60px;
 }
+
 /*.imm-menu__collapsed .imm-menu__nav-item {
   transition: width 0.5s ease;
   width: 60px;
@@ -96,9 +97,9 @@ button.imm-menu__icon--collapsed {
 .imm-menu__tit {
   height: 52px;
   display: inline-flex;
-  justify-content : flex-start;
-  vertical-align : middle;
-  align-items : center;
+  justify-content: flex-start;
+  vertical-align: middle;
+  align-items: center;
   padding-left: 15px;
 }
 
@@ -126,7 +127,7 @@ button.imm-menu__icon--collapsed {
 // NAVIGATION
 .imm-menu__nav {
   hr {
-    margin:0;
+    margin: 0;
     border-color: @color-mid-gray;
   }
 }
@@ -151,12 +152,16 @@ button.imm-menu__icon--collapsed {
 
 .imm-menu__nav-item:hover {
   background-color: @primary-color;
-  box-shadow: inset 0px 1px 3px 0px rgba(0,0,0,0.2);
+  box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.2);
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 .imm-menu__nav-item--selected {
   background: @color-navigation-gray;
-  box-shadow: inset 0px 1px 3px 0px rgba(0,0,0,0.50);
+  box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.50);
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
   // &:after {
   //   content: "";
   //   position: absolute;
@@ -179,7 +184,7 @@ button.imm-menu__icon--collapsed {
 .imm-wa__hdr-tools {
   text-align: right;
 
-  > * {
+  >* {
     margin-left: 10px;
   }
 }
@@ -203,11 +208,13 @@ button.imm-menu__icon--collapsed {
 }
 
 .imm-wa__cnt {
-  padding-bottom: 40px;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: @navbar-body-color;
 
-    @media (min-width: 1024px){
-      min-height: 400px;
-    }
+  @media (min-width: 1024px) {
+    min-height: 400px;
+  }
 }
 
 .imm-wa__cnt--scrollable {
@@ -292,11 +299,9 @@ button.imm-menu__icon--collapsed {
   flex: 6;
 }
 
-.imm-blk {
+.imm-blk {}
 
-}
-
-* + .imm-row {
+*+.imm-row {
   margin-top: 3.5rem;
 }
 
@@ -305,7 +310,7 @@ paging {
   text-align: center;
 }
 
-* + paging {
+*+paging {
   margin-top: 20px
 }
 
@@ -334,7 +339,7 @@ paging {
   font-size: .850rem;
 }
 
-.vc-tag + .vc-tag {
+.vc-tag+.vc-tag {
   margin-left: .100rem;
 }
 

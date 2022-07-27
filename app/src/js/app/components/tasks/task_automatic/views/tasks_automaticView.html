@@ -34,7 +34,7 @@
                 <td></td>
                 <td></td>
             </tr>
-            <tr ng-repeat="(index,task_automatic) in tasks_automatic" ng-class="{'active-task_automatic': currentTrack.idTask_automatic == task_automatic.id}" ng-style="task_automatic.status == 'Done' && {'background-color':'#3b0'}  || task_automatic.status == 'In-Review' && {'background-color':'#AE2E2E'} || task_automatic.status == 'In-Progress' && {'background-color':'#ccad16'}">
+            <tr ng-repeat="(index,task_automatic) in tasks_automatic" ng-class="{'active-task_automatic': currentTrack.idTask_automatic == task_automatic.id}" ng-style="task_automatic.status == 'Done' && {'background-color':'#a9e892'}  || task_automatic.status == 'In-Review' && {'background-color':'#f08b8b'} || task_automatic.status == 'In-Progress' && {'background-color':'#f2ecb8'}">
                 <td title="{{task_automatic.id}}">{{task_automatic.id | truncateTail:true:30:'...'}}</td>
                 <td title="{{task_automatic.error}}">{{task_automatic.error | truncateTail:true:30:'...'}}</td>
                 <td>{{task_automatic.origin}}</td>
@@ -42,7 +42,7 @@
 
                 <td ng-if="isAdmin=='true' || isClient=='true'">
                     <a href="" ng-click="editTask_automatic(index,task_automatic)">
-                        <img src="assets/images/icons/pencil-ico.svg">
+                        <i class="ri-edit-line"></i>
                     </a>
                 </td>
                 <td ng-if="isAdmin=='false' && isClient=='false'">
@@ -56,8 +56,8 @@
                   </a>
               </td>
                 <td ng-if="task_automatic.status != 'Done' && task_automatic.status != 'In-Review' && isClient=='false' ">
-                    <a href ng-click="stopTrack()" ng-if="currentTrack.idTask == task_automatic.id"><img class="img_stop" src="/assets/images/stop.png"></a>
-                    <a href ng-click="startTrackAuto(task_automatic)" ng-if="currentTrack.idTask != task_automatic.id"><img class="img_play" src="/assets/images/play.png"></a>
+                    <a href ng-click="stopTrack()" ng-if="currentTrack.idTask == task_automatic.id"><i class="ri-pause-line"></i></a>
+                    <a href ng-click="startTrackAuto(task_automatic)" ng-if="currentTrack.idTask != task_automatic.id"><i class="ri-play-line"></i></a>
                 </td>
                 <td ng-if="isClient=='true'"></td>
                 <td ng-if="task_automatic.status == 'Done' || task_automatic.status == 'In-Review' && isClient=='false'"></td>

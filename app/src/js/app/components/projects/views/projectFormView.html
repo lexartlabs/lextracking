@@ -130,11 +130,11 @@
                         <td title="{{task.description}}">{{task.description | truncateTail:true:50:'...'}}</td>
                         <td>{{task.duration}}</td>
                         <td>
-                             <a href="" ng-click="editTask(index,task)" ><img class="img_stop" src="/assets/images/icons/details-ico-blue.svg"></a>
+                             <a href="" ng-click="editTask(index,task)" ><i class="ri-search-line"></i></a>
                         </td>
                         <td>
                             <a ui-sref="app.taskForm({id: task.id})">
-                                <img src="assets/images/icons/pencil-ico.svg">
+                                <i class="ri-edit-line"></i>
                             </a>
                         </td>
                         <td>

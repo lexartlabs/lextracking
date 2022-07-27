@@ -90,6 +90,12 @@ handleSmallScreens()
           <h4>Lex<span>Tracking</span></h4>
         </a>
       </div>
+      <div class="top-bar__current_tracking_container">
+        <p ng-show="timerRunning">
+            <label title="{{currentTrack.projectName + ' - ' + currentTrack.taskName}}">{{currentTrack.projectName + ' - ' + currentTrack.taskName | truncateTail:true:45:'...'}}</label>
+            <label style="display: block;"><span style="vertical-align: super;">{{timer}}</span><span ng-click="stopTrack()">&nbsp;&nbsp;<img class="img_stop" src="/assets/images/stopNavBar.png"></span></label>
+        </p>
+    </div>
   
       <div class="navbar-menu" id="open-navbar1">
         <!-- <ul class="navbar-nav">

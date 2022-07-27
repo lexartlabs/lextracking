@@ -20,9 +20,9 @@
     <div class='legend-scale'>
       <ul class='legend-labels'>
         <li><span style='background:#1A36C6;'></span>To-Do</li>
-        <li><span style='background:#ccad16;'></span>In-Progress</li>
-        <li><span style='background:#AE2E2E;'></span>In-Review</li>
-        <li><span style='background:#3b0;'></span>Done</li>
+        <li><span style='background:#f2ecb8;'></span>In-Progress</li>
+        <li><span style='background:#f08b8b;'></span>In-Review</li>
+        <li><span style='background:#a9e892;'></span>Done</li>
       </ul>
     </div>
     <div id="piecontainer">  
@@ -61,7 +61,7 @@
                 <td></td>
                 <td></td>
             </tr>
-            <tr ng-repeat="(index,task) in tasks" ng-class="{'active-task': currentTrack.idTask == task.id}" ng-style="task.status == 'Done' && {'background-color':'#3b0'}  || task.status == 'In-Review' && {'background-color':'#AE2E2E'} || task.status == 'In-Progress' && {'background-color':'#ccad16'}">
+            <tr ng-repeat="(index,task) in tasks" ng-class="{'active-task': currentTrack.idTask == task.id}" ng-style="task.status == 'Done' && {'background-color':'#a9e892'}  || task.status == 'In-Review' && {'background-color':'#f08b8b'} || task.status == 'In-Progress' && {'background-color':'#f2ecb8'}">
                 <td>{{task.name | truncateTail:true:30:'...' }}</td>
                 <td>{{task.duration | truncateTail:true:30:'...' }}</td>
                 <td>
@@ -88,8 +88,8 @@
                     </a>
                 </td>
                 <td ng-if="task.status != 'Done' && task.status != 'In-Review' && isClient=='false' ">
-                    <a href ng-click="stopTrack()" ng-if="currentTrack.idTask == task.id"><img class="img_stop" src="/assets/images/stop.png"></a>
-                    <a href ng-click="startTrack(task)" ng-if="currentTrack.idTask != task.id"><img class="img_play" src="/assets/images/play.png"></a>
+                    <a href ng-click="stopTrack()" ng-if="currentTrack.idTask == task.id"><i class="ri-pause-line"></i></a>
+                    <a href ng-click="startTrack(task)" ng-if="currentTrack.idTask != task.id"><i class="ri-play-line"></i></a>
                 </td>
                 <td ng-if="task.status == 'Done' || task.status == 'In-Review' && isClient=='false'"></td>
             </tr>

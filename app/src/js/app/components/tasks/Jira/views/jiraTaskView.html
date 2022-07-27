@@ -54,15 +54,15 @@
                 </td>
                 <td>
                     <a href="" ui-sref="app.jiraTaskForm({id:jira.idTask})">
-                        <img src="assets/images/icons/pencil-ico.svg">
+                        <i class="ri-edit-line"></i>
                     </a>
                 </td>
                 <td ng-click="delete(jira.idTask)">
                     <img src="assets/images/icons/delete_entry-ico.svg">
                 </td>
                 <td ng-if="task.status != 'Done' && task.status != 'In-Review' && isClient=='false' ">
-                    <a href ng-click="stopTrack()" ng-if="currentTrack.idTask == jira.idTask"><img class="img_stop" src="/assets/images/stop.png"></a>
-                    <a href ng-click="startJiraTrack(jira)" ng-if="currentTrack.idTask != jira.idTask"><img class="img_play" src="/assets/images/play.png"></a>
+                    <a href ng-click="stopTrack()" ng-if="currentTrack.idTask == jira.idTask"><i class="ri-pause-line"></i></a>
+                    <a href ng-click="startJiraTrack(jira)" ng-if="currentTrack.idTask != jira.idTask"><i class="ri-play-line"></i></a>
                 </td>                
             </tr>
         </tbody>
