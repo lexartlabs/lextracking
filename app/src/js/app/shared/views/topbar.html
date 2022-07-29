@@ -15,7 +15,6 @@
     // Other important pens.
 // Map: https://codepen.io/themustafaomar/pen/ZEGJeZq
 // Dashboard: https://codepen.io/themustafaomar/pen/jLMPKm
-
 let dropdowns = document.querySelectorAll('.navbar .dropdown-toggler')
 let dropdownIsOpen = false
 
@@ -90,60 +89,63 @@ handleSmallScreens()
           <h4>Lex<span>Tracking</span></h4>
         </a>
       </div>
-      <div class="top-bar__current_tracking_container">
-        <p ng-show="timerRunning">
+      
+      <div class="top-bar__current_tracking_container tooltip-container" ng-mouseover="showTrackTooltip = true" ng-mouseleave="showTrackTooltip = false">
+        <span ng-show="showTrackTooltip" class="tooltip-box">
+          Ahora trackear es mas sencillo<br>
+          Solo busca la tarea y dale play!
+        </span>
+        <!-- <p ng-show="timerRunning">
             <label title="{{currentTrack.projectName + ' - ' + currentTrack.taskName}}">{{currentTrack.projectName + ' - ' + currentTrack.taskName | truncateTail:true:45:'...'}}</label>
             <label style="display: block;"><span style="vertical-align: super;">{{timer}}</span><span ng-click="stopTrack()">&nbsp;&nbsp;<img class="img_stop" src="/assets/images/stopNavBar.png"></span></label>
+        </p> -->
+        <p ng-show="!timerRunning">
+          
+          <label>
+            <h1 style="display: none">{{topBar.filterTask}}</h1>
+            <ui-select
+                    ng-model="topBar.filterTask"
+                    class="imm-select imm-select--input"
+                    theme="selectize"
+                    append-to-body="true"
+                    title=""
+            >
+                <ui-select-match placeholder="">{{ $select.selected.name }}</ui-select-match>
+                <ui-select-choices
+                        repeat="task in topBar.tasks"
+                        refresh="searchTasks($select.search)"
+                        refresh-delay="400"
+                        class="ui-select--sku-list"
+                >
+                    <!-- <div ng-bind-html="task.projectName + '- ' + task.name | highlight: $select.search"></div> -->
+                    <div style="padding: 5px; font-size:1.1rem">
+                      <small class="imm_select_conatiner_proyect">{{task.projectName}}</small>
+                      <span>{{task.name}}</span>
+                    </div>
+                </ui-select-choices>
+            </ui-select>
+            <a ng-if="!timerRunning" class="btn_tracker_container" ng-click="startTrack(topBar.filterTask)"><i class="ri-play-line"></i></a>
+            <a ng-if="timerRunning" class="btn_tracker_container tracking" ng-click="stopTrack()"><i class="ri-pause-line"></i></a>
+            <!-- <div class="blob"></div> -->
+          </label>
         </p>
     </div>
   
       <div class="navbar-menu" id="open-navbar1">
-        <!-- <ul class="navbar-nav">
-          <li class="active"><a href="#">Home</a></li>
-          <li class="navbar-dropdown">
-            <a href="#" class="dropdown-toggler" data-dropdown="my-dropdown-id">
-              Categories <i class="fa fa-angle-down"></i>
-            </a>
-            <ul class="dropdown" id="my-dropdown-id">
-              <li><a href="#">Actions</a></li>
-              <li><a href="#">Something else here</a></li>
-              <li class="separator"></li>
-              <li><a href="#">Seprated link</a></li>
-              <li class="separator"></li>
-              <li><a href="#">One more seprated link.</a></li>
-            </ul>
-          </li>
-          <li class="navbar-dropdown">
-            <a href="#" class="dropdown-toggler" data-dropdown="blog">
-              Blog <i class="fa fa-angle-down"></i>
-            </a>
-            <ul class="dropdown" id="blog">
-              <li><a href="#">Some category</a></li>
-              <li><a href="#">Some another category</a></li>
-              <li class="separator"></li>
-              <li><a href="#">Seprated link</a></li>
-              <li class="separator"></li>
-              <li><a href="#">One more seprated link.</a></li>
-            </ul>
-          </li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">Signin</a></li>
-        </ul> -->
       </div>
       <div class="navbar-menu">
         <ul class="navbar-nav">
           <li class="navbar-dropdown">
-            <a href="#" class="dropdown-toggler" data-dropdown="blog">
-              Blog <i class="fa fa-angle-down"></i>
+            <a class="dropdown-toggler" data-dropdown="profile">
+              {{userName}} <i class="fa fa-angle-down"></i>
             </a>
-            <ul class="dropdown" id="blog">
-              <li><a href="#">Some category</a></li>
-              <li><a href="#">Some another category</a></li>
+            <ul class="dropdown" id="profile">
+              <li><a ng-click="logout()">Cerrar Sesión</a></li>
+              <!-- <li><a href="#">Some another category</a></li>
               <li class="separator"></li>
               <li><a href="#">Seprated link</a></li>
               <li class="separator"></li>
-              <li><a href="#">One more seprated link.</a></li>
+              <li><a href="#">One more seprated link.</a></li> -->
             </ul>
           </li>
         </ul>

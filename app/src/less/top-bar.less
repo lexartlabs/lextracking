@@ -14,7 +14,7 @@
 
 @font-family: 'Roboto', sans-serif;
 @font-size-base: 0.925rem;
-@base-color: #66f;
+@color-active-text: #66f;
 @text-dark: #3c4250;
 @border-color: #eceef3;
 
@@ -24,7 +24,7 @@
 @navbar-padding-y: 1rem;
 @navbar-padding-x: 1.15rem;
 
-@navbar-link-hover: @base-color;
+@navbar-link-hover: @color-active-text;
 @navbar-link-padding-y: 0.5rem;
 @navbar-link-padding-x: 1rem;
 
@@ -60,6 +60,7 @@ a {
   margin-right: auto;
   padding-left: 15px;
   padding-right: 15px;
+  // padding: 1rem;
 }
 
 // Start navbar
@@ -97,7 +98,7 @@ a {
     }
 
     @media (min-width: 1200px) {
-      max-width: 1140px;
+      max-width: 100%;
     }
   }
 
@@ -109,7 +110,7 @@ a {
   .navbar-header {
     display: flex;
     align-items: center;
-    width: 15%;
+    width: 20%;
     ;
 
     @media (max-width: 768px) {
@@ -169,6 +170,7 @@ a {
     // Ul
     .navbar-nav {
       margin-left: auto;
+      margin-right: 70px;
       flex-direction: row;
       display: flex;
       padding-left: 0;
@@ -200,7 +202,7 @@ a {
 
         &.active {
           a {
-            color: @base-color;
+            color: @color-active-text;
           }
         }
       }
@@ -259,7 +261,7 @@ a {
 
 // Custom
 .navbar .navbar-header>a span {
-  color: @base-color;
+  color: @color-active-text;
 }
 
 .navbar .navbar-header h4 {

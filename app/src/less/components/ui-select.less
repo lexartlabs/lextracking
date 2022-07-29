@@ -5,9 +5,10 @@
     min-width: 70px;
 
     .selectize-input {
-      border-bottom: 1px solid @color-fields-gray;
+      border: 1px solid @color-hollow-input;
+      border-radius: 5px;
       color: @color-black;
-      padding: .25rem 0;
+      padding: .5rem 0.5rem;
       resize: none;
       min-width: 50%;
       font-size: 1rem;
@@ -16,8 +17,16 @@
       background-color: white;
     }
 
+    .selectize-input input[type=search] {
+      border: 0px;
+    }
+
+    .selectize-input input[type=search]:focus {
+      border: 0px;
+    }
+
     .selectize-input.disabled {
-      background-color: rgb(239,239,239) !important;
+      background-color: rgb(239, 239, 239) !important;
     }
 
     span {
@@ -42,7 +51,7 @@
     color: @color-gray;
     border-radius: 3px;
     border: 1px solid @color-light-gray;
-    .box-shadow(0 3px 4px rgba(0,0,0,.25));
+    .box-shadow(0 3px 4px rgba(0, 0, 0, .25));
     max-height: 200px;
     overflow: scroll;
   }
@@ -63,7 +72,7 @@
   }
 
   .ui-select-dropdown .active {
-    background: rgba(255,255,255,.2);
+    background: rgba(255, 255, 255, .2);
     color: @color-gray;
   }
 
@@ -90,7 +99,7 @@
   }
 
   .ui-select-choices-row:hover {
-    background: @primary-color;
+    background: @color-active-text;
     color: @color-white;
 
     .ui-select-choices-row-inner {
@@ -107,16 +116,12 @@
 
 }
 
-.imm-select .ui-select-dropdown {
-
-}
+.imm-select .ui-select-dropdown {}
 
 // autocomplete
 .imm-select.imm-select--input {
 
-  .selectize-input {
-
-  }
+  .selectize-input {}
 
   span {
     -webkit-user-select: none;
@@ -156,6 +161,7 @@
 .imm-select.ui-select-container {
   z-index: 10000;
 }
+
 .ui-select-search-hidden,
 .ui-select-offscreen {
   clip: rect(0px 0px 0px 0px);
@@ -173,6 +179,12 @@
   overflow: hidden !important;
   outline: 0px !important;
 }
+
 .ui-select-choices-row-inner {
   color: #666;
+}
+
+.top-bar__current_tracking_container .imm-select .selectize-input {
+  // border-bottom: 1px solid @color-fields-gray;
+  border: 1px solid @color-active-text;
 }

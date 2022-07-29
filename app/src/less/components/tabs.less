@@ -5,7 +5,7 @@
   display: table;
   list-style: none;
   padding: 0;
-  border-bottom: 5px solid @primary-color;
+  border-bottom: 5px solid @color-active-text;
 }
 
 .imm-tabs__item {
@@ -18,6 +18,8 @@
   transition: color .15s ease-in, background-color .15s ease-in;
   font-weight: bold;
   cursor: pointer;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   .user-select(none);
 
   &:hover {
@@ -26,13 +28,14 @@
 }
 
 .imm-tabs__item--selected {
-  background-color: @primary-color;
+  background-color: @color-active-text;
   color: @color-white;
 
   &:hover {
-    background-color: darken(@primary-color, 15%);
+    background-color: darken(@color-active-text, 2%);
   }
 }
- .accUser {
-   visibility:hidden;
- }
+
+.accUser {
+  visibility: hidden;
+}
