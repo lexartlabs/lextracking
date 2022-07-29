@@ -17,10 +17,10 @@ class ProjectsController extends BaseController
 
         try {
             if (!empty($id)) {
-                return array('response' => Projects::join('clients', 'projects.idClient', '=', 'clients.id')->select('projects.*', 'clients.name as clientName')->where('projects.id', $id)->first());
+                return array('response' => Projects::join('Clients', 'Projects.idClient', '=', 'Clients.id')->select('Projects.*', 'Clients.name as clientName')->where('Projects.id', $id)->first());
             }
 
-            $projects = Projects::join('clients', 'projects.idClient', '=', 'clients.id')->select('projects.*', 'clients.name as clientName')->get();
+            $projects = Projects::join('Clients', 'Projects.idClient', '=', 'Clients.id')->select('Projects.*', 'Clients.name as clientName')->get();
 
             return array('response' => $projects);
         } catch (Exception $e) {
@@ -35,7 +35,7 @@ class ProjectsController extends BaseController
                 return (new Response(array("Error" => ID_INVALID, "Operation" => "projects client id"), 500));
             }
 
-            return Projects::join('clients', 'projects.idClient', '=', 'clients.id')->select('projects.*', 'clients.name as clientName')->where("idClient", $id)->get();
+            return Projects::join('Clients', 'Projects.idClient', '=', 'Clients.id')->select('Projects.*', 'Clients.name as clientName')->where("idClient", $id)->get();
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "projects client id"), 500));
         }
@@ -52,13 +52,13 @@ class ProjectsController extends BaseController
         try {
             if ($tracked) {
                 if ($filter == 'rest' || $filter == 'update') {
-                    $c = DB::table('projects')
+                    $c = DB::table('Projects')
                         ->select("totalCost")
                         ->where('id', '=', $id);
 
                     $totalCost = $cost - $c[0]['totalCost'];
 
-                    $b = DB::table('projects')
+                    $b = DB::table('Projects')
                         ->where('id', $id)
                         ->update(['tracked' => $tracked, 'totalCost' => $totalCost]);
 
@@ -68,7 +68,7 @@ class ProjectsController extends BaseController
                         return array("Error" => "Error al actualizar el Proyecto.");
                     }
                 } elseif ($filter == 'TotalUpdate') {
-                    $u = DB::table('projects')
+                    $u = DB::table('Projects')
                         ->where('id', $id)
                         ->update(['tracked' => $tracked, 'totalCost' => $cost]);
 
@@ -103,7 +103,7 @@ class ProjectsController extends BaseController
         }
     }
 
-    public function new(Request $request) 
+    public function new(Request $request)
     {
         $request["tracked"] = "0:0:0";
         $request["presupuesto"] = $request->input("presupuesto") ? $request->input("presupuesto") : "0";
@@ -111,13 +111,13 @@ class ProjectsController extends BaseController
         $this->validate($request, [
             "active" => "required",
             "duration" => "required",
-            "idClient" => "required|exists:clients,id",
+            "idClient" => "required|exists:Clients,id",
             "name" => "required|string",
             "presupuesto" => "numeric",
         ]);
 
         $projectData = $request->only(["active", "comments", "description", "duration", "idClient", "name", "tracked", "presupuesto"]);
-        
+
         try{
             $project = Projects::create($projectData);
 
@@ -125,5 +125,5 @@ class ProjectsController extends BaseController
         }catch(Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "projects new"), 500));
         }
-    } 
+    }
 }
