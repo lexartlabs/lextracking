@@ -26,23 +26,23 @@ class TasksController extends BaseController
         $filters = $request->input("filter");
 
         try {
-            $tasks = Tasks::join('projects', 'tasks.idProject', '=', 'projects.id')
+            $tasks = Tasks::join('Projects', 'Tasks.idProject', '=', 'Projects.id')
                 ->select(
-                    'tasks.id',
-                    'tasks.idProject',
-                    'tasks.name',
-                    'tasks.description',
-                    'tasks.comments',
-                    'tasks.duration',
-                    'tasks.type',
-                    'tasks.status',
-                    'tasks.active',
-                    'tasks.startDate',
-                    'tasks.endDate',
-                    'projects.name as projectName'
+                    'Tasks.id',
+                    'Tasks.idProject',
+                    'Tasks.name',
+                    'Tasks.description',
+                    'Tasks.comments',
+                    'Tasks.duration',
+                    'Tasks.type',
+                    'Tasks.status',
+                    'Tasks.active',
+                    'Tasks.startDate',
+                    'Tasks.endDate',
+                    'Projects.name as projectName'
                 )
-                ->selectRaw('IFNULL(tasks.users, "[]") AS users')
-                ->whereRaw('projects.active = ?', 1);
+                ->selectRaw('IFNULL(Tasks.users, "[]") AS users')
+                ->whereRaw('Projects.active = ?', 1);
 
             $count = Tasks::select("*");
 
@@ -51,20 +51,20 @@ class TasksController extends BaseController
             if(!empty($filters)){
                 if (count($filters) > 0) {
                     foreach ($filters as $filter) {
-    
+
                         $key = array_keys($filter)[0];
                         $value = $filter[$key];
-    
+
                         switch ($key) {
                             case "projectName":
-                                $tasks = $tasks->whereRaw("projects.name LIKE ?", "%$value%");
+                                $tasks = $tasks->whereRaw("Projects.name LIKE ?", "%$value%");
                                 break;
                             case "name":
-                                $tasks = $tasks->whereRaw("tasks.name LIKE ?", "%$value%");
+                                $tasks = $tasks->whereRaw("Tasks.name LIKE ?", "%$value%");
                                 break;
                             case "description":
                                 // var_dump($value);
-                                $tasks = $tasks->whereRaw("tasks.description LIKE ?", "%$value%");
+                                $tasks = $tasks->whereRaw("Tasks.description LIKE ?", "%$value%");
                                 break;
                         }
                     }
@@ -72,9 +72,9 @@ class TasksController extends BaseController
             }
 
             if (!empty($id)) {
-                $this->validate($request, ["id" => "numeric|exists:tasks,id"]);
-                $tasks = $tasks->whereRaw("tasks.id = ?", $id);
-                $count = $count->whereRaw("tasks.id = ?", $id);
+                $this->validate($request, ["id" => "numeric|exists:Tasks,id"]);
+                $tasks = $tasks->whereRaw("Tasks.id = ?", $id);
+                $count = $count->whereRaw("Tasks.id = ?", $id);
                 $task = $tasks-> first();
                 return array("response" => $task);
             }
@@ -89,7 +89,7 @@ class TasksController extends BaseController
                 "task" => $tasks
             ));
         }catch(Exception $e){
-            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tasks all"), 500));
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "Tasks all"), 500));
         }
     }
 
@@ -100,7 +100,7 @@ class TasksController extends BaseController
                 return (new Response(array("Error" => ID_INVALID, "Operation" => "tasks projecs id"), 500));
             }
 
-            $response = Tasks::join('projects', 'tasks.idProject', '=', 'projects.id')->select('tasks.*', 'projects.name as projectName')->where('idProject', $id)->get();
+            $response = Tasks::join('Projects', 'Tasks.idProject', '=', 'Projects.id')->select('Tasks.*', 'Projects.name as projectName')->where('idProject', $id)->get();
             return array('response' => $response);
         }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tasks projecs id"), 500));
@@ -163,7 +163,7 @@ class TasksController extends BaseController
 
         try{
             $model_like = '%{"idUser":"'.$id.'"}%'; //LIKE TO JSON USERS
-            $tasks = Tasks::join('projects', 'tasks.idProject', '=', 'projects.id')->select('tasks.*', 'projects.name as projectName');
+            $tasks = Tasks::join('Projects', 'Tasks.idProject', '=', 'Projects.id')->select('Tasks.*', 'Projects.name as projectName');
 
             $tasks = $tasks->offset(empty($offset) ? 0 : $offset);
             $tasks = $tasks->limit(empty($limit) ? 15 : $limit);
@@ -175,13 +175,13 @@ class TasksController extends BaseController
 
                     switch ($key) {
                         case "projectName":
-                            $tasks = $tasks->whereRaw("projects.name LIKE ?", "%$value%");
+                            $tasks = $tasks->whereRaw("Projects.name LIKE ?", "%$value%");
                             break;
                         case "name":
-                            $tasks = $tasks->whereRaw("tasks.name LIKE ?", "%$value%");
+                            $tasks = $tasks->whereRaw("Tasks.name LIKE ?", "%$value%");
                             break;
                         case "description":
-                            $tasks = $tasks->whereRaw("tasks.description LIKE ?", "%$value%");
+                            $tasks = $tasks->whereRaw("Tasks.description LIKE ?", "%$value%");
                             break;
                     }
                 }
@@ -214,12 +214,12 @@ class TasksController extends BaseController
     {
         $this->validate($request, [
             "name" => "required|string",
-            "idProject" => "required|numeric|exists:projects,id",
+            "idProject" => "required|numeric|exists:Projects,id",
             "comments" => "string|string",
             "duration" => "required|string|",
             "users" => "array",
             "status" => "required|string",
-            "id" => "required|exists:tasks,id"
+            "id" => "required|exists:Tasks,id"
         ]);
 
         $id = $request->input("id");
@@ -242,7 +242,7 @@ class TasksController extends BaseController
 
         $this->validate($request, [
             "name" => "required|string",
-            "idProject" => "required|numeric|exists:projects,id",
+            "idProject" => "required|numeric|exists:Projects,id",
             "comments" => "string",
             "duration" => "required|string",
             "users" => "array",
@@ -276,7 +276,7 @@ class TasksController extends BaseController
 			foreach ($filter_params as $key => $value) {
 				$keyName = array_keys($filter_params[$key])[0];
 				if($keyName == "projectName"){
-					$filter .= " AND projects.name LIKE '%".$value[$keyName]."%'";
+					$filter .= " AND Projects.name LIKE '%".$value[$keyName]."%'";
 				}else if($keyName == "name"){
 					$filter .= " AND tasks.name LIKE '%".$value[$keyName]."%'";
 				}
@@ -286,11 +286,11 @@ class TasksController extends BaseController
 			}
 		}
 
-        $d = Tasks::join('projects', 'tasks.idProject', '=', 'projects.id')
-            ->select('tasks.*', 'projects.name AS projectName')
-            ->where("tasks.users", 'LIKE', $user)
-            ->where('projects.active', '=', 1)
-            ->where("tasks.active", '=', 1)
+        $d = Tasks::join('Projects', 'Tasks.idProject', '=', 'Projects.id')
+            ->select('Tasks.*', 'Projects.name AS projectName')
+            ->where("Tasks.users", 'LIKE', $user)
+            ->where('Projects.active', '=', 1)
+            ->where("Tasks.active", '=', 1)
             ->orderByRaw("projectName");
 
         if(!empty($filter)) {
