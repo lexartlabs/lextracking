@@ -20,6 +20,7 @@ class ProjectsController extends BaseController
                 return array('response' => Projects::join('Clients', 'Projects.idClient', '=', 'Clients.id')->select('Projects.*', 'Clients.name as clientName')->where('Projects.id', $id)->first());
             }
 
+
             $projects = Projects::join('Clients', 'Projects.idClient', '=', 'Clients.id')->select('Projects.*', 'Clients.name as clientName')->get();
 
             return array('response' => $projects);
