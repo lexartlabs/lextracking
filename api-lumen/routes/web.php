@@ -28,7 +28,7 @@ Route::group(['prefix' => 'api'], function () {
         Route::post('login', 'UserController@login');
 
         Route::group(['middleware' => 'auth:api'], function () {
-            
+
             Route::get('all', 'UserController@all');
 
             //Current
@@ -69,10 +69,10 @@ Route::group(['prefix' => 'api'], function () {
     });
 
     //Projects
-    Route::group(['prefix' => 'projects', 'middleware' => 'auth:api'], function() { 
+    Route::group(['prefix' => 'projects', 'middleware' => 'auth:api'], function() {
         Route::get('all', 'ProjectsController@all');
         Route::get('{id}', 'ProjectsController@all');
-        
+
         Route::get('client/{id}', 'ProjectsController@client');
 
         Route::group(['middleware' => 'pm:api'], function() {
@@ -97,7 +97,7 @@ Route::group(['prefix' => 'api'], function () {
                 Route::post('current', 'TasksController@currentUser'); //POST POR CAUSA DA API ANTIGA
                 Route::get('{id}', 'TasksController@userId');
             });
-            
+
             //Tasks trello
             Route::group(['prefix' => 'trello'], function (){
                 Route::get('all', 'TrelloTasksController@all');
@@ -161,7 +161,7 @@ Route::group(['prefix' => 'api'], function () {
             Route::get('tracks-by-year/{idUser}/{year}', 'TracksController@getUserHoursByYear');
 
             //New tracks and update
-            
+
             Route::put('update', 'TracksController@update');
         });
 
@@ -187,10 +187,10 @@ Route::group(['prefix' => 'api'], function () {
 
             Route::post('all', 'TracksController@all');
             Route::post('{id}', 'TracksController@all');
-        
+
             Route::post('trello/all', 'TracksController@trelloTracks');
             Route::post('trello/{id}', 'TracksController@trelloTracks');
-            
+
         });
     });
 
@@ -246,7 +246,7 @@ Route::group(['prefix' => 'api'], function () {
     });
 
     //Banks
-    Route::group(['prefix' => 'banks', 'middleware' => 'auth:api'], function(){
+    Route::group(['prefix' => 'Banks', 'middleware' => 'auth:api'], function(){
 
         Route::group(['prefix' => 'user'], function(){
             Route::get('current', 'BanksController@current');
@@ -283,13 +283,13 @@ Route::group(['prefix' => 'api'], function () {
 
     //Finanzas
     Route::group(['prefix' => 'finances', 'middleware' => 'admin:api'], function(){
-        
+
         Route::get("all/date/{firstDate}/{lastDate}", 'FinancesController@all');
     });
 
     //Housting
     Route::group(['prefix' => 'hosting', 'middleware' => 'admin:api'], function() {
-        
+
         Route::get('all', 'HostingController@all');
         Route::put('update', 'HostingController@update');
         Route::get('{id}', 'HostingController@all');
@@ -297,7 +297,7 @@ Route::group(['prefix' => 'api'], function () {
 
     //Productos
     Route::group(['prefix' => 'products', 'middleware' => 'admin:api'], function(){
-        
+
         Route::get('all', 'ProductsController@all');
         Route::get('{id}', 'ProductsController@all');
     });

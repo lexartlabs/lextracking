@@ -10,7 +10,7 @@ use App\Models\Sales;
 
 class SalesController extends BaseController
 {
-    public function all($id = null) 
+    public function all($id = null)
     {
         try{
             if(!empty($id)){
@@ -19,7 +19,7 @@ class SalesController extends BaseController
 
                 return array("response" => $sales);
             }
-            
+
             $sales = Sales::where("active", 1)->get();
             return array("response" => $sales);
         }catch(Exception $e){
@@ -39,11 +39,11 @@ class SalesController extends BaseController
             "date" => "required|date",
             "status" => "string",
             "client" => "required",
-            "idClient" => "required|numeric|exists:clients,id",
+            "idClient" => "required|numeric|exists:Clients,id",
             "seller" => "required",
             "payType" => "date",
             "card" =>  "",
-            "idUser" => "required|numeric|exists:users,id"
+            "idUser" => "required|numeric|exists:Users,id"
         ]);
 
         $sales = $request->only([
@@ -73,7 +73,7 @@ class SalesController extends BaseController
     public function update(Request $request)
     {
         $this->validate($request, [
-            "id" => "required|exists:sales",
+            "id" => "required|exists:Sales",
             "description" => "required",
             "concept" => "required",
             "amount" => "required|numeric",
@@ -83,9 +83,9 @@ class SalesController extends BaseController
             "date" => "required",
             "status" => "string",
             "client" => "required",
-            "idClient" => "required|numeric|exists:clients,id",
+            "idClient" => "required|numeric|exists:Clients,id",
             "seller" => "required",
-            "idUser" => "required|numeric|exists:users,id"
+            "idUser" => "required|numeric|exists:Users,id"
         ]);
 
         if($request->input("payType") != null) {
@@ -128,7 +128,7 @@ class SalesController extends BaseController
 
     public function delete(Request $request)
     {
-        $this->validate($request, ["id" => "required|numeric|exists:sales,id"]);
+        $this->validate($request, ["id" => "required|numeric|exists:Sales,id"]);
 
         $id = $request->input("id");
 
@@ -147,13 +147,13 @@ class SalesController extends BaseController
 
     public function undelete(Request $request)
     {
-        $this->validate($request, ["id" => "required|numeric|exists:sales,id"]);
+        $this->validate($request, ["id" => "required|numeric|exists:Sales,id"]);
 
         $id = $request->input("id");
 
         try{
             $sale = Sales::where("id", $id)->first();
-            
+
             if(!$sale){
                 return (new Response(array("Error" => ID_INVALID, "Operation" => "sales undelete"), 400));
             }
@@ -174,7 +174,7 @@ class SalesController extends BaseController
 
             if(!empty($idUser)){
                 $this->validate($request, [
-                    "idUser" => "exists:users,id"
+                    "idUser" => "exists:Users,id"
                 ]);
 
                 $sales = $sales->where("idUser", $idUser);
@@ -218,7 +218,7 @@ class SalesController extends BaseController
     }
 
     //Isso deveria ter uma tabela
-    public function concepts() 
+    public function concepts()
     {
         $concepts = array(
             array("concept" => "WEB"),
@@ -231,7 +231,7 @@ class SalesController extends BaseController
     }
 
     //Isso deveria ter uma tabela
-    public function types() 
+    public function types()
     {
         $types = array(
             array("type" => "RE_SELLING", 		"name" => "REVENTA"),

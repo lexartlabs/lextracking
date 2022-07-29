@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 class PerformanceController extends BaseController
 {
     public function userId(Request $request, $id)
-    {   
+    {
         $this->validate($request, [
             "idMonth" => "required",
             "year" => "required"
@@ -47,7 +47,7 @@ class PerformanceController extends BaseController
     public function current(Request $request)
     {
         $user_id = AuthController::current()->id;
-        
+
         return $this->userId($request, $user_id);
     }
 
@@ -57,7 +57,7 @@ class PerformanceController extends BaseController
         if(!empty($id)) $request["idUser"] = $id;
 
         $this->validate($request, [
-            "idUser" => "required|numeric|exists:users,id",
+            "idUser" => "required|numeric|exists:Users,id",
             "year" => "required|numeric",
             "idMonth" => "required|numeric",
             "month" => "required",

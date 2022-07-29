@@ -16,7 +16,7 @@ class FinancesController extends BaseController
         $request["lastDate"] = $lastDate;
 
         try{
-            $finances = Finances::select("finances.*", "users.name AS userName")->join("users", "finances.idUser", "=", "users.id")->whereRaw("date >= ?", [$firstDate])->whereRaw("date <= (? + INTERVAL 1 DAY)", [$lastDate])->get();
+            $finances = Finances::select("Finances.*", "Users.name AS userName")->join("Users", "Finances.idUser", "=", "Users.id")->whereRaw("date >= ?", [$firstDate])->whereRaw("date <= (? + INTERVAL 1 DAY)", [$lastDate])->get();
             $finances = $this->responseOld($finances);
 
             return array("response" => $finances);
@@ -116,7 +116,7 @@ class FinancesController extends BaseController
 
             "allCharges" => (float)($totalCharges["totalPesos"]+ $totalCharges["totalDolares"]*$this->cotizacionDolar)
         );
-        
+
         return $res;
     }
 

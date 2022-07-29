@@ -20,6 +20,7 @@ class ProjectsController extends BaseController
                 return array('response' => Projects::join('Clients', 'Projects.idClient', '=', 'Clients.id')->select('Projects.*', 'Clients.name as clientName')->where('Projects.id', $id)->first());
             }
 
+
             $projects = Projects::join('Clients', 'Projects.idClient', '=', 'Clients.id')->select('Projects.*', 'Clients.name as clientName')->get();
 
             return array('response' => $projects);
@@ -35,7 +36,7 @@ class ProjectsController extends BaseController
                 return (new Response(array("Error" => ID_INVALID, "Operation" => "projects client id"), 500));
             }
 
-            return Projects::join('Clients', 'Projects.idClient', '=', 'Clients.id')->select('Projects.*', 'Clients.name as ClientName')->where("idClient", $id)->get();
+            return Projects::join('Clients', 'Projects.idClient', '=', 'Clients.id')->select('Projects.*', 'Clients.name as clientName')->where("idClient", $id)->get();
         } catch (Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "projects client id"), 500));
         }
@@ -103,7 +104,7 @@ class ProjectsController extends BaseController
         }
     }
 
-    public function new(Request $request) 
+    public function new(Request $request)
     {
         $request["tracked"] = "0:0:0";
         $request["presupuesto"] = $request->input("presupuesto") ? $request->input("presupuesto") : "0";
@@ -111,13 +112,13 @@ class ProjectsController extends BaseController
         $this->validate($request, [
             "active" => "required",
             "duration" => "required",
-            "idClient" => "required|exists:clients,id",
+            "idClient" => "required|exists:Clients,id",
             "name" => "required|string",
             "presupuesto" => "numeric",
         ]);
 
         $projectData = $request->only(["active", "comments", "description", "duration", "idClient", "name", "tracked", "presupuesto"]);
-        
+
         try{
             $project = Projects::create($projectData);
 
@@ -125,5 +126,5 @@ class ProjectsController extends BaseController
         }catch(Exception $e) {
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "projects new"), 500));
         }
-    } 
+    }
 }

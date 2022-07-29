@@ -13,11 +13,11 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 class BanksController extends BaseController
 {
     public function all(Request $request, $id = null)
-    {   
+    {
         $request['id'] = $id;
 
         if(!empty($request['id'])){
-            $this->validate($request, ["id" => "numeric|exists:banks"]);  //Validations
+            $this->validate($request, ["id" => "numeric|exists:Banks"]);  //Validations
         }
 
         try{
@@ -39,7 +39,7 @@ class BanksController extends BaseController
     public function user(Request $request, $id)
     {
         $request['id'] = $id;
-        $this->validate($request, ["id" => "required|exists:banks,userId|numeric"]);  //Validations
+        $this->validate($request, ["id" => "required|exists:Banks,userId|numeric"]);  //Validations
 
         try{
             $banks = Banks::where("userId", $id)->where("borrado", 0)->get();
@@ -60,7 +60,7 @@ class BanksController extends BaseController
     public function update(Request $request, $user_id = null)
     {
         $this->validate($request, [
-            "id" => "required|exists:banks",
+            "id" => "required|exists:Banks",
             "name" => "required",
             "country" => "required",
             "branchOffice" => "required|numeric",
@@ -71,14 +71,14 @@ class BanksController extends BaseController
         ]);
 
         $id = $request->input("id");
-        
+
         try{
             $bank = Banks::where("id", $id);
 
             if(!empty($user_id)){
                 $request["userId"] = $user_id;
 
-                $this->validate($request, ["userId" => "exists:users,id"]);
+                $this->validate($request, ["userId" => "exists:Users,id"]);
 
                 $bank = $bank->where("userId", $user_id);
 
@@ -98,7 +98,7 @@ class BanksController extends BaseController
         }
     }
 
-    public function updateCurrent(Request $request) 
+    public function updateCurrent(Request $request)
     {
         $user_id = AuthController::current()->id;
 
@@ -111,7 +111,7 @@ class BanksController extends BaseController
             "name" => "required|",
             "branchOffice" => "required|numeric",
             "country" => "required",
-            "userId" => "required|exists:users,id|numeric",
+            "userId" => "required|exists:Users,id|numeric",
             "type" => "required",
             "identificationCard" => "required",
             "account" => "required",
@@ -133,14 +133,14 @@ class BanksController extends BaseController
         $request['id'] = $id;
         $request['userID'] = $userID;
 
-        $this->validate($request, ["id" => "required|numeric|exists:banks"]);
+        $this->validate($request, ["id" => "required|numeric|exists:Banks"]);
 
         try{
             $banks = Banks::where("id", $id)->where("borrado", 0);
 
             if(!empty($userID)){
-                $this->validate($request, ["userID" => "numeric|exists:banks,userId"]);
-                
+                $this->validate($request, ["userID" => "numeric|exists:Banks,userId"]);
+
                 $getBanks = Banks::where("active", 1)->where("borrado", 0)->where("userId", $userID)->get();
 
                 if(count($getBanks) >= 4) {
@@ -150,10 +150,10 @@ class BanksController extends BaseController
                 $banks = $banks->where("userId", $userID);
             }
             $banks = $banks->update(["active" => 1]);
-            
+
             return array("response" => $banks);
         }catch(Exception $e){
-            
+
         }
     }
 
@@ -161,18 +161,18 @@ class BanksController extends BaseController
         $request['id'] = $id;
         $request['userID'] = $userID;
 
-        $this->validate($request, ["id" => "required|numeric|exists:banks"]);
+        $this->validate($request, ["id" => "required|numeric|exists:Banks"]);
 
         try{
             $banks = Banks::where("id", $id)->where("borrado", 0);
 
             if(!empty($userID)){
-                $this->validate($request, ["userID" => "numeric|exists:banks,userId"]);
+                $this->validate($request, ["userID" => "numeric|exists:Banks,userId"]);
                 $banks = $banks->where("userId", $userID);
             }
 
             $banks = $banks->update(["active" => 0]);
-            
+
             return array("response" => $banks);
         }catch(Exception $e){
 
@@ -181,13 +181,13 @@ class BanksController extends BaseController
 
     public function currentActive(Request $request, $id){
         $user_id = AuthController::current();
-        
+
         return $this->active($request, $id, $user_id);
     }
 
     public function currentDeActice(Request $request, $id){
         $user_id = AuthController::current();
-        
+
         return $this->deActive($request, $id, $user_id);
     }
 
@@ -196,28 +196,28 @@ class BanksController extends BaseController
         $request['id'] = $id;
         $request['userID'] = $userID;
 
-        $this->validate($request, ["id" => "required|numeric|exists:banks"]);
+        $this->validate($request, ["id" => "required|numeric|exists:Banks"]);
 
         try{
             $banks = Banks::where("id", $id)->where("active", 1)->get();
-            
+
             if(count($banks) > 0){
                 return array("response" => BANK_ENABLED);
             }
-            
+
             $banks = Banks::where("id", $id);
-            
+
             if(!empty($request['userID'])){
-                $this->validate($request, ["userID" => "numeric|exists:banks,userId"]);
+                $this->validate($request, ["userID" => "numeric|exists:Banks,userId"]);
                 $banks = $banks->where("userId", $userID);
-                
+
                 var_dump(count($banks->get()));
 
                 if(count($banks->get()) == 0){
                     return array("response" => ID_INVALID);
                 }
             }
-            
+
             $banks = $banks->update(["borrado" => 1]); // 1 deleted
             return array("response" => $banks);
         }catch(Exception $e){
@@ -226,17 +226,17 @@ class BanksController extends BaseController
     }
 
     public function undelete(Request $request, $userID, $id)
-    {   
+    {
         $request['id'] = $id;
         $request['userID'] = $userID;
 
-        $this->validate($request, ["id" => "required|numeric|exists:banks"]);
+        $this->validate($request, ["id" => "required|numeric|exists:Banks"]);
 
         try{
             $banks = Banks::where("id", $id);
-            
+
             if(!empty($request['userID'])){
-                $this->validate($request, ["userID" => "numeric|exists:banks,userId"]);
+                $this->validate($request, ["userID" => "numeric|exists:Banks,userId"]);
                 $banks = $banks->where("userId", $userID);
             }
 
