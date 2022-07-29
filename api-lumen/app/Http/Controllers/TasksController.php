@@ -154,7 +154,7 @@ class TasksController extends BaseController
             "filter" => "array",
             "limit" => "numeric",
             "offset" => "numeric",
-            "id" => "exists:users"
+            "id" => "exists:Users"
         ]);
 
         $offset = $request->input("offset");
@@ -278,10 +278,10 @@ class TasksController extends BaseController
 				if($keyName == "projectName"){
 					$filter .= " AND Projects.name LIKE '%".$value[$keyName]."%'";
 				}else if($keyName == "name"){
-					$filter .= " AND tasks.name LIKE '%".$value[$keyName]."%'";
+					$filter .= " AND Tasks.name LIKE '%".$value[$keyName]."%'";
 				}
 				else if($keyName == "description"){
-					$filter .= " AND tasks.description LIKE '%".$value[$keyName]."%'";
+					$filter .= " AND Tasks.description LIKE '%".$value[$keyName]."%'";
 				}
 			}
 		}

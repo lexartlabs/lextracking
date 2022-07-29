@@ -18,9 +18,9 @@ class HostingController extends BaseController
 
             if(!empty($id)){
                 $request["id"] = $id;
-    
+
                 $this->validate($request, [
-                    "id" => "exists:hosting,id"
+                    "id" => "exists:Hosting,id"
                 ]);
 
                 $hosting = $hostings->where("id", $id)->where("borrado", 0)->first();
@@ -45,7 +45,7 @@ class HostingController extends BaseController
             "businessName" => "required",
             "company" => "required|numeric",
             "fullName" => "required",
-            "id" => "required|exists:hosting,id",
+            "id" => "required|exists:Hosting,id",
             "rut" => "required",
             "serviceCost" => "required|numeric",
             "serviceNumber" => "required",

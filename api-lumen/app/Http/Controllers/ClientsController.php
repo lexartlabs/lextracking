@@ -10,7 +10,7 @@ use Illuminate\Http\Response;
 
 class ClientsController extends BaseController
 {
-    public function all(Request $request, $id = null) 
+    public function all(Request $request, $id = null)
     {
         try{
             if(!empty($id)){
@@ -33,7 +33,7 @@ class ClientsController extends BaseController
         $client = $request->only(["name", "company"]);
         return Clients::create($client);
         try{
-            
+
         }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "clients new"), 500));
         }
@@ -43,19 +43,19 @@ class ClientsController extends BaseController
     public function update(Request $request, $id)
     {
         $request["id"] = $id;
-        
+
         $this->validate($request, [
             "name" => "required",
             "company" => "required",
-            "id" => "required|numeric|exists:clients"
+            "id" => "required|numeric|exists:Clients"
         ]);
-        
+
         try{
             $client = $request->only(["name", "company", "id"]);
             return Clients::where("id", $client['id'])->update(["name" => $client['name'], "company" => $client['company']]);
         }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "clients update"), 500));
-        }   
+        }
     }
 
     public function current(Request $request)

@@ -24,8 +24,8 @@ class BoardTrelloController extends BaseController
     public function new(Request $request)
     {
         $this->validate($request, [
-            "idBoard" => "required|unique:trelloboard,tablero_id",
-            "project" => "required|exists:projects,id",
+            "idBoard" => "required|unique:TrelloBoard,tablero_id",
+            "project" => "required|exists:Projects,id",
             "url" => "required",
         ]);
 
@@ -35,10 +35,10 @@ class BoardTrelloController extends BaseController
             "url" => $request->input("url"),
             "activo" => 1,
         );
-        
+
         try{
             $board = TrelloBoard::create($board);
-            
+
             return array("response" => $board);
         }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks trello boards new"), 500));

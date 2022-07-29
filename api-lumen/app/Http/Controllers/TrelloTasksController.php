@@ -14,36 +14,36 @@ class TrelloTasksController extends BaseController
 {
     public function all($id = null)
     {
-        
+
         try{
             if(!empty($id)){
-                $trelloBoards = TrelloBoard::select("trelloboard.active AS activo",
-                            "trelloboard.dateCreate",
-                            "trelloboard.dateUpdate",
-                            "trelloboard.id",
-                            "trelloboard.tablero_id",
-                            "trelloboard.proyecto_id",
-                            "trelloboard.url",
-                            DB::raw("projects.name AS projectName"))
-                    ->join("projects", "trelloboard.proyecto_id", "=", "projects.id")
-                    ->whereRaw("trelloboard.id = ?", [$id])
-                    ->whereRaw("projects.active = ?", [1])
+                $trelloBoards = TrelloBoard::select("TrelloBoard.active AS activo",
+                            "TrelloBoard.dateCreate",
+                            "TrelloBoard.dateUpdate",
+                            "TrelloBoard.id",
+                            "TrelloBoard.tablero_id",
+                            "TrelloBoard.proyecto_id",
+                            "TrelloBoard.url",
+                            DB::raw("Projects.name AS projectName"))
+                    ->join("Projects", "TrelloBoard.proyecto_id", "=", "Projects.id")
+                    ->whereRaw("TrelloBoard.id = ?", [$id])
+                    ->whereRaw("Projects.active = ?", [1])
                 ->get();
 
                 return array('response' => $trelloBoards);
             }
-            $trelloBoards = TrelloBoard::select("trelloboard.activo",
-                            "trelloboard.dateCreate",
-                            "trelloboard.dateUpdate",
-                            "trelloboard.id",
-                            "trelloboard.tablero_id",
-                            "trelloboard.proyecto_id",
-                            "trelloboard.url",
-                            DB::raw("projects.name AS projectName"))
-                    ->join("projects", "trelloboard.proyecto_id", "=", "projects.id")
-                    ->whereRaw("projects.active = ?", [1])
+            $trelloBoards = TrelloBoard::select("TrelloBoard.activo",
+                            "TrelloBoard.dateCreate",
+                            "TrelloBoard.dateUpdate",
+                            "TrelloBoard.id",
+                            "TrelloBoard.tablero_id",
+                            "TrelloBoard.proyecto_id",
+                            "TrelloBoard.url",
+                            DB::raw("Projects.name AS projectName"))
+                    ->join("Projects", "TrelloBoard.proyecto_id", "=", "Projects.id")
+                    ->whereRaw("Projects.active = ?", [1])
                 ->get();
-            
+
             return array('response' => $trelloBoards);
         }catch(Exceptio $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks trello all"), 500));
@@ -62,9 +62,9 @@ class TrelloTasksController extends BaseController
     {
         $this->validate($request, [
             "card_id" => "required",
-            "id_project" => "required|numeric|exists:projects,id",
-            "idProyecto" => "required|numeric|exists:projects,id",
-            "id_board" => "required|exists:trelloboard,tablero_id",
+            "id_project" => "required|numeric|exists:Projects,id",
+            "idProyecto" => "required|numeric|exists:Projects,id",
+            "id_board" => "required|exists:TrelloBoard,tablero_id",
             "name" => "required",
             "project" => "required",
             "description" => "",
@@ -101,7 +101,7 @@ class TrelloTasksController extends BaseController
             "client",
             "active"
         );
-        
+
         try{
             return TrelloTasks::create($track);
         }catch(Exception $e){
@@ -140,19 +140,19 @@ class TrelloTasksController extends BaseController
         $card_id = $request->input('card_id');
 
             $task = TrelloTasks::where('card_id', $card_id)->first();
-            
+
             if(!empty($task)){
-                
-                DB::update("UPDATE trellotask SET name = '$name', project = '$project', description = '', status = '' WHERE card_id='$card_id'");
+
+                DB::update("UPDATE TrelloTask SET name = '$name', project = '$project', description = '', status = '' WHERE card_id='$card_id'");
                 return array('response' => "OK");
             }
-            
-            $insert = DB::insert("INSERT INTO trellotask (id_project, idProyecto, id_board, card_id, name, project, description, comments, duration, users, dateCreate, dateUpdate, startDate, endDate, status, client) VALUES ('$id_project', '$idProyecto', '$id_board', '$card_id', '$name', '$project', '', 'nulo', '00:00:00', 'user', NOW(), NOW(), NOW(), NOW(), '', '')");
-            
+
+            $insert = DB::insert("INSERT INTO TrelloTask (id_project, idProyecto, id_board, card_id, name, project, description, comments, duration, users, dateCreate, dateUpdate, startDate, endDate, status, client) VALUES ('$id_project', '$idProyecto', '$id_board', '$card_id', '$name', '$project', '', 'nulo', '00:00:00', 'user', NOW(), NOW(), NOW(), NOW(), '', '')");
+
             return array('response' => $insert);
 
         try{
-            
+
         }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks trello task new"), 500));
         }

@@ -16,9 +16,9 @@ class ProductsController extends BaseController
 
             if(!empty($id)){
                 $request["id"] = $id;
-    
+
                 $this->validate($request, [
-                    "id" => "exists:hosting,id"
+                    "id" => "exists:Hosting,id"
                 ]);
 
                 $products = $products->where("id", $id);

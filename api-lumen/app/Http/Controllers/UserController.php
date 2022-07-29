@@ -30,7 +30,7 @@ class UserController extends BaseController
         $password = md5($request->input('password'));
 
         try {
-            
+
             $user = User::where('email', $email)->where('status', 0)->first();
 
             if (!$user) {
@@ -121,7 +121,7 @@ class UserController extends BaseController
         $request["id"] = $id;
 
         $this->validate($request, [
-            "id" => "exists:users"
+            "id" => "exists:Users"
         ]);
 
         try {
@@ -136,7 +136,7 @@ class UserController extends BaseController
     public function current(Request $request)
     {
         $auth_code = $request->header()['authorization'][0];
-        
+
         $current = AuthController::current();
         $current->token = $auth_code;
         return array('response' => $current);
@@ -145,11 +145,11 @@ class UserController extends BaseController
     public function delete(Request $request)
     {
         $this->validate($request, [
-            "id" => "required|exists:users,id",
+            "id" => "required|exists:Users,id",
         ]);
 
         $id = $request->input("id");
-        
+
         try{
             return User::where("id", $id)->update(["status" => 1]);
         }catch (Exception $e){
@@ -162,9 +162,9 @@ class UserController extends BaseController
         $this->validate($request, [
             "id" => "required",
         ]);
-        
+
         $id = $request->input("id");
-        
+
         try{
             $user = User::where("id", $id)->where("status", 1)->first();
 
@@ -178,13 +178,13 @@ class UserController extends BaseController
         }
     }
 
-    public function update(Request $request, $id) 
+    public function update(Request $request, $id)
     {
         $request["id"] = $id;
         $this->role = AuthController::current()->role;
 
         $this->validate($request, [
-            "id" => ["required", Rule::exists("users", "id")->where(function($query) {
+            "id" => ["required", Rule::exists("Users", "id")->where(function($query) {
                 if($this->role != "admin") $query->where("role", "!=", "admin");
             })],
             "email" => "email",
@@ -201,23 +201,23 @@ class UserController extends BaseController
 
         try{
             $user = User::where("id", $id)->update($update);
-            
+
             return array("response" => $user);
         }catch(Exception $e) {
             return array('response' => 'Update User');
         }
     }
 
-    public function hours(Request $request, $userId) 
+    public function hours(Request $request, $userId)
     {
         try{
             $hours = new UserHours;
             if($userId != 0) {
                 $request["userId"] = $userId;
-                $this->validate($request, ["userId" => "required|exists:users,id"]);
-                
+                $this->validate($request, ["userId" => "required|exists:Users,id"]);
+
                 $hours = $hours->where('user_id', $userId);
-            } 
+            }
 
             $hours = $hours->get();
 
@@ -227,7 +227,7 @@ class UserController extends BaseController
 
             return array('response' => $hours);
         }catch(Exception $e) {
-            
+
         }
     }
 
@@ -242,7 +242,7 @@ class UserController extends BaseController
     {
 
         $fullDate = explode("-", $date);
-        
+
 		$month = $fullDate[0];
 		$year = $fullDate[1];
 
@@ -251,7 +251,7 @@ class UserController extends BaseController
 
             if($userId != 0) {
                 $request["user_id"] = $userId;
-                $this->validate($request, ["user_id" => "required|exists:users,id"]);
+                $this->validate($request, ["user_id" => "required|exists:Users,id"]);
 
                 $userExceptions = $userExceptions->where("user_id", $userId);
             }
@@ -259,10 +259,10 @@ class UserController extends BaseController
             $userExceptions = $userExceptions->whereRaw("MONTH(start) = ?", [$month])
                 ->whereRaw("YEAR(start) = ?", [$year])
             ->get();
-            
+
             return array('response' => $userExceptions);
         }catch(Exception $e){
-            
+
         }
     }
 
