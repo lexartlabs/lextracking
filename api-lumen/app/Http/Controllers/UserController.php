@@ -31,7 +31,7 @@ class UserController extends BaseController
 
         try {
 
-            $user = User::where('email', $email)->where('status', 0)->first();
+            $user = User::where('email', $email)->where('status', 1)->first();
 
             if (!$user) {
                 return (new Response(array("Error" => INVALID_LOGIN, "Operation" => "login"), 400));
