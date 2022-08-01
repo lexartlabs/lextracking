@@ -126,6 +126,9 @@ handleSmallScreens()
             </ui-select>
             <a ng-if="!timerRunning" class="btn_tracker_container" ng-click="startTrack(topBar.filterTask)"><i class="ri-play-line"></i></a>
             <a ng-if="timerRunning" class="btn_tracker_container tracking" ng-click="stopTrack()"><i class="ri-pause-line"></i></a>
+            
+            <span class="timer">{{timer}}</span>
+            
             <!-- <div class="blob"></div> -->
           </label>
         </p>
