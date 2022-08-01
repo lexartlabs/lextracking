@@ -2,7 +2,16 @@
 
     <nav class="imm-menu__nav" ng-class="{'imm-menu__collapsed': thisHide == true}">
 
-        
+        <div class="navbar-header">
+            <button class="navbar-toggler" data-toggle="open-navbar1">
+            <span></span>
+            <span></span>
+            <span></span>
+            </button>
+            <a href="#">
+            <h4>Lex<span>Tracking</span></h4>
+            </a>
+        </div>
         <a href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.dashboard">
             <b></b>
             <b></b>
@@ -15,8 +24,8 @@
             <i class="ri-calendar-line"></i> <span ng-show="!thisHide">{{ 'navigation.calendar' | translate }}</span>
         </a>
         <a ng-if="isAdmin == 'true' || userRole == 'pm'" href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.users">
-            <b></b>
-            <b></b>
+            <!-- <b></b> -->
+            <!-- <b></b> -->
             <i class="ri-user-line"></i> <span ng-show="!thisHide">{{ 'navigation.users' | translate }}</span>
         </a>
         <a ng-if="userRole == 'developer'" ui-sref="app.userEdit({id:userId})"" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected">

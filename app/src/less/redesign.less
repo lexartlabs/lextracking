@@ -18,7 +18,7 @@ tbody {
 .imm-menu__nav-item b:nth-child(1) {
   position: absolute;
   top: -10px;
-  left: -20px;
+  left: calc(@navbar-width - 28px);
   height: 10px;
   width: 100%;
   display: block;
@@ -29,7 +29,7 @@ tbody {
 .imm-menu__nav-item b:nth-child(2) {
   position: absolute;
   bottom: -10px;
-  left: -20px;
+  left: calc(@navbar-width - 30px);
   height: 10px;
   width: 100%;
   background: @color-light-gray;
@@ -99,9 +99,9 @@ tbody {
     background: @color-bk-dark-mode;
     box-shadow: none;
     color: @color-active-text;
-    margin-left: 10px;
+    // margin-left: 10px;
     // border: 1px solid @color-bk-dark-mode;
-    border-radius: 10px;
+    // border-radius: 10px;
     transition: all 0.5s ease;
   }
 
@@ -215,6 +215,11 @@ tbody {
     background-color: @color-bk-dark-mode-secondary;
     color: @color-dark-mode;
   }
+
+  .imm-tabs__item--selected {
+    background-color: @color-active-text;
+  }
+
 
   .imm-tabs__item:hover {
     background-color: @color-bk-dark-mode-third;

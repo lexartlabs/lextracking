@@ -132,53 +132,10 @@ button.imm-menu__icon--collapsed {
   }
 }
 
-.imm-menu__nav-item {
-  width: 100%;
-  line-height: 1.25rem;
-  display: block;
-  padding: 10px 22px;
-  color: @color-white;
-  font-weight: 700;
-  font-size: .875rem;
-  position: relative;
-  transition: background-color .2s ease-in, box-shadow .15s ease-in, width 0.05s ease;
-  .user-select(none);
-
-  .imm-icon {
-    font-size: 1.25rem;
-    margin-right: 3px;
-  }
-}
-
-.imm-menu__nav-item:hover {
-  background-color: @primary-color;
-  box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.2);
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-}
-
-.imm-menu__nav-item--selected {
-  background: @color-navigation-gray;
-  box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.50);
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  // &:after {
-  //   content: "";
-  //   position: absolute;
-  //   right: 0;
-  //   top: 50%;
-  //   width: 0;
-  //   height: 0;
-  //   border-style: solid;
-  //   border-width: 15px 10px 15px 0;
-  //   border-color: transparent #ffffff transparent transparent;
-  //   margin-top: -15px;
-  // }
-}
-
 // WORKAREA
 .imm-wa__hdr {
   margin-bottom: 2rem;
+  margin-top: 100px !important;
 }
 
 .imm-wa__hdr-tools {
@@ -209,6 +166,7 @@ button.imm-menu__icon--collapsed {
 
 .imm-wa__cnt {
   padding: 20px;
+  // padding-top: 100px;
   border-radius: 5px;
   background-color: @navbar-body-color;
 

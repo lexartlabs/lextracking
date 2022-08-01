@@ -20,7 +20,7 @@
 
 @navbar-body-color: #fff;
 // @navbar-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.035);
-@navbar-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+@navbar-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.05);
 @navbar-padding-y: 1rem;
 @navbar-padding-x: 1.15rem;
 
@@ -67,11 +67,21 @@ a {
 
 .navbar,
 .navbar>.container {
-  width: 100%;
+  // width: 100%;
+  // display: flex;
+  // flex-wrap: wrap;
+  // align-items: center;
+  // justify-content: space-between;
+  width: 83%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  position: fixed;
+  left: 16%;
+  min-height: 80px;
+  top: 10px;
+  border-radius: 5px;
 
   @media (max-width: 768px) {
     display: block;
@@ -82,7 +92,7 @@ a {
   box-shadow: @navbar-shadow;
   background-color: @navbar-body-color;
   padding: @navbar-padding-y @navbar-padding-x;
-  border-bottom: 1px solid @border-color;
+  // border-bottom: 1px solid @border-color;
 
   .container {
     @media (min-width: 576px) {
@@ -111,7 +121,6 @@ a {
     display: flex;
     align-items: center;
     width: 20%;
-    ;
 
     @media (max-width: 768px) {
       width: 100%;
