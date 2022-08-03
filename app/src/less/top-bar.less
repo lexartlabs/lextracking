@@ -5,20 +5,21 @@
 //     min-height: @topbar-height;
 //     width: 100%;
 //     z-index: 999;
-//     background: #ffffff;
+//     background: #F9F9F9;
 // }
 // .top-bar__container{
 //     padding: 10px;
 // }
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
-
+// #4B556B 
+// #F9F9F9 
 @font-family: 'Roboto', sans-serif;
 @font-size-base: 0.925rem;
-@color-active-text: #66f;
+@color-active-text: #7076FE;
 @text-dark: #3c4250;
 @border-color: #eceef3;
 
-@navbar-body-color: #fff;
+@navbar-body-color: #F9F9F9;
 // @navbar-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.035);
 @navbar-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.05);
 @navbar-padding-y: 1rem;
@@ -225,7 +226,7 @@ a {
           position: absolute;
           top: 150%;
           left: 0;
-          background-color: #fff;
+          background-color: #F9F9F9;
           padding-top: @navbar-dropdown-padding-y;
           padding-bottom: @navbar-dropdown-padding-y;
           min-width: 160px;
@@ -288,7 +289,7 @@ a {
 
 // TOP BAR LOGO
 .top-bar__logo{
-  width: 15%;
+  width: calc(@navbar-width + 2%);
   img{
     width: 80%;
   }

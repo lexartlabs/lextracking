@@ -658,7 +658,7 @@
           "big_logo": "https://lextracking.lexartlabs.com/assets/images/lextracking-logo.svg",
           "little_logo": "https://lextracking.lexartlabs.com/assets/images/lextracking-logo.svg",
           "html_body": html,
-          "footer_color": "#fff;color:#F95C33 !important;font-size: 10px",
+          "footer_color": "#F9F9F9;color:#F95C33 !important;font-size: 10px",
           "footer_one": "Lexartlabs",
           "footer_two": "<a class='email_link' href='"+current_host+"'>Ir a Lextracking<a/>"
         }

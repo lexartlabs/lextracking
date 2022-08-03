@@ -65,18 +65,13 @@
         </a>
 
     </nav>
-
-    <button class="imm-btn collapse-btn" ng-init="collapseSideBar = true" ng-click="hideItems();">
-        <i ng-if="!thisHide" class="ri-arrow-left-s-line"></i>
-        <i ng-if="thisHide" class="ri-arrow-right-s-line"></i>
-    </button>
-    <button ng-if="darkMode == 0" class="imm-btn switch_mode-btn" ng-click="toggleMode()">
-        <i class="ri-moon-line"></i>
-    </button>
-    <button ng-if="darkMode == 1" class="imm-btn switch_mode-btn" ng-click="toggleMode()">
-        <!-- <i class="ri-moon-line"></i> -->
-        <i class="ri-sun-line"></i>
-    </button>
+        <div class="navbar_btn_container">
+            <button class="imm-btn collapse-btn" ng-init="collapseSideBar = true" ng-click="hideItems();">
+            <i ng-if="!thisHide" class="ri-arrow-left-s-line"></i>
+            <i ng-if="thisHide" class="ri-arrow-right-s-line"></i>
+        </button>
+    </div>
+    
     <!-- <div class="imm-user" ng-class="{'active': userToolsActive == true , 'imm-menu__collapsed': thisHide == true}" ng-show="!thisHide">
         <div>
             

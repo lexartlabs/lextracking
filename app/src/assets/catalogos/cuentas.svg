@@ -16,10 +16,10 @@
     <g id="IMM-desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="d.dashboard-c-catalogos" transform="translate(-286.000000, -278.000000)">
             <g id="catalogos/cuentas" transform="translate(286.000000, 278.000000)">
-                <use id="Oval-4" stroke="#CCCCCC" mask="url(#mask-2)" stroke-width="4" fill="#FFFFFF" xlink:href="#path-1"></use>
+                <use id="Oval-4" stroke="#CCCCCC" mask="url(#mask-2)" stroke-width="4" fill="#F9F9F9" xlink:href="#path-1"></use>
                 <circle id="Oval-4-Copy" fill="#6EBEC5" cx="55" cy="55" r="50"></circle>
                 <g id="Group-22" transform="translate(29.000000, 20.000000)">
-                    <rect id="Rectangle" fill="#FFFFFF" x="0" y="0" width="53" height="71" rx="3"></rect>
+                    <rect id="Rectangle" fill="#F9F9F9" x="0" y="0" width="53" height="71" rx="3"></rect>
                     <use id="Rectangle-28" stroke="#C1C1C1" mask="url(#mask-4)" stroke-width="2" fill="#D8D8DA" xlink:href="#path-3"></use>
                     <rect id="Rectangle-28-Copy" fill="#E46A5D" x="4" y="22" width="9" height="9"></rect>
                     <rect id="Rectangle-28-Copy-5" fill="#E46A5D" x="4" y="34" width="9" height="9"></rect>

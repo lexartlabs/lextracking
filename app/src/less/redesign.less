@@ -38,9 +38,14 @@ tbody {
   transition: opacity .5s ease-out;
 }
 
+.imm-wa__collapsed{
+  width: calc(100 - @navbar-width-collapsed);
+}
+
 //Modificador para darkMode
 .dark-mode {
 
+  body,
   table,
   thead,
   tbody,
@@ -809,11 +814,11 @@ tbody {
   background-color: @color-active-text;
   padding: 5px;
   border-radius: 5px;
-  color: #fff;
+  color: #F9F9F9;
 }
 
 .ui-select-choices-row:hover .imm_select_conatiner_proyect {
-  background-color: #fff;
+  background-color: #F9F9F9;
   color: #000;
 }
 
@@ -832,16 +837,23 @@ tbody {
   border: 1px solid #363B3F;
 }
 
+.navbar_btn_container{
+  position:absolute; 
+  bottom: 30px; 
+  left: 0; 
+  width:100%; 
+  display: block;
+}
+
 .collapse-btn {
-  position: absolute;
-  bottom: 30px;
-  right: 30px;
+  float: right;
+  margin-right: 20px;
+  margin-left: 10px;
 }
 
 .switch_mode-btn {
-  position: absolute;
-  bottom: 30px;
-  left: 0px;
+  float: left;
+  margin-left: 20px;
 }
 
 .top-bar__current_tracking_container {

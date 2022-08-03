@@ -7,7 +7,7 @@
     Module.controller('AppCtrl', ['$scope', '$log', '$window', '$rootScope', '$state', '$translate', 'RestClient', 'ngDialog', function ($scope, $log, $window, $rootScope, $state, $translate, RestClient, ngDialog) {
         // ---- Initialization
 
-        $log.info('%cLEXTRACKING %cAPP STARTUP ', 'background: #203678; color: #fff; font-weight:bold; padding: 4px;', 'background: #666; color: #f9f9f9; padding: 4px;');
+        $log.info('%cLEXTRACKING %cAPP STARTUP ', 'background: #203678; color: #F9F9F9; font-weight:bold; padding: 4px;', 'background: #666; color: #F9F9F9; padding: 4px;');
 
         // Put here stuff that can be deferred for the next digest
         $scope.$evalAsync(function () {

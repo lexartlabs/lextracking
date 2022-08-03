@@ -11,7 +11,7 @@
     </defs>
     <g id="IMM-desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="catalogos/bpm-process">
-            <use id="Oval-4" stroke="#CCCCCC" mask="url(#mask-2)" stroke-width="4" fill="#FFFFFF" xlink:href="#path-1"></use>
+            <use id="Oval-4" stroke="#CCCCCC" mask="url(#mask-2)" stroke-width="4" fill="#F9F9F9" xlink:href="#path-1"></use>
             <ellipse id="Oval-4-Copy" fill="#F1F1F1" cx="55" cy="55" rx="50" ry="50"></ellipse>
             <path d="M86.3839394,45.1621696 L86.3879362,40.7243353 C91.9787547,52.6850743 90.1553217,67.2751201 80.8938584,77.5087827 L86.1839159,82.7988402 L68.418002,82.7977156 L68.4181449,65.0330692 L73.5256773,70.1406016 C79.6148564,63.0880959 80.7700604,53.2730926 77.0158119,45.1682834 L86.3883758,45.166606 L86.3839394,45.1621696 Z" id="Combined-Shape" fill="#1BBC9C" fill-rule="nonzero"></path>
             <path d="M65.8305126,76.015586 L65.8336818,76.0124169 L65.8326383,85.3830793 L70.2755428,85.3816175 C58.3086106,90.9753836 43.7225269,89.157029 33.4915755,79.8945591 L28.2016893,85.1844454 L28.2024661,67.4178976 L45.9671124,67.4190223 L40.8616687,72.524466 C47.9104729,78.6136624 57.7272765,79.771177 65.8305126,76.015586 Z" id="Path" fill="#F6C35B"></path>
