@@ -1,22 +1,22 @@
-<div class="imm-wa__hdr imm-flex">
-  <div class="imm-flex-5">
-    <h1 class="imm-wa__tit">
-      <a class="imm-bc-item">{{ 'hosting.title' | translate }}</a>
+<div class="lexart-wa__hdr lexart-flex">
+  <div class="lexart-flex-5">
+    <h1 class="lexart-wa__tit">
+      <a class="lexart-bc-item">{{ 'hosting.title' | translate }}</a>
     </h1>
-    <div class="imm-btn__right">
-      <a ui-sref="app.hostingNew" class="imm-btn imm-btn--round">&#43; {{ 'Hosting' }}</a>
+    <div class="lexart-btn__right">
+      <a ui-sref="app.hostingNew" class="lexart-btn lexart-btn--round">&#43; {{ 'Hosting' }}</a>
     </div>
   </div>
 </div>
 
-<div class="imm-wa__cnt">
-  <!-- <table class="imm-table">
+<div class="lexart-wa__cnt">
+  <!-- <table class="lexart-table">
     <thead>
       <tr>
         <th>{{ 'hosting.id' | translate }}</th>
         <th>{{ 'hosting.accountStatus' | translate }}</th>
         <th>{{ 'hosting.ownerName' | translate }}</th>
-        <th class="imm-cstm__grid-5"></th>
+        <th class="lexart-cstm__grid-5"></th>
       </tr>
     </thead>
     <tbody>
@@ -38,41 +38,41 @@
       </tr>
     </tbody>
   </table> -->
-  <div class='imm-frm__fldgrp' style='background-color: #e0e0e040;padding: .5rem 1rem;border-bottom: 1px solid #80808066;font-weight: 800;font-size: 10px;'>
-    <div class="imm-frm__fld" style='text-align: left;'>PRODUCTOS</div>
-    <div class="imm-frm__fld" style='text-align: left;'>ID</div>
-    <div class="imm-frm__fld" style='text-align: left;'>ESTADO DE LA CUENTA</div>
-    <div class="imm-frm__fld" style='text-align: left;'>NOMBRE DEL TITULAR</div>
-    <div class="imm-frm__fld" style='text-align: left;'></div>
+  <div class='lexart-frm__fldgrp' style='background-color: #e0e0e040;padding: .5rem 1rem;border-bottom: 1px solid #80808066;font-weight: 800;font-size: 10px;'>
+    <div class="lexart-frm__fld" style='text-align: left;'>PRODUCTOS</div>
+    <div class="lexart-frm__fld" style='text-align: left;'>ID</div>
+    <div class="lexart-frm__fld" style='text-align: left;'>ESTADO DE LA CUENTA</div>
+    <div class="lexart-frm__fld" style='text-align: left;'>NOMBRE DEL TITULAR</div>
+    <div class="lexart-frm__fld" style='text-align: left;'></div>
   </div>
   <div style='margin-top: 0;' class='dynamic-table' ng-init='hosting.showProduct = "table_hide"' ng-repeat="hosting in hostings| filter: filter | orderBy: 'timeRemaining'">
-    <div class='imm-frm__fldgrp' style='margin-top: 0;padding: .5rem 1rem;font-size: 10px;'>
-      <div class="imm-frm__fld" style='text-align: center;' ng-click='hosting.showProduct == "table_show" ? hosting.showProduct = "table_hide" : hosting.showProduct = "table_show"'>
+    <div class='lexart-frm__fldgrp' style='margin-top: 0;padding: .5rem 1rem;font-size: 10px;'>
+      <div class="lexart-frm__fld" style='text-align: center;' ng-click='hosting.showProduct == "table_show" ? hosting.showProduct = "table_hide" : hosting.showProduct = "table_show"'>
         <i ng-if='hosting.products.length > 0 && hosting.showProduct == "table_show"' style='color: #5396e3;font-size: 21px;' class="fas fa-caret-down"></i>
         <i ng-if='hosting.products.length > 0 && hosting.showProduct == "table_hide"' style='color: #5396e3;font-size: 21px;' class="fas fa-caret-up"></i>
       </div>
-      <div class="imm-frm__fld" style='text-align: left;' ng-click='hosting.showProduct == "table_show" ? hosting.showProduct = "table_hide" : hosting.showProduct = "table_show"'>{{hosting.id}}</div>
-      <div class="imm-frm__fld" style='text-align: left;' ng-click='hosting.showProduct == "table_show" ? hosting.showProduct = "table_hide" : hosting.showProduct = "table_show"' ng-class="{statusActive: hosting.accountStatus == 'ACTIVO', statusDisable: hosting.accountStatus == 'INACTIVO', statusSuspend: hosting.accountStatus == 'SUSPENDIDO'}">{{hosting.accountStatus}}</div>
-      <div class="imm-frm__fld" style='text-align: left;' ng-click='hosting.showProduct == "table_show" ? hosting.showProduct = "table_hide" : hosting.showProduct = "table_show"'>{{hosting.company == "1" && hosting.businessName || hosting.fullName}}</div>
-      <div class="imm-frm__fld" style='text-align: center;'>
+      <div class="lexart-frm__fld" style='text-align: left;' ng-click='hosting.showProduct == "table_show" ? hosting.showProduct = "table_hide" : hosting.showProduct = "table_show"'>{{hosting.id}}</div>
+      <div class="lexart-frm__fld" style='text-align: left;' ng-click='hosting.showProduct == "table_show" ? hosting.showProduct = "table_hide" : hosting.showProduct = "table_show"' ng-class="{statusActive: hosting.accountStatus == 'ACTIVO', statusDisable: hosting.accountStatus == 'INACTIVO', statusSuspend: hosting.accountStatus == 'SUSPENDIDO'}">{{hosting.accountStatus}}</div>
+      <div class="lexart-frm__fld" style='text-align: left;' ng-click='hosting.showProduct == "table_show" ? hosting.showProduct = "table_hide" : hosting.showProduct = "table_show"'>{{hosting.company == "1" && hosting.businessName || hosting.fullName}}</div>
+      <div class="lexart-frm__fld" style='text-align: center;'>
         <a ui-sref="app.hostingEdit({id: hosting.id})">
           <i class="ri-edit-line"></i>
         </a>
       </div>
     </div>
-      <div style='margin-top: 0;padding: .5rem 1rem;font-size: 10px;border-bottom: 1px solid #80808066;font-weight: 800;' ng-class='hosting.showProduct' class='imm-frm__fldgrp'>
-        <div class="imm-frm__fld" style='text-align: left;'>{{ 'Tipo' }}</div>
-        <div class="imm-frm__fld" style='text-align: left;'>{{ 'Nombre' }}</div>
-        <div class="imm-frm__fld" style='text-align: left;'>{{ 'Estado' }}</div>
-        <div class="imm-frm__fld" style='text-align: left;'>{{ 'Fecha' }}</div>
-        <div class="imm-frm__fld" style='text-align: left;'>{{ 'Dias restantes' }}</div>
+      <div style='margin-top: 0;padding: .5rem 1rem;font-size: 10px;border-bottom: 1px solid #80808066;font-weight: 800;' ng-class='hosting.showProduct' class='lexart-frm__fldgrp'>
+        <div class="lexart-frm__fld" style='text-align: left;'>{{ 'Tipo' }}</div>
+        <div class="lexart-frm__fld" style='text-align: left;'>{{ 'Nombre' }}</div>
+        <div class="lexart-frm__fld" style='text-align: left;'>{{ 'Estado' }}</div>
+        <div class="lexart-frm__fld" style='text-align: left;'>{{ 'Fecha' }}</div>
+        <div class="lexart-frm__fld" style='text-align: left;'>{{ 'Dias restantes' }}</div>
       </div>
-      <div style='margin-top: 0;padding: .5rem 1rem;font-size: 10px;' ng-class='hosting.showProduct' class='imm-frm__fldgrp' ng-repeat='product in hosting.products'>
-        <div class="imm-frm__fld" style='text-align: left;'>{{product.type.name}}</div>
-        <div class="imm-frm__fld" style='text-align: left;'>{{product.description.name}}</div>
-        <div class="imm-frm__fld" style='text-align: left;' ng-class="{statusActive: product.state.name == 'ACTIVO', statusDisable: product.state.name == 'INACTIVO', statusSuspend: product.state.name == 'SUSPENDIDO'}">{{product.state.name}}</div>
-        <div class="imm-frm__fld" style='text-align: left;'>{{product.nextExpiration}}</div>
-        <div class="imm-frm__fld" style='text-align: left;' ng-class="{statusActive: product.timeRemaining > 7, statusWarning: product.timeRemaining <= 7 && product.timeRemaining > 2, statusSuspend: product.timeRemaining <= 2 }">{{product.timeRemaining}}</div>
+      <div style='margin-top: 0;padding: .5rem 1rem;font-size: 10px;' ng-class='hosting.showProduct' class='lexart-frm__fldgrp' ng-repeat='product in hosting.products'>
+        <div class="lexart-frm__fld" style='text-align: left;'>{{product.type.name}}</div>
+        <div class="lexart-frm__fld" style='text-align: left;'>{{product.description.name}}</div>
+        <div class="lexart-frm__fld" style='text-align: left;' ng-class="{statusActive: product.state.name == 'ACTIVO', statusDisable: product.state.name == 'INACTIVO', statusSuspend: product.state.name == 'SUSPENDIDO'}">{{product.state.name}}</div>
+        <div class="lexart-frm__fld" style='text-align: left;'>{{product.nextExpiration}}</div>
+        <div class="lexart-frm__fld" style='text-align: left;' ng-class="{statusActive: product.timeRemaining > 7, statusWarning: product.timeRemaining <= 7 && product.timeRemaining > 2, statusSuspend: product.timeRemaining <= 2 }">{{product.timeRemaining}}</div>
       </div>
   </div>
   

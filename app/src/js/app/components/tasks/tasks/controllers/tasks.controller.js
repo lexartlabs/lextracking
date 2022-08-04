@@ -2,7 +2,7 @@
 
   'use strict';
 
-  var Module = ng.module('Imm');  
+  var Module = ng.module('LexTracking');  
 
   Module.controller('TasksCtrl', ['$scope','$rootScope', '$timeout', '$filter', 'TasksServices', 'ProjectsServices', 'UserServices', 'ngDialog', 'PreviousState', '$stateParams', function($scope,$rootScope, $timeout, $filter, TasksServices, ProjectsServices, UserServices, ngDialog, PreviousState, $stateParams) {
 

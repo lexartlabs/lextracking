@@ -1,5 +1,5 @@
-<div class="imm-menu__wrp" ng-class="{'imm-menu__collapsed': thisHide == true}">
-    <nav class="imm-menu__nav" >
+<div class="lexart-menu__wrp" ng-class="{'lexart-menu__collapsed': thisHide == true}">
+    <nav class="lexart-menu__nav" >
         <div class="navbar-header">
             <button class="navbar-toggler" data-toggle="open-navbar1">
             <span></span>
@@ -10,53 +10,53 @@
             <h4>Lex<span>Tracking</span></h4>
             </a>
         </div>
-        <a href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.dashboard">
+        <a href="#" class="lexart-menu__nav-item" ui-sref-active="lexart-menu__nav-item--selected" ui-sref="app.dashboard">
             <!-- <b></b>
             <b></b> -->
             <i class="ri-home-line"></i> <span ng-show="!thisHide">{{ 'navigation.dashboard' | translate }}</span>
         </a>
         
-        <a href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.calendar">
+        <a href="#" class="lexart-menu__nav-item" ui-sref-active="lexart-menu__nav-item--selected" ui-sref="app.calendar">
             <!-- <b></b>
             <b></b> -->
             <i class="ri-calendar-line"></i> <span ng-show="!thisHide">{{ 'navigation.calendar' | translate }}</span>
         </a>
-        <a ng-if="isAdmin == 'true' || userRole == 'pm'" href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.users">
+        <a ng-if="isAdmin == 'true' || userRole == 'pm'" href="#" class="lexart-menu__nav-item" ui-sref-active="lexart-menu__nav-item--selected" ui-sref="app.users">
             <!-- <b></b>
             <b></b> -->
             <i class="ri-user-line"></i> <span ng-show="!thisHide">{{ 'navigation.users' | translate }}</span>
         </a>
-        <a ng-if="userRole == 'developer'" ui-sref="app.userEdit({id:userId})"" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected">
+        <a ng-if="userRole == 'developer'" ui-sref="app.userEdit({id:userId})"" class="lexart-menu__nav-item" ui-sref-active="lexart-menu__nav-item--selected">
             <!-- <b></b>
             <b></b> -->
             <i class="ri-user-settings-line"></i> <span ng-show="!thisHide">{{ 'navigation.my-profile' | translate }}</span>
         </a>
-        <a ng-if="isAdmin == 'true' || userRole == 'pm' " href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.clients">
+        <a ng-if="isAdmin == 'true' || userRole == 'pm' " href="#" class="lexart-menu__nav-item" ui-sref-active="lexart-menu__nav-item--selected" ui-sref="app.clients">
             <!-- <b></b>
             <b></b> -->
             <i class="ri-user-shared-line"></i> <span ng-show="!thisHide">{{ 'navigation.clients' | translate }}</span>
         </a>
-        <a href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.projects">
+        <a href="#" class="lexart-menu__nav-item" ui-sref-active="lexart-menu__nav-item--selected" ui-sref="app.projects">
             <!-- <b></b>
             <b></b> -->
             <i class="ri-briefcase-line"></i> <span ng-show="!thisHide">{{ 'navigation.projects' | translate }}</span>
         </a>
-        <a href="#" ng-if="userRole != 'clients'" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.dashboardTasks">
+        <a href="#" ng-if="userRole != 'clients'" class="lexart-menu__nav-item" ui-sref-active="lexart-menu__nav-item--selected" ui-sref="app.dashboardTasks">
             <!-- <b></b>
             <b></b> -->
             <i class="ri-task-line"></i> <span ng-show="!thisHide">{{ 'navigation.tasks' | translate }}</span>
         </a>
-        <a  href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.reports">
+        <a  href="#" class="lexart-menu__nav-item" ui-sref-active="lexart-menu__nav-item--selected" ui-sref="app.reports">
             <!-- <b></b>
             <b></b> -->
             <i class="ri-bar-chart-line"></i> <span ng-show="!thisHide">{{ 'Reportes' }}</span>
         </a>
-        <a ng-if="isAdmin == 'true'"  href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.CRM">
+        <a ng-if="isAdmin == 'true'"  href="#" class="lexart-menu__nav-item" ui-sref-active="lexart-menu__nav-item--selected" ui-sref="app.CRM">
             <!-- <b></b>
             <b></b> -->
             <i class="ri-folder-open-line"></i> <span ng-show="!thisHide">{{ 'CRM'}}</span>
         </a>
-        <a ng-if="isAdmin == 'true'"  href="#" class="imm-menu__nav-item" ui-sref-active="imm-menu__nav-item--selected" ui-sref="app.apps">
+        <a ng-if="isAdmin == 'true'"  href="#" class="lexart-menu__nav-item" ui-sref-active="lexart-menu__nav-item--selected" ui-sref="app.apps">
             <!-- <b></b>
             <b></b> -->
             <i class="ri-google-play-line"></i> <span ng-show="!thisHide">{{ 'APP’s'}}</span>
@@ -64,26 +64,26 @@
 
     </nav>
         <!-- <div class="navbar_btn_container">
-            <button class="imm-btn collapse-btn" ng-init="collapseSideBar = true" ng-click="hideItems();">
+            <button class="lexart-btn collapse-btn" ng-init="collapseSideBar = true" ng-click="hideItems();">
             <i ng-if="!thisHide" class="ri-arrow-left-s-line"></i>
             <i ng-if="thisHide" class="ri-arrow-right-s-line"></i>
         </button> -->
     </div>
     
-    <!-- <div class="imm-user" ng-class="{'active': userToolsActive == true , 'imm-menu__collapsed': thisHide == true}" ng-show="!thisHide">
+    <!-- <div class="lexart-user" ng-class="{'active': userToolsActive == true , 'lexart-menu__collapsed': thisHide == true}" ng-show="!thisHide">
         <div>
             
-            <img class="imm-user__pic" src="/assets/images/catalogos/usuarios.svg" alt="{{ userName }}" title="{{ userName }}" />
-            <div class="imm-user__tools">
+            <img class="lexart-user__pic" src="/assets/images/catalogos/usuarios.svg" alt="{{ userName }}" title="{{ userName }}" />
+            <div class="lexart-user__tools">
                 
-                <div class="imm-user__toggle" ng-click="toggleActive()" ng-show="!thisHide">
-                    <div class="imm-user__name">{{ userName }}</div>
-                    <div class="imm-user__profile">{{ userRole }}</div>
+                <div class="lexart-user__toggle" ng-click="toggleActive()" ng-show="!thisHide">
+                    <div class="lexart-user__name">{{ userName }}</div>
+                    <div class="lexart-user__profile">{{ userRole }}</div>
                 </div>
-                <div class="imm-user__options">
+                <div class="lexart-user__options">
 
-                    <button class="imm-user__options-btn" ng-click="logout()">
-                        <i class="imm-icon imm-icon--close-session"></i>
+                    <button class="lexart-user__options-btn" ng-click="logout()">
+                        <i class="lexart-icon lexart-icon--close-session"></i>
                         <span ng-show="!thisHide">{{ 'navigation.logout' | translate }}</span>
                     </button>
                 </div>

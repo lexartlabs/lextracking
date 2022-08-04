@@ -1,22 +1,22 @@
-<div class="imm-wa__hdr">
-  <div class="imm-flex">
-    <div class="imm-flex-5 imm-flex">
-      <div class="imm-flex-1">
-        <h1 class="imm-wa__tit">
-          <div class="imm-flex">
-            <a class="imm-bc-item">{{ 'sales.title' | translate }}</a>
+<div class="lexart-wa__hdr">
+  <div class="lexart-flex">
+    <div class="lexart-flex-5 lexart-flex">
+      <div class="lexart-flex-1">
+        <h1 class="lexart-wa__tit">
+          <div class="lexart-flex">
+            <a class="lexart-bc-item">{{ 'sales.title' | translate }}</a>
           </div>
         </h1>
       </div>
-      <div class="imm-flex-2">
+      <div class="lexart-flex-2">
 
       </div>
-      <!-- <div class="imm-flex-6">
-        <label class="imm-frm__lbl">
-          <b class="imm-frm__lbl-name">{{ 'sales.user' | translate }}</b>
+      <!-- <div class="lexart-flex-6">
+        <label class="lexart-frm__lbl">
+          <b class="lexart-frm__lbl-name">{{ 'sales.user' | translate }}</b>
           <ui-select
           ng-model="select.user"
-          class="imm-select imm-select--input"
+          class="lexart-select lexart-select--input"
           theme="selectize"
           append-to-body="true"
           ng-change="filterUsuario()"
@@ -30,32 +30,32 @@
         </ui-select>
       </label>
       </div> -->
-      <div class="imm-flex-6">
-        <div class="imm-btn__right">
-          <a ui-sref="app.saleNew" class="imm-btn imm-btn--round">&#43; {{ 'sales.sale' | translate }}</a>
+      <div class="lexart-flex-6">
+        <div class="lexart-btn__right">
+          <a ui-sref="app.saleNew" class="lexart-btn lexart-btn--round">&#43; {{ 'sales.sale' | translate }}</a>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="imm-flex" style="margin-top: 1em;">
-    <div class="imm-flex-2">
+  <div class="lexart-flex" style="margin-top: 1em;">
+    <div class="lexart-flex-2">
       <select ng-options="option.year for option in years track by option.id"
       ng-model="fill.year"
       ng-change="changeYear()"
       ></select>
     </div>
-    <div class="imm-flex-2">
+    <div class="lexart-flex-2">
       <select ng-options="option.month for option in months track by option.id"
       ng-model="fill.month"
       ng-change="changeMonth()"
       ></select>
     </div>
 
-    <div class="imm-flex-2">
+    <div class="lexart-flex-2">
         <ui-select
         ng-model="select.user"
-        class="imm-select imm-select--input"
+        class="lexart-select lexart-select--input"
         theme="selectize"
         append-to-body="true"
         ng-change="filterUsuario()"
@@ -69,14 +69,14 @@
         </ui-select-choices>
       </ui-select>
     </div>
-    <div class="imm-flex-6">
+    <div class="lexart-flex-6">
 
     </div>
   </div>
 </div>
 
-<div class="imm-wa__cnt">
-  <table class="imm-table">
+<div class="lexart-wa__cnt">
+  <table class="lexart-table">
     <thead>
       <tr>
         <th>{{ 'Fecha' }}</th>
@@ -88,7 +88,7 @@
 
         <th>{{ 'Monto' }}</th>
 
-        <th class="imm-cstm__grid-5"></th>
+        <th class="lexart-cstm__grid-5"></th>
       </tr>
     </thead>
     <tbody>

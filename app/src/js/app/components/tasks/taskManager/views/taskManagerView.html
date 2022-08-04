@@ -1,27 +1,27 @@
-<div class="imm-wa__hdr imm-flex">
-    <div class="imm-flex-5">
-        <h1 class="imm-wa__tit">
-            <a class="imm-bc-item" ui-sref="app.dashboardTasks">{{ 'navigation.tasks' | translate }}</a>
+<div class="lexart-wa__hdr lexart-flex">
+    <div class="lexart-flex-5">
+        <h1 class="lexart-wa__tit">
+            <a class="lexart-bc-item" ui-sref="app.dashboardTasks">{{ 'navigation.tasks' | translate }}</a>
         </h1>
-        <div class="imm-bc">
-            <a class="imm-bc-item">{{ 'navigation.taskManager' | translate }}</a>
+        <div class="lexart-bc">
+            <a class="lexart-bc-item">{{ 'navigation.taskManager' | translate }}</a>
         </div>
     </div>
 </div>
-<div class="imm-wa__cnt">  
+<div class="lexart-wa__cnt">  
     <div style="height:250px;width:100%;">
         <canvas id="bar" class="chart chart-bar" 
                 chart-data="data" chart-labels="labels"
                 chart-series="series" chart-colors="ColorBar"
                 chart-options="options" chart-dataset-override="DataSetOverride"></canvas>
     </div>
-    <table class="imm-table">
+    <table class="lexart-table">
         <thead>
             <tr>
             	<th>{{ 'projects.project' | translate }}</th>
                 <th>{{ 'projects.client' | translate }}</th>
                 <th>{{ 'taskManager.tasknumber' | translate }}</th>
-                <th class="imm-cstm__grid-5"></th>
+                <th class="lexart-cstm__grid-5"></th>
             </tr>
         </thead>
         <tbody>

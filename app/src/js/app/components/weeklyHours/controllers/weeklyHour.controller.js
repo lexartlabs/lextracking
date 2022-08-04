@@ -2,7 +2,7 @@
 
   'use strict';
 
-  var Module = ng.module('Imm');
+  var Module = ng.module('LexTracking');
 
   Module.controller('WeeklyHourCtrl', ['$scope','$state','$stateParams', '$rootScope', '$filter', '$timeout', 'WeeklyHourServices','UserServices' , 'ngDialog', function($scope,$state,$stateParams, $rootScope, $filter, $timeout, WeeklyHourServices,UserServices, ngDialog) {
 

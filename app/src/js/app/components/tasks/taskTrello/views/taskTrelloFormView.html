@@ -1,10 +1,10 @@
-<div class="imm-wa__hdr imm-flex">
-    <div class="imm-flex-5">
-        <h1 class="imm-wa__tit">
-            <a class="imm-bc-item" ui-sref="app.tasks_trello">{{ 'tasks_trello.title' | translate }}</a>
+<div class="lexart-wa__hdr lexart-flex">
+    <div class="lexart-flex-5">
+        <h1 class="lexart-wa__tit">
+            <a class="lexart-bc-item" ui-sref="app.tasks_trello">{{ 'tasks_trello.title' | translate }}</a>
         </h1>
-        <div class="imm-bc" ng-if="trelloname">
-            <span class="imm-bc-item imm-bc--head">{{trelloname}}</span>
+        <div class="lexart-bc" ng-if="trelloname">
+            <span class="lexart-bc-item lexart-bc--head">{{trelloname}}</span>
         </div>
     </div>
 </div>
@@ -18,11 +18,11 @@
 </div>
 <a style="text-align: left; margin-left: 3px; color: blue; text-decoration: underline;" target="_blank"
     ng-href="{{urlBoard}}">Ver Tablero</a>
-<div class="imm-wa__cnt" style="margin-top:10px;">
-    <form class="imm-frm imm-frm--center">
+<div class="lexart-wa__cnt" style="margin-top:10px;">
+    <form class="lexart-frm lexart-frm--center">
 
-        <div class="imm-frm__fldgrp">
-            <table class="imm-table">
+        <div class="lexart-frm__fldgrp">
+            <table class="lexart-table">
                 <thead>
                     <tr>
                         <th colspan="5" style="text-align:center">Lista Cards</th>
@@ -36,7 +36,7 @@
                         <th style="width: 120px">
                          <ui-select 
                             ng-model="labels.selected"
-                            class="imm-selectFilter imm-selectFilter--input"
+                            class="lexart-selectFilter lexart-selectFilter--input"
                             theme="selectize"
                             append-to-body="true" 
                             ng-disabled="disabled" 
@@ -55,7 +55,7 @@
                         <th style="width: 120px">
                         <ui-select 
                             ng-model="selectedList.selected"
-                            class="imm-selectFilter imm-selectFilter--input"
+                            class="lexart-selectFilter lexart-selectFilter--input"
                             theme="selectize"
                             append-to-body="true" 
                             ng-disabled="disabled" 
@@ -69,7 +69,7 @@
                             </ui-select-choices>
                         </ui-select>
                         </th>
-                        <th class="imm-cstm__grid-5"></th>
+                        <th class="lexart-cstm__grid-5"></th>
                         <th></th>
                         <th></th>
                         <th></th>

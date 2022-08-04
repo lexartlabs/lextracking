@@ -2,7 +2,7 @@
 
   'use strict';
 
-  var Module = ng.module('Imm');
+  var Module = ng.module('LexTracking');
 
   Module.controller('MinSoftwaresCtrl', ['$scope','$interval', '$rootScope', '$filter', '$timeout', 'MinSoftwaresServices', 'ngDialog', function($scope,$interval, $rootScope, $filter, $timeout, MinSoftwaresServices, ngDialog) {
 

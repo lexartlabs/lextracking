@@ -2,7 +2,7 @@
 
     'use strict';
 
-    var Module = ng.module('Imm');
+    var Module = ng.module('LexTracking');
     
     Module.factory('myHttpInterceptor', ['$injector', '$window', '$rootScope', function ($injector, $window, $rootScope, $q) {
         return {

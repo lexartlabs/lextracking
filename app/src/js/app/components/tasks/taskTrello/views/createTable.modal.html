@@ -1,13 +1,13 @@
-<div class="imm-modal imm-modal--medium">
+<div class="lexart-modal lexart-modal--medium">
 
-  <div class="imm-modal__header">
-    <h1 class="imm-modal__title" style="margin-bottom: 1%;">Agregar Tablero de Trello</h1>
+  <div class="lexart-modal__header">
+    <h1 class="lexart-modal__title" style="margin-bottom: 1%;">Agregar Tablero de Trello</h1>
   </div>
-  <div class="imm-modal__cnt">
+  <div class="lexart-modal__cnt">
     <div>
       <form>
        <label>Proyecto:</label><br>
-       <ui-select append-to-body="true" class="imm-select imm-select--input" theme="selectize" ng-model="selected.value">
+       <ui-select append-to-body="true" class="lexart-select lexart-select--input" theme="selectize" ng-model="selected.value">
         <ui-select-match placeholder="Seleccionar Proyecto">
             {{$select.selected.name}}
         </ui-select-match>
@@ -16,7 +16,7 @@
         </ui-select-choices>
       </ui-select>
        <label>Board Trello:</label><br>
-       <ui-select append-to-body="true" class="imm-select imm-select--input" theme="selectize" ng-model="selected.url">
+       <ui-select append-to-body="true" class="lexart-select lexart-select--input" theme="selectize" ng-model="selected.url">
         <ui-select-match placeholder="Seleccionar Tablero">
             {{$select.selected.name}}
         </ui-select-match>
@@ -27,10 +27,10 @@
       </form>
     </div>
   </div>
-  <div class="imm-modal__actions">
+  <div class="lexart-modal__actions">
         <p class="err-display">{{error}}</p>
-        <a class="imm-btn imm-btn--alt" ng-click="ngDialogData.cancel()">{{ 'shared.modal.cancel' | translate }}</a>
-        <a class="imm-btn" ng-click="ngDialogData.confirm()">{{ 'shared.modal.accept' | translate }}</a>
+        <a class="lexart-btn lexart-btn--alt" ng-click="ngDialogData.cancel()">{{ 'shared.modal.cancel' | translate }}</a>
+        <a class="lexart-btn" ng-click="ngDialogData.confirm()">{{ 'shared.modal.accept' | translate }}</a>
     </div>
 </div>
 

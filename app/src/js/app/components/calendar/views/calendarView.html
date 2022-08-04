@@ -1,18 +1,18 @@
 
-<div class="imm-wa__cnt">
+<div class="lexart-wa__cnt">
 
 <div class="preload" ng-show="loading" 
 style="display: flex; justify-content:center; position: fixed;width: 100%;height: 100vh;background-color: #7a78782e;z-index: 10000; left:0;top:0">
   <img style=" width: 3%" src="assets/images/spinner.svg"></i></div>
-<div class="imm-modal__cnt">
-  <div class="imm-frm__fldgrp">
+<div class="lexart-modal__cnt">
+  <div class="lexart-frm__fldgrp">
 
     <div style="width: 150px;" ng-if="userRole=='admin' || userRole == 'pm' ">
-      <label class="imm-frm__lbl">
-        <b class="imm-frm__lbl-name">{{ 'calendar.user' | translate }}</b>
+      <label class="lexart-frm__lbl">
+        <b class="lexart-frm__lbl-name">{{ 'calendar.user' | translate }}</b>
         <ui-select 
         ng-model="filter.user" 
-        class="imm-select imm-select--input" 
+        class="lexart-select lexart-select--input" 
         theme="selectize"
         title="{{ 'calendar.users' | translate }}" append-to-body="true"
         on-select= 'callCalendar()'

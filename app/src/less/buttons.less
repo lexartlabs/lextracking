@@ -1,6 +1,6 @@
 // IMM-BTN
 
-.imm-btn {
+.lexart-btn {
   display: inline-block;
   padding: 0rem 1.2rem;
   line-height: 2rem;
@@ -23,25 +23,25 @@
   position: relative;
 }
 
-.imm-btn-sm {
+.lexart-btn-sm {
   padding: .0625rem 0.7rem;
   line-height: 2;
   height: 24px;
   font-size: 10px;
 }
 
-.imm-btn:active,
-.imm-btn:hover {
+.lexart-btn:active,
+.lexart-btn:hover {
   background-color: lighten(@color-active-text, 5%);
   border-color: darken(@color-active-text, 5%);
 }
 
-.imm-btn:active {
+.lexart-btn:active {
   background-color: darken(@color-active-text, 10%);
   border-color: darken(@color-active-text, 15%);
 }
 
-.imm-btn[disabled] {
+.lexart-btn[disabled] {
   background: @color-light-gray;
   border: @color-gray;
   color: @color-gray;
@@ -49,27 +49,27 @@
 
 
 // BTN ALTERNATIVE COLOR
-.imm-btn--alt {
+.lexart-btn--alt {
   background-color: @color-btn-gray;
   color: @color-btn-gray-text;
   border-color: darken(@color-btn-gray, 10%);
   border-radius: 5px;
 }
 
-.imm-btn--alt:active,
-.imm-btn--alt:hover {
+.lexart-btn--alt:active,
+.lexart-btn--alt:hover {
   background-color: lighten(@color-btn-gray, 5%);
   border-color: darken(@color-btn-gray, 5%);
 }
 
-.imm-btn--alt:active {
+.lexart-btn--alt:active {
   background-color: darken(@color-btn-gray, 10%);
   border-color: darken(@color-btn-gray, 15%);
 }
 
 // BTN ROUND
 
-.imm-btn--round {
+.lexart-btn--round {
 
   display: inline-block;
   border-bottom: 1px solid rgba(0, 0, 0, .1);
@@ -88,7 +88,7 @@
   }
 }
 
-.imm-btn--round_alt:extend(.imm-btn--round) {
+.lexart-btn--round_alt:extend(.lexart-btn--round) {
   background-color: @color-btn-gray;
   color: @color-btn-gray-text;
   text-transform: uppercase;
@@ -104,7 +104,7 @@
   }
 }
 
-.imm-btn-circle {
+.lexart-btn-circle {
   width: 50px;
   height: 50px;
   line-height: 50px;
@@ -128,7 +128,7 @@
   }
 }
 
-.imm-btn-circle--approve {
+.lexart-btn-circle--approve {
 
   i {
     font-size: 1rem;
@@ -137,15 +137,15 @@
 
 }
 
-.imm-btn-circle--approve:hover {
+.lexart-btn-circle--approve:hover {
   background-color: @color-light-green;
 }
 
-.imm-btn-circle--disapprove:hover {
+.lexart-btn-circle--disapprove:hover {
   background-color: @color-light-red;
 }
 
-.imm-download-excel {
+.lexart-download-excel {
   padding: 0;
   background-color: transparent;
   border: 0;

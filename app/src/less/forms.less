@@ -61,29 +61,29 @@ textarea:focus {
 
 }
 
-status-select.focus+.imm-frm__lbl-name,
-input[type=text]:focus+.imm-frm__lbl-name,
-input[type=password]:focus+.imm-frm__lbl-name,
-input[type=search]:focus+.imm-frm__lbl-name,
-input[type=number]:focus+.imm-frm__lbl-name,
-input[type=email]:focus+.imm-frm__lbl-name,
-select:focus+.imm-frm__lbl-name,
-textarea:focus+.imm-frm__lbl-name {
+status-select.focus+.lexart-frm__lbl-name,
+input[type=text]:focus+.lexart-frm__lbl-name,
+input[type=password]:focus+.lexart-frm__lbl-name,
+input[type=search]:focus+.lexart-frm__lbl-name,
+input[type=number]:focus+.lexart-frm__lbl-name,
+input[type=email]:focus+.lexart-frm__lbl-name,
+select:focus+.lexart-frm__lbl-name,
+textarea:focus+.lexart-frm__lbl-name {
   color: @primary-color;
 }
 
-input[type=text][readonly]:focus+.imm-frm__lbl-name,
-input[type=password][readonly]:focus+.imm-frm__lbl-name,
-input[type=search][readonly]:focus+.imm-frm__lbl-name,
-input[type=number][readonly]:focus+.imm-frm__lbl-name,
-input[type=email][readonly]:focus+.imm-frm__lbl-name,
-select[readonly]:focus+.imm-frm__lbl-name,
-textarea[readonly]:focus+.imm-frm__lbl-name {
+input[type=text][readonly]:focus+.lexart-frm__lbl-name,
+input[type=password][readonly]:focus+.lexart-frm__lbl-name,
+input[type=search][readonly]:focus+.lexart-frm__lbl-name,
+input[type=number][readonly]:focus+.lexart-frm__lbl-name,
+input[type=email][readonly]:focus+.lexart-frm__lbl-name,
+select[readonly]:focus+.lexart-frm__lbl-name,
+textarea[readonly]:focus+.lexart-frm__lbl-name {
   color: @color-dark-gray;
 }
 
 
-select:active+.imm-frm__lbl-name {
+select:active+.lexart-frm__lbl-name {
   color: @primary-color;
 }
 
@@ -139,60 +139,60 @@ select:focus {
 
 // SPECIFICS
 
-.imm-frm {
+.lexart-frm {
   width: 100%;
 }
 
 // FIELD CONTAINERS
 
-*+.imm-frm__fld {
+*+.lexart-frm__fld {
   margin-top: 2rem;
 }
 
-*+.imm-frm__fldgrp {
+*+.lexart-frm__fldgrp {
   margin-top: 2rem;
 }
 
-.imm-frm--sm {
-  *+.imm-frm__fld {
+.lexart-frm--sm {
+  *+.lexart-frm__fld {
     margin-top: 0.5rem;
   }
 
-  *+.imm-frm__fldgrp {
+  *+.lexart-frm__fldgrp {
     margin-top: 0.5rem;
   }
 }
 
 // FIELD GROUPS
 
-.imm-frm__fldgrp {
+.lexart-frm__fldgrp {
   display: flex;
 
-  .imm-frm__fld {
+  .lexart-frm__fld {
     flex: 1;
 
 
-    &.imm-flex-1 {
+    &.lexart-flex-1 {
       flex: 1;
     }
 
-    &.imm-flex-2 {
+    &.lexart-flex-2 {
       flex: 2;
     }
 
-    &.imm-flex-3 {
+    &.lexart-flex-3 {
       flex: 3;
     }
 
-    &.imm-flex-4 {
+    &.lexart-flex-4 {
       flex: 4;
     }
 
-    &.imm-flex-5 {
+    &.lexart-flex-5 {
       flex: 5;
     }
 
-    &.imm-flex-6 {
+    &.lexart-flex-6 {
       flex: 6;
     }
 
@@ -200,18 +200,18 @@ select:focus {
 
 
 
-  .imm-frm__fld--medium {
+  .lexart-frm__fld--medium {
     flex: 2;
   }
 
-  .imm-frm__fld+.imm-frm__fld {
+  .lexart-frm__fld+.lexart-frm__fld {
     margin: 0 0 0 1.25rem;
   }
 }
 
 // LABEL CONTAINERS
 
-.imm-frm__lbl {
+.lexart-frm__lbl {
   display: block;
   position: relative;
   padding-top: 1.5rem;
@@ -229,16 +229,16 @@ select:focus {
   }
 
   &.active {
-    .imm-frm__lbl-name {
+    .lexart-frm__lbl-name {
       color: @primary-color;
     }
   }
 
 }
 
-.imm-frm__lbl--radio {}
+.lexart-frm__lbl--radio {}
 
-.imm-frm__lbl-name {
+.lexart-frm__lbl-name {
   position: absolute;
   left: 0;
   top: 0;
@@ -252,9 +252,9 @@ select:focus {
   .user-select(none);
 }
 
-.imm-frm__lbl--error {
+.lexart-frm__lbl--error {
 
-  .imm-frm__lbl-name {
+  .lexart-frm__lbl-name {
     color: @color-red;
   }
 
@@ -268,9 +268,9 @@ select:focus {
 
 // ERROR MESSAGES
 
-.imm-frm__error-messages {}
+.lexart-frm__error-messages {}
 
-.imm-frm__error-item {
+.lexart-frm__error-item {
   color: @color-red;
   line-height: 1rem;
   font-size: .7125rem;
@@ -280,7 +280,7 @@ select:focus {
 
 // SPECIFIC FIELDS
 
-.imm-frm__lbl--cash {
+.lexart-frm__lbl--cash {
 
   position: relative;
 
@@ -301,7 +301,7 @@ select:focus {
 
 }
 
-//.imm-frm__lbl--cash {
+//.lexart-frm__lbl--cash {
 //
 //  position: relative;
 //
@@ -322,11 +322,11 @@ select:focus {
 //
 //}
 
-.imm-frm--center {
+.lexart-frm--center {
   width: 100%;
   margin: 0 auto;
 
-  .imm-frm__fldgrp {
+  .lexart-frm__fldgrp {
     //width: 500px;
   }
 

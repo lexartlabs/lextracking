@@ -1,4 +1,4 @@
-.imm-menu {
+.lexart-menu {
   background: @color-bk-dark-mode;
   width: @navbar-width;
   overflow: hidden;
@@ -8,7 +8,7 @@
   float: left;
   width: @navbar-width;
 
-  .imm-menu__wrp {
+  .lexart-menu__wrp {
     display: block;
     width: @navbar-width;
     height: 100%;
@@ -28,7 +28,7 @@
   }
 }
 
-.imm-menu__hdr {
+.lexart-menu__hdr {
   display: block;
   height: @navbar-logo-height;
   height: @navbar-logo-height + 30px;
@@ -38,19 +38,19 @@
   position: relative;
   z-index: 5;
 
-  +.imm-menu__nav {
+  +.lexart-menu__nav {
     // top: 70px;
   }
 
-  &.imm-menu__app-list-block {
+  &.lexart-menu__app-list-block {
     height: @navbar-logo-height + 90px;
   }
 
-  &.imm-menu__app-list-block+.imm-menu__nav {
+  &.lexart-menu__app-list-block+.lexart-menu__nav {
     // top: @navbar-logo-height + 90px;
   }
 
-  .imm-menu__app {
+  .lexart-menu__app {
     padding: 5px 0 5px 30px;
     height: 30px;
     background-color: rgba(0, 0, 0, 0.15);
@@ -62,7 +62,7 @@
     letter-spacing: -0.5px;
     cursor: pointer;
 
-    .imm-menu__app-icon {
+    .lexart-menu__app-icon {
       color: @color-blue;
       letter-spacing: inherit;
       font-size: 0.625rem;
@@ -81,8 +81,8 @@
     }
   }
 
-  .imm-menu__current-app {
-    .imm-menu__dropdown {
+  .lexart-menu__current-app {
+    .lexart-menu__dropdown {
       position: absolute;
       top: 14px;
       right: 5px;
@@ -101,8 +101,8 @@
     }
   }
 
-  .imm-menu__app-list {
-    .imm-menu__app-list-item {
+  .lexart-menu__app-list {
+    .lexart-menu__app-list-item {
       height: 30px;
 
       &:first-child {
@@ -113,23 +113,23 @@
 
 }
 
-.imm-menu__tit {
+.lexart-menu__tit {
   line-height: @navbar-logo-height;
   display: inline-block;
   // margin-left: 29px;
   height: @navbar-logo-height;
 }
 
-.imm-menu__tit img {
+.lexart-menu__tit img {
   height: 26px;
   vertical-align: middle;
 }
 
-.imm-menu__tools {
+.lexart-menu__tools {
   cursor: pointer;
 }
 
-.imm-menu__env {
+.lexart-menu__env {
   margin: 0 3px;
   color: @color-white;
   font-weight: bold;
@@ -137,7 +137,7 @@
 }
 
 // NAVIGATION
-.imm-menu__nav {
+.lexart-menu__nav {
   transition: all 0.5s ease;
   // position: absolute;
   width: 100%;
@@ -163,7 +163,7 @@
   scrollbar-shadow-color: @color-bk-dark-mode;
   scrollbar-dark-shadow-color: @color-bk-dark-mode;
 
-  &.imm-menu__nav-down {
+  &.lexart-menu__nav-down {
     top: 274px;
   }
 
@@ -188,7 +188,7 @@
 
 }
 
-.imm-menu__nav-item {
+.lexart-menu__nav-item {
   padding: 10px;
   // width: 80%;
   line-height: 1.25rem;
@@ -208,7 +208,7 @@
     // box-shadow: inset 0px 1px 3px 0px rgba(0,0,0,0.2);
   }
 
-  .imm-icon-wrapper {
+  .lexart-icon-wrapper {
     position: relative;
     vertical-align: middle;
     display: inline-block;
@@ -223,7 +223,7 @@
       width: auto;
     }
 
-    .imm-icon__notification-count {
+    .lexart-icon__notification-count {
       display: inline-block;
       width: .875rem;
       height: .875rem;
@@ -244,7 +244,7 @@
   }
 }
 
-.imm-menu__nav-item--selected {
+.lexart-menu__nav-item--selected {
   background-color: @color-navigation-gray;
   // box-shadow: inset 0px 1px 3px 0px rgba(0,0,0,0.50);
   // &:after {
@@ -265,7 +265,7 @@
   cursor: pointer;
   position: relative;
 
-  >.imm-submenu--icon-chevron {
+  >.lexart-submenu--icon-chevron {
     display: inline-block;
     position: absolute;
     right: 1.5rem;
@@ -298,11 +298,11 @@
   }
 
   &:hover {
-    >.imm-submenu--icon-chevron:before {
+    >.lexart-submenu--icon-chevron:before {
       opacity: 1;
     }
 
-    >.imm-menu__submenu {
+    >.lexart-menu__submenu {
       display: block;
       opacity: 1;
     }
@@ -310,7 +310,7 @@
 }
 
 
-.imm-menu__submenu {
+.lexart-menu__submenu {
   opacity: 0;
   transition: all ease 0.3s;
   display: none;
@@ -349,7 +349,7 @@
         background-color: lighten(@color-hollow-input, (100 - lightness(@color-hollow-input)) * 0.5);
       }
 
-      .imm-icon-wrapper {
+      .lexart-icon-wrapper {
         vertical-align: middle;
         display: inline-block;
         height: 16px;
@@ -364,7 +364,7 @@
         }
       }
 
-      .imm-menu__submenu-label {
+      .lexart-menu__submenu-label {
         vertical-align: middle;
         display: inline-block;
         position: relative;
@@ -374,7 +374,7 @@
   }
 }
 
-.imm-menu__submenu--wrapper {
+.lexart-menu__submenu--wrapper {
   height: auto;
   transition: height 0.5s ease;
   background: rgba(0, 0, 0, 0.2);
@@ -388,13 +388,13 @@
   }
 }
 
-.imm-menu__submenu-label i {
+.lexart-menu__submenu-label i {
   font-size: 1rem;
   vertical-align: bottom;
   margin-right: 10px;
 }
 
-// .imm-menu__submenu-label span{
+// .lexart-menu__submenu-label span{
 //   font-size: .9rem;
 // }
 
@@ -417,37 +417,37 @@
 
 .light-mode {
 
-  .imm-menu {
+  .lexart-menu {
     background: @color-white;
     // border-right: 1px solid rgba(0, 0, 0, 0.05);
   }
 
-  .imm-menu__nav-item {
+  .lexart-menu__nav-item {
     color: @color-dark-gray;
   }
 
-  .imm-menu__nav-item:hover {
+  .lexart-menu__nav-item:hover {
     background: @color-light-gray;
     box-shadow: none;
     // color: @color-white;
   }
 
-  .imm-menu__nav-item--selected {
+  .lexart-menu__nav-item--selected {
     background: @color-light-gray;
     box-shadow: none;
     color: @color-active-text;
     // border-right: 1px solid @color-blue;
   }
 
-  .imm-menu__nav-item:nth-child(1) {
+  .lexart-menu__nav-item:nth-child(1) {
     margin-top: 10px;
   }
 
-  .imm-menu__nav-item b:nth-child(1) {
+  .lexart-menu__nav-item b:nth-child(1) {
     background: @color-light-gray;
   }
 
-  .imm-menu__nav-item b:nth-child(1)::before {
+  .lexart-menu__nav-item b:nth-child(1)::before {
     content: '';
     position: absolute;
     top: 0;
@@ -458,11 +458,11 @@
     background: @color-white;
   }
 
-  .imm-menu__nav-item b:nth-child(2) {
+  .lexart-menu__nav-item b:nth-child(2) {
     background: @color-light-gray;
   }
 
-  .imm-menu__nav-item b:nth-child(2)::before {
+  .lexart-menu__nav-item b:nth-child(2)::before {
     content: '';
     position: absolute;
     top: 0;
@@ -473,8 +473,8 @@
     background: @color-white;
   }
 
-  .imm-menu__nav-item--selected b:nth-child(1),
-  .imm-menu__nav-item--selected b:nth-child(2) {
+  .lexart-menu__nav-item--selected b:nth-child(1),
+  .lexart-menu__nav-item--selected b:nth-child(2) {
     display: block;
     opacity: 1;
   }
@@ -509,52 +509,52 @@
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .4);
 }
 
-.imm-menu__collapsed {
+.lexart-menu__collapsed {
   width: @navbar-width-collapsed  !important;
   transition: all .5s ease;
 }
 
-.imm-menu__collapsed .imm-menu__nav-item {
+.lexart-menu__collapsed .lexart-menu__nav-item {
   text-align: center;
   transition: all .5s ease;
 }
 
-.imm-menu__collapsed .imm-menu__nav-item .imm-icon-wrapper {
+.lexart-menu__collapsed .lexart-menu__nav-item .lexart-icon-wrapper {
   font-size: 1.2rem;
   transition: all .5s ease;
 }
 
-.imm-menu__collapsable .imm-menu__nav-item .imm-icon-wrapper {
+.lexart-menu__collapsable .lexart-menu__nav-item .lexart-icon-wrapper {
   font-size: .9rem !important;
   transition: all .5s ease;
 }
 
-.imm-menu__collapsable .imm-menu__nav-item {
+.lexart-menu__collapsable .lexart-menu__nav-item {
   text-align: left;
   transition: all .5s ease;
 }
 
-.imm-menu__collapsable {
+.lexart-menu__collapsable {
   width: @navbar-width  !important;
   transition: all .5s ease;
 }
 
-.imm-menu-top-nav-bar__collapsed {
+.lexart-menu-top-nav-bar__collapsed {
   left: @navbar-width-collapsed  !important;
   transition: all .5s ease;
 }
 
-.imm-menu-top-nav-bar__collapsable {
+.lexart-menu-top-nav-bar__collapsable {
   left: @navbar-width  !important;
   transition: all .5s ease;
 }
 
-.imm-menu__collapsed .imm-menu__hdr {
+.lexart-menu__collapsed .lexart-menu__hdr {
   width: @navbar-width-collapsed  !important;
   transition: all .5s ease;
 }
 
-.imm-menu__collapsable .imm-menu__hdr {
+.lexart-menu__collapsable .lexart-menu__hdr {
   width: @navbar-width  !important;
   transition: all .5s ease;
 }
@@ -564,59 +564,59 @@
   transition: all .5s ease;
 }
 
-.imm-menu__collapsed .imm-menu__submenu {
+.lexart-menu__collapsed .lexart-menu__submenu {
   left: 83px;
   text-align: left;
   transition: all .5s ease;
 }
 
-.imm-menu__collapsable .imm-menu__submenu {
+.lexart-menu__collapsable .lexart-menu__submenu {
   left: 165px;
   text-align: left;
   transition: all .5s ease;
 }
 
-.imm-menu__collapsed .imm-menu__nav-item--selected {
+.lexart-menu__collapsed .lexart-menu__nav-item--selected {
   // margin-left: 10px;
   transition: all .5s ease;
 }
 
-.imm-menu__collapsable .imm-menu__nav-item--selected {
+.lexart-menu__collapsable .lexart-menu__nav-item--selected {
   margin-left: 10px;
   transition: all .5s ease;
 }
 
-.imm-menu__collapsed .imm-menu__tit {
+.lexart-menu__collapsed .lexart-menu__tit {
   margin-left: 12px;
   margin-top: 2px;
 }
 
-.imm-menu__collapsable .imm-menu__tit {
+.lexart-menu__collapsable .lexart-menu__tit {
   margin-left: 18px;
   margin-top: 2px;
 }
 
-.imm-menu__collapsed .imm-menu__tit img {
+.lexart-menu__collapsed .lexart-menu__tit img {
   height: 48px;
   transition: all .5s ease;
 }
 
-.imm-menu__collapsable .imm-menu__tit img {
+.lexart-menu__collapsable .lexart-menu__tit img {
   height: 25px;
   transition: all .5s ease;
 }
 
-.imm-menu__collapsed .imm-menu__nav-item {
+.lexart-menu__collapsed .lexart-menu__nav-item {
   padding: 0.8rem 0.75rem;
   transition: all .5s ease;
 }
 
-.imm-menu__collapsable .imm-menu__nav-item {
+.lexart-menu__collapsable .lexart-menu__nav-item {
   padding: .625rem .75rem;
   transition: all .5s ease;
 }
 
-.imm-table a i {
+.lexart-table a i {
   background-color: @color-blue;
   color: @color-white;
   padding: 5px;
@@ -624,21 +624,21 @@
   border-radius: 5px;
 }
 
-.imm-wa__cnt .imm-download-excel i {
+.lexart-wa__cnt .lexart-download-excel i {
   background: inherit;
   color: inherit;
 }
 
-.imm-table--fixed-cell a {
+.lexart-table--fixed-cell a {
   position: relative;
   top: 10px
 }
 
-// .imm-table--fixed-cell button{
+// .lexart-table--fixed-cell button{
 //   position: relative;
 //   top: 10px
 // }
-// .imm-table--fixed-cell button i{
+// .lexart-table--fixed-cell button i{
 //   background-color: transparent;
 //   color: @color-white;
 //   padding: 5px;
@@ -646,7 +646,7 @@
 //   border-radius: 5px;
 //   border: 1px solid @color-bk-tables-light;
 // }
-.imm-wa__cnt .imm-filters-btn i {
+.lexart-wa__cnt .lexart-filters-btn i {
   background-color: transparent;
   color: inherit;
 }
@@ -655,7 +655,7 @@
   font-size: 1rem;
 }
 
-.header-tabs .navtop-container .imm-icon-wrapper i {
+.header-tabs .navtop-container .lexart-icon-wrapper i {
   font-size: 1.5rem;
 }
 

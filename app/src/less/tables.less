@@ -45,7 +45,7 @@ td {
     transition: all 0.2s ease-in;
   }
 
-  span.imm-table__money {
+  span.lexart-table__money {
     display: inline-block;
     position: relative;
     left: -3px;
@@ -65,17 +65,17 @@ td {
 // tr:nth-child(odd) {
 //   background-color: @color-light-gray;
 // }
-.imm-wa__cnt tbody tr:hover {
+.lexart-wa__cnt tbody tr:hover {
   background-color: @color-light-gray;
 }
 
 // NON-FIXED TABLES
 
-.imm-table {
+.lexart-table {
   table-layout: initial;
 }
 
-.imm-table__modal {
+.lexart-table__modal {
   //display: block;
   height: 150px;
   width: 100%;
@@ -87,7 +87,7 @@ td {
   }
 }
 
-.imm-table__compact {
+.lexart-table__compact {
   font-size: .73rem;
 
   thead th,
@@ -97,7 +97,7 @@ td {
 
 }
 
-.imm-table__quad {
+.lexart-table__quad {
 
   thead th,
   tbody td {
@@ -108,18 +108,18 @@ td {
 
 }
 
-.imm-table--fixed {
+.lexart-table--fixed {
   table-layout: fixed;
 }
 
-.imm-table--horizontal-overflow {
+.lexart-table--horizontal-overflow {
   border-left: 4px solid @primary-color;
   border-right: 4px solid @primary-color;
 }
 
 //  Currency cells
 
-.imm-table__currency {
+.lexart-table__currency {
   text-align: right;
 
   input {
@@ -130,31 +130,31 @@ td {
 }
 
 // No wrap cells
-.imm-table__nowrap {
+.lexart-table__nowrap {
   white-space: nowrap;
 }
 
 // Selectable rows
-.imm-table--selectable tbody tr {
+.lexart-table--selectable tbody tr {
   transition: color .1s linear, background-color .1s linear;
   cursor: pointer;
 }
 
-/*.imm-table--selectable tbody tr:hover {
+/*.lexart-table--selectable tbody tr:hover {
   color: @color-white;
   background: @color-dark-gray;
 }*/
 
-.imm-table--selectable tbody tr:active {
+.lexart-table--selectable tbody tr:active {
   background: @primary-color;
 }
 
-.imm-table__featured-row {
+.lexart-table__featured-row {
   background: @color-light-gray;
 }
 
 // Multi table
-.imm-table--multi {
+.lexart-table--multi {
 
   table-layout: fixed;
 
@@ -176,22 +176,22 @@ td {
 
 }
 
-.imm-table__tools {
+.lexart-table__tools {
   width: 60px;
   text-align: right;
   padding: 0 4px;
 
-  .imm-icon {
+  .lexart-icon {
     color: @primary-color;
     font-size: .875rem;
   }
 
-  .imm-icon+.imm-icon {
+  .lexart-icon+.lexart-icon {
     margin-left: 2px;
   }
 }
 
-.imm-table__tree-row td:first-child {
+.lexart-table__tree-row td:first-child {
   padding-left: 3.25rem;
   background-image: url(/assets/images/tree-ico.png);
   background-position: 1.5rem -.25rem;
@@ -200,19 +200,19 @@ td {
   background-repeat: no-repeat
 }
 
-.imm-table__tree-row--last td:first-child {
+.lexart-table__tree-row--last td:first-child {
   background-repeat-y: no-repeat;
 }
 
-.imm-table__original-row {
+.lexart-table__original-row {
   background-color: rgba(71, 152, 235, 0.3) !important;
 }
 
-.imm-table__link {
+.lexart-table__link {
   text-decoration: underline;
 }
 
-.imm-th__radio {
+.lexart-th__radio {
   width: 20px;
 }
 

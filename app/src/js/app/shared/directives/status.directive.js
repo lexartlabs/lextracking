@@ -2,7 +2,7 @@
 
     "use strict";
 
-    var Module = ng.module('Imm');
+    var Module = ng.module('LexTracking');
 
     Module.directive('status', function () {
 
@@ -26,7 +26,7 @@
 
     'use strict';
 
-    var Module = ng.module('Imm');
+    var Module = ng.module('LexTracking');
 
     console.log('budgetStatus');
     

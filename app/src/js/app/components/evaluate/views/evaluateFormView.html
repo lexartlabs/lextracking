@@ -1,34 +1,34 @@
-<div class="imm-wa__hdr imm-flex">
-    <div class="imm-flex-5">
-        <h1 class="imm-wa__tit">
-            <a class="imm-bc-item" ui-sref="app.evaluate">{{ 'evaluate.title' | translate }}</a>
+<div class="lexart-wa__hdr lexart-flex">
+    <div class="lexart-flex-5">
+        <h1 class="lexart-wa__tit">
+            <a class="lexart-bc-item" ui-sref="app.evaluate">{{ 'evaluate.title' | translate }}</a>
         </h1>
-        <div class="imm-bc">
-            <a class="imm-bc-item">{{ 'evaluate.user' | translate }}</a>
+        <div class="lexart-bc">
+            <a class="lexart-bc-item">{{ 'evaluate.user' | translate }}</a>
         </div>
-        <div class="imm-bc" ng-if="userEval.name">
-            <span class="imm-bc-item imm-bc--head">{{userEval.name}}</span>
+        <div class="lexart-bc" ng-if="userEval.name">
+            <span class="lexart-bc-item lexart-bc--head">{{userEval.name}}</span>
         </div>
     </div>
 </div>
 
-<div class="imm-wa__cnt">
-    <form class="imm-frm imm-frm--center">
+<div class="lexart-wa__cnt">
+    <form class="lexart-frm lexart-frm--center">
 
-        <div class="imm-frm__fldgrp">
-            <div class="imm-frm__fld">
-                <label class="imm-frm__lbl">
+        <div class="lexart-frm__fldgrp">
+            <div class="lexart-frm__fld">
+                <label class="lexart-frm__lbl">
                     <input type="text" ng-model="userEval.name" readonly/>
-                    <b class="imm-frm__lbl-name">{{ 'Nombre' }}</b>
+                    <b class="lexart-frm__lbl-name">{{ 'Nombre' }}</b>
                 </label>
             </div>     
 
-            <div class="imm-frm__fld">
-            <label class="imm-frm__lbl">
-                <b class="imm-frm__lbl-name">Tarea</b>
+            <div class="lexart-frm__fld">
+            <label class="lexart-frm__lbl">
+                <b class="lexart-frm__lbl-name">Tarea</b>
                 <ui-select
                 ng-model="userEval.value"
-                class="imm-select imm-select--input"
+                class="lexart-select lexart-select--input"
                 theme="selectize"
                 title="Tarea"
                 append-to-body="true"
@@ -45,32 +45,32 @@
         </div>
     </form>
     <br><br>
-    <div class="imm-wa__cnt">
-        <div class="imm-frm__fldgrp">
-          <div class="imm-frm__fld">
-            <label class="imm-frm__lbl">
+    <div class="lexart-wa__cnt">
+        <div class="lexart-frm__fldgrp">
+          <div class="lexart-frm__fld">
+            <label class="lexart-frm__lbl">
               <input type="textarea" ng-model="userEval.evaluacion">
-              <b class="imm-frm__lbl-name">Evaluación:</b>
+              <b class="lexart-frm__lbl-name">Evaluación:</b>
             </label>
           </div>
 
-          <div class="imm-frm__fld">
-            <label class="imm-frm__lbl">
+          <div class="lexart-frm__fld">
+            <label class="lexart-frm__lbl">
               <input type="number" ng-model="userEval.puntaje"/>
-              <b class="imm-frm__lbl-name">Puntaje:<span class="required">*</span></b>
+              <b class="lexart-frm__lbl-name">Puntaje:<span class="required">*</span></b>
             </label>
           </div>
 
-          <div class="imm-frm__fld">
-            <label class="imm-frm__lbl">
+          <div class="lexart-frm__fld">
+            <label class="lexart-frm__lbl">
               <input moment-picker ng-model="userEval.fecha"/>
-              <b class="imm-frm__lbl-name">fecha:<span class="required">*</span></b>
+              <b class="lexart-frm__lbl-name">fecha:<span class="required">*</span></b>
             </label>
           </div>
     </div>
     <br><br>
-    <div class="imm-wa__cnt">
-    <div class="imm-flex">
+    <div class="lexart-wa__cnt">
+    <div class="lexart-flex">
     <div class='flex-table'>
         <div class='flex-head'>
             <div class="flex-item">ID Usuario</div>
@@ -97,8 +97,8 @@
          </div>
 </div>
 </div>
-<div class="imm-wa__actions">
+<div class="lexart-wa__actions">
     <p ng-if="error" class="err-display">{{error}} {{ 'general.cant_be_empty' | translate }}</p>
-    <button class="imm-btn imm-btn--alt" ui-sref="app.evaluate">{{ 'clients.back' | translate }}</button>
-    <button class="imm-btn" ng-disabled="sendingData" ng-click="save(userEval)" ui-sref="app.evaluate">{{ 'clients.save' | translate }}</button>
+    <button class="lexart-btn lexart-btn--alt" ui-sref="app.evaluate">{{ 'clients.back' | translate }}</button>
+    <button class="lexart-btn" ng-disabled="sendingData" ng-click="save(userEval)" ui-sref="app.evaluate">{{ 'clients.save' | translate }}</button>
 </div>

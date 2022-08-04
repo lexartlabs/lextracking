@@ -2,7 +2,7 @@
 
   'use strict';
 
-  var Module = ng.module('Imm');
+  var Module = ng.module('LexTracking');
 
   Module.controller('taskManagerEditCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$filter', 'ProjectsServices', 'UserServices', 'ngDialog', '$timeout', '$http', function ($scope, $rootScope, $state, $stateParams, $filter, ProjectsServices, UserServices, ngDialog, $timeout, $http) {
     var idProject = $stateParams.id;
@@ -285,7 +285,7 @@
       html += "</ul>";
       html += "</div>";
       html += "<div class='message'>";
-      html += "<div class='imm-wa__actions'><a href='" + url + "' class='imm-btn imm-btn--alt'>Ver Tarea</a></div>";
+      html += "<div class='lexart-wa__actions'><a href='" + url + "' class='lexart-btn lexart-btn--alt'>Ver Tarea</a></div>";
       // html += "<div><h2>Mensaje</h2></div>";
       // html += "<p>"+""+"</p>";
       html += "</div></div>";

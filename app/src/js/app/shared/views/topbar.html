@@ -1,6 +1,6 @@
 <!-- <div class="top-bar__container">
     <div class="top-bar__logo_container">
-        <a ng-href="/" class="imm-menu__tit">
+        <a ng-href="/" class="lexart-menu__tit">
             <img src="/assets/images/lextracking-logo.svg" width="150px" title="LexTracking" alt="LexTracking" ng-show="!thisHide">
         </a>
     </div>
@@ -93,7 +93,7 @@ handleSmallScreens()
         <img src="../assets/logo/lextracking-logo.svg" alt="">
       </div>
       <div class="navbar_btn_container">
-        <button class="imm-btn collapse-btn" ng-init="collapseSideBar = true" ng-click="hideItems();">
+        <button class="lexart-btn collapse-btn" ng-init="collapseSideBar = true" ng-click="hideItems();">
           <i class="ri-menu-line"></i>
           <!-- <i ng-if="!thisHide" class="ri-arrow-left-s-line"></i>
           <i ng-if="thisHide" class="ri-arrow-right-s-line"></i> -->
@@ -115,7 +115,7 @@ handleSmallScreens()
             <h1 style="display: none">{{topBar.filterTask}}</h1>
             <ui-select
                     ng-model="topBar.filterTask"
-                    class="imm-select imm-select--input"
+                    class="lexart-select lexart-select--input"
                     theme="selectize"
                     append-to-body="true"
                     title=""
@@ -129,7 +129,7 @@ handleSmallScreens()
                 >
                     <!-- <div ng-bind-html="task.projectName + '- ' + task.name | highlight: $select.search"></div> -->
                     <div style="padding: 5px; font-size:1.1rem">
-                      <small class="imm_select_conatiner_proyect">{{task.projectName}}</small>
+                      <small class="lexart_select_conatiner_proyect">{{task.projectName}}</small>
                       <span>{{task.name}}</span>
                     </div>
                 </ui-select-choices>
@@ -155,10 +155,10 @@ handleSmallScreens()
             <ul class="dropdown" id="profile">
               <li><a ng-click="logout()">Cerrar Sesión</a></li>
               <!-- <li>
-                <button ng-if="darkMode == 0" class="imm-btn switch_mode-btn" ng-click="toggleMode()">
+                <button ng-if="darkMode == 0" class="lexart-btn switch_mode-btn" ng-click="toggleMode()">
                     <i class="ri-moon-line"></i>
                 </button>
-                <button ng-if="darkMode == 1" class="imm-btn switch_mode-btn" ng-click="toggleMode()">
+                <button ng-if="darkMode == 1" class="lexart-btn switch_mode-btn" ng-click="toggleMode()">
                     <i class="ri-sun-line"></i>
                 </button>
               </li> -->

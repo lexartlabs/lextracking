@@ -1,45 +1,45 @@
-<div class="imm-wa__hdr imm-flex">
-  <div class="imm-flex-5">
-    <h1 class="imm-wa__tit">
-      <a class="imm-bc-item">Reportes</a>
+<div class="lexart-wa__hdr lexart-flex">
+  <div class="lexart-flex-5">
+    <h1 class="lexart-wa__tit">
+      <a class="lexart-bc-item">Reportes</a>
     </h1>
   </div>
 </div>
-<div class="imm-frm__fld">
-  <ul class="imm-tabs" ng-init="tabReport = 1">
-    <li class="imm-tabs__item" ng-click="tabReport = 1" ng-class="{'imm-tabs__item--selected' : tabReport == 1}">
+<div class="lexart-frm__fld">
+  <ul class="lexart-tabs" ng-init="tabReport = 1">
+    <li class="lexart-tabs__item" ng-click="tabReport = 1" ng-class="{'lexart-tabs__item--selected' : tabReport == 1}">
       Reportes Tareas
     </li>
-    <li class="imm-tabs__item" ng-click="tabReport = 2" ng-class="{'imm-tabs__item--selected' : tabReport == 2}">
+    <li class="lexart-tabs__item" ng-click="tabReport = 2" ng-class="{'lexart-tabs__item--selected' : tabReport == 2}">
       Reportes Proyectos
     </li>
   </ul>
 </div>
 <div ng-if="tabReport == 1">
-  <div class="imm-wa__cnt">
-    <div class="imm-frm__fldgrp">
-      <div class="imm-frm__fld">
-        <label class="imm-frm__lbl">
-          <b class="imm-frm__lbl-name">{{ 'reports.start_time' | translate }}</b>
+  <div class="lexart-wa__cnt">
+    <div class="lexart-frm__fldgrp">
+      <div class="lexart-frm__fld">
+        <label class="lexart-frm__lbl">
+          <b class="lexart-frm__lbl-name">{{ 'reports.start_time' | translate }}</b>
           <div moment-picker="filter.startTime" max-date="filter.startDate.maxDate">
             <input ng-model="filter.startTime" />
           </div>
         </label>
       </div>
 
-      <div class="imm-frm__fld">
-        <label class="imm-frm__lbl">
-          <b class="imm-frm__lbl-name">{{ 'reports.end_time' | translate }}</b>
+      <div class="lexart-frm__fld">
+        <label class="lexart-frm__lbl">
+          <b class="lexart-frm__lbl-name">{{ 'reports.end_time' | translate }}</b>
           <div moment-picker="filter.endTime" max-date="filter.endDate.maxDate" min-date="filter.startTime">
             <input ng-model="filter.endTime" />
           </div>
         </label>
       </div>
 
-      <div class="imm-frm__fld" ng-if="userRole=='admin' || userRole == 'pm' ">
-        <label class="imm-frm__lbl">
-          <b class="imm-frm__lbl-name">{{ 'reports.user' | translate }}</b>
-          <ui-select ng-model="filter.idUser" class="imm-select imm-select--input" theme="selectize"
+      <div class="lexart-frm__fld" ng-if="userRole=='admin' || userRole == 'pm' ">
+        <label class="lexart-frm__lbl">
+          <b class="lexart-frm__lbl-name">{{ 'reports.user' | translate }}</b>
+          <ui-select ng-model="filter.idUser" class="lexart-select lexart-select--input" theme="selectize"
             title="{{ 'reports.users' | translate }}" append-to-body="true">
             <ui-select-match> {{$select.selected.name}} </ui-select-match>
             <ui-select-choices repeat="user.id as user in users | filter: $select.search">
@@ -49,10 +49,10 @@
         </label>
       </div>
 
-      <div class="imm-frm__fld">
-        <label class="imm-frm__lbl">
-          <b class="imm-frm__lbl-name">{{ 'reports.client' | translate }}</b>
-          <ui-select ng-if="isClient=='false'" ng-model="filter.idClient" class="imm-select imm-select--input"
+      <div class="lexart-frm__fld">
+        <label class="lexart-frm__lbl">
+          <b class="lexart-frm__lbl-name">{{ 'reports.client' | translate }}</b>
+          <ui-select ng-if="isClient=='false'" ng-model="filter.idClient" class="lexart-select lexart-select--input"
             theme="selectize" title="{{ 'reports.clients' | translate }}" append-to-body="true"
             ng-change="getProjects(filter.idClient)">
             <ui-select-match> {{$select.selected.name}} </ui-select-match>
@@ -64,10 +64,10 @@
         </label>
       </div>
 
-      <div class="imm-frm__fld">
-        <label class="imm-frm__lbl">
-          <b class="imm-frm__lbl-name">{{ 'reports.project' | translate }}</b>
-          <ui-select ng-model="filter.idProject" class="imm-select imm-select--input" theme="selectize"
+      <div class="lexart-frm__fld">
+        <label class="lexart-frm__lbl">
+          <b class="lexart-frm__lbl-name">{{ 'reports.project' | translate }}</b>
+          <ui-select ng-model="filter.idProject" class="lexart-select lexart-select--input" theme="selectize"
             title="{{ 'reports.projects' | translate }}" append-to-body="true">
             <ui-select-match> {{$select.selected.name}} </ui-select-match>
             <ui-select-choices repeat="project.id as project in projects | filter: $select.search">
@@ -77,15 +77,15 @@
         </label>
       </div>
 
-      <div class="imm-frm__fld">
-        <label class="imm-frm__lbl">
-          <button class="imm-btn" ng-click="search()" id="buscar">
+      <div class="lexart-frm__fld">
+        <label class="lexart-frm__lbl">
+          <button class="lexart-btn" ng-click="search()" id="buscar">
             {{ 'reports.search' | translate }}
           </button>
         </label>
       </div>
     </div>
-    <div class="imm-frm__fld">
+    <div class="lexart-frm__fld">
       <a style="display: none" download="{{excelName}}.xls" href="#/app/reports"
         onclick="return ngTableExcelExport.excel(this, 'datatable', 'prueba');" style="float: right">
         <button>
@@ -93,27 +93,27 @@
             style="vertical-align: middle; margin: 0 5px" />Exportar
         </button>
       </a>
-      <ul class="imm-tabs" ng-init="itemTab = 1">
-        <li class="imm-tabs__item" ng-click="itemTab = 1" ng-class="{'imm-tabs__item--selected' : itemTab == 1}">
+      <ul class="lexart-tabs" ng-init="itemTab = 1">
+        <li class="lexart-tabs__item" ng-click="itemTab = 1" ng-class="{'lexart-tabs__item--selected' : itemTab == 1}">
           Tabla
         </li>
-        <li class="imm-tabs__item" ng-click="itemTab = 2" ng-class="{'imm-tabs__item--selected' : itemTab == 2}">
+        <li class="lexart-tabs__item" ng-click="itemTab = 2" ng-class="{'lexart-tabs__item--selected' : itemTab == 2}">
           Gráficas
         </li>
       </ul>
     </div>
 
     <!-- Table -->
-    <div class="imm-wa__hdr imm-flex" ng-if="itemTab == 1">
-      <div class="imm-flex-5">
-        <h1 class="imm-wa__tit">
-          <a class="imm-bc-item" ng-if="tracks.length">{{ 'reports.title' | translate }}</a>
+    <div class="lexart-wa__hdr lexart-flex" ng-if="itemTab == 1">
+      <div class="lexart-flex-5">
+        <h1 class="lexart-wa__tit">
+          <a class="lexart-bc-item" ng-if="tracks.length">{{ 'reports.title' | translate }}</a>
         </h1>
-        <button class="imm-btn" ng-if="tracks.length" ng-click="exportToCSV()">
+        <button class="lexart-btn" ng-if="tracks.length" ng-click="exportToCSV()">
           Descargar CSV
         </button>
         <!-- <button
-          class="imm-btn"
+          class="lexart-btn"
           ng-if="tracks.length"
           ng-click="exportToExcel('#exportReport')"
         >
@@ -121,8 +121,8 @@
         </button> -->
       </div>
     </div>
-    <div class="imm-wa__cnt">
-      <div class="imm-flex" ng-if="itemTab == 1">
+    <div class="lexart-wa__cnt">
+      <div class="lexart-flex" ng-if="itemTab == 1">
         <div class="flex-table" ng-if="tableTrack.length">
           <div class="flex-head">
             <div class="flex-item">{{ 'reports.user' | translate }}</div>
@@ -274,7 +274,7 @@
                 <th>{{ 'reports.end_time' | translate }}</th>
                 <th>{{ 'reports.duration' | translate }}</th>
                 <th>{{ 'reports.trackCost' | translate }}</th>
-                <th class="imm-cstm__grid-5"></th>
+                <th class="lexart-cstm__grid-5"></th>
               </tr>
             </thead>
             <tbody ng-repeat="byTask in tracks.byTask">
@@ -359,10 +359,10 @@
     </div>
     <div ng-if="itemTab == 1">
       <br />
-      <a class="imm-bc-item" ng-if="autoTracks.length">{{ 'reports.titleAuto' | translate }}</a>
+      <a class="lexart-bc-item" ng-if="autoTracks.length">{{ 'reports.titleAuto' | translate }}</a>
       <br /><br />
     </div>
-    <div class="imm-flex" ng-if="itemTab == 1">
+    <div class="lexart-flex" ng-if="itemTab == 1">
       <div class="flex-table" ng-if="tableTrackAuto.length > 0">
         <div class="flex-head">
           <div class="flex-item">{{ 'reports.user' | translate }}</div>
@@ -474,7 +474,7 @@
                 <th>{{ 'reports.end_time' | translate }}</th>
                 <th>{{ 'reports.duration' | translate }}</th>
                 <th>{{ 'reports.trackCost' | translate }}</th>
-                <th class="imm-cstm__grid-5"></th>
+                <th class="lexart-cstm__grid-5"></th>
             </tr>
         </thead>
         <tbody ng-repeat="tracksAuto in tableTrackAuto track by $index">
@@ -518,11 +518,11 @@
     <!-- End Table -->
     <div ng-if="itemTab == 1">
       <br />
-      <a class="imm-bc-item" ng-if="trelloTracks.length > 0">{{ 'reports.titleTrello' | translate }}</a>
+      <a class="lexart-bc-item" ng-if="trelloTracks.length > 0">{{ 'reports.titleTrello' | translate }}</a>
       <br /><br />
     </div>
 
-    <div class="imm-flex" ng-if="itemTab == 1">
+    <div class="lexart-flex" ng-if="itemTab == 1">
       <div class="flex-table" ng-if="tableTrackTrello.length > 0">
         <div class="flex-head">
           <div class="flex-item">{{ 'reports.user' | translate }}</div>
@@ -639,7 +639,7 @@
                 <th>{{ 'reports.end_time' | translate }}</th>
                 <th>{{ 'reports.duration' | translate }}</th>
                 <th>{{ 'reports.trackCost' | translate }}</th>
-                <th class="imm-cstm__grid-5"></th>
+                <th class="lexart-cstm__grid-5"></th>
             </tr>
         </thead>
         <tbody ng-repeat="tracksTrello in tableTrackTrello track by $index">
@@ -684,11 +684,11 @@
 
     <div ng-if="itemTab == 1">
       <br />
-      <a class="imm-bc-item" ng-if="jiraTracks.length > 0">{{ 'Tareas Jira' }}</a>
+      <a class="lexart-bc-item" ng-if="jiraTracks.length > 0">{{ 'Tareas Jira' }}</a>
       <br /><br />
     </div>
 
-    <div class="imm-flex" ng-if="itemTab == 1">
+    <div class="lexart-flex" ng-if="itemTab == 1">
       <div class="flex-table" ng-if="jiraTracks.length > 0">
         <div class="flex-head">
           <div class="flex-item">{{ 'reports.user' | translate }}</div>
@@ -792,8 +792,8 @@
     </div>
 
     
-    <div class="imm-wa__hdr imm-flex">
-      <div class="imm-flex-5">
+    <div class="lexart-wa__hdr lexart-flex">
+      <div class="lexart-flex-5">
         <table style="max-width:40%; white-space:nowrap; float:right"
           ng-if="tableTrack.length || tableTrackTrello.length">
           <tr style="font-weight: bold; ">
@@ -861,17 +861,17 @@
 
       </div> -->
 
-    <div class="imm-cstm__grid-90">
+    <div class="lexart-cstm__grid-90">
       <div ng-if="itemTab == 2">
         <!-- Graph tabs -->
-        <div class="imm-frm__fld">
-          <ul class="imm-tabs" ng-init="graphicTab = 1">
-            <li class="imm-tabs__item" ng-click="graphicTab = 1"
-              ng-class="{'imm-tabs__item--selected' : graphicTab == 1}">
+        <div class="lexart-frm__fld">
+          <ul class="lexart-tabs" ng-init="graphicTab = 1">
+            <li class="lexart-tabs__item" ng-click="graphicTab = 1"
+              ng-class="{'lexart-tabs__item--selected' : graphicTab == 1}">
               Usuarios
             </li>
-            <li class="imm-tabs__item" ng-click="graphicTab = 2"
-              ng-class="{'imm-tabs__item--selected' : graphicTab == 2}">
+            <li class="lexart-tabs__item" ng-click="graphicTab = 2"
+              ng-class="{'lexart-tabs__item--selected' : graphicTab == 2}">
               Clientes
             </li>
           </ul>
@@ -879,11 +879,11 @@
         <!--End graph tabs-->
         <!-- Bar Graph User-->
         <div ng-if="graphicTab == 1">
-          <div class="imm-frm__fldgrp">
-            <div class="imm-frm__fld">
-              <div class="imm-tit">
-                <h2 class="imm-wa__tit">
-                  <a class="imm-bc-item">{{ 'reports.users' | translate }}</a>
+          <div class="lexart-frm__fldgrp">
+            <div class="lexart-frm__fld">
+              <div class="lexart-tit">
+                <h2 class="lexart-wa__tit">
+                  <a class="lexart-bc-item">{{ 'reports.users' | translate }}</a>
                 </h2>
               </div>
               <canvas height="80" id="base" class="chart-base" chart-type="typeBarUser" chart-data="dataBarUsers"
@@ -896,11 +896,11 @@
 
         <!-- Bar Graph Clients-->
         <div ng-if="graphicTab == 2">
-          <div class="imm-frm__fldgrp">
-            <div class="imm-frm__fld">
-              <div class="imm-tit">
-                <h2 class="imm-wa__tit">
-                  <a class="imm-bc-item">{{ 'reports.clients' | translate }}</a>
+          <div class="lexart-frm__fldgrp">
+            <div class="lexart-frm__fld">
+              <div class="lexart-tit">
+                <h2 class="lexart-wa__tit">
+                  <a class="lexart-bc-item">{{ 'reports.clients' | translate }}</a>
                 </h2>
               </div>
               <canvas height="80" id="base" class="chart-base" chart-type="typeBarClient" chart-data="dataBarClients"
@@ -918,18 +918,18 @@
 </div>
 
 <div ng-if="tabReport == 2">
-  <div class="imm-wa__hdr imm-flex" style="margin-top: 10px">
-    <div class="imm-flex-5">
-      <h1 class="imm-wa__tit">
-        <a class="imm-bc-item">Reportes Proyectos</a>
+  <div class="lexart-wa__hdr lexart-flex" style="margin-top: 10px">
+    <div class="lexart-flex-5">
+      <h1 class="lexart-wa__tit">
+        <a class="lexart-bc-item">Reportes Proyectos</a>
       </h1>
-      <button class="imm-btn" ng-if="tracks.length" ng-click="exportToCSV()">
+      <button class="lexart-btn" ng-if="tracks.length" ng-click="exportToCSV()">
         Descargar CSV
       </button>
     </div>
   </div>
-  <div class="imm-wa__cnt">
-    <div class="imm-flex">
+  <div class="lexart-wa__cnt">
+    <div class="lexart-flex">
       <table ng-if="projectsTab.length">
         <thead>
           <tr>
@@ -941,7 +941,7 @@
             <th>{{ 'reports.tracked' | translate }}</th>
             <th>{{ 'reports.totalCost' | translate }}</th>
             <th>{{ 'reports.presupuesto' | translate }}</th>
-            <th class="imm-cstm__grid-5"></th>
+            <th class="lexart-cstm__grid-5"></th>
           </tr>
         </thead>
         <tr>
@@ -983,7 +983,7 @@
 </div>
 
 <div ng-if="userRole == 'admin'">
-  <table class="imm-table">
+  <table class="lexart-table">
     <tr>
       <th>Cliente</th>
       <th>Horas Desarollo</th>

@@ -3,7 +3,7 @@
     'use strict';
 
     // Webapp module
-    var app = ng.module('Imm');
+    var app = ng.module('LexTracking');
 
     app.run(['$rootScope', '$state', '$stateParams',
         function($rootScope, $state, $stateParams) {

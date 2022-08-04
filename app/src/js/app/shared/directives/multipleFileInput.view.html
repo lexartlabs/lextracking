@@ -1,7 +1,7 @@
-<div class="imm-file" for="{{ for }}">
+<div class="lexart-file" for="{{ for }}">
     <label>
-        <input type="file" id="{{ for }}" class="imm-file__btn" />
-        <strong class="imm-btn imm-btn-sm">{{ title || "Adjuntar archivo"}}</strong>
+        <input type="file" id="{{ for }}" class="lexart-file__btn" />
+        <strong class="lexart-btn lexart-btn-sm">{{ title || "Adjuntar archivo"}}</strong>
     </label>
     <span class="qk-file__name" ng-if="!files">Seleccione un archivo</span>
     <span class="qk-file__name" ng-repeat="file in files"> <i style="cursor:pointer;" ng-click="downloadFile($index)"> {{ file.name }} </i> <i class="qk-file__remove fa fa-times" ng-click="removeFile(file)"></i></span>

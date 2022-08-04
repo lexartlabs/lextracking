@@ -4,7 +4,7 @@ console.log('Reading BASE URL', BASE_URL);
 
     'use strict';
 
-    var Module = ng.module('Imm');
+    var Module = ng.module('LexTracking');
 
     Module.factory('RestClient', ['$http', '$state', 'ngProgressFactory', '$window', '$rootScope', function ($http, $state, ngProgressFactory, $window, $rootScope) {
 

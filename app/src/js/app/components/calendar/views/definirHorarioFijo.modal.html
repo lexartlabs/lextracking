@@ -1,18 +1,18 @@
 
-<div class="imm-modal imm-modal--medium" id='modalHorarioFijo'>
+<div class="lexart-modal lexart-modal--medium" id='modalHorarioFijo'>
 
-    <div class="imm-modal__header">
-        <div class="imm-modal__title" style="margin-bottom: 1%;">Asignar horario fijo
+    <div class="lexart-modal__header">
+        <div class="lexart-modal__title" style="margin-bottom: 1%;">Asignar horario fijo
         </div>
 
     </div>
-    <div class="imm-modal__cnt">
+    <div class="lexart-modal__cnt">
         <div>
             <form>
 
-                <div class="imm-frm__fldgrp" >
-                    <div class="imm-frm__fld">
-                        <ui-select ng-model="diaSeleccionado.selected" class="imm-select imm-select--input"
+                <div class="lexart-frm__fldgrp" >
+                    <div class="lexart-frm__fld">
+                        <ui-select ng-model="diaSeleccionado.selected" class="lexart-select lexart-select--input"
                             theme="selectize" title="{{'Dias'}}" append-to-body="true">
                             <ui-select-match> {{$select.selected.name}} </ui-select-match>
                             <ui-select-choices repeat="day in horariosFijos | filter: $select.search">
@@ -22,17 +22,17 @@
                     </div>
 
 
-                    <div class="imm-frm__fld" moment-picker='t.hourStart' format="HH:mm" change='selectedTime(t)'>
+                    <div class="lexart-frm__fld" moment-picker='t.hourStart' format="HH:mm" change='selectedTime(t)'>
                         <input type='text' ng-model='t.hourStart' placeholder="Hora Inicial">
                     </div>
-                    <div class="imm-frm__fld" moment-picker="t.hourEnd" format="HH:mm" change='selectedTime(t)'>
+                    <div class="lexart-frm__fld" moment-picker="t.hourEnd" format="HH:mm" change='selectedTime(t)'>
                         <input type='text' ng-model='t.hourEnd' placeholder="Hora Final">
                     </div>
                     <button type="button" class="btn btn-primary" style="float: right;"
                         ng-click="addHorarioFijo(diaSeleccionado.selected.name, t)"> Agregar Horario
                     </button>
                 </div>
-                <table class="imm-table">
+                <table class="lexart-table">
                     <thead>
                         <th>Dia</th>
                         <th>Horarios Elegidos</th>
@@ -53,9 +53,9 @@
         </div>
     </div>
 
-    <div class="imm-modal__actions">
+    <div class="lexart-modal__actions">
         <p class="err-display">{{error}}</p>
-        <a class="imm-btn imm-btn--alt" ng-click="ngDialogData.cancel()">{{ 'shared.modal.cancel' | translate }}</a>
-        <a class="imm-btn" ng-click="ngDialogData.confirm(); ">{{ 'shared.modal.accept' | translate }}</a>
+        <a class="lexart-btn lexart-btn--alt" ng-click="ngDialogData.cancel()">{{ 'shared.modal.cancel' | translate }}</a>
+        <a class="lexart-btn" ng-click="ngDialogData.confirm(); ">{{ 'shared.modal.accept' | translate }}</a>
     </div>
 </div>
