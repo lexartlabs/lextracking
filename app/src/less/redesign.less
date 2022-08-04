@@ -1,6 +1,7 @@
 //Initial Styles for redesign.
 .imm-wa {
   background: @color-light-gray;
+  transition: width 1s ease;
 }
 
 table {
@@ -40,6 +41,10 @@ tbody {
 
 .imm-wa__collapsed{
   width: calc(100 - @navbar-width-collapsed);
+  transition: width .5s ease;
+}
+.imm-wa{
+  transition: width .5s ease;
 }
 
 //Modificador para darkMode
@@ -57,9 +62,12 @@ tbody {
   tr:nth-child(odd) {
     // background-color: @color-bk-dark-mode-third;
   }
+  .app-container {
+    background-color: @color-bk-dark-mode;
+  }
 
   .imm-wa {
-    color: @color-dark-white;
+    color: @color-bk-dark-mode;
   }
 
   .imm-wa {
@@ -266,7 +274,7 @@ tbody {
   }
 
   .imm-select.ui-select-container .selectize-input {
-    border: 1px solid @color-bk-dark-mode;
+    border: 1px solid @color-active-text;
     color: @color-dark-input;
     background-color: @color-bk-dark-mode-secondary;
   }
@@ -612,6 +620,7 @@ tbody {
 
   .imm-wa__cnt {
     background-color: @color-bk-dark-mode-secondary;
+    color: @color-dark-mode;
     // background-color: @navbar-body-color;
   }
 
@@ -946,3 +955,4 @@ tbody {
   top: -7px;
   left: calc(20% - 7px);
 }
+

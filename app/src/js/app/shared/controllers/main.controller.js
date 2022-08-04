@@ -531,6 +531,7 @@
             $log.error('You are not logged in');
             $state.go('login');
         } else {
+            $rootScope.showTrackTooltip = true;
             $log.info('Welcome back', $window.localStorage["userName"]);
             $rootScope.userId = $window.localStorage["userId"];
             $rootScope.userName = $window.localStorage["userName"];
