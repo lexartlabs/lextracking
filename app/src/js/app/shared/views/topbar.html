@@ -92,6 +92,12 @@ handleSmallScreens()
       <div class="top-bar__logo">
         <img src="../assets/logo/lextracking-logo.svg" alt="">
       </div>
+      <div class="navbar_btn_container">
+        <button class="imm-btn collapse-btn" ng-init="collapseSideBar = true" ng-click="hideItems();">
+          <i ng-if="!thisHide" class="ri-arrow-left-s-line"></i>
+          <i ng-if="thisHide" class="ri-arrow-right-s-line"></i>
+        </button>
+      </div>
       <!-- ng-mouseover="showTrackTooltip = true" ng-mouseleave="showTrackTooltip = false" -->
       <div class="top-bar__current_tracking_container tooltip-container">
         <span ng-show="showTrackTooltip" class="tooltip-box" ng-mouseleave="showTrackTooltip = false" >
