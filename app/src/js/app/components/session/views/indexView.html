@@ -33,7 +33,14 @@
                                         </div>
                                         <br>
                                         <div class="imm-frm__fld" style="margin: 0px">
-                                            <button class="imm-btn imm-btn__login" ng-disabled="!user.email || !user.password" ng-click="authenticate()">{{ 'session.enter' | translate }}</button>
+                                            <button 
+                                                class="imm-btn imm-btn__login" 
+                                                ng-disabled="!user.email || !user.password || sendingData" 
+                                                ng-click="authenticate()"
+                                                ng-class="{'imm-button--loading' : sendingData }"
+                                            >
+                                            <span class="imm-btn__text">{{ 'session.enter' | translate }}</span>
+                                        </button>
                                         </div>
                                         <p class="err-display">{{error}}</p>
 

@@ -31,7 +31,7 @@
     <div class="imm-frm__fldgrp">
       <div class="imm-frm__fld">
         <label class="imm-frm__lbl">
-          <table>
+          <table class="imm-table">
             <tbody>
               <tr ng-repeat="status in task_trello.selectStatus" ng-style="{ 'background-color': status.isEdited ? '#008eff21' : 'white' }">
                 <td>
@@ -67,7 +67,7 @@
     <div class="imm-frm__fldgrp">
       <div class="imm-frm__fld">
         <label class="imm-frm__lbl">
-          <table>
+          <table class="imm-table">
             <thead>
               <tr>
                 <th>Usuario</th>
@@ -93,7 +93,7 @@
     <div class="imm-frm__fldgrp" ng-if="checklist.length > 0">
       <div class="imm-frm__fld">
         <label class="imm-frm__lbl">
-          <table>
+          <table class="imm-table">
             <thead>
               <tr>
                 <th>Tareas</th>
