@@ -170,7 +170,6 @@
     var search  = function (){
       if (!$scope.select.user) {
 
-
         SaleServices.findByMonth($scope.currentPage, $scope.query, function(err, sales, countItems) {
           if (!err) {
             $scope.sales  = angular.copy(sales);
@@ -179,8 +178,8 @@
           }
         });
       }else {
-        $scope.query+="/"+$scope.select.user.id;
-        SaleServices.findByUserMonth($scope.currentPage, $scope.query, function(err, sales, countItems) {
+        
+        SaleServices.findByUserMonth($scope.currentPage, $scope.query, $scope.select.user.id, function(err, sales, countItems) {
           if (!err) {
             $scope.sales  = angular.copy(sales);
 

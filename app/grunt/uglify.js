@@ -62,7 +62,7 @@ module.exports = {
                 'bower_components/angular-bootstrap/ui-bootstrap.tpls.js',
                 'bower_components/ng-sortable/dist/ng-sortable.min.js',
                 'bower_components/angular-wizard/dist/angular-wizard.min.js',
-
+                'bower_components/angular-toastr/dist/angular-toastr.tpls.js',
                 'lib/dhtmlxgantt.js',
                 
                 // modules

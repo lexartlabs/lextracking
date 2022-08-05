@@ -19,7 +19,6 @@
     if (idWeeklyHour) {
       WeeklyHourServices.findById(idWeeklyHour, function(err, response) {
         if (!err) {
-
           $scope.weeklyHour = angular.copy(response);
           if ($scope.weeklyHour.costHour && $scope.weeklyHour.costHour!="") {
             $scope.weeklyHour.costHour=parseFloat($scope.weeklyHour.costHour);
@@ -30,6 +29,7 @@
           if ($scope.weeklyHour.idUser && $scope.weeklyHour.idUser!="") {
             UserServices.findById($scope.weeklyHour.idUser,function (err,resp) {
               $scope.select.user=angular.copy(resp);
+              
             });
           }
 
@@ -37,7 +37,7 @@
       });
     }
 
-
+   
 
     UserServices.find($scope.currentPage, $scope.query, function(err, users, countItems) {
       if (!err) {

@@ -4,7 +4,7 @@
 
     var Module = ng.module('LexTracking');
 
-    Module.controller('ClientCtrl', ['$scope', '$state', '$stateParams', '$filter', 'ClientServices', 'ngDialog', function($scope, $state, $stateParams, $filter, ClientServices, ngDialog) {
+    Module.controller('ClientCtrl', ['$scope', '$state', '$stateParams', '$filter', 'ClientServices', 'ngDialog','$rootScope', function($scope, $state, $stateParams, $filter, ClientServices, ngDialog, $rootScope) {
 
         $scope.client       = {};
         $scope.visits       = [];
@@ -25,6 +25,11 @@
             console.log('client to save', $scope.client);
 
             $scope.sendingData = true;
+            if (!$scope.client.company || !$scope.client.name) {
+                $rootScope.showToast('Error', 'Please fill all fields', 'error');
+                $scope.sendingData = false;
+                return;
+            }
 
             ClientServices.save($scope.client, function (err, result) {
                 if (err) {

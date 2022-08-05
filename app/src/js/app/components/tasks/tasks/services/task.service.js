@@ -6,7 +6,7 @@
 
     Module.factory('TasksServices', ['RestClient', function(RestClient){
 
-	  	var model = "project/task";
+	  	var model = "projects/tasks";
 
 	  	var factory = {
 
@@ -17,7 +17,6 @@
 		    },
 
 		    findByFilter: function(obj, cb){
-		    	console.log(obj);
 		      	RestClient.post(model + "/all", obj, function(err, result) {
 		      		console.log("result", result, err);
 		      		var countItems = result.count; 
@@ -39,7 +38,7 @@
 	       	},
 
 	        findByIdUser: function(id, obj, cb) {
-	        	RestClient.post(model + "/id-user/" + id, obj, function(err, result) {
+	        	RestClient.post(model + "/user/current", obj, function(err, result) {
 	      		var countItems = result.count; 
 	        	cb(err, result.task, countItems);
 	         })

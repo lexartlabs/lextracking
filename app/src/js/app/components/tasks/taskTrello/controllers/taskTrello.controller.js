@@ -31,9 +31,10 @@
     var projectId;
 
     try {
-      if (idTask_trello) {
-        //TRAER TAREAS TRELLO DESDE TABLERO SELECCIONADO
-        tasks_trelloServices.findById(idTask_trello, function (err, tasks_trello, countItems) {
+      if(idTask_trello){
+      //TRAER TAREAS TRELLO DESDE TABLERO SELECCIONADO
+        tasks_trelloServices.findById(idTask_trello, function(err, tasks_trello, countItems) {
+          
           $scope.board = angular.copy(tasks_trello[0]);
           console.log('BOARD', $scope.board);
           tasks_trelloServices.getLists($scope.board.tablero_id, function (resp, err) {
@@ -127,6 +128,7 @@
 
           tasks_trelloServices.getMembers($scope.board.tablero_id, function (res, err) {
             var idMembers = angular.copy(res);
+            
             angular.forEach(idMembers, function (member) {
               tasks_trelloServices.getMemberById(member.id, function (res, err) {
                 if (res) {

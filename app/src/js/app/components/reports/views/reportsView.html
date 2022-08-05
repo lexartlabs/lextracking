@@ -10,9 +10,9 @@
     <li class="lexart-tabs__item" ng-click="tabReport = 1" ng-class="{'lexart-tabs__item--selected' : tabReport == 1}">
       Reportes Tareas
     </li>
-    <li class="lexart-tabs__item" ng-click="tabReport = 2" ng-class="{'lexart-tabs__item--selected' : tabReport == 2}">
+    <!-- <li class="lexart-tabs__item" ng-click="tabReport = 2" ng-class="{'lexart-tabs__item--selected' : tabReport == 2}">
       Reportes Proyectos
-    </li>
+    </li> -->
   </ul>
 </div>
 <div ng-if="tabReport == 1">
@@ -405,7 +405,7 @@
               </div>
               <!-- SUBTOTAL POR PROYECTO -->
               <div class="flex-row" ng-if="$index == byProject.tracks.length - 1 && !filter.idProject"
-                style="background-color: #F9F9F9f0069; font-weight: bold">
+                style="background-color: #f9f9f9; font-weight: bold">
                 <div class="flex-item"></div>
                 <div class="flex-item"></div>
                 <div class="flex-item"></div>
@@ -569,7 +569,7 @@
               </div>
               <!-- SUBTOTAL POR PROYECTO -->
               <div class="flex-row" ng-if="$index == byProject.tracks.length - 1 && !filter.idProject"
-                style="background-color: #F9F9F9f0069; font-weight: bold">
+                style="background-color: #F9F9F9; font-weight: bold">
                 <div class="flex-item"></div>
                 <div class="flex-item"></div>
                 <div class="flex-item"></div>
@@ -731,7 +731,7 @@
               </div>
               <!-- SUBTOTAL POR PROYECTO -->
               <div class="flex-row" ng-if="$index == byProject.tracks.length - 1 && !filter.idProject"
-                style="background-color: #F9F9F9f0069; font-weight: bold">
+                style="background-color: #F9F9F9; font-weight: bold">
                 <div class="flex-item"></div>
                 <div class="flex-item"></div>
                 <div class="flex-item"></div>
@@ -920,9 +920,9 @@
 <div ng-if="tabReport == 2">
   <div class="lexart-wa__hdr lexart-flex" style="margin-top: 10px">
     <div class="lexart-flex-5">
-      <h1 class="lexart-wa__tit">
+      <!-- <h1 class="lexart-wa__tit">
         <a class="lexart-bc-item">Reportes Proyectos</a>
-      </h1>
+      </h1> -->
       <button class="lexart-btn" ng-if="tracks.length" ng-click="exportToCSV()">
         Descargar CSV
       </button>

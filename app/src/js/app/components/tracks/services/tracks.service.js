@@ -6,7 +6,7 @@
 
     Module.factory('TracksServices', ['RestClient', function(RestClient){
 
-	  	var model = "track";
+	  	var model = "tracks";
 
 	  	var factory = {
 
@@ -22,7 +22,7 @@
 		    	})
 		    },
         findActives: function( cb) {
-		    	RestClient.get(model + "/active" , function(err, result) {
+		    	RestClient.get(model + "/tracking" , function(err, result) {
 		    		cb(err, result);
 		    	})
 		    },
@@ -34,7 +34,12 @@
 			},
 
 			getTracks: function(filters, cb) {
-				RestClient.post("tracks", filters, function(err, result) {
+				var role = window.localStorage.userRole;
+				var ids = filters.idUser && (role == 'admin' || role == 'pm') ? filters.idUser : '';
+
+				var path = role == 'admin' || role == 'pm' ? ids == '' ? 'all' : ids : 'current';
+
+				RestClient.post(model + "/user/" + path, filters, function(err, result) {
 					cb(err, result);
 				})
 			},
@@ -46,7 +51,13 @@
 			},
 
 			getTrelloTrack: function(filters, cb) {
-				RestClient.post("tracks-trello", filters, function(err, result) {
+				var user = window.localStorage;
+				var role = user.userRole;
+				var ids = filters.idUser && (role == 'admin' || role == 'pm') ? filters.idUser : '';
+
+				var path = role == 'admin' || role == 'pm' ? ids == '' ? 'trello/all' : "trello/" + ids : 'current/trello';
+
+				RestClient.post(model + "/user/" + path, filters, function(err, result) {
 					cb(err, result);
 				})
 			},
@@ -59,6 +70,14 @@
 
 
 			getUserTracks: function(idUser, cb) {
+				var user = window.localStorage;
+				var role = user.userRole;
+				var ids = idUser;
+
+				var path = "";
+
+				path = role == 'admin' || role == 'pm' ? ids == '' ? 'trello/all' : "trello/" + ids : 'current/trello';
+
 				RestClient.get(model + "/user/" + idUser, function(err, result) {
 					cb(err, result);
 				})
@@ -66,6 +85,12 @@
 
 			getLastUserTrack: function(idUser, cb) {
 				RestClient.get(model + "/user/" + idUser + "/last", function(err, result) {
+					cb(err, result);
+				})
+			},
+
+			getCurrentUserLastTrack: function(idUser, cb) {
+				RestClient.get(model + "/user/current/last", function(err, result) {
 					cb(err, result);
 				})
 			},
@@ -116,7 +141,7 @@
 					typeTrack  : obj.typeTrack,
 					currency : obj.currency
 					}
-					RestClient.post(model + "/track-trello-new", track, function(err, result) {
+					RestClient.post(model + "/new", track, function(err, result) {
 						console.log("resultTrello::", err, result);
 						cb(err, result);
 					})
@@ -141,6 +166,9 @@
 
 		    update: function(obj, cb) {
 				console.log("OBJ::",obj);
+				var path = window.localStorage.isDeveloper == "true" ? model + "/user/current" : model;
+
+
 		    	if (obj.typeTrack == "manual") {
 		    		var track = {
 		    			id 		   : obj.id,
@@ -157,7 +185,7 @@
 						currency   : obj.currency
 			    	}
 			    	console.log('track to update', track);
-		        	RestClient.post(model + "/update", track, function(err, result) {
+		        	RestClient.put(path + "/update", track, function(err, result) {
 		          		cb(err, result);
 		        	})
 				} else if(obj.typeTrack == "trello"){
@@ -173,7 +201,7 @@
 						currency : obj.currency
 					}
 					console.log('track trelloTrack to update', track);
-		        	RestClient.post(model + "/track-trello-update", track, function(err, result) {
+		        	RestClient.put(path + "/update", track, function(err, result) {
 						console.log("updateTrello:: ", result);
 						  cb(err, result);
 					})
@@ -209,8 +237,16 @@
 				})	
 			},
 
-			findByMonth: function(obj,cb) {
-				RestClient.post(model + "/month", obj, function(err, result){
+			findByMonth: function(obj, id,cb) {
+				console.log(id)
+				RestClient.post(model + '/' + id +"/month", obj, function(err, result){
+		    		cb(err, result);
+				})
+			},
+
+			findCurrentByMonth: function(obj,cb) {
+				RestClient.post(model + "/user/current/month", obj, function(err, result){
+					console.log(result);
 		    		cb(err, result);
 				})
 			}

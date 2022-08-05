@@ -6,7 +6,7 @@
 
     Module.factory('BankServices', ['RestClient', function(RestClient){
 
-	  	var model = "bank";
+	  	var model = "banks";
 
 	  	var factory = {
 

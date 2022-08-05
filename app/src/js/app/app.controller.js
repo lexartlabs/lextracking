@@ -4,7 +4,7 @@
 
     var Module = ng.module('LexTracking');
 
-    Module.controller('AppCtrl', ['$scope', '$log', '$window', '$rootScope', '$state', '$translate', 'RestClient', 'ngDialog', function ($scope, $log, $window, $rootScope, $state, $translate, RestClient, ngDialog) {
+    Module.controller('AppCtrl', ['$scope', '$log', '$window', '$rootScope', '$state', '$translate', 'RestClient', 'ngDialog', 'toastr', function ($scope, $log, $window, $rootScope, $state, $translate, RestClient, ngDialog, toastr) {
         // ---- Initialization
 
         $log.info('%cLEXTRACKING %cAPP STARTUP ', 'background: #203678; color: #F9F9F9; font-weight:bold; padding: 4px;', 'background: #666; color: #F9F9F9; padding: 4px;');
@@ -13,6 +13,10 @@
         $scope.$evalAsync(function () {
             $log.info("Async calls..");
         });
+        
+        $rootScope.showToast = function(title, subTitle, type){
+            toastr[type](subTitle, title);
+        }
 
         $rootScope.darkMode = 0;
 

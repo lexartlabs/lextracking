@@ -85,6 +85,15 @@
 
   </div>
   </form>
+  
+  <div ng-if="user.id">
+    <div class="imm-frm__fld">
+      <ul class="imm-tabs">
+          <li class="imm-tabs__item" ng-init="tabUser = 1; tab1()" ng-click="tabUser = 1; tab1()" ng-class="{'imm-tabs__item--selected' : tabUser == 1}">Mi rendimiento</li>
+          <li class="imm-tabs__item" ng-click="tabUser = 2; tab2()" ng-class="{'imm-tabs__item--selected' : tabUser == 2}">Integraciones</li>
+          <li class="imm-tabs__item" ng-click="tabUser = 3; tab3()" ng-class="{'imm-tabs__item--selected' : tabUser == 3}">Evaluaciones</li>
+      </ul>
+    </div>
 
   <div class="lexart-frm__fld">
     <ul class="lexart-tabs">
@@ -152,18 +161,10 @@
                 <td>{{month.year}}</td>
                 <td>{{month.salary}}</td>
                 <td>{{month.costHour}}</td>             
-            </tr>
-        </tbody>
-        <tbody ng-if="identify == false">
-          <tr ng-repeat="month in performance.allMonths">
-            <td>{{month.month}}</td>
-            <td>{{month.year}}</td>
-            <td>{{month.salary}}</td>
-            <td>{{month.costHour}}</td>             
-          </tr>
-        </tbody>
-    </table>
-</div>
+              </tr>
+            </tbody>
+        </table>
+    </div>
 
 <div ng-if="tabUser == 2" class="lexart-wa__cnt" style="text-align: left; margin-right: 70%;">
   <p style="font-size: 14px; font-weight: bold">Integrar con:</p>
@@ -190,7 +191,6 @@
         <p ng-if="vinculate == true" style="font-size: 10px; color: red">*Usuario ya vinculado</p>
       </div>
     </div>
-</div>
 
 <div class="lexart-wa__cnt" ng-if="tabUser == 3">
     <div class="lexart-wa__cnt">
@@ -217,11 +217,11 @@
                             </a>
                         </div>
                     </div>
-                </div>
-         </div>
-</div>
-</div>
-</div>
+            </div>
+    </div>
+    </div>
+    </div>
+  </div>
 </div>
 <div class="lexart-wa__actions">
   <p ng-if="error" class="err-display">{{error}} {{ 'general.cant_be_empty' | translate }}</p>

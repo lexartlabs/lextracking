@@ -27,7 +27,7 @@
         $scope.authenticate = function () {
             $scope.sendingData = true;
             $scope.error = "";
-            RestClient.post('login', $scope.user, function (err, result) {
+            RestClient.post('/user/login', $scope.user, function (err, result) {
                 $scope.sendingData = false;
                 if (result == null) {
                     if (typeof callback === 'function') {

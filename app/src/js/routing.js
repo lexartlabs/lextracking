@@ -12,7 +12,6 @@
             $rootScope.pageSize = PAGE_SIZE;
         }
     ]);
- 
     app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {
 
         $locationProvider.html5Mode(false);
