@@ -1,13 +1,13 @@
 var PAGE_SIZE = 15;
 var TOKEN_KEY = 'lextracking-web-token';
 
-var Imm = Imm || {};
+var LexTracking = LexTracking || {};
 
 (function (ng) {
 
     'use strict';
 
-    ng.module('Imm', [
+    ng.module('LexTracking', [
         'ngRoute',
         'ngSanitize',
         'ngMessages',

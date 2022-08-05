@@ -1,41 +1,41 @@
-<div class="imm-wa__hdr imm-flex">
-  <div class="imm-flex-5">
-    <h1 class="imm-wa__tit">
-      <a class="imm-bc-item" ui-sref="app.products">{{ 'products.title' | translate }}</a>
+<div class="lexart-wa__hdr lexart-flex">
+  <div class="lexart-flex-5">
+    <h1 class="lexart-wa__tit">
+      <a class="lexart-bc-item" ui-sref="app.products">{{ 'products.title' | translate }}</a>
     </h1>
-    <div class="imm-bc">
-      <a class="imm-bc-item">{{ 'products.title' | translate }}</a>
+    <div class="lexart-bc">
+      <a class="lexart-bc-item">{{ 'products.title' | translate }}</a>
     </div>
-    <div class="imm-bc" ng-if="product.name">
-      <span class="imm-bc-item imm-bc--head">{{product.name}}</span>
+    <div class="lexart-bc" ng-if="product.name">
+      <span class="lexart-bc-item lexart-bc--head">{{product.name}}</span>
     </div>
   </div>
 </div>
 
-<div class="imm-wa__cnt">
+<div class="lexart-wa__cnt">
 
 
-  <form class="imm-frm imm-frm--center">
+  <form class="lexart-frm lexart-frm--center">
 
-    <div class="imm-frm__fldgrp">
-      <div class="imm-frm__fld" ng-if="product.id">
-        <label class="imm-frm__lbl">
+    <div class="lexart-frm__fldgrp">
+      <div class="lexart-frm__fld" ng-if="product.id">
+        <label class="lexart-frm__lbl">
           <input type="text" ng-value="product.id" readonly/>
-          <b class="imm-frm__lbl-name">{{ 'ID' }}</b>
+          <b class="lexart-frm__lbl-name">{{ 'ID' }}</b>
         </label>
       </div>
 
-      <div class="imm-frm__fld">
-        <label class="imm-frm__lbl">
-          <b class="imm-frm__lbl-name">{{ 'products.name' | translate }} <span class="required">*</span></b>
+      <div class="lexart-frm__fld">
+        <label class="lexart-frm__lbl">
+          <b class="lexart-frm__lbl-name">{{ 'products.name' | translate }} <span class="required">*</span></b>
           <input type="text" ng-model="product.name" />
         </label>
       </div>
 
-      <div class="imm-frm__fld">
-        <label class="imm-frm__lbl">
+      <div class="lexart-frm__fld">
+        <label class="lexart-frm__lbl">
 
-          <b class="imm-frm__lbl-name">{{ 'products.type' | translate }} <span class="required">*</span></b>
+          <b class="lexart-frm__lbl-name">{{ 'products.type' | translate }} <span class="required">*</span></b>
           <select class="" ng-model="product.type">
             <option>Servidor virtual</option>
             <option>Hosting</option>
@@ -52,36 +52,36 @@
 
     <div ng-show="product.type=='Servidor virtual'">
 
-      <div class="imm-frm__fldgrp">
-        <div class="imm-frm__fld">
-          <label class="imm-frm__lbl">
+      <div class="lexart-frm__fldgrp">
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
             <input type="text" ng-model="product.cpu" />
-            <b class="imm-frm__lbl-name">{{ 'products.cpu' | translate }} <span class="required">*</span></b>
+            <b class="lexart-frm__lbl-name">{{ 'products.cpu' | translate }} <span class="required">*</span></b>
           </label>
         </div>
 
-        <div class="imm-frm__fld">
-          <label class="imm-frm__lbl">
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
             <input type="text" ng-model="product.hdd" />
-            <b class="imm-frm__lbl-name">{{ 'products.hdd' | translate }} <span class="required">*</span></b>
+            <b class="lexart-frm__lbl-name">{{ 'products.hdd' | translate }} <span class="required">*</span></b>
           </label>
         </div>
 
       </div>
 
 
-      <div class="imm-frm__fldgrp">
-        <div class="imm-frm__fld">
-          <label class="imm-frm__lbl">
+      <div class="lexart-frm__fldgrp">
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
             <input type="text" ng-model="product.memory" />
-            <b class="imm-frm__lbl-name">{{ 'products.memory' | translate }} <span class="required">*</span></b>
+            <b class="lexart-frm__lbl-name">{{ 'products.memory' | translate }} <span class="required">*</span></b>
           </label>
         </div>
 
-        <div class="imm-frm__fld">
-          <label class="imm-frm__lbl">
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
             <input type="text" ng-model="product.transfer" />
-            <b class="imm-frm__lbl-name">{{ 'products.transfer' | translate }} <span class="required">*</span></b>
+            <b class="lexart-frm__lbl-name">{{ 'products.transfer' | translate }} <span class="required">*</span></b>
           </label>
         </div>
       </div>
@@ -91,36 +91,36 @@
 
     <div ng-show="product.type=='Hosting'">
 
-      <div class="imm-frm__fldgrp">
-        <div class="imm-frm__fld">
-          <label class="imm-frm__lbl">
+      <div class="lexart-frm__fldgrp">
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
             <input type="text" ng-model="product.diskSpace" />
-            <b class="imm-frm__lbl-name">{{ 'products.diskSpace' | translate }} <span class="required">*</span></b>
+            <b class="lexart-frm__lbl-name">{{ 'products.diskSpace' | translate }} <span class="required">*</span></b>
           </label>
         </div>
 
-        <div class="imm-frm__fld">
-          <label class="imm-frm__lbl">
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
             <input type="text" ng-model="product.transfer" />
-            <b class="imm-frm__lbl-name">{{ 'products.transfer' | translate }} <span class="required">*</span></b>
+            <b class="lexart-frm__lbl-name">{{ 'products.transfer' | translate }} <span class="required">*</span></b>
           </label>
         </div>
 
       </div>
 
 
-      <div class="imm-frm__fldgrp">
-        <div class="imm-frm__fld">
-          <label class="imm-frm__lbl">
+      <div class="lexart-frm__fldgrp">
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
             <input type="number" ng-model="product.amountEmails"  min="0"/>
-            <b class="imm-frm__lbl-name">{{ 'products.amountEmails' | translate }} <span class="required">*</span></b>
+            <b class="lexart-frm__lbl-name">{{ 'products.amountEmails' | translate }} <span class="required">*</span></b>
           </label>
         </div>
 
-        <div class="imm-frm__fld">
-          <label class="imm-frm__lbl">
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
             <input type="number" ng-model="product.amountDataBase"  min="0"/>
-            <b class="imm-frm__lbl-name">{{ 'products.amountDataBase' | translate }} <span class="required">*</span></b>
+            <b class="lexart-frm__lbl-name">{{ 'products.amountDataBase' | translate }} <span class="required">*</span></b>
           </label>
         </div>
       </div>
@@ -131,36 +131,36 @@
 
     <div ng-show="product.type=='Dominio'">
 
-      <div class="imm-frm__fldgrp">
-        <div class="imm-frm__fld">
-          <label class="imm-frm__lbl">
+      <div class="lexart-frm__fldgrp">
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
             <input type="text" ng-model="product.domain" />
-            <b class="imm-frm__lbl-name">{{ 'products.domain' | translate }} <span class="required">*</span></b>
+            <b class="lexart-frm__lbl-name">{{ 'products.domain' | translate }} <span class="required">*</span></b>
           </label>
         </div>
 
-        <div class="imm-frm__fld">
-          <label class="imm-frm__lbl">
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
             <input type="date" ng-model="product.expiration" />
-            <b class="imm-frm__lbl-name">{{ 'products.expiration' | translate }} <span class="required">*</span></b>
+            <b class="lexart-frm__lbl-name">{{ 'products.expiration' | translate }} <span class="required">*</span></b>
           </label>
         </div>
 
       </div>
 
 
-      <div class="imm-frm__fldgrp">
-        <div class="imm-frm__fld">
-          <label class="imm-frm__lbl">
+      <div class="lexart-frm__fldgrp">
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
             <input type="text" ng-model="product.provider"  />
-            <b class="imm-frm__lbl-name">{{ 'products.provider' | translate }} <span class="required">*</span></b>
+            <b class="lexart-frm__lbl-name">{{ 'products.provider' | translate }} <span class="required">*</span></b>
           </label>
         </div>
 
-        <div class="imm-frm__fld">
-          <label class="imm-frm__lbl">
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
             <input type="text" ng-model="product.placeAccommodation"  />
-            <b class="imm-frm__lbl-name">{{ 'products.placeAccommodation' | translate }} <span class="required">*</span></b>
+            <b class="lexart-frm__lbl-name">{{ 'products.placeAccommodation' | translate }} <span class="required">*</span></b>
           </label>
         </div>
       </div>
@@ -170,25 +170,25 @@
 
     <div ng-show="product.type=='Administracion productos externos'">
 
-      <div class="imm-frm__fldgrp">
-        <div class="imm-frm__fld">
-          <label class="imm-frm__lbl">
+      <div class="lexart-frm__fldgrp">
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
             <input type="text" ng-model="product.link" />
-            <b class="imm-frm__lbl-name">{{ 'products.link' | translate }} <span class="required">*</span></b>
+            <b class="lexart-frm__lbl-name">{{ 'products.link' | translate }} <span class="required">*</span></b>
           </label>
         </div>
 
-        <div class="imm-frm__fld">
-          <label class="imm-frm__lbl">
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
             <input type="text" ng-model="product.ip" />
-            <b class="imm-frm__lbl-name">{{ 'products.ip' | translate }} <span class="required">*</span></b>
+            <b class="lexart-frm__lbl-name">{{ 'products.ip' | translate }} <span class="required">*</span></b>
           </label>
         </div>
 
-        <div class="imm-frm__fld">
-          <label class="imm-frm__lbl">
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
             <input type="text" ng-model="product.databaseAccess"  />
-            <b class="imm-frm__lbl-name">{{ 'products.databaseAccess' | translate }} <span class="required">*</span></b>
+            <b class="lexart-frm__lbl-name">{{ 'products.databaseAccess' | translate }} <span class="required">*</span></b>
           </label>
         </div>
 
@@ -197,47 +197,47 @@
 
 
 
-      <div class="imm-frm__fldgrp">
-        <div class="imm-frm__fld">
+      <div class="lexart-frm__fldgrp">
+        <div class="lexart-frm__fld">
 
-          <label class="imm-frm__lbl">
-            <b class="imm-frm__lbl-name">{{ 'products.accessData' | translate }} <span class="required">*</span></b>
+          <label class="lexart-frm__lbl">
+            <b class="lexart-frm__lbl-name">{{ 'products.accessData' | translate }} <span class="required">*</span></b>
           </label>
 
         </div>
 
       </div>
 
-      <div class="imm-frm__fldgrp">
-        <div class="imm-frm__fld">
-          <label class="imm-frm__lbl">
+      <div class="lexart-frm__fldgrp">
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
             <input type="text" ng-model="data.user">
 
-            <b class="imm-frm__lbl-name">{{ 'Usuario' }} <span class="required">*</span></b>
+            <b class="lexart-frm__lbl-name">{{ 'Usuario' }} <span class="required">*</span></b>
           </label>
 
         </div>
 
-        <div class="imm-frm__fld">
+        <div class="lexart-frm__fld">
 
-          <label class="imm-frm__lbl">
+          <label class="lexart-frm__lbl">
             <input type="text" ng-model="data.password">
 
-            <b class="imm-frm__lbl-name">{{ 'Clave' }} <span class="required">*</span></b>
+            <b class="lexart-frm__lbl-name">{{ 'Clave' }} <span class="required">*</span></b>
           </label>
 
         </div>
 
-        <div class="imm-frm__fld">
-          <button class="imm-btn" ng-click="agregarAcceso()">{{ 'Agregar' }}</button>
+        <div class="lexart-frm__fld">
+          <button class="lexart-btn" ng-click="agregarAcceso()">{{ 'Agregar' }}</button>
           
         </div>
 
 
 
       </div>
-      <div class="imm-frm__fldgrp">
-        <table>
+      <div class="lexart-frm__fldgrp">
+        <table class="lexart-table">
           <thead>
             <tr>
 
@@ -263,22 +263,22 @@
 
     <div ng-show="product.type=='Extra'">
 
-      <div class="imm-frm__fldgrp">
-        <div class="imm-frm__fld" style='margin-top: 20px;'>
-          <label class="imm-frm__lbl">
+      <div class="lexart-frm__fldgrp">
+        <div class="lexart-frm__fld" style='margin-top: 20px;'>
+          <label class="lexart-frm__lbl">
             <textarea ng-model="product.note"></textarea>
-            <b class="imm-frm__lbl-name">{{ 'products.note' | translate }} <span class="required">*</span></b>
+            <b class="lexart-frm__lbl-name">{{ 'products.note' | translate }} <span class="required">*</span></b>
           </label>
         </div>
       </div>
     </div>
 
-    <div class="imm-frm__fldgrp">
-      <div class="imm-frm__fld">
-        <label class="imm-frm__lbl">
+    <div class="lexart-frm__fldgrp">
+      <div class="lexart-frm__fld">
+        <label class="lexart-frm__lbl">
           <ui-select
               ng-model="product.status"
-              class="imm-select imm-select--input"
+              class="lexart-select lexart-select--input"
               theme="selectize"
               append-to-body="true"
               >
@@ -289,13 +289,13 @@
                 <div ng-bind-html="status"></div>
               </ui-select-choices>
             </ui-select>
-          <b class="imm-frm__lbl-name">{{ 'products.status' | translate }} <span class="required">*</span></b>
+          <b class="lexart-frm__lbl-name">{{ 'products.status' | translate }} <span class="required">*</span></b>
         </label>
       </div>
-      <div class="imm-frm__fld">
-        <label class="imm-frm__lbl">
+      <div class="lexart-frm__fld">
+        <label class="lexart-frm__lbl">
           <input type="text" ng-model="product.price" />
-          <b class="imm-frm__lbl-name">{{ 'products.price' | translate }} (USD)<span class="required">*</span></b>
+          <b class="lexart-frm__lbl-name">{{ 'products.price' | translate }} (USD)<span class="required">*</span></b>
         </label>
       </div>
 
@@ -307,9 +307,9 @@
   </form>
 </div>
 
-<div class="imm-wa__actions">
+<div class="lexart-wa__actions">
   <p ng-if="error" class="err-display">{{error}} {{ 'general.cant_be_empty' | translate }}</p>
-  <button class="imm-btn imm-btn--alt" ui-sref="app.products">{{ 'products.back' | translate }}</button>
-  <button class="imm-btn" ng-disabled="sendingData" ng-click="save()">{{ 'products.save' | translate }}</button>
-  <button class="imm-btn" ng-click="deleteModal()" ng-if='$stateParams.id'>{{ 'hosting.delete' | translate }}</button>
+  <button class="lexart-btn lexart-btn--alt" ui-sref="app.products">{{ 'products.back' | translate }}</button>
+  <button class="lexart-btn" ng-disabled="sendingData" ng-click="save()">{{ 'products.save' | translate }}</button>
+  <button class="lexart-btn" ng-click="deleteModal()" ng-if='$stateParams.id'>{{ 'hosting.delete' | translate }}</button>
 </div>

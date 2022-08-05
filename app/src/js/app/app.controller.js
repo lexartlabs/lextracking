@@ -1,16 +1,16 @@
-(function(ng) {
+(function (ng) {
 
     'use strict';
-    
-    var Module = ng.module('Imm');
 
-    Module.controller('AppCtrl', ['$scope', '$log', '$window', '$rootScope', '$state', '$translate', 'RestClient', 'ngDialog', 'toastr', function($scope, $log, $window, $rootScope, $state, $translate, RestClient, ngDialog, toastr) {
+    var Module = ng.module('LexTracking');
+
+    Module.controller('AppCtrl', ['$scope', '$log', '$window', '$rootScope', '$state', '$translate', 'RestClient', 'ngDialog', 'toastr', function ($scope, $log, $window, $rootScope, $state, $translate, RestClient, ngDialog, toastr) {
         // ---- Initialization
 
-        $log.info('%cLEXTRACKING %cAPP STARTUP ', 'background: #203678; color: #fff; font-weight:bold; padding: 4px;', 'background: #666; color: #f9f9f9; padding: 4px;');
+        $log.info('%cLEXTRACKING %cAPP STARTUP ', 'background: #203678; color: #F9F9F9; font-weight:bold; padding: 4px;', 'background: #666; color: #F9F9F9; padding: 4px;');
 
         // Put here stuff that can be deferred for the next digest
-        $scope.$evalAsync(function() {
+        $scope.$evalAsync(function () {
             $log.info("Async calls..");
         });
         
@@ -18,26 +18,35 @@
             toastr[type](subTitle, title);
         }
 
-        $rootScope.logout = function() {
+        $rootScope.darkMode = 0;
+
+        $rootScope.logout = function () {
             $window.localStorage.clear();
             $rootScope.userName = '';
             $rootScope.token = '';
+            $rootScope.darkModeSwitch = 0;
+            $rootScope.darkMode = 0;
+            $window.sessionStorage["darkMode"] = 0;
             $state.go('login');
         };
 
-        $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+        $rootScope.toggleMode = function () {
+            $rootScope.darkMode == 0 ? $rootScope.darkMode = 1 : $rootScope.darkMode = 0;
+        }
+
+        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             //Close all dialogs
             ngDialog.closeAll();
         })
 
-        $scope.$on('$routeChangeSuccess', function(e, currentRoute) {
+        $scope.$on('$routeChangeSuccess', function (e, currentRoute) {
             //Change page title, based on Route information
             if (currentRoute && currentRoute.title) {
                 $window.title = currentRoute.title;
             }
         });
 
-        $scope.changeLanguage = function(langKey){
+        $scope.changeLanguage = function (langKey) {
             $translate.use(langKey);
         };
     }]);

@@ -1,15 +1,15 @@
-<div class="imm-wa__hdr imm-flex">
-    <div class="imm-flex-5">
-        <h1 class="imm-wa__tit">
-            <a class="imm-bc-item" ui-sref="app.dashboardTasks">{{ 'Tareas' }}</a>
+<div class="lexart-wa__hdr lexart-flex">
+    <div class="lexart-flex-5">
+        <h1 class="lexart-wa__tit">
+            <a class="lexart-bc-item" ui-sref="app.dashboardTasks">{{ 'Tareas' }}</a>
         </h1>
-        <div class="imm-bc">
-            <a class="imm-bc-item">{{ 'Tareas Manuales' }}</a>
+        <div class="lexart-bc">
+            <a class="lexart-bc-item">{{ 'Tareas Manuales' }}</a>
         </div>
     </div>
 </div>
-<div class="imm-wa__cnt">
-    <table>
+<div class="lexart-wa__cnt">
+    <table class="lexart-table">
         <thead>
             <tr>
                 <th>{{ 'tasks.project' | translate }}</th>
@@ -19,9 +19,9 @@
                 <th>{{ 'tasks.duration' | translate }}</th>
                 <th>{{ 'tasks.status' | translate }}</th>
 
-                <th class="imm-cstm__grid-5"></th>
-                <th class="imm-cstm__grid-5"></th>
-                <th class="imm-cstm__grid-5"></th>
+                <th class="lexart-cstm__grid-5"></th>
+                <th class="lexart-cstm__grid-5"></th>
+                <th class="lexart-cstm__grid-5"></th>
             </tr>
         </thead>
         <tbody>
@@ -37,7 +37,7 @@
                 <td></td>
 
             </tr>
-            <tr ng-repeat="(index,task) in tasks" ng-class="{'active-task': currentTrack.idTask == task.id}" ng-style="task.status == 'Done' && {'background-color':'#3b0'}  || task.status == 'In-Review' && {'background-color':'#AE2E2E'} || task.status == 'In-Progress' && {'background-color':'#ccad16'}">
+            <tr ng-repeat="(index,task) in tasks" ng-class="{'active-task': currentTrack.idTask == task.id}" ng-style="task.status == 'Done' && {'background-color':'#a9e892'}  || task.status == 'In-Review' && {'background-color':'#f08b8b'} || task.status == 'In-Progress' && {'background-color':'#f2ecb8'}">
                 <td ng-if="userRole != 'admin'" title="{{task.projectName}}">{{task.projectName | truncateTail:true:30:'...'}}</td>
                 <td><a ng-if="userRole == 'admin'" style="color: #4a90e2; text-decoration: underline" ui-sref="app.projectEdit({id: task.idProject})" target="_blank">{{task.projectName | truncateTail:true:30:'...'}}</a></td>
                 <td title="{{task.name}}">{{task.name | truncateTail:true:30:'...'}}</td>
@@ -45,11 +45,11 @@
                 <td>{{task.duration}}</td>
                 <td>{{task.status}}</td>
                 <td>
-                     <a href="" ng-click="editTask(index,task)" ><img class="img_stop" src="/assets/images/icons/details-ico-blue.svg"></a>
+                     <a href="" ng-click="editTask(index,task)" ><i class="ri-search-line"></i></a>
                 </td>
                 <td>
                     <a ui-sref="app.taskForm({id: task.id})">
-                        <img src="assets/images/icons/pencil-ico.svg">
+                        <i class="ri-edit-line"></i>
                     </a>
                 </td>
                 <!-- <td ng-if="isAdmin=='false' && isClient=='false'">
@@ -58,8 +58,8 @@
                     </a>
                 </td> -->
                 <td ng-if="task.status != 'Done' && task.status != 'In-Review' && isClient=='false' ">
-                    <a href ng-click="stopTrack()" ng-if="currentTrack.idTask == task.id"><img class="img_stop" src="/assets/images/stop.png"></a>
-                    <a href ng-click="startTrack(task)" ng-if="currentTrack.idTask != task.id"><img class="img_play" src="/assets/images/play.png"></a>
+                    <a href ng-click="stopTrack()" ng-if="currentTrack.idTask == task.id"><i class="ri-pause-line"></i></a>
+                    <a href ng-click="startTrack(task)" ng-if="currentTrack.idTask != task.id"><i class="ri-play-line"></i></a>
                 </td>
                 <td ng-if="isClient=='true'"></td>
                 <td ng-if="task.status == 'Done' || task.status == 'In-Review' && isClient=='false'"></td>

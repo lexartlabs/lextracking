@@ -11,7 +11,7 @@
     </defs>
     <g id="IMM-desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="catalogos/organizacion">
-            <use id="Oval-4" stroke="#CCCCCC" mask="url(#mask-2)" stroke-width="4" fill="#FFFFFF" xlink:href="#path-1"></use>
+            <use id="Oval-4" stroke="#CCCCCC" mask="url(#mask-2)" stroke-width="4" fill="#F9F9F9" xlink:href="#path-1"></use>
             <circle id="Oval-4-Copy" fill="#50667E" cx="56" cy="55" r="50"></circle>
             <g id="Group-47" transform="translate(26.000000, 26.000000)">
                 <polygon id="Triangle-5" stroke="#000000" opacity="0.400000006" points="29.2735849 6.01886792 52.8930818 42.3144654 5.65408805 42.3144654"></polygon>

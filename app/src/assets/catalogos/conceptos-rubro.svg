@@ -13,7 +13,7 @@
     <g id="IMM-desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="d.dashboard-c-catalogos" transform="translate(-1191.000000, -278.000000)">
             <g id="catalogos/conceptos-rubro" transform="translate(1191.000000, 278.000000)">
-                <use id="Oval-4" stroke="#CCCCCC" mask="url(#mask-2)" stroke-width="4" fill="#FFFFFF" xlink:href="#path-1"></use>
+                <use id="Oval-4" stroke="#CCCCCC" mask="url(#mask-2)" stroke-width="4" fill="#F9F9F9" xlink:href="#path-1"></use>
                 <circle id="Oval-4-Copy" fill="#50667E" cx="55" cy="55" r="50"></circle>
                 <g id="Group-4" transform="translate(5.000000, 5.000000)">
                     <mask id="mask-4" fill="white">

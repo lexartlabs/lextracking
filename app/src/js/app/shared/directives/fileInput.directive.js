@@ -5,7 +5,7 @@
 
     "use strict";
 
-    var Module = ng.module('Imm');
+    var Module = ng.module('LexTracking');
 
     Module.directive('fileModel', ['$parse', function ($parse) {
         return {

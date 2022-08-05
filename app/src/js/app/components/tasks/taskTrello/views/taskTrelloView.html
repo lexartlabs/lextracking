@@ -1,27 +1,27 @@
-<div class="imm-wa__hdr imm-flex">
-    <div class="imm-flex-5">
-        <h1 class="imm-wa__tit">
-            <a class="imm-bc-item" ui-sref="app.dashboardTasks">{{ 'navigation.tasks' | translate }}</a>
+<div class="lexart-wa__hdr lexart-flex">
+    <div class="lexart-flex-5">
+        <h1 class="lexart-wa__tit">
+            <a class="lexart-bc-item" ui-sref="app.dashboardTasks">{{ 'navigation.tasks' | translate }}</a>
         </h1>
-        <div class="imm-bc">
-            <a class="imm-bc-item">{{ 'navigation.tasks_trello' | translate }}</a>
+        <div class="lexart-bc">
+            <a class="lexart-bc-item">{{ 'navigation.tasks_trello' | translate }}</a>
         </div>
     </div>
-     <div class="imm-btn__right">
-        <button style="background-color: steelblue; color: white; cursor: pointer;" ng-click="addBoard()">Add board</button>
+     <div class="lexart-btn__right">
+        <button style="background-color: steelblue; color: white; cursor: pointer;" ng-click="addBoard()">Agregar Tablero</button>
     </div>
 </div>
-<div style="text-align: center; background-color: steelblue; font-weight: bold; color:white; margin-bottom: 10px;">To capture boards you need to add lexart.brain into your Trello board.<a href='javascript:void(0)' ng-click="tutorialBot()" style="text-decoration: underline; margin-left: 4px;">Step by step</a></div>
-<div class="imm-wa__cnt">
-    <table>
+<div style="text-align: center; background-color: steelblue; font-weight: bold; color:white; margin-bottom: 10px;">Para capturar tableros necesita agregar dentro de su tablero de Trello a lexart.brain. <a href='javascript:void(0)' ng-click="tutorialBot()" style="text-decoration: underline;"> Ver paso a paso</a></div>
+<div class="lexart-wa__cnt">
+    <table class="lexart-table">
         <thead>
             <tr>
                 <th style="width: 6%;">{{ 'tasks_trello.id' | translate }}</th>
                 <th>{{ 'tasks_trello.projectName' | translate }}</th>
                 <th>{{ 'tasks_trello.shortUrl' | translate }}</th>
-                <th class="imm-cstm__grid-5"></th>
-                <th class="imm-cstm__grid-5"></th>
-                <th class="imm-cstm__grid-5"></th>
+                <th class="lexart-cstm__grid-5"></th>
+                <th class="lexart-cstm__grid-5"></th>
+                <th class="lexart-cstm__grid-5"></th>
 
             </tr>
         </thead>
@@ -34,7 +34,7 @@
                 <td></td>
                 <td></td>
             </tr>
-            <tr ng-repeat="(index,task_trello) in tasks_trello" ng-class="{'active-task_trello': currentTrack.idtask_trello == task_trello.id}" ng-style="task_trello.status == 'Done' && {'background-color':'#3b0'}  || task_trello.status == 'In-Review' && {'background-color':'#AE2E2E'} || task_trello.status == 'In-Progress' && {'background-color':'#ccad16'}">
+            <tr ng-repeat="(index,task_trello) in tasks_trello" ng-class="{'active-task_trello': currentTrack.idtask_trello == task_trello.id}" ng-style="task_trello.status == 'Done' && {'background-color':'#a9e892'}  || task_trello.status == 'In-Review' && {'background-color':'#f08b8b'} || task_trello.status == 'In-Progress' && {'background-color':'#f2ecb8'}">
                 <td title="{{task_trello.id}}">{{task_trello.id | truncateTail:true:30:'...'}}</td>
                 <td>{{task_trello.projectName}}</td>
                 <td>{{task_trello.url}}</td>
@@ -45,7 +45,7 @@
                 </td>
                 <td>
                     <a href="" ng-click="editBoard(task_trello)">
-                        <img src="assets/images/icons/pencil-ico.svg">
+                        <i class="ri-edit-line"></i>
                     </a>
                 </td>
                 <td>

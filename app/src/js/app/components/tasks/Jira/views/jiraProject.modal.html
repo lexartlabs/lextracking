@@ -1,13 +1,13 @@
-<div class="imm-modal imm-modal--medium">
-    <div class="imm-modal__header">
-        <h1 class="imm-modal__title">{{ ngDialogData.titleRequired }}</h1>
-        <a class="imm-modal__close-btn" ng-click="closeThisDialog()"><i class="imm-icon imm-icon--modal-close"></i></a>
+<div class="lexart-modal lexart-modal--medium">
+    <div class="lexart-modal__header">
+        <h1 class="lexart-modal__title">{{ ngDialogData.titleRequired }}</h1>
+        <a class="lexart-modal__close-btn" ng-click="closeThisDialog()"><i class="lexart-icon lexart-icon--modal-close"></i></a>
     </div>
 
-    <div class="imm-modal__cnt">
+    <div class="lexart-modal__cnt">
         <p ng-if="ngDialogData.msg">{{ ngDialogData.msg }}</p>
         <label>Proyecto:</label><br>
-        <ui-select append-to-body="true" class="imm-select imm-select--input" theme="selectize" ng-model="selected.value">
+        <ui-select append-to-body="true" class="lexart-select lexart-select--input" theme="selectize" ng-model="selected.value">
          <ui-select-match placeholder="Seleccionar Proyecto">
              {{$select.selected.name}}
          </ui-select-match>
@@ -20,7 +20,7 @@
         <input ng-if="ngDialogData.jiraIntegrate" type="text" ng-model="jiraUser.jiraToken">
     </div>
 
-    <div class="imm-modal__actions">
-        <a class="imm-btn" ng-click="ngDialogData.confirm();closeThisDialog()">{{ 'shared.modal.accept' | translate }}</a>
+    <div class="lexart-modal__actions">
+        <a class="lexart-btn" ng-click="ngDialogData.confirm();closeThisDialog()">{{ 'shared.modal.accept' | translate }}</a>
     </div>
 </div>

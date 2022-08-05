@@ -2,7 +2,7 @@
 
   'use strict';
 
-  var Module = ng.module('Imm');
+  var Module = ng.module('LexTracking');
 
   Module.controller('EasyWebCtrl', ['$scope','$state','$stateParams', '$rootScope', '$filter', '$timeout', 'EasywebsServices', 'ngDialog', '$window', "$http", function($scope,$state,$stateParams, $rootScope, $filter, $timeout, EasywebsServices, ngDialog, $window, $http) {
 

@@ -1,23 +1,23 @@
-<div class="imm-wa__hdr imm-flex">
-  <div class="imm-flex-5">
-    <h1 class="imm-wa__tit">
-      <a class="imm-bc-item">{{ 'EasyWebs Builder' }}</a>
+<div class="lexart-wa__hdr lexart-flex">
+  <div class="lexart-flex-5">
+    <h1 class="lexart-wa__tit">
+      <a class="lexart-bc-item">{{ 'EasyWebs Builder' }}</a>
     </h1>
-    <div class="imm-btn__right">
-      <a ui-sref="app.easyWebNew" class="imm-btn imm-btn--round">&#43; {{ 'New web' }}</a>
+    <div class="lexart-btn__right">
+      <a ui-sref="app.easyWebNew" class="lexart-btn lexart-btn--round">&#43; {{ 'New web' }}</a>
     </div>
   </div>
 </div>
 
-<div class="imm-wa__cnt">
-  <table>
+<div class="lexart-wa__cnt">
+  <table class="lexart-table">
     <thead>
       <tr>
         <th>{{ 'bills.id' | translate }}</th>
         <th>{{ 'Nombre' | uppercase }}</th>
         <th>{{ 'Dominio' | uppercase }}</th>
         <th>{{ 'Developer' | uppercase }}</th>
-        <th class="imm-cstm__grid-5"></th>
+        <th class="lexart-cstm__grid-5"></th>
       </tr>
     </thead>
     <tbody>
@@ -35,7 +35,7 @@
         <td>{{bill.developer}}</td>
         <td>
           <a ui-sref="app.easyWebEdit({id: bill.id})">
-            <img src="assets/images/icons/pencil-ico.svg">
+            <i class="ri-edit-line"></i>
           </a>
         </td>
       </tr>

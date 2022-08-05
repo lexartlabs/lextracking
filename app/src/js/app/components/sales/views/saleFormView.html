@@ -1,34 +1,34 @@
-<div class="imm-wa__hdr imm-flex">
-  <div class="imm-flex-5">
-    <h1 class="imm-wa__tit">
-      <a class="imm-bc-item" ui-sref="app.sales">{{ 'sales.title' | translate }}</a>
+<div class="lexart-wa__hdr lexart-flex">
+  <div class="lexart-flex-5">
+    <h1 class="lexart-wa__tit">
+      <a class="lexart-bc-item" ui-sref="app.sales">{{ 'sales.title' | translate }}</a>
     </h1>
-    <div class="imm-bc">
-      <a class="imm-bc-item">{{ 'sales.sale' | translate }}</a>
+    <div class="lexart-bc">
+      <a class="lexart-bc-item">{{ 'sales.sale' | translate }}</a>
     </div>
-    <div class="imm-bc" ng-if="sale.name">
-      <span class="imm-bc-item imm-bc--head">{{sale.name}}</span>
+    <div class="lexart-bc" ng-if="sale.name">
+      <span class="lexart-bc-item lexart-bc--head">{{sale.name}}</span>
     </div>
   </div>
 </div>
 
-<div class="imm-wa__cnt">
-  <form class="imm-frm imm-frm--center">
+<div class="lexart-wa__cnt">
+  <form class="lexart-frm lexart-frm--center">
 
-    <div class="imm-frm__fldgrp">
-      <div class="imm-frm__fld" ng-if="sale.id">
-        <label class="imm-frm__lbl">
+    <div class="lexart-frm__fldgrp">
+      <div class="lexart-frm__fld" ng-if="sale.id">
+        <label class="lexart-frm__lbl">
           <input type="text" ng-value="sale.id" readonly/>
-          <b class="imm-frm__lbl-name">{{ 'ID' }}</b>
+          <b class="lexart-frm__lbl-name">{{ 'ID' }}</b>
         </label>
       </div>
 
-      <div class="imm-frm__fld">
-        <label class="imm-frm__lbl">
-          <b class="imm-frm__lbl-name">{{ 'sales.user' | translate }} <span class="required">*</span></b>
+      <div class="lexart-frm__fld">
+        <label class="lexart-frm__lbl">
+          <b class="lexart-frm__lbl-name">{{ 'sales.user' | translate }} <span class="required">*</span></b>
           <ui-select
           ng-model="select.user"
-          class="imm-select imm-select--input"
+          class="lexart-select lexart-select--input"
           theme="selectize"
           append-to-body="true"
           >
@@ -42,11 +42,11 @@
       </label>
     </div>
 
-    <div class="imm-frm__fld">
-      <label class="imm-frm__lbl">
+    <div class="lexart-frm__fld">
+      <label class="lexart-frm__lbl">
         <ui-select
         ng-model="select.client"
-        class="imm-select imm-select--input"
+        class="lexart-select lexart-select--input"
         theme="selectize"
         append-to-body="true"
         >
@@ -57,32 +57,32 @@
           <div ng-bind-html="client.name | highlight: $select.selected.concept"></div>
         </ui-select-choices>
       </ui-select>
-        <b class="imm-frm__lbl-name">{{ 'sales.client' | translate }} <span class="required">*</span></b>
+        <b class="lexart-frm__lbl-name">{{ 'sales.client' | translate }} <span class="required">*</span></b>
       </label>
     </div>
   </div>
-  <div class="imm-frm__fldgrp">
-    <div class="imm-frm__fld">
-      <label class="imm-frm__lbl">
+  <div class="lexart-frm__fldgrp">
+    <div class="lexart-frm__fld">
+      <label class="lexart-frm__lbl">
         <input type="number" ng-model="sale.amount" min="0"/>
-        <b class="imm-frm__lbl-name">{{ 'sales.amount' | translate }} <span class="required">*</span></b>
+        <b class="lexart-frm__lbl-name">{{ 'sales.amount' | translate }} <span class="required">*</span></b>
       </label>
     </div>
-    <div class="imm-frm__fld">
-      <label class="imm-frm__lbl">
+    <div class="lexart-frm__fld">
+      <label class="lexart-frm__lbl">
         <select ng-model="sale.currency">
           <option>USD</option>
           <option>$</option>
           <option>R$</option>
         </select>
-        <b class="imm-frm__lbl-name">{{ 'sales.currency' | translate }} <span class="required">*</span></b>
+        <b class="lexart-frm__lbl-name">{{ 'sales.currency' | translate }} <span class="required">*</span></b>
       </label>
     </div>
-    <div class="imm-frm__fld">
-      <label class="imm-frm__lbl">
+    <div class="lexart-frm__fld">
+      <label class="lexart-frm__lbl">
         <ui-select
         ng-model="select.concept"
-        class="imm-select imm-select--input"
+        class="lexart-select lexart-select--input"
         theme="selectize"
         append-to-body="true"
         >
@@ -93,20 +93,20 @@
           <div ng-bind-html="concept.concept | highlight: $select.selected.concept"></div>
         </ui-select-choices>
       </ui-select>
-        <b class="imm-frm__lbl-name">{{ 'sales.concept' | translate }} <span class="required">*</span></b>
+        <b class="lexart-frm__lbl-name">{{ 'sales.concept' | translate }} <span class="required">*</span></b>
       </label>
     </div>
   </div>
-  <div class="imm-frm__fldgrp">
+  <div class="lexart-frm__fldgrp">
 
-    <div class="imm-frm__fld" >
-      <label class="imm-frm__lbl">
+    <div class="lexart-frm__fld" >
+      <label class="lexart-frm__lbl">
 
-        <b class="imm-frm__lbl-name">{{ 'sales.type' | translate }} <span class="required">*</span></b>
+        <b class="lexart-frm__lbl-name">{{ 'sales.type' | translate }} <span class="required">*</span></b>
 
         <ui-select
         ng-model="select.type"
-        class="imm-select imm-select--input"
+        class="lexart-select lexart-select--input"
         theme="selectize"
         append-to-body="true"
         >
@@ -119,10 +119,10 @@
       </label>
     </div>
 
-    <div class="imm-frm__fld" ng-if="select.type.name=='PAGO'">
-      <label class="imm-frm__lbl">
+    <div class="lexart-frm__fld" ng-if="select.type.name=='PAGO'">
+      <label class="lexart-frm__lbl">
 
-        <b class="imm-frm__lbl-name">{{ 'Tipo Pago' }} <span class="required">*</span></b>
+        <b class="lexart-frm__lbl-name">{{ 'Tipo Pago' }} <span class="required">*</span></b>
 
         <select ng-model="sale.payType">
 
@@ -136,10 +136,10 @@
     </div>
 
 
-    <div class="imm-frm__fld" ng-if="select.type.name=='PAGO' && (sale.payType=='DEBITO' || sale.payType=='CREDITO' )">
-      <label class="imm-frm__lbl">
+    <div class="lexart-frm__fld" ng-if="select.type.name=='PAGO' && (sale.payType=='DEBITO' || sale.payType=='CREDITO' )">
+      <label class="lexart-frm__lbl">
 
-        <b class="imm-frm__lbl-name">{{ 'Tarjeta' }} <span class="required">*</span></b>
+        <b class="lexart-frm__lbl-name">{{ 'Tarjeta' }} <span class="required">*</span></b>
 
         <select ng-model="sale.card">
 
@@ -153,9 +153,9 @@
     </div>
 
 
-    <div class="imm-frm__fld">
-      <label class="imm-frm__lbl">
-        <b class="imm-frm__lbl-name">Status<span class="required">*</span></b>
+    <div class="lexart-frm__fld">
+      <label class="lexart-frm__lbl">
+        <b class="lexart-frm__lbl-name">Status<span class="required">*</span></b>
         <select ng-model="sale.status">
 
           <option>CON</option>
@@ -168,10 +168,10 @@
     </div>
 
 
-    <div class="imm-frm__fld">
-      <label class="imm-frm__lbl">
+    <div class="lexart-frm__fld">
+      <label class="lexart-frm__lbl">
         <input type="date" name=""  ng-model="sale.date" class="form-control">
-        <b class="imm-frm__lbl-name">{{ 'sales.date' | translate }} <span class="required">*</span></b>
+        <b class="lexart-frm__lbl-name">{{ 'sales.date' | translate }} <span class="required">*</span></b>
       </label>
 
 
@@ -179,11 +179,11 @@
   </div>
 
 
-  <div class="imm-frm__fldgrp">
-    <div class="imm-frm__fld">
-      <label class="imm-frm__lbl">
+  <div class="lexart-frm__fldgrp">
+    <div class="lexart-frm__fld">
+      <label class="lexart-frm__lbl">
         <textarea name="name"  ng-model="sale.description"rows="8" cols="80"></textarea>
-        <b class="imm-frm__lbl-name">{{ 'sales.description' | translate }} <span class="required">*</span></b>
+        <b class="lexart-frm__lbl-name">{{ 'sales.description' | translate }} <span class="required">*</span></b>
       </label>
     </div>
   </div>
@@ -192,8 +192,8 @@
 </form>
 </div>
 
-<div class="imm-wa__actions">
+<div class="lexart-wa__actions">
   <p ng-if="error" class="err-display">{{error}} {{ 'general.cant_be_empty' | translate }}</p>
-  <button class="imm-btn imm-btn--alt" ui-sref="app.sales">{{ 'sales.back' | translate }}</button>
-  <button class="imm-btn" ng-disabled="sendingData" ng-click="save()">{{ 'sales.save' | translate }}</button>
+  <button class="lexart-btn lexart-btn--alt" ui-sref="app.sales">{{ 'sales.back' | translate }}</button>
+  <button class="lexart-btn" ng-disabled="sendingData" ng-click="save()">{{ 'sales.save' | translate }}</button>
 </div>

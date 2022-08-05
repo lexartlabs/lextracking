@@ -1,21 +1,21 @@
-<div class="imm-wa__hdr imm-flex">
-    <div class="imm-flex-5">
-        <h1 class="imm-wa__tit">
-            <a class="imm-bc-item" ui-sref="app.clients">{{ 'clients.title' | translate }}</a>
+<div class="lexart-wa__hdr lexart-flex">
+    <div class="lexart-flex-5">
+        <h1 class="lexart-wa__tit">
+            <a class="lexart-bc-item" ui-sref="app.clients">{{ 'clients.title' | translate }}</a>
         </h1>
-        <div class="imm-btn__right">
-            <a ui-sref="app.clientNew" class="imm-btn imm-btn--round">&#43; {{ 'clients.client' | translate }}</a>
+        <div class="lexart-btn__right">
+            <a ui-sref="app.clientNew" class="lexart-btn lexart-btn--round">&#43; {{ 'clients.client' | translate }}</a>
         </div>
     </div>
 </div>
-<div class="imm-wa__cnt">
-    <table>
+<div class="lexart-wa__cnt">
+    <table class="lexart-table">
         <thead>
             <tr>
                 <th>{{ 'clients.id' | translate }}</th>
                 <th>{{ 'clients.name' | translate }}</th>
                 <th>{{ 'clients.company' | translate }}</th>
-                <th class="imm-cstm__grid-5"></th>
+                <th class="lexart-cstm__grid-5"></th>
             </tr>
         </thead>
         <tbody>
@@ -31,7 +31,7 @@
                 <td>{{client.company}}</td>
                 <td>
                     <a ui-sref="app.clientEdit({id: client.id})">
-                        <img src="assets/images/icons/pencil-ico.svg">
+                        <i class="ri-edit-line"></i>
                     </a>
                 </td>
             </tr>

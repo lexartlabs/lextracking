@@ -2,7 +2,7 @@
 
   'use strict';
 
-  var Module = ng.module('Imm');
+  var Module = ng.module('LexTracking');
 
   Module.controller('EvalCtrl', ['$scope','$interval', '$state', '$rootScope', '$filter', '$timeout', 'UserServices', 'ClientServices', 'ProjectsServices', 'TracksServices', 'ngDialog','WeeklyHourServices', 'TasksServices', function($scope,$interval, $state, $rootScope, $filter, $timeout, UserServices, ClientServices, ProjectsServices, TracksServices, ngDialog,WeeklyHourServices,TasksServices) {
 

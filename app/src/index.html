@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="Imm">
+<html ng-app="LexTracking">
 <head lang="en-US">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -31,6 +31,8 @@
     <link href="/styles/screen.css" rel="stylesheet" media="screen,projection">
     <link href="/bower_components/angular-ui-select/dist/select.min.css" rel="stylesheet" media="screen,projection">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
     <!--FONTAWESOME-->
     <!-- <link rel="stylesheet" href="/bower_components/components-font-awesome/css/fontawesome-all.min.css"/> -->
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
@@ -52,12 +54,13 @@
 
     <!-- FAVICONS -->
     <link rel="icon" href="/assets/favicon/favicon.ico">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#F9F9F9">
 
     <link rel="stylesheet" href="/bower_components/textAngular/dist/textAngular.css">
 </head>
 
-<body ng-controller="AppCtrl" ng-cloak>
+<body ng-controller="AppCtrl" ng-class="{'dark-mode' : darkMode == 1, 'light-mode' : darkMode != 1}" ng-cloak>
+<!-- <body ng-controller="AppCtrl" class="dark-mode" ng-cloak></body> -->
 
 <!--div style="position:absolute;width:0;height:0;visibility:hidden">
  build include ../dist/assets/images/symbol/svg/sprite.symbol.svg

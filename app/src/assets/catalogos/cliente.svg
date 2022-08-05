@@ -12,7 +12,7 @@
     <g id="IMM-desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="d.dashboard-c-catalogos" transform="translate(-286.000000, -463.000000)">
             <g id="catalogos/cliente" transform="translate(286.000000, 463.000000)">
-                <use id="Oval-4" stroke="#CCCCCC" mask="url(#mask-2)" stroke-width="4" fill="#FFFFFF" xlink:href="#path-1"></use>
+                <use id="Oval-4" stroke="#CCCCCC" mask="url(#mask-2)" stroke-width="4" fill="#F9F9F9" xlink:href="#path-1"></use>
                 <ellipse id="Oval-4-Copy" fill="#E46A5D" cx="55" cy="55" rx="50" ry="50"></ellipse>
                 <g id="Group-24" transform="translate(20.000000, 25.000000)">
                     <path d="M9.99209717,10 L60.0079028,10 C65.5263857,10 70,14.4811691 70,19.9980749 L70,53.9936839 C70,57.3108807 67.3201398,60 64.0015788,60 L5.99842118,60 C2.68558464,60 0,57.3117828 0,53.9936839 L0,19.9980749 C0,14.4762906 4.48530063,10 9.99209717,10 Z" id="Combined-Shape" fill="#1B4752"></path>

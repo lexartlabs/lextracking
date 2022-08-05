@@ -1,18 +1,18 @@
-<div class="imm-wa__hdr imm-flex">
-    <div class="imm-flex-5">
-        <h1 class="imm-wa__tit">
-            <a class="imm-bc-item" ui-sref="app.jira">{{ 'navigation.tasks' | translate }}</a>
+<div class="lexart-wa__hdr lexart-flex">
+    <div class="lexart-flex-5">
+        <h1 class="lexart-wa__tit">
+            <a class="lexart-bc-item" ui-sref="app.jira">{{ 'navigation.tasks' | translate }}</a>
         </h1>
-        <div class="imm-bc">
-            <a class="imm-bc-item">{{ 'jira.title' | translate }}</a>
+        <div class="lexart-bc">
+            <a class="lexart-bc-item">{{ 'jira.title' | translate }}</a>
         </div>
-        <div class="imm-btn__right">
-            <a ui-sref="app.jiraTaskNew({idboard: jiraTask.user.idBoard})" class="imm-btn imm-btn--round" ng-if="isClient=='false'">&#43; {{ 'TAREA JIRA' }}</a>
+        <div class="lexart-btn__right">
+            <a ui-sref="app.jiraTaskNew({idboard: jiraTask.user.idBoard})" class="lexart-btn lexart-btn--round" ng-if="isClient=='false'">&#43; {{ 'TAREA JIRA' }}</a>
         </div>
     </div>
 </div>
-<div class="imm-wa__cnt">
-    <table>
+<div class="lexart-wa__cnt">
+    <table class="lexart-table">
         <thead>
             <tr>
                 <th>{{ 'ID tarea' }}</th>
@@ -54,15 +54,15 @@
                 </td>
                 <td>
                     <a href="" ui-sref="app.jiraTaskForm({id:jira.idTask})">
-                        <img src="assets/images/icons/pencil-ico.svg">
+                        <i class="ri-edit-line"></i>
                     </a>
                 </td>
                 <td ng-click="delete(jira.idTask)">
                     <img src="assets/images/icons/delete_entry-ico.svg">
                 </td>
                 <td ng-if="task.status != 'Done' && task.status != 'In-Review' && isClient=='false' ">
-                    <a href ng-click="stopTrack()" ng-if="currentTrack.idTask == jira.idTask"><img class="img_stop" src="/assets/images/stop.png"></a>
-                    <a href ng-click="startJiraTrack(jira)" ng-if="currentTrack.idTask != jira.idTask"><img class="img_play" src="/assets/images/play.png"></a>
+                    <a href ng-click="stopTrack()" ng-if="currentTrack.idTask == jira.idTask"><i class="ri-pause-line"></i></a>
+                    <a href ng-click="startJiraTrack(jira)" ng-if="currentTrack.idTask != jira.idTask"><i class="ri-play-line"></i></a>
                 </td>                
             </tr>
         </tbody>

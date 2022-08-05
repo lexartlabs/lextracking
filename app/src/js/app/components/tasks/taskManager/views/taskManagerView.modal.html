@@ -1,17 +1,17 @@
-<div class="imm-modal imm-modal--medium">
+<div class="lexart-modal lexart-modal--medium">
 
-  <div class="imm-modal__header">
-    <h1 class="imm-modal__title">{{project.name}}</h1>
-    <a class="imm-modal__close-btn" ng-click="closeThisDialog()">
-      <i class="imm-icon imm-icon--modal-close"></i>
+  <div class="lexart-modal__header">
+    <h1 class="lexart-modal__title">{{project.name}}</h1>
+    <a class="lexart-modal__close-btn" ng-click="closeThisDialog()">
+      <i class="lexart-icon lexart-icon--modal-close"></i>
     </a>
   </div>
-  <div class="imm-modal__cnt">
+  <div class="lexart-modal__cnt">
     <ng-form>
-      <form class="imm-frm">
-        <div class="imm-frm__fldgrp">
-          <div class="imm-frm__fld">
-            <label class="imm-frm__lbl">
+      <form class="lexart-frm">
+        <div class="lexart-frm__fldgrp">
+          <div class="lexart-frm__fld">
+            <label class="lexart-frm__lbl">
               <!--<input type="text" ng-model="task.description">-->
               <textarea rows="7" cols="50" ng-model="project.description" ng-if="isAdmin=='false' && isClient=='false'" readonly>
 
@@ -19,11 +19,11 @@
               <textarea rows="7" cols="50" ng-model="project.description" ng-if="isAdmin=='true' || isClient=='true'">
 
               </textarea>
-              <b class="imm-frm__lbl-name">{{ 'projects.description' | translate }}</b>
+              <b class="lexart-frm__lbl-name">{{ 'projects.description' | translate }}</b>
             </label>
           </div>
-         <div class="imm-frm__fld">
-            <label class="imm-frm__lbl">
+         <div class="lexart-frm__fld">
+            <label class="lexart-frm__lbl">
               <!--<input type="text" ng-model="task.description">-->
               <textarea rows="7" cols="50" ng-model="project.comments" ng-if="isAdmin=='false' && isClient=='false'" readonly>
 
@@ -31,13 +31,13 @@
               <textarea rows="7" cols="50" ng-model="project.comments" ng-if="isAdmin=='true' || isClient=='true'">
 
               </textarea>
-              <b class="imm-frm__lbl-name">{{ 'projects.comments' | translate }}</b>
+              <b class="lexart-frm__lbl-name">{{ 'projects.comments' | translate }}</b>
             </label>
           </div>
 
 
     </div>
-    <div class="imm-frm__fldgrp">
+    <div class="lexart-frm__fldgrp">
       <table class='tablataskmanager'>
         <thead>
           <tr>
@@ -53,7 +53,7 @@
             <td>{{task.comments}}</td>
             <td>{{task.duration}}</td>
             <td>
-              <ui-select class="imm-select imm-select--input" theme="selectize" append-to-body="true" ng-model="task.status" on-select="checktask($index)">
+              <ui-select class="lexart-select lexart-select--input" theme="selectize" append-to-body="true" ng-model="task.status" on-select="checktask($index)">
                 <ui-select-match placeholder="{{task.status}}">
                   {{$select.selected}}
                 </ui-select-match>
@@ -73,7 +73,7 @@
 </ng-form>
 </div>
 
-<div class="imm-modal__actions">
-  <a class="imm-btn imm-btn--alt" ng-click="ngDialogData.close()">{{ 'shared.modal.close' | translate }}</a>
+<div class="lexart-modal__actions">
+  <a class="lexart-btn lexart-btn--alt" ng-click="ngDialogData.close()">{{ 'shared.modal.close' | translate }}</a>
 </div>
 </div>

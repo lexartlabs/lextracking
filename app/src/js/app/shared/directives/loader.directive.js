@@ -2,9 +2,9 @@
 
     'use strict';
 
-    var Module = ng.module('Imm');
+    var Module = ng.module('LexTracking');
 
-    Module.directive('immLoader', function() {
+    Module.directive('lexartLoader', function() {
         var directive;
 
         directive = {

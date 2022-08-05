@@ -2,7 +2,7 @@
 
     'use strict';
 
-    var Module = ng.module('Imm');
+    var Module = ng.module('LexTracking');
 
     Module.run(function ($rootScope, $state, $window) {
 
@@ -37,7 +37,7 @@
         });
     });
 
-    Module.controller('MainCtrl', ['$log', '$window', '$rootScope', '$scope', '$state', '$timeout', 'TracksServices', 'ProjectsServices', 'WeeklyHourServices', 'ngDialog', 'tasks_automaticServices', function ($log, $window, $rootScope, $scope, $state, $timeout, TracksServices, ProjectsServices, WeeklyHourServices, ngDialog, tasks_automaticServices) {
+    Module.controller('MainCtrl', ['$log', '$window', '$rootScope', '$scope', '$state', '$timeout', 'TracksServices', 'ProjectsServices', 'WeeklyHourServices', 'ngDialog', 'tasks_automaticServices', 'TasksServices', function ($log, $window, $rootScope, $scope, $state, $timeout, TracksServices, ProjectsServices, WeeklyHourServices, ngDialog, tasks_automaticServices, TasksServices) {
 
         $scope.thisHide = false;
         $scope.userToolsActive = false;
@@ -147,11 +147,14 @@
         };
 
         $scope.startTrack = function (task) {
+            if (!task) return
+            console.log("🚀  --> task", task)
+            // return false;
             WeeklyHourServices.find($scope.currentPage, $scope.query, function (err, weeklyHours, countItems) {
                 console.log(weeklyHours)
                 angular.forEach(weeklyHours, function (value, index) {
                     if (value.idUser == $rootScope.userId) {
-                        if(value.currency == null || value.currency == ''){
+                        if (value.currency == null || value.currency == '') {
                             value.currency = '$'
                         }
                         $scope.currency = value.currency
@@ -194,6 +197,14 @@
                             console.log('saved task', result);
                             $rootScope.currentTrack.id = result.id;
                             $scope.toggleTimer();
+                            if (!$rootScope.topBar.filterTask) {
+                                $rootScope.topBar.filterTask = $rootScope.currentTrack;
+                                $rootScope.topBar.filterTask.name = $rootScope.topBar.filterTask.taskName;
+                                $rootScope.topBar.filterTask.id = $rootScope.topBar.filterTask.idTask;
+                                if (!$rootScope.topBar.taskscondition || $rootScope.topBar.taskscondition.lenght == 0) {
+                                    $rootScope.topBar.taskscondition = [$rootScope.topBar.filterTask];
+                                }
+                            }
                         }
                     });
                 }
@@ -299,7 +310,7 @@
                     angular.forEach(weeklyHours, function (value, index) {
                         if (value.idUser == $rootScope.userId) {
                             console.log(value)
-                            if(value.currency == null || value.currency == ''){
+                            if (value.currency == null || value.currency == '') {
                                 value.currency = '$'
                             }
                             $scope.currency = value.currency
@@ -449,7 +460,7 @@
                                         console.log(value.costHour, 'costo hora idUser');
                                         var costo = parseInt(value.costHour);
                                         console.log('costo', costo);
-                                        if(value.currency == null || value.currency == ''){
+                                        if (value.currency == null || value.currency == '') {
                                             value.currency = '$'
                                         }
                                         $rootScope.currentTrack.currency = value.currency;
@@ -521,6 +532,7 @@
             $log.error('You are not logged in');
             $state.go('login');
         } else {
+            $rootScope.showTrackTooltip = true;
             $log.info('Welcome back', $window.localStorage["userName"]);
             $rootScope.userId = $window.localStorage["userId"];
             $rootScope.userName = $window.localStorage["userName"];
@@ -539,7 +551,7 @@
 
                             //Update current track
                             $rootScope.currentTrack = track;
-
+                            $rootScope.topBar.filterTask = $rootScope.currentTrack;
                             var now = new Date().getTime(); //Fecha actual millisegundos
                             var start = new Date(track.startTime).getTime(); //Fecha de track en millisegundos
                             var ms = now - start;
@@ -549,6 +561,34 @@
                 }
             });
         }
+
+
+        $rootScope.topBar = {};
+        $rootScope.topBar.filterTask = '';
+        $rootScope.topBar.filterTasks = [];
+        $rootScope.topBar.tasks = []
+
+        $rootScope.searchTasks = function (text) {
+
+            console.log("🚀  --> topBar.filterTask", $rootScope.topBar.filterTask)
+
+            if (text) {
+                $rootScope.topBar.filterTasks = { filter: [{ "name": text }], limit: 100, offset: 0 };
+                console.log("🚀  --> TEXT", $rootScope.topBar.filterTasks)
+                TasksServices.findByFilter($rootScope.topBar.filterTasks, function (err, tasks, countItems) {
+                    if (!err) {
+                        console.log('TEXT dsadsa tasks', tasks, countItems);
+                        $rootScope.topBar.tasks = tasks;
+                        console.log("🚀  --> TEXT $scope.topBar.tasks", $rootScope.topBar.tasks)
+                        // $scope.tasks = tasks.slice(0, PAGE_SIZE - 1);
+                        // $scope.total = countItems;
+                    }
+                });
+            }
+
+
+        };
+
 
     }]);
 

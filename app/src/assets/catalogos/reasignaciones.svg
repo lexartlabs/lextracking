@@ -11,7 +11,7 @@
     </defs>
     <g id="IMM-desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="catalogos/reasignaciones">
-            <use id="Oval-4" stroke="#CCCCCC" mask="url(#mask-2)" stroke-width="4" fill="#FFFFFF" xlink:href="#path-1"></use>
+            <use id="Oval-4" stroke="#CCCCCC" mask="url(#mask-2)" stroke-width="4" fill="#F9F9F9" xlink:href="#path-1"></use>
             <circle id="Oval-4-Copy" fill="#F6C35B" cx="55" cy="55" r="50"></circle>
             <g id="Group-34" transform="translate(14.000000, 32.000000)">
                 <polygon id="Path-9" fill="#D8D8D8" points="22.546875 53 43.359375 33.9891304 24.859375 36.8695652"></polygon>

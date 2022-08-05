@@ -14,7 +14,7 @@
     <g id="IMM-desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="d.dashboard-c-catalogos" transform="translate(-829.000000, -463.000000)">
             <g id="catalogos/brand-groups" transform="translate(829.000000, 463.000000)">
-                <use id="Oval-4" stroke="#CCCCCC" mask="url(#mask-2)" stroke-width="4" fill="#FFFFFF" xlink:href="#path-1"></use>
+                <use id="Oval-4" stroke="#CCCCCC" mask="url(#mask-2)" stroke-width="4" fill="#F9F9F9" xlink:href="#path-1"></use>
                 <ellipse id="Oval-4-Copy" fill="#CDCDCD" cx="55" cy="55" rx="50" ry="50"></ellipse>
                 <g id="Group-8" transform="translate(5.000000, 5.000000)">
                     <mask id="mask-4" fill="white">

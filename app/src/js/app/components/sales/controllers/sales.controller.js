@@ -2,7 +2,7 @@
 
   'use strict';
 
-  var Module = ng.module('Imm');
+  var Module = ng.module('LexTracking');
 
   Module.controller('SalesCtrl', ['$scope','$interval',"$http", '$rootScope', '$filter', '$timeout', 'SaleServices','UserServices', 'ngDialog', function($scope,$interval,$http, $rootScope, $filter, $timeout, SaleServices,UserServices, ngDialog) {
 

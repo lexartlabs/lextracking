@@ -1,0 +1,176 @@
+<!-- <div class="top-bar__container">
+    <div class="top-bar__logo_container">
+        <a ng-href="/" class="lexart-menu__tit">
+            <img src="/assets/images/lextracking-logo.svg" width="150px" title="LexTracking" alt="LexTracking" ng-show="!thisHide">
+        </a>
+    </div>
+    <div class="top-bar__current_tracking_container">
+        <p style="color: #F9F9F9; font-weight: 800; margin: 0 23px; font-size: 10px; line-height: 1.5;" ng-show="timerRunning">
+            <label title="{{currentTrack.projectName + ' - ' + currentTrack.taskName}}">{{currentTrack.projectName + ' - ' + currentTrack.taskName | truncateTail:true:45:'...'}}</label>
+            <label style="display: block;"><span style="vertical-align: super;">{{timer}}</span><span ng-click="stopTrack()">&nbsp;&nbsp;<img class="img_stop" src="/assets/images/stopNavBar.png"></span></label>
+        </p>
+    </div>
+</div> -->
+<script>
+    // Other important pens.
+// Map: https://codepen.io/themustafaomar/pen/ZEGJeZq
+// Dashboard: https://codepen.io/themustafaomar/pen/jLMPKm
+let dropdowns = document.querySelectorAll('.navbar .dropdown-toggler')
+let dropdownIsOpen = false
+
+// Handle dropdown menues
+if (dropdowns.length) {
+  // Usually I don't recommend doing this (adding many event listeners to elements have the same handler)
+  // Instead use event delegation: https://javascript.info/event-delegation
+  // Why: https://gomakethings.com/why-event-delegation-is-a-better-way-to-listen-for-events-in-vanilla-js
+  // But since we only have two dropdowns, no problem with that. 
+  dropdowns.forEach((dropdown) => {
+    dropdown.addEventListener('click', (event) => {
+      let target = document.querySelector(`#${event.target.dataset.dropdown}`)
+
+      if (target) {
+        if (target.classList.contains('show')) {
+          target.classList.remove('show')
+          dropdownIsOpen = false
+        } else {
+          target.classList.add('show')
+          dropdownIsOpen = true
+        }
+      }
+    })
+  })
+}
+
+// Handle closing dropdowns if a user clicked the body
+window.addEventListener('mouseup', (event) => {
+  if (dropdownIsOpen) {
+    dropdowns.forEach((dropdownButton) => {
+      let dropdown = document.querySelector(`#${dropdownButton.dataset.dropdown}`)
+      let targetIsDropdown = dropdown == event.target
+
+      if (dropdownButton == event.target) {
+        return
+      }
+
+      if ((!targetIsDropdown) && (!dropdown.contains(event.target))) {
+        dropdown.classList.remove('show')
+      }
+    })
+  }
+})
+
+// Open links in mobiles
+function handleSmallScreens() {
+  document.querySelector('.navbar-toggler')
+    .addEventListener('click', () => {
+    let navbarMenu = document.querySelector('.navbar-menu')
+
+    if (navbarMenu.style.display === 'flex') {
+      navbarMenu.style.display = 'none'
+      return
+    }
+
+    navbarMenu.style.display = 'flex'
+  })
+}
+
+handleSmallScreens()
+</script>
+<div class="top-bar__container">
+    <nav class="navbar">
+    <div class="container">
+      <!-- <div class="navbar-header">
+        <button class="navbar-toggler" data-toggle="open-navbar1">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <a href="#">
+          <h4>Lex<span>Tracking</span></h4>
+        </a>
+      </div> -->
+      <div class="top-bar__logo">
+        <img src="../assets/logo/lextracking-logo.svg" alt="">
+      </div>
+      <div class="navbar_btn_container">
+        <button class="lexart-btn collapse-btn" ng-init="collapseSideBar = true" ng-click="hideItems();">
+          <i class="ri-menu-line"></i>
+          <!-- <i ng-if="!thisHide" class="ri-arrow-left-s-line"></i>
+          <i ng-if="thisHide" class="ri-arrow-right-s-line"></i> -->
+        </button>
+      </div>
+      <!-- ng-mouseover="showTrackTooltip = true" ng-mouseleave="showTrackTooltip = false" -->
+      <div class="top-bar__current_tracking_container tooltip-container">
+        <span ng-show="showTrackTooltip" class="tooltip-box" ng-mouseleave="showTrackTooltip = false" >
+          Ahora trackear es mas sencillo<br>
+          Solo busca la tarea y dale play!
+        </span>
+        <!-- <p ng-show="timerRunning">
+            <label title="{{currentTrack.projectName + ' - ' + currentTrack.taskName}}">{{currentTrack.projectName + ' - ' + currentTrack.taskName | truncateTail:true:45:'...'}}</label>
+            <label style="display: block;"><span style="vertical-align: super;">{{timer}}</span><span ng-click="stopTrack()">&nbsp;&nbsp;<img class="img_stop" src="/assets/images/stopNavBar.png"></span></label>
+        </p> -->
+        <p ng-show="!timerRunning">
+          
+          <label>
+            <h1 style="display: none">{{topBar.filterTask}}</h1>
+            <ui-select
+                    ng-model="topBar.filterTask"
+                    class="lexart-select lexart-select--input"
+                    theme="selectize"
+                    append-to-body="true"
+                    title=""
+            >
+                <ui-select-match placeholder="">{{ $select.selected.name }}</ui-select-match>
+                <ui-select-choices
+                        repeat="task in topBar.tasks"
+                        refresh="searchTasks($select.search)"
+                        refresh-delay="400"
+                        class="ui-select--sku-list"
+                >
+                    <!-- <div ng-bind-html="task.projectName + '- ' + task.name | highlight: $select.search"></div> -->
+                    <div style="padding: 5px; font-size:1.1rem">
+                      <small class="lexart_select_conatiner_proyect">{{task.projectName}}</small>
+                      <span>{{task.name}}</span>
+                    </div>
+                </ui-select-choices>
+            </ui-select>
+            <a ng-if="!timerRunning" class="btn_tracker_container" ng-click="startTrack(topBar.filterTask)"><i class="ri-play-line"></i></a>
+            <a ng-if="timerRunning" class="btn_tracker_container tracking" ng-click="stopTrack()"><i class="ri-pause-line"></i></a>
+            
+            <span class="timer">{{timer}}</span>
+            
+            <!-- <div class="blob"></div> -->
+          </label>
+        </p>
+    </div>
+  
+      <div class="navbar-menu" id="open-navbar1">
+      </div>
+      <div class="navbar-menu">
+        <ul class="navbar-nav">
+          <li class="navbar-dropdown">
+            <a class="dropdown-toggler" data-dropdown="profile">
+              {{userName}} <i class="fa fa-angle-down"></i>
+            </a>
+            <ul class="dropdown" id="profile">
+              <li><a ng-click="logout()">Cerrar Sesión</a></li>
+              <!-- <li>
+                <button ng-if="darkMode == 0" class="lexart-btn switch_mode-btn" ng-click="toggleMode()">
+                    <i class="ri-moon-line"></i>
+                </button>
+                <button ng-if="darkMode == 1" class="lexart-btn switch_mode-btn" ng-click="toggleMode()">
+                    <i class="ri-sun-line"></i>
+                </button>
+              </li> -->
+              <!-- <li><a href="#">Some another category</a></li>
+              <li class="separator"></li>
+              <li><a href="#">Seprated link</a></li>
+              <li class="separator"></li>
+              <li><a href="#">One more seprated link.</a></li> -->
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>

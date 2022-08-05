@@ -2,7 +2,7 @@
 
   'use strict';
 
-  var Module = ng.module('Imm');
+  var Module = ng.module('LexTracking');
 
   Module.controller('CalendarCtrl', ['$scope', 'CalendarServices', '$timeout', 'uiCalendarConfig', 'ngDialog', 'UserServices', '$rootScope', '$filter',
     function ($scope, CalendarServices, $timeout, uiCalendarConfig, ngDialog, UserServices, $rootScope, $filter) {

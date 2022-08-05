@@ -1,10 +1,10 @@
 // IMM STATUS DIRECTIVE
 
-.imm-status {
+.lexart-status {
   display: inline-block;
 }
 
-.imm-status__text {
+.lexart-status__text {
   display: inline-block;
   padding-left: 22px;
   position: relative;
@@ -23,47 +23,47 @@
   }
 }
 
-.imm-status__text--authorized:before {
+.lexart-status__text--authorized:before {
   background: @primary-color;
 }
 
-.imm-status__text--created:before {
+.lexart-status__text--created:before {
   background: @primary-color;
 }
 
-.imm-status__text--denied:before {
+.lexart-status__text--denied:before {
   background: @color-red;
 }
 
-.imm-status__text--pending:before {
+.lexart-status__text--pending:before {
   background: @color-yellow;
 }
 
 // STATUS SELECT
 
-.imm-select-status {
+.lexart-select-status {
 
   position: relative;
 
   //&.active {
   //
-  //  .imm-select-status__selected {
+  //  .lexart-select-status__selected {
   //    border-color: @color-blue;
   //  }
   //
-  //  .imm-select-status__dropdown {
+  //  .lexart-select-status__dropdown {
   //    display: block;
   //  }
   //
   //}
 
-  &.active + .imm-frm__lbl-name {
+  &.active + .lexart-frm__lbl-name {
     color: @primary-color
   }
 
   //
   //&.active {
-  //  .imm-select-status__selected:after {
+  //  .lexart-select-status__selected:after {
   //    .triangle(top, 5px, 5px, @color-gray);
   //  }
   //}
@@ -72,21 +72,21 @@
 
 status-select.focus {
 
-  .imm-select-status__selected {
+  .lexart-select-status__selected {
     border-color: @primary-color;
   }
 
-  .imm-select-status__selected:after {
+  .lexart-select-status__selected:after {
     .triangle(top, 5px, 5px, @color-gray);
   }
 
-  .imm-select-status__dropdown {
+  .lexart-select-status__dropdown {
     display: block;
   }
 
 }
 
-.imm-select-status__selected {
+.lexart-select-status__selected {
   border-bottom: 1px solid @color-fields-gray;
   color: @color-black;
   padding: .25rem 0;
@@ -113,7 +113,7 @@ status-select.focus {
 
 }
 
-.imm-select-status__dropdown {
+.lexart-select-status__dropdown {
   display: none;
   position: absolute;
   width: 100%;
@@ -126,7 +126,7 @@ status-select.focus {
   .border-radius(3px);
   .box-shadow(0 2px 2px rgba(0,0,0,.2));
 
-  .imm-status__text {
+  .lexart-status__text {
     font-size: .875rem;
     display: block;
     padding: .5rem 1rem .5rem 2rem;

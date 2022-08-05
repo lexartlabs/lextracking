@@ -1,50 +1,50 @@
-<div class="imm-wa__hdr imm-flex">
-    <div class="imm-flex-5">
-        <h1 class="imm-wa__tit">
-            <a class="imm-bc-item" ui-sref="app.tasks">{{ 'tasks.task' | translate }}</a>
+<div class="lexart-wa__hdr lexart-flex">
+    <div class="lexart-flex-5">
+        <h1 class="lexart-wa__tit">
+            <a class="lexart-bc-item" ui-sref="app.tasks">{{ 'tasks.task' | translate }}</a>
         </h1>
-        <div class="imm-bc" ng-if="task.projectName">
-            <span class="imm-bc-item imm-bc--head">{{task.projectName}}</span>
+        <div class="lexart-bc" ng-if="task.projectName">
+            <span class="lexart-bc-item lexart-bc--head">{{task.projectName}}</span>
         </div>
-        <div class="imm-bc" ng-if="task.name">
-            <span class="imm-bc-item imm-bc--head">{{task.name}}</span>
+        <div class="lexart-bc" ng-if="task.name">
+            <span class="lexart-bc-item lexart-bc--head">{{task.name}}</span>
         </div>
     </div>
 </div>
-<div class="imm-wa__cnt">
-    <form class="imm-frm imm-frm--center">
-        <div class="imm-frm__fldgrp">
-            <div class="imm-frm__fld">
-                <label class="imm-frm__lbl">
+<div class="lexart-wa__cnt">
+    <form class="lexart-frm lexart-frm--center">
+        <div class="lexart-frm__fldgrp">
+            <div class="lexart-frm__fld">
+                <label class="lexart-frm__lbl">
                 <input ng-model="task.projectName" readonly>
-                <b class="imm-frm__lbl-name">{{ 'tasks.projectName' | translate }} <span class="required">*</span></b>
+                <b class="lexart-frm__lbl-name">{{ 'tasks.projectName' | translate }} <span class="required">*</span></b>
                 </label>
             </div>
 
-            <div class="imm-frm__fld">
-                <label class="imm-frm__lbl">
+            <div class="lexart-frm__fld">
+                <label class="lexart-frm__lbl">
                     <input type="text" ng-model="task.name">
-                    <b class="imm-frm__lbl-name">{{ 'tasks.name' | translate }} <span class="required">*</span></b>
+                    <b class="lexart-frm__lbl-name">{{ 'tasks.name' | translate }} <span class="required">*</span></b>
                 </label>
             </div>
 
-            <div class="imm-frm__fld">
-                <label class="imm-frm__lbl">
+            <div class="lexart-frm__fld">
+                <label class="lexart-frm__lbl">
                     <!--<input type="text" ng-model="project.duration">-->
                     <span style="width: 10px;"><input type="number" placeholder="Horas" min="0" class="f-hour" string-to-number ng-model="task.hour" ><input type="number" placeholder="Minutos" min="0" max="59" class="f-minute" ng-model="task.mins"><input type="number" placeholder="Segundos" min="0" max="59" class="f-second" ng-model="task.secs"></span>
-                    <b class="imm-frm__lbl-name">{{ 'tasks.duration' | translate }} <span class="required">*</span></b>
+                    <b class="lexart-frm__lbl-name">{{ 'tasks.duration' | translate }} <span class="required">*</span></b>
                 </label>
             </div>
 
         </div>
-        <div class="imm-frm__fldgrp">
-            <div class="imm-frm__fld">
-                <label class="imm-frm__lbl">
+        <div class="lexart-frm__fldgrp">
+            <div class="lexart-frm__fld">
+                <label class="lexart-frm__lbl">
                     <input type="text" ng-model="task.status" ng-if="isAdmin=='false' && task.status=='Done'" readonly>
 
                     <ui-select
                     ng-model="task.status"
-                    class="imm-select imm-select--input"
+                    class="lexart-select lexart-select--input"
                     theme="selectize"
                     append-to-body="true"
                     >
@@ -56,43 +56,43 @@
                     </ui-select-choices>
                   </ui-select>
 
-                  <b class="imm-frm__lbl-name">{{ 'tasks.status' | translate }} <span class="required">*</span></b>
+                  <b class="lexart-frm__lbl-name">{{ 'tasks.status' | translate }} <span class="required">*</span></b>
                 </label>
             </div>
-                <div class="imm-frm__fld">
-                    <label class="imm-frm__lbl">
+                <div class="lexart-frm__fld">
+                    <label class="lexart-frm__lbl">
                       <div moment-picker="task.startDate">
                         <input ng-model="task.startDate">
                       </div>
-                      <b class="imm-frm__lbl-name">{{ 'Fecha Inicio'  }} <span class="required">*</span></b>
+                      <b class="lexart-frm__lbl-name">{{ 'Fecha Inicio'  }} <span class="required">*</span></b>
                     </label>
                 </div>
-                <div class="imm-frm__fld">
-                    <label class="imm-frm__lbl">
+                <div class="lexart-frm__fld">
+                    <label class="lexart-frm__lbl">
                       <div moment-picker="task.endDate">
                         <input ng-model="task.endDate">
                       </div>
-                      <b class="imm-frm__lbl-name">{{ 'Fecha Fin' }} <span class="required">*</span></b>
+                      <b class="lexart-frm__lbl-name">{{ 'Fecha Fin' }} <span class="required">*</span></b>
                     </label>
                 </div>
         </div>
-    <div class="imm-frm__fldgrp">
-      <div class="imm-frm__fld">
-            <label class="imm-frm__lbl">
+    <div class="lexart-frm__fldgrp">
+      <div class="lexart-frm__fld">
+            <label class="lexart-frm__lbl">
                 <!--<input type="text" ng-model="project.description">-->
                 <textarea rows="7" cols="50" ng-model="task.description">
 
                 </textarea>
-                <b class="imm-frm__lbl-name">{{ 'tasks.description' | translate }}</b>
+                <b class="lexart-frm__lbl-name">{{ 'tasks.description' | translate }}</b>
             </label>
         </div>
 
-        <div class="imm-frm__fld">
-        <button type="button"  class="imm-btn" ng-click="openModalComentario()">Agregar Comentario</button>
+        <div class="lexart-frm__fld">
+        <button type="button"  class="lexart-btn" ng-click="openModalComentario()">Agregar Comentario</button>
         </div>
     </div>
-        <div class="imm-frm__fldgrp">
-            <div class="imm-frm__fld">
+        <div class="lexart-frm__fldgrp">
+            <div class="lexart-frm__fld">
               <table ng-show="comments.length>0">
             <thead>
               <tr>
@@ -112,7 +112,7 @@
                 <td>{{comment.comment}}</td>
                 <td>
                   <a ng-click="editComments(index,comment)">
-                    <img src="assets/images/icons/pencil-ico.svg">
+                    <i class="ri-edit-line"></i>
                   </a>
                 </td>
                 <td>
@@ -126,7 +126,7 @@
         </div>
     </div>
 
-    <div class="imm-frm__fldgrp">
+    <div class="lexart-frm__fldgrp">
       <table rows="7">
         <thead>
           <tr>
@@ -158,8 +158,8 @@
     </form>
 </div>
 
-<div class="imm-wa__actions">
+<div class="lexart-wa__actions">
     <p ng-if="error" class="err-display">{{error}}</p>
-    <a class="closeForm"><button class="imm-btn imm-btn--alt">{{ 'general.back' | translate }}</button></a>
-    <a class="closeForm"><button class="imm-btn " ng-disabled="sendingData" ng-click="save()">{{ 'general.save' | translate }}</button></a>
+    <a class="closeForm"><button class="lexart-btn lexart-btn--alt">{{ 'general.back' | translate }}</button></a>
+    <a class="closeForm"><button class="lexart-btn " ng-disabled="sendingData" ng-click="save()">{{ 'general.save' | translate }}</button></a>
 </div>

@@ -46,24 +46,24 @@
     </defs>
     <g id="IMM-desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="catalogos/tipos">
-            <use id="Oval-4" stroke="#CCCCCC" mask="url(#mask-2)" stroke-width="4" fill="#FFFFFF" xlink:href="#path-1"></use>
+            <use id="Oval-4" stroke="#CCCCCC" mask="url(#mask-2)" stroke-width="4" fill="#F9F9F9" xlink:href="#path-1"></use>
             <circle id="Oval-4-Copy" fill="#D8D8DA" cx="55" cy="55" r="50"></circle>
             <g id="Group-59" transform="translate(59.500000, 58.500000) rotate(-10.000000) translate(-59.500000, -58.500000) translate(18.000000, 17.000000)">
                 <g id="Rectangle-68">
                     <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
-                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-3"></use>
+                    <use fill="#F9F9F9" fill-rule="evenodd" xlink:href="#path-3"></use>
                 </g>
                 <g id="Rectangle-68-Copy">
                     <use fill="black" fill-opacity="1" filter="url(#filter-6)" xlink:href="#path-5"></use>
-                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-5"></use>
+                    <use fill="#F9F9F9" fill-rule="evenodd" xlink:href="#path-5"></use>
                 </g>
                 <g id="Rectangle-68-Copy-4">
                     <use fill="black" fill-opacity="1" filter="url(#filter-8)" xlink:href="#path-7"></use>
-                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-7"></use>
+                    <use fill="#F9F9F9" fill-rule="evenodd" xlink:href="#path-7"></use>
                 </g>
                 <g id="Rectangle-68-Copy-5">
                     <use fill="black" fill-opacity="1" filter="url(#filter-10)" xlink:href="#path-9"></use>
-                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-9"></use>
+                    <use fill="#F9F9F9" fill-rule="evenodd" xlink:href="#path-9"></use>
                 </g>
                 <g id="Rectangle-68-Copy-6">
                     <use fill="black" fill-opacity="1" filter="url(#filter-12)" xlink:href="#path-11"></use>
@@ -71,7 +71,7 @@
                 </g>
                 <g id="Rectangle-68-Copy-2">
                     <use fill="black" fill-opacity="1" filter="url(#filter-14)" xlink:href="#path-13"></use>
-                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-13"></use>
+                    <use fill="#F9F9F9" fill-rule="evenodd" xlink:href="#path-13"></use>
                 </g>
                 <g id="Rectangle-68-Copy-3">
                     <use fill="black" fill-opacity="1" filter="url(#filter-16)" xlink:href="#path-15"></use>
@@ -82,8 +82,8 @@
                 <path d="M29.512,10.336 L32.248,10.336 C33.32,10.336 34.056,10.8 34.056,11.968 C34.056,13.152 33.192,13.472 32.2,13.472 L29.512,13.472 L29.512,10.336 Z M27,15.424 L32.536,15.424 C34.6,15.424 36.568,14.432 36.568,12.112 C36.568,10.688 35.864,9.616 34.472,9.216 C35.464,8.736 36.024,7.952 36.024,6.832 C36.024,4.704 34.552,4 32.376,4 L27,4 L27,15.424 Z M29.512,5.952 L31.864,5.952 C32.76,5.952 33.592,6.176 33.592,7.264 C33.592,8.224 32.936,8.624 32.056,8.624 L29.512,8.624 L29.512,5.952 Z" id="B" fill="#000000"></path>
                 <path d="M36.544,50.112 C36.24,47.472 34.128,46 31.616,46 C28.08,46 26,48.64 26,52.032 C26,55.328 28.08,57.968 31.616,57.968 C34.416,57.968 36.384,56.144 36.64,53.296 L34.208,53.296 C34.016,54.8 33.152,55.856 31.616,55.856 C29.36,55.856 28.512,53.936 28.512,52.032 C28.512,50.032 29.36,48.112 31.616,48.112 C32.864,48.112 33.952,48.976 34.112,50.112 L36.544,50.112 Z" id="C" fill="#000000"></path>
                 <path d="M50.512,31.336 L53.248,31.336 C54.32,31.336 55.056,31.8 55.056,32.968 C55.056,34.152 54.192,34.472 53.2,34.472 L50.512,34.472 L50.512,31.336 Z M48,36.424 L53.536,36.424 C55.6,36.424 57.568,35.432 57.568,33.112 C57.568,31.688 56.864,30.616 55.472,30.216 C56.464,29.736 57.024,28.952 57.024,27.832 C57.024,25.704 55.552,25 53.376,25 L48,25 L48,36.424 Z M50.512,26.952 L52.864,26.952 C53.76,26.952 54.592,27.176 54.592,28.264 C54.592,29.224 53.936,29.624 53.056,29.624 L50.512,29.624 L50.512,26.952 Z" id="B-Copy-2" fill="#000000"></path>
-                <polygon id="Combined-Shape-Copy-53" fill="#FFFFFF" transform="translate(73.000000, 31.000000) scale(-1, 1) translate(-73.000000, -31.000000) " points="72.8657794 33.6 72.8657794 38 66 31 72.8657794 24 72.8657794 28.4 80 28.4 80 33.6"></polygon>
-                <polygon id="Combined-Shape-Copy-54" fill="#FFFFFF" transform="translate(31.000000, 73.000000) scale(-1, 1) rotate(-90.000000) translate(-31.000000, -73.000000) " points="30.8657794 75.6 30.8657794 80 24 73 30.8657794 66 30.8657794 70.4 38 70.4 38 75.6"></polygon>
+                <polygon id="Combined-Shape-Copy-53" fill="#F9F9F9" transform="translate(73.000000, 31.000000) scale(-1, 1) translate(-73.000000, -31.000000) " points="72.8657794 33.6 72.8657794 38 66 31 72.8657794 24 72.8657794 28.4 80 28.4 80 33.6"></polygon>
+                <polygon id="Combined-Shape-Copy-54" fill="#F9F9F9" transform="translate(31.000000, 73.000000) scale(-1, 1) rotate(-90.000000) translate(-31.000000, -73.000000) " points="30.8657794 75.6 30.8657794 80 24 73 30.8657794 66 30.8657794 70.4 38 70.4 38 75.6"></polygon>
             </g>
         </g>
     </g>

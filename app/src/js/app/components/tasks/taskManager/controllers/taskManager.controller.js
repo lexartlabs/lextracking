@@ -2,7 +2,7 @@
 
   'use strict';
 
-  var Module = ng.module('Imm');
+  var Module = ng.module('LexTracking');
 
   Module.controller('taskManagerCtrl', ['$scope','$rootScope', '$timeout', '$filter', 'ProjectsServices', 'ngDialog','UserServices', function($scope,$rootScope, $timeout, $filter, ProjectsServices, ngDialog,UserServices) {
     $scope.labels = [];

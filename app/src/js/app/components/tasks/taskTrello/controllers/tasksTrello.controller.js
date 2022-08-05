@@ -2,7 +2,7 @@
 
   'use strict';
 
-  var Module = ng.module('Imm');
+  var Module = ng.module('LexTracking');
 
   Module.controller('tasks_trelloCtrl', ['$scope','$rootScope', '$timeout', '$filter', 'tasks_trelloServices', 'ProjectsServices', 'UserServices', 'ngDialog', '$state', '$stateParams', function($scope,$rootScope, $timeout, $filter, tasks_trelloServices, ProjectsServices, UserServices, ngDialog, $state, $stateParams) {
 

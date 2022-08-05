@@ -1,23 +1,23 @@
 console.log('Reading BASE URL', BASE_URL);
 
-(function(ng) {
+(function (ng) {
 
     'use strict';
 
-    var Module = ng.module('Imm');
+    var Module = ng.module('LexTracking');
 
-    Module.factory('RestClient', ['$http', '$state', 'ngProgressFactory', '$window', '$rootScope', function($http, $state, ngProgressFactory, $window, $rootScope) {
+    Module.factory('RestClient', ['$http', '$state', 'ngProgressFactory', '$window', '$rootScope', function ($http, $state, ngProgressFactory, $window, $rootScope) {
 
         var K = {},
-            progressbar   = ngProgressFactory.createInstance(),
-            progressFlag  = true,
-            PRIMARY_COLOR = "#F95C33",
+            progressbar = ngProgressFactory.createInstance(),
+            progressFlag = true,
+            PRIMARY_COLOR = "#66f",
             factory;
 
         function getConfig() {
             var config = {
                 headers: {
-                    Authorization: $window.localStorage[TOKEN_KEY]
+                    Authorization: 'Bearer ' + $window.localStorage[TOKEN_KEY]
                 }
             };
             return config;
@@ -29,32 +29,32 @@ console.log('Reading BASE URL', BASE_URL);
         progressbar.setColor(PRIMARY_COLOR);
 
         factory = {
-            get: function(url, callback, options) {
+            get: function (url, callback, options) {
 
                 var progressFlag = (options && options.disableProgressFlag);
 
                 if (!progressFlag)
-                  progressbar.start();
+                    progressbar.start();
 
                 $http.get(K.URL + url, getConfig()).
-                success(function(data, status, headers, config) {
-                    if (!progressFlag)
-                      progressbar.complete();
+                    success(function (data, status, headers, config) {
+                        if (!progressFlag)
+                            progressbar.complete();
 
-                    var countItems = headers()['x-count-items'];
-                    callback(null, data.response, countItems);
-                }).
-                error(function(data, status, headers, config) {
-                    if (!progressFlag)
-                      progressbar.complete();
+                        var countItems = headers()['x-count-items'];
+                        callback(null, data.response, countItems);
+                    }).
+                    error(function (data, status, headers, config) {
+                        if (!progressFlag)
+                            progressbar.complete();
 
-                    if (status == 401 && $state.current.name != "login" && $state.current.name != "recovery") { //Go to login
-                        $state.go('login', {reload : true});
-                        console.log($state.go('login'), status,$state.current.name);
-                    } else {
-                        callback(data);
-                    }
-                });
+                        if (status == 401 && $state.current.name != "login" && $state.current.name != "recovery") { //Go to login
+                            $state.go('login', { reload: true });
+                            console.log($state.go('login'), status, $state.current.name);
+                        } else {
+                            callback(data);
+                        }
+                    });
             },
             post: function(url, data, callback) {
                 progressbar.start();                  
@@ -84,46 +84,46 @@ console.log('Reading BASE URL', BASE_URL);
                     // });
 
             },
-            put: function(url, data, callback) {
+            put: function (url, data, callback) {
                 if (K.progressFlag) {
                     progressbar.start();
                 }
 
                 $http.put(K.URL + url, data, getConfig()).
-                success(function(data, status, headers, config) {
-                    if (K.progressFlag) {
-                        progressbar.complete();
-                    }
-                    callback(null, data.response);
-                }).
-                error(function(data, status, headers, config) {
-                    if (K.progressFlag) {
-                        progressbar.complete();
-                    }
-                    if (status == 401 && $state.current.name != "login" && $state.current.name != "recovery") { //Go to login
-                        $state.go('login');
-                    } else {
-                        callback(data);
-                    }
-                });
+                    success(function (data, status, headers, config) {
+                        if (K.progressFlag) {
+                            progressbar.complete();
+                        }
+                        callback(null, data.response);
+                    }).
+                    error(function (data, status, headers, config) {
+                        if (K.progressFlag) {
+                            progressbar.complete();
+                        }
+                        if (status == 401 && $state.current.name != "login" && $state.current.name != "recovery") { //Go to login
+                            $state.go('login');
+                        } else {
+                            callback(data);
+                        }
+                    });
             },
 
-            delete: function(url, callback) {
+            delete: function (url, callback) {
                 progressbar.start();
 
                 $http.delete(K.URL + url, getConfig()).
-                success(function(data, status, headers, config) {
-                    progressbar.complete();
-                    callback(null, data);
-                }).
-                error(function(data, status, headers, config) {
-                    progressbar.complete();
-                    if (status == 401 && $state.current.name != "login" && $state.current.name != "recovery") { //Go to login
-                        $state.go('login');
-                    } else {
-                        callback(data);
-                    }
-                });
+                    success(function (data, status, headers, config) {
+                        progressbar.complete();
+                        callback(null, data);
+                    }).
+                    error(function (data, status, headers, config) {
+                        progressbar.complete();
+                        if (status == 401 && $state.current.name != "login" && $state.current.name != "recovery") { //Go to login
+                            $state.go('login');
+                        } else {
+                            callback(data);
+                        }
+                    });
             }
         }
 

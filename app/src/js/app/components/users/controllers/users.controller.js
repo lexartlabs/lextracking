@@ -2,7 +2,7 @@
 
     'use strict';
 
-    var Module = ng.module('Imm');
+    var Module = ng.module('LexTracking');
 
     Module.controller('UsersCtrl', ['$scope', '$timeout', 'UserServices', 'ngDialog', function($scope, $timeout, UserServices, ngDialog) {
 
