@@ -29,6 +29,9 @@ class TracksController extends BaseController
         $startTime = $request->input("startTime");
         $endTime = $request->input("endTime");
 
+        $startTime = date('Y-m-d H:i:s',date(strtotime("-1 day", strtotime($startTime))));
+        $endTime = date('Y-m-d H:i:s',date(strtotime("+1 day", strtotime($endTime))));
+
         $user_id = $id;
         $client_id = $request->input("idClient") ? $request->input("idClient") : null;
         $project_id = $request->input("idProject") ? $request->input("idProject") : null;
@@ -74,7 +77,7 @@ class TracksController extends BaseController
                     return array("response" => $tracks);
                 }
 
-                if (!empty($$project_id)) {
+                if (!empty($project_id)) {
                     $tracks = $tracks->whereRaw("(Projects.id) = ?", [$project_id])->get();
 
                     $tracks = $this->calcCosto($tracks);
@@ -218,9 +221,13 @@ class TracksController extends BaseController
                 ->whereRaw("Tracks.id = ?", [$id])
                 ->whereRaw("Tracks.idUser = ?", [$idUser])
                 ->get();
-
-            $trackWhere[0]->duration = $duracion;
-            $trackCost = $this->calcCosto($trackWhere)[0]->trackCost;
+            
+            if(count($trackWhere) > 0){
+                $trackWhere[0]->duration = $duracion;
+                $trackCost = $this->calcCosto($trackWhere)[0]->trackCost;
+            }else{
+                $trackCost =0;
+            }
 
             $update = empty($duracion) ?
                 ["endTime" => $endTime, "startTime" => $startTime, "trackCost" => $trackCost] :
