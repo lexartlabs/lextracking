@@ -497,13 +497,15 @@
     $scope.save = function () {
       $scope.error = '';
       console.log('project to save', $scope.project);
-      if ($scope.project.name === undefined || $scope.project.idClient === undefined || $scope.project.presupuesto === undefined) {
+      if ($scope.project.name === undefined || $scope.project.idClient === undefined || $scope.project.presupuesto === undefined || $scope.project.description === undefined) {
         if ($scope.project.name === undefined) {
           var msg = "El campo Nombre no puede estar vacio."
         } else if ($scope.project.idClient === undefined) {
           var msg = "El campo Cliente no puede estar vacio."
         } else if ($scope.project.presupuesto === undefined) {
           var msg = "El campo Budget no puede estar vacio."
+        } else if ($scope.project.description === undefined) {
+          var msg = "El campo Description no puede estar vacio."
         }
 
         $rootScope.showToast('Error', msg, 'error');
