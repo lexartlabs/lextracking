@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\AuthController;
 use App\Models\UserExceptions;
-use App\Models\UserHours;
+use App\Models\UsersHours;
 use App\Models\Weeklyhours;
 use Laravel\Ui\Presets\React;
 use Illuminate\Support\Facades\DB;
@@ -211,7 +211,7 @@ class UserController extends BaseController
     public function hours(Request $request, $userId)
     {
         try{
-            $hours = new UserHours;
+            $hours = new UsersHours;
             if($userId != 0) {
                 $request["userId"] = $userId;
                 $this->validate($request, ["userId" => "required|exists:Users,id"]);
