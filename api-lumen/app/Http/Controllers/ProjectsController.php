@@ -115,6 +115,7 @@ class ProjectsController extends BaseController
             "idClient" => "required|exists:Clients,id",
             "name" => "required|string",
             "presupuesto" => "numeric",
+            "description" => "required|string",
         ]);
 
         $projectData = $request->only(["active", "comments", "description", "duration", "idClient", "name", "tracked", "presupuesto"]);

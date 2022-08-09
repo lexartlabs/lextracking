@@ -525,6 +525,9 @@
     console.log('project to save', $scope.project);
 
   $scope.sendingData = true;
+  if(typeof $scope.project.active !== 'number') {
+    $scope.project.active = $scope.project.active.value;
+  }
 
   if (idProject) {
     ProjectsServices.save($scope.project, function (err, result) {
