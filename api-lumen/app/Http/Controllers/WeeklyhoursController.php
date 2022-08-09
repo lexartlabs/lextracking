@@ -23,7 +23,7 @@ class WeeklyhoursController extends BaseController
             $weeklyhours = Weeklyhours::all();
 
             return array("response" => $weeklyhours);
-        }catch(Exceptio $e){
+        }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "weeklyhours all"), 500));
         }
     }
