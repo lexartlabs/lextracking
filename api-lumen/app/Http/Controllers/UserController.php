@@ -272,4 +272,32 @@ class UserController extends BaseController
 
         return $this->exceptions($request, $user_id, $date);
     }
+
+    public function createException(Request $request, $id, $date)
+    {
+        try {
+            //Delete older exception
+            UserExceptions::where('user_id', '=', $id)
+                ->whereRaw('DAY(start) = DAY(?) AND Month(start) = Month(?) AND Year(start) = Year(?)', [$date, $date, $date])
+                ->delete();
+
+            // Insert the new one
+            foreach ($request as $param) {
+                if($param) {
+                    UserExceptions::create(array(
+                        'user_id' => $param->user_id,
+                        'day' => $param->day,
+                        'title' => $param->title,
+                        'start' => $param->start,
+                        'end'  => $param->end
+                    ));
+                }
+            };
+
+            return array("response" => array("status" => REGISTRED, "operation" => "createException"));
+
+        } catch (Exception $e) {
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "createException", "message"=>$e), 500));
+        }
+    }
 }
