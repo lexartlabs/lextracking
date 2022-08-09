@@ -38,7 +38,7 @@
 
 
             postUserExceptions: function(obj, id, fecha, cb){
-                RestClient.post('user-exceptions' + '/' + id + '/' + fecha, obj , function(err, result){
+                RestClient.post(model + '/exceptions' + '/' + id + '/' + fecha, obj , function(err, result){
                     cb(err, result);
                 })
             },
