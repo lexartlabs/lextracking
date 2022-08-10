@@ -1,0 +1,1 @@
+ALTER TABLE `Performance` CHANGE `id` `id` INT NOT NULL DEFAULT '0';
