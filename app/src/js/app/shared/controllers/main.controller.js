@@ -193,6 +193,7 @@
                     };
                     TracksServices.create($rootScope.currentTrack, function (err, result) {
                         if (!err) {
+                            console.log("🚀  --> result", result)
                             result = result[0];
                             console.log('saved task', result);
                             $rootScope.currentTrack.id = result.id;

@@ -31,33 +31,46 @@
             </tr>
         </tbody>
     </table>
+    <section ng-show="userRole == 'developer'">
+        <h1>History</h1>
+        <div ng-repeat="item in history" class="history-item">
+            <div class="history-item__title_container">
+                <div class="history-item__title_tracked_time">
+                    <span>{{item.startTimeDisplay}} - {{item.endTimeDisplay}} ({{item.timeTracked}} hrs)</span>
+                </div>
+                <div class="history-item__title__tabs">
+                    <ul class="lexart-tabs" ng-init="itemTab = 1" style='width: 100%; margin: 0px; border-bottom:0px'>
+                        <li class="lexart-tabs__item text-center" ng-click="itemTab = 1" ng-class="{'lexart-tabs__item--selected' : itemTab == 1}"><i class="ri-play-line"></i></li>
+                        <li class="lexart-tabs__item text-center" ng-click="itemTab = 2" ng-class="{'lexart-tabs__item--selected' : itemTab == 2}"><i class="ri-time-line"></i></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- <hr> -->
+            <div class="history-item__data_container">
+                <div class="history-item__duration">
+                    <span class="lexart_select_conatiner_proyect">{{item.projectName}}</span>
+                    <span>{{item.name}}</span>
+                    <span>{{item.duracion}}</span>
+                    
+                </div>
+                
+                <div class="history-item__datepicker" ng-show="itemTab == 2" moment-picker="modelProduct.hireDate" format="DD/MM/YYYY HH:mm" change='changeSelect()'>
+                    <span ng-show="itemTab == 2">Desde</span>
+                    <input type='text' ng-model='modelProduct.hireDate'>
+                </div>
+                <div class="history-item__datepicker" ng-show="itemTab == 2" moment-picker="modelProduct.hireDate" format="DD/MM/YYYY HH:mm" change='changeSelect()'>
+                    <span ng-show="itemTab == 2">Hasta</span>
+                    <input type='text' ng-model='modelProduct.hireDate'>
+                </div>
+                <div ng-show="itemTab == 1">
+                    <a ng-if="!timerRunning" class="btn_tracker_container" ng-click="startTrack(item)"><i class="ri-play-line"></i></a>
+                    <a ng-if="timerRunning" class="btn_tracker_container tracking" ng-click="stopTrack()"><i class="ri-pause-line"></i></a>
+                </div>
+                <div ng-show="itemTab == 2">
+                    <a class="btn_tracker_container" ng-click=""><i class="ri-save-line"></i></a>
+                </div>
+            </div>
+        </div>
 
-    <table ng-if="userRole == 'developer' && tracks.length">
-        <thead>
-            <tr>
-                <th>{{ 'dashboard.project' | translate }}</th>
-                <th>{{ 'dashboard.task' | translate }}</th>
-                <th>{{ 'dashboard.start_time' | translate }}</th>
-                <!-- <th>{{ 'dashboard.end_time' | translate }}</th>
-                <th>{{ 'dashboard.duration' | translate }}</th> -->
-                <th class="lexart-cstm__grid-5"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="track in tracks" ng-class="{'active-task': !track.endTime || track.endTime == '0000-00-00 00:00:00'}">
-                <td>{{track.projectName}}</td>
-                <td>{{track.taskName}}</td>
-                <td>{{track.startTime | date:'dd/MM/yyyy HH:mm' }}</td>
-                <!-- <td>{{track.endTime ? track.endTime : '' | date:'dd/MM/yyyy HH:mm' }}</td>
-                <td>{{track.duration}}</td> -->
-                <td></td>
-            </tr>
-<!--             <tr style="background-color: rgba(60, 144, 190, 0.1); font-weight: bold;">
-                <td colspan="3"></td>
-                <td>{{ 'dashboard.total' | translate | uppercase }}</td>
-                <td>{{total}}</td>
-                <td></td>
-            </tr> -->
-        </tbody>
-    </table>
+    </section>
 </div>

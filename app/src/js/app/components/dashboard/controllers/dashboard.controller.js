@@ -72,35 +72,30 @@
       });
 
     }else if (userRole=='developer') {
-      // TracksServices.findActives( function (err, tracks) {
+      //Tomar nueva Api.
+      TracksServices.findHistory(function (err, tracks) {
+        if (!err) {
+          console.table(tracks)
+          $scope.history = tracks;
+          $scope.history.forEach(item => {
+            item.startTimeDisplay = moment(item.startTime).format("ddd DD MMMM YYYY HH:mm");
+            item.endTimeDisplay = moment(item.endTime).format("HH:mm");
+            item.timeTracked = moment.duration(moment(item.endTime).diff(moment(item.startTime))).asHours().toFixed(2);
+          });
+          // $scope.tracks = [];
+          // _.each(tracks, function (track, index) {
+          //   track.startTime = new Date(track.startTime).getTime();
 
-      //   if (!err) {
-      //     console.log('DEVELOPER TRACKS DASH', tracks);
-      //     $scope.developerTracks = tracks;
-      //     $scope.developerTracks.forEach(function (track,index) {
-      //         if (track.idUser==userId) {
-      //           $scope.tracks.push(track);
-      //           return false;
-      //         }
-      //     })
+          //   $scope.allTasks.forEach(function (task, index) {
+          //     if (task.id == track.idTask) {
+          //       $scope.tracks.push(track);
+          //       return false;
+          //     }
+          //   })
 
-      //     var ms = 0;
-      //     _.each(tracks, function (track){
-      //       track.startTime = new Date(track.startTime).getTime();
-      //       track.endTime = new Date(track.endTime).getTime();
-      //       if (track.duration.indexOf('-') !== -1) {
-      //         track.duration = '';
-      //       } else {
-      //         ms += (track.endTime - track.startTime);
-      //         console.log('ms: ' + ms);
-      //       }
-      //     });
-      //     $scope.total = getTotalTime(ms/1000);
-
-
-      //   }
-
-      // });
+          // });
+        }
+      });
 
     }else {
       TracksServices.getUserTracks(userId, function (err, tracks){

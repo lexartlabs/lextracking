@@ -21,11 +21,17 @@
 		    		cb(err, result);
 		    	})
 		    },
-        findActives: function( cb) {
+        	findActives: function( cb) {
 		    	RestClient.get(model + "/tracking" , function(err, result) {
 		    		cb(err, result);
 		    	})
-		    },
+			},
+			
+			findHistory: function (cb) {
+				RestClient.get(model + "/user/history", function (err, result) {
+					cb(err, result);
+				})
+			},
 
 		   	findAll: function(page, q,  cb) {
 				RestClient.get(model + "?sort[name]=1" + q, function(err, result) {
