@@ -200,7 +200,11 @@ class UserController extends BaseController
         }
 
         try{
-            $update['password'] = md5($request->input('password'));
+            $user = User::where('id', $request->id)->first();
+            if($user->password != $request->input('password')) {
+                $update['password'] = md5($request->input('password'));
+            }
+
             $user = User::where("id", $id)->update($update);
 
             return array("response" => $user);
