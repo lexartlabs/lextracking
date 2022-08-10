@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\AuthController;
 use App\Models\UserExceptions;
-use App\Models\UserHours;
+use App\Models\UsersHours;
 use App\Models\Weeklyhours;
 use Laravel\Ui\Presets\React;
 use Illuminate\Support\Facades\DB;
@@ -211,7 +211,7 @@ class UserController extends BaseController
     public function hours(Request $request, $userId)
     {
         try{
-            $hours = new UserHours;
+            $hours = new UsersHours;
             if($userId != 0) {
                 $request["userId"] = $userId;
                 $this->validate($request, ["userId" => "required|exists:Users,id"]);
@@ -271,5 +271,33 @@ class UserController extends BaseController
         $user_id = AuthController::current()->id;
 
         return $this->exceptions($request, $user_id, $date);
+    }
+
+    public function createException(Request $request, $id, $date)
+    {
+        try {
+            //Delete older exception
+            UserExceptions::where('user_id', '=', $id)
+                ->whereRaw('DAY(start) = DAY(?) AND Month(start) = Month(?) AND Year(start) = Year(?)', [$date, $date, $date])
+                ->delete();
+
+            // Insert the new one
+            foreach ($request as $param) {
+                if($param) {
+                    UserExceptions::create(array(
+                        'user_id' => $param->user_id,
+                        'day' => $param->day,
+                        'title' => $param->title,
+                        'start' => $param->start,
+                        'end'  => $param->end
+                    ));
+                }
+            };
+
+            return array("response" => array("status" => REGISTRED, "operation" => "createException"));
+
+        } catch (Exception $e) {
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "createException", "message"=>$e), 500));
+        }
     }
 }

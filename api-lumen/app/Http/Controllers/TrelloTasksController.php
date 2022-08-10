@@ -45,7 +45,7 @@ class TrelloTasksController extends BaseController
                 ->get();
 
             return array('response' => $trelloBoards);
-        }catch(Exceptio $e){
+        }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks trello all"), 500));
         }
     }
