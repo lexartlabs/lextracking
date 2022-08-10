@@ -548,4 +548,29 @@ class TracksController extends BaseController
 
         return $this->update($request, $user_id);
     }
+
+    public function historyByUser(Request $request)
+    {
+        $user_id = AuthController::current()->id;
+        $tracksHistory = Tracks::select(
+            "Tracks.*",
+            DB::raw("Projects.name AS projectName"),
+            DB::raw("TrelloTask.id_project AS TrelloProyect"),
+            DB::raw("TrelloTask.name AS taskName"),
+            DB::raw("Users.name AS userName"),
+            DB::raw("TIMEDIFF( Tracks.endTime, Tracks.startTime ) AS duration")
+        )->join("TrelloTask", "Tracks.idTask", "=", "TrelloTask.id")
+        ->join("Users", "Tracks.idUser", "=", "Users.id")
+        ->join("Projects", "Projects.id", "=", "TrelloTask.id_project")
+        ->whereRaw("endTime IS NOT NULL")
+        ->orWhereRaw("Tracks.endTime != ?", ["0000-00-00 00:00:00"])
+        ->whereRaw("TrelloTask.active = ?", [1])
+        ->whereRaw("Tracks.idUser = ?", $user_id)
+        ->orderBy("Tracks.id","DESC")
+        ->distinct("Tracks.idTask")
+        ->limit(20)
+        ->get();
+        
+        return array("response" => $tracksHistory);
+    }
 }

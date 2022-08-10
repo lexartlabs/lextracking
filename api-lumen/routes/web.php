@@ -171,6 +171,7 @@ Route::group(['prefix' => 'api'], function () {
             Route::post('current/date', 'TracksController@currentUserDate');
             Route::get('current/calendar/{fecha}', 'TracksController@currentCalendar');
             Route::post('current/month', 'TracksController@currentMonth');
+            Route::get('history', 'TracksController@historyByUser');
 
             //New tracks and update
             Route::put('current/update', 'TracksController@currentUpdate');
