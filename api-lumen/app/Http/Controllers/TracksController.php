@@ -221,7 +221,7 @@ class TracksController extends BaseController
                 ->whereRaw("Tracks.id = ?", [$id])
                 ->whereRaw("Tracks.idUser = ?", [$idUser])
                 ->get();
-            
+
             if(count($trackWhere) > 0){
                 $trackWhere[0]->duration = $duracion;
                 $trackCost = $this->calcCosto($trackWhere)[0]->trackCost;
@@ -348,7 +348,7 @@ class TracksController extends BaseController
         $year = $request->input("year");
 
         try {
-            $tracks = DB::select("SELECT SUM(trackCost) AS salary FROM tracks WHERE month(endTime) = $idMonth AND year(endTime) = $year AND Tracks.idUser = $user_id AND Tracks.trackCost IS NOT NULL");
+            $tracks = DB::select("SELECT SUM(trackCost) AS salary FROM Tracks WHERE month(endTime) = $idMonth AND year(endTime) = $year AND Tracks.idUser = $user_id AND Tracks.trackCost IS NOT NULL");
             $tracks[0]->salary = $tracks[0]->salary == null ? 0 : $tracks[0]->salary;
 
             return array('response' => $tracks);
