@@ -85,139 +85,106 @@
 
   </div>
   </form>
-  
-  <div ng-if="user.id">
-    <div class="imm-frm__fld">
-      <ul class="imm-tabs">
-          <li class="imm-tabs__item" ng-init="tabUser = 1; tab1()" ng-click="tabUser = 1; tab1()" ng-class="{'imm-tabs__item--selected' : tabUser == 1}">Mi rendimiento</li>
-          <li class="imm-tabs__item" ng-click="tabUser = 2; tab2()" ng-class="{'imm-tabs__item--selected' : tabUser == 2}">Integraciones</li>
-          <li class="imm-tabs__item" ng-click="tabUser = 3; tab3()" ng-class="{'imm-tabs__item--selected' : tabUser == 3}">Evaluaciones</li>
+  <div ng-if="user.id" style="margin-top: 1.8rem">
+    <div class="lexart-frm__fld">
+      <ul class="lexart-tabs">
+          <li class="lexart-tabs__item" ng-init="tabUser = 1; tab1()" ng-click="tabUser = 1; tab1()" ng-class="{'lexart-tabs__item--selected' : tabUser == 1}">Mi rendimiento</li>
+          <li class="lexart-tabs__item" ng-click="tabUser = 2; tab2()" ng-class="{'lexart-tabs__item--selected' : tabUser == 2}">Integraciones</li>
+          <li class="lexart-tabs__item">
+            <a href="http://cube.lexartlabs.com/#/lexart_labs/login" target="_blank" rel="noopener noreferrer">Evaluaciones</a>
+          </li>
       </ul>
     </div>
 
-  <div class="lexart-frm__fld">
-    <ul class="lexart-tabs">
-        <li class="lexart-tabs__item" ng-init="tabUser = 1; tab1()" ng-click="tabUser = 1; tab1()" ng-class="{'lexart-tabs__item--selected' : tabUser == 1}">Mi rendimiento</li>
-        <li class="lexart-tabs__item" ng-click="tabUser = 2; tab2()" ng-class="{'lexart-tabs__item--selected' : tabUser == 2}">Integraciones</li>
-        <li class="lexart-tabs__item" ng-click="tabUser = 3; tab3()" ng-class="{'lexart-tabs__item--selected' : tabUser == 3}">Evaluaciones</li>
-    </ul>
-  </div>
-</div>
-<div class="lexart-wa__cnt" ng-if="tabUser == 1">
-  <div class="lexart-frm lexart-frm--center">
-    <div class="lexart-frm__fldgrp">
-      <div class="lexart-frm__fld">
-        <label class="lexart-frm__lbl">
-            <b class="lexart-frm__lbl-name">{{'Año'}}</b>  
-            <input  moment-picker="date.year" 
-                    placeholder="Seleccionar año" 
-                    start-view="decade" 
-                    format="YYYY" 
-                    min-date="date.minDate" 
-                    max-date="date.maxDate" 
-                    max-view="decade" 
-                    start-date="date.startDate" 
-                    ng-model="date.year"
-                    >
-        </label>
-      </div>
-      <div class="lexart-frm__fld">
-        <button class="lexart-btn" ng-click="filterYear(date.year)">{{ 'reports.search' | translate }}</button>
-      </div>
-      <div class="lexart-frm__fld">
-      </div>
-    </div>
-  </div>
-  <table class="lexart-table">
-    <thead>
-        <tr>
-          <th>{{ 'users.month' | translate }}</th>
-          <th>{{ 'users.year' | translate }}</th>
-          <th>{{ 'users.salary' | translate }}</th>
-          <th>{{ 'users.costhour' | translate }}</th>
-        </tr>
-    </thead>
-    <tbody ng-if="identify == true">
-        <tr ng-repeat="month in performance.actual" style="background-color: #B8EBD0;">
-            <td>{{month.month}}</td>
-            <td>{{month.year}}</td>
-            <td>{{month.salary}}</td>
-            <td>{{month.costHour}}</td>
-        </tr>
-        <tr ng-repeat="month in performance.past" style="background-color: #89BBFE;">
-            <td>{{month.month}}</td>
-            <td>{{month.year}}</td>
-            <td>{{month.salary}}</td>
-            <td>{{month.costHour}}</td>
-        </tr>
-        <tr ng-click="moreMonths(); show='false'" ng-init="show='true'">
-          <th style="cursor: pointer;" ng-if="show=='true'">Mostrar meses anteriores <i style="margin-left: 10px;">▼</i></th>
-          <th ng-if="show=='true'"></th>
-          <th ng-if="show=='true'"></th>
-          <th ng-if="show=='true'"></th>
-        </tr>
-        <tr ng-repeat="month in performance.moreMonths" ng-if="show=='false'">
-            <td>{{month.month}}</td>
-            <td>{{month.year}}</td>
-            <td>{{month.salary}}</td>
-            <td>{{month.costHour}}</td>             
-          </tr>
-        </tbody>
-  </table>
-</div>
-<div ng-if="tabUser == 2" class="lexart-wa__cnt" style="text-align: left; margin-right: 70%;">
-  <p style="font-size: 14px; font-weight: bold">Integrar con:</p>
-  <div class="lexart-frm__fldgrp">
-    <div class="lexart-frm__fld" ng-if="user.id">
-      <label class="lexart-frm__lbl">
-        <img src="/assets/images/icons/trello-icon.png" style="width: 60px; height: 60px;cursor: not-allowed"></img>
-        <b class="lexart-frm__lbl-name">{{ 'Trello' }}</b>
-      </label>
-    </div>
-    <div class="lexart-frm__fld">
-      <label class="lexart-frm__lbl">
-        <img src="/assets/images/icons/teamwork-icon.png" style="width: 60px; height: 60px;cursor: not-allowed"></img>
-        <b class="lexart-frm__lbl-name">{{ 'Teamwork' }}</b>
-      </label>
-    </div>
-    <div class="lexart-frm__fld" ng-click="jiraInt()">
-      <label class="lexart-frm__lbl">
-        <img src="/assets/images/Jira-PBXDom.png" style="width: 90px; height: 60px"></img>
-        <b class="lexart-frm__lbl-name">{{ 'Jira' }}</b>
-      </label>
-      <p ng-if="vinculate == true" style="font-size: 10px; color: red">*Usuario ya vinculado</p>
-    </div>
-  </div>
-</div>
-<div class="lexart-wa__cnt" ng-if="tabUser == 3">
-  <div class="lexart-wa__cnt">
-    <div class="lexart-flex">
-      <div class='flex-table'>
-        <div class='flex-head'>
-          <div class="flex-item">ID</div>
-          <div class="flex-item">Evaluación</div>
-          <div class="flex-item">Puntaje</div>
-          <div class="flex-item">Evaluador</div>
-          <div style="flex: 5%;width: 5%;"></div>
-        </div>
-        <!-- ORDENADO POR USUARIO -->
-        <!-- TRACKS -->
-        <div ng-repeat="eval in evaluacion track by $index" class='flex-column-wrap' id="datatable">
-          <div class='flex-row'>
-          <div class="flex-item">{{eval.id}}</div>
-          <div class="flex-item">{{eval.evaluacion}}</div>
-          <div class="flex-item">{{eval.puntaje | truncateTail:true:20:'...'}}</div>
-          <div class="flex-item">{{eval.admin}}</div>
-          <div style="flex: 5%;width: 5%;" ng-click="showEval(eval.evaluacion)">
-            <a>
-              <i class="ri-edit-line"></i>
-            </a>
+    <!-- Tab 1 -->
+    <div class="lexart-wa__cnt" ng-if="tabUser == 1">
+      <div class="lexart-frm lexart-frm--center">
+        <div class="lexart-frm__fldgrp">
+          <div class="lexart-frm__fld">
+            <label class="lexart-frm__lbl">
+                <b class="lexart-frm__lbl-name">{{'Año'}}</b>  
+                <input  moment-picker="date.year" 
+                        placeholder="Seleccionar año" 
+                        start-view="decade" 
+                        format="YYYY" 
+                        min-date="date.minDate" 
+                        max-date="date.maxDate" 
+                        max-view="decade" 
+                        start-date="date.startDate" 
+                        ng-model="date.year"
+                        >
+            </label>
+          </div>
+          <div class="lexart-frm__fld">
+            <button class="lexart-btn" ng-click="filterYear(date.year)">{{ 'reports.search' | translate }}</button>
+          </div>
+          <div class="lexart-frm__fld">
           </div>
         </div>
       </div>
+      <table class="lexart-table">
+        <thead>
+            <tr>
+              <th>{{ 'users.month' | translate }}</th>
+              <th>{{ 'users.year' | translate }}</th>
+              <th>{{ 'users.salary' | translate }}</th>
+              <th>{{ 'users.costhour' | translate }}</th>
+            </tr>
+        </thead>
+        <tbody ng-if="identify == true">
+            <tr ng-repeat="month in performance.actual" style="background-color: #B8EBD0;">
+                <td>{{month.month}}</td>
+                <td>{{month.year}}</td>
+                <td>{{month.salary}}</td>
+                <td>{{month.costHour}}</td>
+            </tr>
+            <tr ng-repeat="month in performance.past" style="background-color: #89BBFE;">
+                <td>{{month.month}}</td>
+                <td>{{month.year}}</td>
+                <td>{{month.salary}}</td>
+                <td>{{month.costHour}}</td>
+            </tr>
+            <tr ng-click="moreMonths(); show='false'" ng-init="show='true'">
+              <th style="cursor: pointer;" ng-if="show=='true'">Mostrar meses anteriores <i style="margin-left: 10px;">▼</i></th>
+              <th ng-if="show=='true'"></th>
+              <th ng-if="show=='true'"></th>
+              <th ng-if="show=='true'"></th>
+            </tr>
+            <tr ng-repeat="month in performance.moreMonths" ng-if="show=='false'">
+                <td>{{month.month}}</td>
+                <td>{{month.year}}</td>
+                <td>{{month.salary}}</td>
+                <td>{{month.costHour}}</td>             
+              </tr>
+            </tbody>
+      </table>
+    </div>
+    <!-- Tab 2 -->
+    <div ng-if="tabUser == 2" class="lexart-wa__cnt" style="text-align: left; margin-right: 70%;">
+      <p style="font-size: 14px; font-weight: bold">Integrar con:</p>
+      <div class="lexart-frm__fldgrp">
+        <div class="lexart-frm__fld" ng-if="user.id">
+          <label class="lexart-frm__lbl">
+            <img src="/assets/images/icons/trello-icon.png" style="width: 60px; height: 60px;cursor: not-allowed"></img>
+            <b class="lexart-frm__lbl-name">{{ 'Trello' }}</b>
+          </label>
+        </div>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <img src="/assets/images/icons/teamwork-icon.png" style="width: 60px; height: 60px;cursor: not-allowed"></img>
+            <b class="lexart-frm__lbl-name">{{ 'Teamwork' }}</b>
+          </label>
+        </div>
+        <div class="lexart-frm__fld" ng-click="jiraInt()">
+          <label class="lexart-frm__lbl">
+            <img src="/assets/images/Jira-PBXDom.png" style="width: 90px; height: 60px"></img>
+            <b class="lexart-frm__lbl-name">{{ 'Jira' }}</b>
+          </label>
+          <p ng-if="vinculate == true" style="font-size: 10px; color: red">*Usuario ya vinculado</p>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 </div>
 <div class="lexart-wa__actions">
   <p ng-if="error" class="err-display">{{error}} {{ 'general.cant_be_empty' | translate }}</p>
