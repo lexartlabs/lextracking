@@ -567,7 +567,7 @@ class TracksController extends BaseController
             DB::raw("Tasks.status AS taskStatus"),
             DB::raw("Users.name AS userName"),
             DB::raw("TIMEDIFF( Tracks.endTime, Tracks.startTime ) AS duration")
-        )->join("Tasks", "Tasks.idTask", "=", "Tasks.id")
+        )->join("Tasks", "Tracks.idTask", "=", "Tasks.id")
         ->join("Users", "Tracks.idUser", "=", "Users.id")
         ->join("Projects", "Projects.id", "=", "Tasks.id_project")
         //->whereRaw("endTime IS NOT NULL")
