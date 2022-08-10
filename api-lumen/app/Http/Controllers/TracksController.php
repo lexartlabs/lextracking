@@ -562,17 +562,17 @@ class TracksController extends BaseController
         $tracksHistory = Tracks::select(
             "Tracks.*",
             DB::raw("Projects.name AS projectName"),
-            DB::raw("Tasks.id_project AS TrelloProyect"),
+            DB::raw("Tracks.id_project AS projectId"),
             DB::raw("Tasks.name AS taskName"),
             DB::raw("Tasks.status AS taskStatus"),
             DB::raw("Users.name AS userName"),
             DB::raw("TIMEDIFF( Tracks.endTime, Tracks.startTime ) AS duration")
         )->join("Tasks", "Tracks.idTask", "=", "Tasks.id")
         ->join("Users", "Tracks.idUser", "=", "Users.id")
-        ->join("Projects", "Projects.id", "=", "Tasks.id_project")
+        ->join("Projects", "Projects.id", "=", "Tracks.id_project")
         //->whereRaw("endTime IS NOT NULL")
         //->orWhereRaw("Tracks.endTime != ?", ["0000-00-00 00:00:00"])
-        ->whereRaw("Tasks.active = ?", [1])
+        ->whereRaw("Tracks.active = ?", [1])
         ->whereRaw("Tracks.idUser = ?", $user_id)
         ->orderBy("Tracks.id", "DESC")
         ->distinct("Tracks.idTask")
