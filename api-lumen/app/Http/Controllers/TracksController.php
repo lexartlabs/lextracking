@@ -562,7 +562,7 @@ class TracksController extends BaseController
         $tracksHistory = Tracks::select(
             "Tracks.*",
             DB::raw("Projects.name AS projectName"),
-            DB::raw("Tracks.id_project AS projectId"),
+            DB::raw("Tasks.idProject AS projectId"),
             DB::raw("Tasks.name AS taskName"),
             DB::raw("Tasks.status AS taskStatus"),
             DB::raw("Users.name AS userName"),
