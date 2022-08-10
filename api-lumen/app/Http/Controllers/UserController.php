@@ -53,7 +53,7 @@ class UserController extends BaseController
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email|unique:Users',
             'password' => 'required|min:8|string',
             'role' => 'required'
         ]);
@@ -200,6 +200,11 @@ class UserController extends BaseController
         }
 
         try{
+            $user = User::where('id', $request->id)->first();
+            if($user->password != $request->input('password')) {
+                $update['password'] = md5($request->input('password'));
+            }
+
             $user = User::where("id", $id)->update($update);
 
             return array("response" => $user);

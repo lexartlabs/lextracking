@@ -14,6 +14,7 @@
         $scope.date         = {};
         $rootScope.jiraUser = {};
         $scope.vinculate    = false;
+        $scope.tabUser      = 1;
         
         
 
@@ -118,6 +119,7 @@
             $scope.performance.past      = {};
             $scope.performance.allMonths = {};
             $scope.identify = true;
+            $scope.tabUser = 1;
 
             $scope.performance.actual.month = {
                 'idMonth': actualMonth+1,
@@ -210,6 +212,8 @@
 
         $scope.tab2 = function(){
 
+            $scope.tabUser = 2;
+
             if ($scope.user.jiraToken != null) {
                 $scope.vinculate = true;
             } else {
@@ -241,33 +245,33 @@
             }
         }
 
-        $scope.tab3 = function(){
+        // $scope.tab3 = function(){
 
-            EvaluateServices.find(idUser, function(err, result){
-                $scope.evaluacion = result;
-            })
+        //     EvaluateServices.find(idUser, function(err, result){
+        //         $scope.evaluacion = result;
+        //     })
             
-            $scope.showEval = function(value){
-               ngDialog.open({
-                  template: '/app/shared/views/alert.modal.html',
-                  showClose: true,
-                  scope: $scope,
-                  disableAnimation: true,
-                  data: {
-                    titleRequired: "Evaluación",
-                    evaluate: value,
-                    confirm: function() {
-                      ngDialog.close(windowIDs[1]);
-                    },
-                    cancel: function() {
-                      var windowIDs = ngDialog.getOpenDialogs();
+        //     $scope.showEval = function(value){
+        //        ngDialog.open({
+        //           template: '/app/shared/views/alert.modal.html',
+        //           showClose: true,
+        //           scope: $scope,
+        //           disableAnimation: true,
+        //           data: {
+        //             titleRequired: "Evaluación",
+        //             evaluate: value,
+        //             confirm: function() {
+        //               ngDialog.close(windowIDs[1]);
+        //             },
+        //             cancel: function() {
+        //               var windowIDs = ngDialog.getOpenDialogs();
 
-                      ngDialog.close(windowIDs[1]);
-                    }
-                  }
-                });     
-            }
-        }
+        //               ngDialog.close(windowIDs[1]);
+        //             }
+        //           }
+        //         });     
+        //     }
+        // }
 
     }]);
 
