@@ -89,6 +89,11 @@
 
 
 		$scope.save = function () {
+			if ($scope.task.description === undefined) {
+				var msg = "El campo Descripción no puede estar vacio."
+				return $rootScope.showToast('Error', msg, 'error');
+			}
+
 			if ($scope.task.name === undefined) {
 				var msg = "El campo Nombre no puede estar vacio."
 				$rootScope.showToast('Error', msg, 'error');
