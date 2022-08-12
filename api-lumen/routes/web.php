@@ -232,7 +232,7 @@ Route::group(['prefix' => 'api'], function () {
         });
     });
 
-
+    // Sales
     Route::group(['prefix' => 'sales', 'middleware' => 'pm:api'], function(){
         Route::get('all', 'SalesController@all');
         Route::get('{id}', 'SalesController@all');
