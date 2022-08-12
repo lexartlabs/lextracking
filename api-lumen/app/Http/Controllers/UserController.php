@@ -286,15 +286,16 @@ class UserController extends BaseController
                 ->whereRaw('DAY(start) = DAY(?) AND Month(start) = Month(?) AND Year(start) = Year(?)', [$date, $date, $date])
                 ->delete();
 
-            // Insert the new one
-            foreach ($request as $param) {
+            $payload = $request->all();
+
+            foreach ($payload as $param) {
                 if($param) {
                     UserExceptions::create(array(
-                        'user_id' => $param->user_id,
-                        'day' => $param->day,
-                        'title' => $param->title,
-                        'start' => $param->start,
-                        'end'  => $param->end
+                        'user_id' => $param['user_id'],
+                        'day' => $param['day'],
+                        'title' => $param['title'],
+                        'start' => $param['start'],
+                        'end'  => $param['end']
                     ));
                 }
             };
@@ -302,7 +303,7 @@ class UserController extends BaseController
             return array("response" => array("status" => REGISTRED, "operation" => "createException"));
 
         } catch (Exception $e) {
-            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "createException", "message"=>$e), 500));
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "createException"), 500));
         }
     }
 }
