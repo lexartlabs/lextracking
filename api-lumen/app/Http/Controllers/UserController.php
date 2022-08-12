@@ -306,4 +306,31 @@ class UserController extends BaseController
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "createException"), 500));
         }
     }
+
+    public function upsertFixed(Request $request, $id) {
+        {
+            try {
+                $payload = $request->all();
+                UsersHours::where('user_id', '=', $id)->delete();
+
+                foreach ($payload as $days) {
+                    if(!empty($days['horarios'])) {
+                        foreach($days['horarios'] as $hour) {
+                            UsersHours::create(array(
+                                'user_id' => $days['user_id'],
+                                'day' => $days['name'],
+                                'start' => $hour['desde'],
+                                'end'  => $hour['hasta']
+                            ));
+                        }
+                    }
+                };
+
+                return array("response" => array("status" => REGISTRED, "operation" => "upsertFixed"));
+
+            } catch (Exception $e) {
+                return (new Response(array("Error" => BAD_REQUEST, "Operation" => "upsertFixed", "message"=> $e->getMessage()), 500));
+            }
+        }
+    }
 }
