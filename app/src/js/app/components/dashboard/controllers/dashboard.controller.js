@@ -77,7 +77,7 @@
         if (!err) {
           console.table(tracks)
           $scope.history = tracks;
-          $scope.history.forEach(item => {
+          $scope.history.forEach(function (item) { 
             item.startTimeDisplay = moment(item.startTime).format("ddd DD MMMM YYYY HH:mm");
             item.endTimeDisplay = moment(item.endTime).format("HH:mm");
             item.timeTracked = moment.duration(moment(item.endTime).diff(moment(item.startTime))).asHours().toFixed(2);
