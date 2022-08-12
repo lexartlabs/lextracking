@@ -29,6 +29,9 @@ class TracksController extends BaseController
         $startTime = $request->input("startTime");
         $endTime = $request->input("endTime");
 
+        $startTime = date('Y-m-d H:i:s',date(strtotime("-1 day", strtotime($startTime))));
+        $endTime = date('Y-m-d H:i:s',date(strtotime("+1 day", strtotime($endTime))));
+
         $user_id = $id;
         $client_id = $request->input("idClient") ? $request->input("idClient") : null;
         $project_id = $request->input("idProject") ? $request->input("idProject") : null;
@@ -74,7 +77,7 @@ class TracksController extends BaseController
                     return array("response" => $tracks);
                 }
 
-                if (!empty($$project_id)) {
+                if (!empty($project_id)) {
                     $tracks = $tracks->whereRaw("(Projects.id) = ?", [$project_id])->get();
 
                     $tracks = $this->calcCosto($tracks);
@@ -219,8 +222,12 @@ class TracksController extends BaseController
                 ->whereRaw("Tracks.idUser = ?", [$idUser])
                 ->get();
 
-            $trackWhere[0]->duration = $duracion;
-            $trackCost = $this->calcCosto($trackWhere)[0]->trackCost;
+            if(count($trackWhere) > 0){
+                $trackWhere[0]->duration = $duracion;
+                $trackCost = $this->calcCosto($trackWhere)[0]->trackCost;
+            }else{
+                $trackCost =0;
+            }
 
             $update = empty($duracion) ?
                 ["endTime" => $endTime, "startTime" => $startTime, "trackCost" => $trackCost] :
@@ -341,7 +348,7 @@ class TracksController extends BaseController
         $year = $request->input("year");
 
         try {
-            $tracks = DB::select("SELECT SUM(trackCost) AS salary FROM tracks WHERE month(endTime) = $idMonth AND year(endTime) = $year AND Tracks.idUser = $user_id AND Tracks.trackCost IS NOT NULL");
+            $tracks = DB::select("SELECT SUM(trackCost) AS salary FROM Tracks WHERE month(endTime) = $idMonth AND year(endTime) = $year AND Tracks.idUser = $user_id AND Tracks.trackCost IS NOT NULL");
             $tracks[0]->salary = $tracks[0]->salary == null ? 0 : $tracks[0]->salary;
 
             return array('response' => $tracks);
@@ -547,5 +554,31 @@ class TracksController extends BaseController
         $user_id = AuthController::current()->id;
 
         return $this->update($request, $user_id);
+    }
+
+    public function historyByUser(Request $request)
+    {
+        $user_id = AuthController::current()->id;
+        $tracksHistory = Tracks::select(
+            "Tracks.*",
+            DB::raw("Projects.name AS projectName"),
+            DB::raw("Tasks.idProject AS projectId"),
+            DB::raw("Tasks.name AS taskName"),
+            DB::raw("Tasks.status AS taskStatus"),
+            DB::raw("Users.name AS userName"),
+            DB::raw("TIMEDIFF( Tracks.endTime, Tracks.startTime ) AS duration")
+        )->join("Tasks", "Tracks.idTask", "=", "Tasks.id")
+        ->join("Users", "Tracks.idUser", "=", "Users.id")
+        ->join("Projects", "Projects.id", "=", "Tasks.idProject")
+        //->whereRaw("endTime IS NOT NULL")
+        //->orWhereRaw("Tracks.endTime != ?", ["0000-00-00 00:00:00"])
+        ->whereRaw("Tasks.active = ?", [1])
+        ->whereRaw("Tracks.idUser = ?", $user_id)
+        ->orderBy("Tracks.id", "DESC")
+        ->distinct("Tracks.idTask")
+        ->limit(20)
+        ->get();
+        
+        return array("response" => $tracksHistory);
     }
 }

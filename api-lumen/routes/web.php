@@ -35,6 +35,7 @@ Route::group(['prefix' => 'api'], function () {
             Route::get('current', 'UserController@current');
             Route::get('current/hours', 'UserController@currentHours');
             Route::get('current/exceptions/{date}', 'UserController@currentExceptions');
+            Route::post('exceptions/{id}/{date}', 'UserController@createException');
 
             //Performances
             Route::group(['prefix' => 'performance'], function() {
@@ -171,6 +172,7 @@ Route::group(['prefix' => 'api'], function () {
             Route::post('current/date', 'TracksController@currentUserDate');
             Route::get('current/calendar/{fecha}', 'TracksController@currentCalendar');
             Route::post('current/month', 'TracksController@currentMonth');
+            Route::get('history', 'TracksController@historyByUser');
 
             //New tracks and update
             Route::put('current/update', 'TracksController@currentUpdate');
