@@ -2,6 +2,11 @@
 .lexart-wa {
   background: @color-light-gray;
   transition: width 1s ease;
+  height: auto;
+}
+.lexart-wa .lexart-wa__cnt section{
+  display: flex;
+  flex-direction: column;
 }
 
 table {
@@ -53,6 +58,62 @@ tbody {
   border-radius: 5px;
   border: 1px solid @color-hollow-input;
   padding: 7px;
+}
+.history-item {
+  width: 100%;
+  border: 1px solid @color-light-gray;
+  border-radius: 5px;
+  display: block;
+  float: left;
+  text-align: left;
+  margin-top: 20px;
+  box-shadow: 5px 5px 2px 0px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 5px 5px 2px 0px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 5px 5px 2px 0px rgba(0, 0, 0, 0.1);
+  transition: all .5s ease;
+}
+.history-item:hover {
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.17);
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.17);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.17);
+  transition: all .5s ease;
+}
+.history-item__title_container{
+  width: 100%;
+  display: block;
+  float: left;
+  padding: 10px 10px 0px 10px;
+  background-color: @color-light-gray;
+  border-bottom: 1px solid @color-active-text;
+}
+.history-item__data_container{
+  padding: 10px;
+  display: inline-block;
+  width: 100%;
+}
+.history-item__duration{
+  float: left;
+  width: 30%;
+  line-height: 3rem;
+}
+.history-item__datepicker{
+  float: left;
+  width: 20%;
+}
+.history-item__data_container *{
+  margin-left: 10px;
+}
+.history-item__data_container a{
+  float: right;
+  line-height: 2.5rem;
+}
+.history-item__title_tracked_time{
+  display: block;
+  float: left;
+}
+.history-item__title__tabs {
+  display: block;
+  float: right;
 }
 
 //Modificador para darkMode
@@ -631,6 +692,7 @@ tbody {
     color: @color-dark-mode;
     // background-color: @navbar-body-color;
   }
+
 
 }
 

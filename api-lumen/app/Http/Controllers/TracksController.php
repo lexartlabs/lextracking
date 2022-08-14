@@ -564,7 +564,8 @@ class TracksController extends BaseController
             DB::raw("Projects.name AS projectName"),
             DB::raw("Tasks.idProject AS projectId"),
             DB::raw("Tasks.name AS taskName"),
-            DB::raw("Tasks.status AS taskStatus"),
+            // DB::raw("Tasks.status AS taskStatus"),
+            DB::raw("Tasks.status AS status"),
             DB::raw("Users.name AS userName"),
             DB::raw("TIMEDIFF( Tracks.endTime, Tracks.startTime ) AS duration")
         )->join("Tasks", "Tracks.idTask", "=", "Tasks.id")
@@ -578,7 +579,7 @@ class TracksController extends BaseController
         ->distinct("Tracks.idTask")
         ->limit(20)
         ->get();
-        
+
         return array("response" => $tracksHistory);
     }
 }

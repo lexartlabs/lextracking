@@ -186,13 +186,16 @@
                         projectName: task.projectName,
                         startTime: getCurrentDate(),
                         endTime: undefined,
-                        idProyecto: task.idProject,
+                        idProyecto: task.idProject || task.projectId,
                         typeTrack: "manual",
                         currency: $scope.currency
 
                     };
+                    console.log("🚀  --> $rootScope.currentTrack", $rootScope.currentTrack)
                     TracksServices.create($rootScope.currentTrack, function (err, result) {
+                        console.log('Lucas >', err, result);
                         if (!err) {
+                            console.log("🚀  --> result", result)
                             result = result[0];
                             console.log('saved task', result);
                             $rootScope.currentTrack.id = result.id;
