@@ -36,6 +36,7 @@ Route::group(['prefix' => 'api'], function () {
             Route::get('current/hours', 'UserController@currentHours');
             Route::get('current/exceptions/{date}', 'UserController@currentExceptions');
             Route::post('exceptions/{id}/{date}', 'UserController@createException');
+            Route::post('/fixeds/{id}', 'UserController@upsertFixed');
 
             //Performances
             Route::group(['prefix' => 'performance'], function() {

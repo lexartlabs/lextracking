@@ -6,6 +6,7 @@
 
     Module.factory('CalendarServices', ['RestClient', function(RestClient){
         var model = 'user';
+        var USER_ID = window.localStorage.getItem('userId');
 
         var factory = {
             
@@ -31,7 +32,7 @@
             },
 
             postUserEvents: function(obj, cb){
-                RestClient.post(model, obj, function(err, result){
+                RestClient.post(model + '/fixeds/' + USER_ID, obj, function(err, result){
                     cb(err, result);
                 })
             },
