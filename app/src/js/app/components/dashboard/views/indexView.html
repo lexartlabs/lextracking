@@ -52,20 +52,20 @@
                     <span>{{item.name}}</span>
                 </div>
                 
-                <div class="history-item__datepicker" ng-show="itemTab == 2" moment-picker="modelProduct.hireDate" format="DD/MM/YYYY HH:mm" change='changeSelect()'>
+                <div class="history-item__datepicker" ng-show="itemTab == 2" moment-picker="trackDates.start" format="DD/MM/YYYY HH:mm" change='changeSelect()'>
                     <span ng-show="itemTab == 2">Desde</span>
-                    <input type='text' ng-model='modelProduct.hireDate'>
+                    <input type='text' ng-model='trackDates.start'>
                 </div>
-                <div class="history-item__datepicker" ng-show="itemTab == 2" moment-picker="modelProduct.hireDate" format="DD/MM/YYYY HH:mm" change='changeSelect()'>
+                <div class="history-item__datepicker" ng-show="itemTab == 2" moment-picker="trackDates.end" format="DD/MM/YYYY HH:mm" change='changeSelect()'>
                     <span ng-show="itemTab == 2">Hasta</span>
-                    <input type='text' ng-model='modelProduct.hireDate'>
+                    <input type='text' ng-model='trackDates.end'>
                 </div>
                 <div ng-show="itemTab == 1">
-                    <a ng-if="!timerRunning" class="btn_tracker_container" ng-click="startTrack(item)"><i class="ri-play-line"></i></a>
-                    <a ng-if="timerRunning" class="btn_tracker_container tracking" ng-click="stopTrack()"><i class="ri-pause-line"></i></a>
+                    <a ng-if="!timerRunning || currentTrack.idTask !== item.idTask" class="btn_tracker_container" ng-click="handleTrack(item)"><i class="ri-play-line"></i></a>
+                    <a ng-if="timerRunning && currentTrack.idTask == item.idTask" class="btn_tracker_container tracking" ng-click="handleTrack()"><i class="ri-pause-line"></i></a>
                 </div>
                 <div ng-show="itemTab == 2">
-                    <a class="btn_tracker_container" ng-click=""><i class="ri-save-line"></i></a>
+                    <a class="btn_tracker_container" ng-click="createTrackDirectly(item)"><i class="ri-save-line"></i></a>
                 </div>
             </div>
         </div>

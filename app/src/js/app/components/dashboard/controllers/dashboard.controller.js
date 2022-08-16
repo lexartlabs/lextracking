@@ -10,6 +10,10 @@
     $scope.allTasks = [];
     $scope.developerTracks = [];
     $scope.total    = '';
+    $scope.trackDates = {
+      start: '',
+      end: '',
+    }
     var userId      = $rootScope.userId;
     var userRole    = $rootScope.userRole;
 
@@ -27,6 +31,61 @@
       var s = checkTime(Math.floor(ms));
       return h + ":" + m + ":" + s;
     }
+
+    function getUserHistory () {
+      TracksServices.findHistory(function (err, tracks) {
+        if (!err) {
+          console.table(tracks)
+          $scope.history = tracks;
+          $scope.history.forEach(function (item) { 
+            item.startTimeDisplay = moment(item.startTime).format("ddd DD MMMM YYYY HH:mm");
+            item.endTimeDisplay = moment(item.endTime).format("HH:mm");
+            item.timeTracked = moment.duration(moment(item.endTime).diff(moment(item.startTime))).asHours().toFixed(2);
+          });
+        }
+      });
+    }
+
+    function toSQLFormat(d) {
+      return new Date(d).toISOString().slice(0, 19).replace('T', ' ');
+    }
+
+    $scope.handleTrack = function(item) {
+      if($rootScope.timerRunning) {
+        $scope.stopTrack();
+        getUserHistory();
+      } else {
+        $scope.startTrack(item);
+      }
+    }
+
+    $scope.createTrackDirectly = function(task) {
+      console.log('Lucas ->', $scope.trackDates);
+      // criar validação
+      const payload = {
+        idUser: $rootScope.userId,
+        idTask: task.idTask,
+        taskName: task.name,
+        projectName: task.projectName,
+        startTime: toSQLFormat($scope.trackDates.start),
+        endTime: toSQLFormat($scope.trackDates.end),
+        idProyecto: task.projectId,
+        typeTrack: task.typeTrack,
+        currency: task.currency,
+      };
+
+      console.log('Lucas ->', payload);
+
+      // Criar task
+      // TracksServices.create(payload, function (err, result) {
+      //   if (!err) {
+      //       console.log("🚀  Lucas --> result", result);
+      //       result = result[0];
+      //       console.log('saved task', result);
+      //   }
+      // });
+    }
+
 
     if (userRole=='client') {
       TasksServices.findByIdClient($rootScope.userIdClient,function (err,tasks) {

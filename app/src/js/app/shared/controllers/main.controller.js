@@ -181,7 +181,7 @@
                 } else {
                     $rootScope.currentTrack = {
                         idUser: $rootScope.userId,
-                        idTask: task.id,
+                        idTask: task.idTask || task.id,
                         taskName: task.name,
                         projectName: task.projectName,
                         startTime: getCurrentDate(),
@@ -193,7 +193,6 @@
                     };
                     console.log("🚀  --> $rootScope.currentTrack", $rootScope.currentTrack)
                     TracksServices.create($rootScope.currentTrack, function (err, result) {
-                        console.log('Lucas >', err, result);
                         if (!err) {
                             console.log("🚀  --> result", result)
                             result = result[0];
