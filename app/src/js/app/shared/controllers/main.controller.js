@@ -146,73 +146,73 @@
             }
         };
 
-        $scope.startTrack = function (task) {
+        $rootScope.startTrack = function (task, fromDashboard) {
             if (!task) return
-            console.log("🚀  --> task", task)
-            // return false;
-            WeeklyHourServices.find($scope.currentPage, $scope.query, function (err, weeklyHours, countItems) {
-                console.log(weeklyHours)
-                angular.forEach(weeklyHours, function (value, index) {
-                    if (value.idUser == $rootScope.userId) {
-                        if (value.currency == null || value.currency == '') {
-                            value.currency = '$'
-                        }
-                        $scope.currency = value.currency
+            return new Promise(resolve => {
+                WeeklyHourServices.find($scope.currentPage, $scope.query, function (err, weeklyHours, countItems) {
+                    console.log(weeklyHours)
+                    angular.forEach(weeklyHours, function (value, index) {
+                        if (value.idUser == $rootScope.userId) {
+                            if (value.currency == null || value.currency == '') {
+                                value.currency = '$'
+                            }
+                            $scope.currency = value.currency
 
-                        return
-                    }
-                })
-                if (task.status.toLowerCase() === 'to-do') {
-                    task.status = 'In-Progress';
-                    ProjectsServices.saveProjectTask(task, function (err, result) {
-                        console.log('Update Status::', err, result);
+                            return
+                        }
                     })
-                }
-                console.log("TTT::", task);
-                // Already tracking, stop and then start
-                if ($rootScope.currentTrack.id) {
-                    $rootScope.currentTrack.endTime = getCurrentDate();
-                    TracksServices.update($rootScope.currentTrack, function (err, result) {
-                        if (!err) {
-                            console.log('saved task', result);
-                            $scope.toggleTimer();
-                        }
-                    });
-                } else {
-                    $rootScope.currentTrack = {
-                        idUser: $rootScope.userId,
-                        idTask: task.id,
-                        taskName: task.name,
-                        projectName: task.projectName,
-                        startTime: getCurrentDate(),
-                        endTime: undefined,
-                        idProyecto: task.idProject || task.projectId,
-                        typeTrack: "manual",
-                        currency: $scope.currency
+                    if (task.status.toLowerCase() === 'to-do') {
+                        task.status = 'In-Progress';
+                        ProjectsServices.saveProjectTask(task, function (err, result) {
+                            console.log('Update Status::', err, result);
+                        })
+                    }
+                    console.log("TTT::", task);
+                    // Already tracking, stop and then start
+                    if ($rootScope.currentTrack.id) {
+                        $rootScope.currentTrack.endTime = getCurrentDate();
+                        TracksServices.update($rootScope.currentTrack, function (err, result) {
+                            if (!err) {
+                                console.log('saved task', result);
+                                $scope.toggleTimer();
+                            }
+                        });
+                    } else {
+                        $rootScope.currentTrack = {
+                            idUser: $rootScope.userId,
+                            idTask: fromDashboard ? task.idTask : task.id,
+                            taskName: task.name,
+                            projectName: task.projectName,
+                            startTime: getCurrentDate(),
+                            endTime: undefined,
+                            idProyecto: task.idProject || task.projectId,
+                            typeTrack: "manual",
+                            currency: $scope.currency
 
-                    };
-                    console.log("🚀  --> $rootScope.currentTrack", $rootScope.currentTrack)
-                    TracksServices.create($rootScope.currentTrack, function (err, result) {
-                        console.log('Lucas >', err, result);
-                        if (!err) {
-                            console.log("🚀  --> result", result)
-                            result = result[0];
-                            console.log('saved task', result);
-                            $rootScope.currentTrack.id = result.id;
-                            $scope.toggleTimer();
-                            if (!$rootScope.topBar.filterTask) {
-                                $rootScope.topBar.filterTask = $rootScope.currentTrack;
-                                $rootScope.topBar.filterTask.name = $rootScope.topBar.filterTask.taskName;
-                                $rootScope.topBar.filterTask.id = $rootScope.topBar.filterTask.idTask;
-                                if (!$rootScope.topBar.taskscondition || $rootScope.topBar.taskscondition.lenght == 0) {
-                                    $rootScope.topBar.taskscondition = [$rootScope.topBar.filterTask];
+                        };
+                        console.log("🚀  --> $rootScope.currentTrack", $rootScope.currentTrack)
+                        TracksServices.create($rootScope.currentTrack, function (err, result) {
+                            console.log('Lucas >', err, result);
+                            if (!err) {
+                                console.log("🚀  --> result", result)
+                                result = result[0];
+                                console.log('saved task', result);
+                                $rootScope.currentTrack.id = result.id;
+                                $scope.toggleTimer();
+                                if (!$rootScope.topBar.filterTask) {
+                                    $rootScope.topBar.filterTask = $rootScope.currentTrack;
+                                    $rootScope.topBar.filterTask.name = $rootScope.topBar.filterTask.taskName;
+                                    $rootScope.topBar.filterTask.id = $rootScope.topBar.filterTask.idTask;
+                                    if (!$rootScope.topBar.taskscondition || $rootScope.topBar.taskscondition.lenght == 0) {
+                                        $rootScope.topBar.taskscondition = [$rootScope.topBar.filterTask];
+                                    }
                                 }
                             }
-                        }
-                    });
-                }
+                        });
+                    }
+                    resolve()
+                })
             })
-
         };
 
         $scope.startTrackAuto = function (task_automatic) {

@@ -61,8 +61,8 @@
                     <input type='text' ng-model='modelProduct.hireDate'>
                 </div>
                 <div ng-show="itemTab == 1">
-                    <a ng-if="!timerRunning" class="btn_tracker_container" ng-click="startTrack(item)"><i class="ri-play-line"></i></a>
-                    <a ng-if="timerRunning" class="btn_tracker_container tracking" ng-click="stopTrack()"><i class="ri-pause-line"></i></a>
+                    <a ng-if="!timerRunning" class="btn_tracker_container" ng-click="startDashboardTrack(item, true)"><i class="ri-play-line"></i></a>
+                    <a ng-if="timerRunning && currentTrack.idTask == item.idTask && currentTrack.id == item.id" class="btn_tracker_container tracking" ng-click="stopTrack()"><i class="ri-pause-line"></i></a>
                 </div>
                 <div ng-show="itemTab == 2">
                     <a class="btn_tracker_container" ng-click=""><i class="ri-save-line"></i></a>

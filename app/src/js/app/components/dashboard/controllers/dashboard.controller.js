@@ -28,6 +28,24 @@
       return h + ":" + m + ":" + s;
     }
 
+    $scope.findHistory = function () {
+      TracksServices.findHistory(function (err, tracks) {
+        if (!err) {
+          $scope.history = tracks;
+          $scope.history.forEach(function (item) {
+            item.startTimeDisplay = moment(item.startTime).format("ddd DD MMMM YYYY HH:mm");
+            item.endTimeDisplay = moment(item.endTime).format("HH:mm");
+            item.timeTracked = moment.duration(moment(item.endTime).diff(moment(item.startTime))).asHours().toFixed(2);
+          });
+        }
+      });
+    }
+
+    $scope.startDashboardTrack = async function (item) {
+      await $rootScope.startTrack(item, true);
+      console.timeEnd();
+    }
+
     if (userRole=='client') {
       TasksServices.findByIdClient($rootScope.userIdClient,function (err,tasks) {
         if (!err) {
@@ -73,29 +91,7 @@
 
     }else if (userRole=='developer') {
       //Tomar nueva Api.
-      TracksServices.findHistory(function (err, tracks) {
-        if (!err) {
-          console.table(tracks)
-          $scope.history = tracks;
-          $scope.history.forEach(function (item) { 
-            item.startTimeDisplay = moment(item.startTime).format("ddd DD MMMM YYYY HH:mm");
-            item.endTimeDisplay = moment(item.endTime).format("HH:mm");
-            item.timeTracked = moment.duration(moment(item.endTime).diff(moment(item.startTime))).asHours().toFixed(2);
-          });
-          // $scope.tracks = [];
-          // _.each(tracks, function (track, index) {
-          //   track.startTime = new Date(track.startTime).getTime();
-
-          //   $scope.allTasks.forEach(function (task, index) {
-          //     if (task.id == track.idTask) {
-          //       $scope.tracks.push(track);
-          //       return false;
-          //     }
-          //   })
-
-          // });
-        }
-      });
+      $scope.findHistory();
 
     }else {
       TracksServices.getUserTracks(userId, function (err, tracks){
