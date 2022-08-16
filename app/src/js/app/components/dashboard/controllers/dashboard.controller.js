@@ -43,43 +43,38 @@
 
     $scope.startDashboardTrack = async function (item) {
       await $rootScope.startTrack(item, true);
-      console.timeEnd();
-    }
+    };
 
-    if (userRole=='client') {
-      TasksServices.findByIdClient($rootScope.userIdClient,function (err,tasks) {
-        if (!err) {
-          $scope.allTasks = angular.copy(tasks);
-
-          console.log('tasksClient',$scope.allTasks);
-        }
-
-      });
-
-    }
-
-
-    if (userRole == 'admin' || userRole == 'pm') {
-      TracksServices.findActives( function (err, tracks) {
+    $scope.findDataForAdmin = () => {
+      TracksServices.findActives(function (err, tracks) {
         if (!err) {
           console.log('tracks', tracks);
           $scope.tracks = tracks;
-          _.each(tracks, function (track){
+          _.each(tracks, function (track) {
             track.startTime = new Date(track.startTime).getTime();
           });
         }
+      });  
+    }
+
+    $scope.findDataForClient = () => {
+      TasksServices.findByIdClient($rootScope.userIdClient, function (err, tasks) {
+        if (!err) {
+          $scope.allTasks = angular.copy(tasks);
+
+          console.log('tasksClient', $scope.allTasks);
+        }
+
       });
-    }else if (userRole=='client') {
-      TracksServices.findActives( function (err, tracks) {
+      TracksServices.findActives(function (err, tracks) {
         if (!err) {
           console.log('tracks', tracks);
           $scope.tracks = [];
-          _.each(tracks, function (track,index){
+          _.each(tracks, function (track, index) {
             console.log(track);
             track.startTime = new Date(track.startTime).getTime();
-
-            $scope.allTasks.forEach(function (task,index) {
-              if (task.id== track.idTask) {
+            $scope.allTasks.forEach(function (task, index) {
+              if (task.id == track.idTask) {
                 $scope.tracks.push(track);
                 return false;
               }
@@ -88,18 +83,15 @@
           });
         }
       });
+    }
 
-    }else if (userRole=='developer') {
-      //Tomar nueva Api.
-      $scope.findHistory();
-
-    }else {
-      TracksServices.getUserTracks(userId, function (err, tracks){
+    $scope.findDataForUser = () => {
+      TracksServices.getUserTracks(userId, function (err, tracks) {
         if (!err) {
           console.log('tracks', tracks);
           $scope.tracks = tracks;
           var ms = 0;
-          _.each(tracks, function (track){
+          _.each(tracks, function (track) {
             track.startTime = new Date(track.startTime).getTime();
             track.endTime = new Date(track.endTime).getTime();
             if (track.duration.indexOf('-') !== -1) {
@@ -109,9 +101,21 @@
               console.log('ms: ' + ms);
             }
           });
-          $scope.total = getTotalTime(ms/1000);
+          $scope.total = getTotalTime(ms / 1000);
         }
       });
+    }
+    
+
+    if (userRole == 'admin' || userRole == 'pm') {
+      $scope.findHistory();
+      $scope.findDataForAdmin();
+    } else if (userRole == 'client') {
+      $scope.findDataForClient();
+    }else if (userRole=='developer') {
+      $scope.findHistory();
+    }else {
+      findDataForUser();
     }
 
   }]);
