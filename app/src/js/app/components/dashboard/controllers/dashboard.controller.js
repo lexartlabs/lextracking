@@ -43,6 +43,7 @@
 
     $scope.startDashboardTrack = async function (item) {
       await $rootScope.startTrack(item, true);
+      $scope.findHistory();
     };
 
     $scope.findDataForAdmin = () => {

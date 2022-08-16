@@ -150,7 +150,6 @@
             if (!task) return
             return new Promise(resolve => {
                 WeeklyHourServices.find($scope.currentPage, $scope.query, function (err, weeklyHours, countItems) {
-                    console.log(weeklyHours)
                     angular.forEach(weeklyHours, function (value, index) {
                         if (value.idUser == $rootScope.userId) {
                             if (value.currency == null || value.currency == '') {
@@ -173,7 +172,6 @@
                         $rootScope.currentTrack.endTime = getCurrentDate();
                         TracksServices.update($rootScope.currentTrack, function (err, result) {
                             if (!err) {
-                                console.log('saved task', result);
                                 $scope.toggleTimer();
                             }
                         });
@@ -190,14 +188,14 @@
                             currency: $scope.currency
 
                         };
-                        console.log("🚀  --> $rootScope.currentTrack", $rootScope.currentTrack)
+                        console.log("🚀  --> $rootScope.currentTrack ", $rootScope.currentTrack)
                         TracksServices.create($rootScope.currentTrack, function (err, result) {
-                            console.log('Lucas >', err, result);
+                            console.log("🚀  --> result", result)
                             if (!err) {
-                                console.log("🚀  --> result", result)
                                 result = result[0];
-                                console.log('saved task', result);
                                 $rootScope.currentTrack.id = result.id;
+                                let myCopy = angular.copy($rootScope.currentTrack)
+                                console.log("🚀  --> myCopy", myCopy)
                                 $scope.toggleTimer();
                                 if (!$rootScope.topBar.filterTask) {
                                     $rootScope.topBar.filterTask = $rootScope.currentTrack;
