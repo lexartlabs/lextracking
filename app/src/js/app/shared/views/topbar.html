@@ -121,7 +121,7 @@
                     append-to-body="true"
                     title=""
             >
-                <ui-select-match placeholder="">{{ $select.selected.name }}</ui-select-match>
+                <ui-select-match placeholder=""><small class="lexart_select_conatiner_proyect">{{$select.selected.projectName}}</small>&nbsp; {{ $select.selected.name }}</ui-select-match>
                 <ui-select-choices
                         repeat="task in topBar.tasks"
                         refresh="searchTasks($select.search)"
