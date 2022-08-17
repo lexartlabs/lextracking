@@ -16,7 +16,7 @@ class BoardTrelloController extends BaseController
                 return array('response' => TrelloBoard::where('id', $id)->where('active', 1)->first());
             }
             return array('response' => TrelloBoard::where('active', 1)->get());
-        }catch(Exceptio $e){
+        }catch(Exception $e){
             return (new Response(array("Error" => BAD_REQUEST, "Operation" => "tracks trello boards all"), 500));
         }
     }
