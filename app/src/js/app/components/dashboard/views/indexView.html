@@ -9,72 +9,96 @@
         </div>
     </div>
 </div>
-<div class="lexart-wa__cnt">
-    <section ng-show="history && history.length">
-        <h1>History</h1>
-        <div ng-repeat="item in history" class="history-item">
-            <div class="history-item__title_container">
-                <div class="history-item__title_tracked_time">
-                    <span>{{item.startTimeDisplay}} - {{item.endTimeDisplay === 'Invalid date' ? 'Current': item.endTimeDisplay}} ({{item.timeTracked}} hrs)</span>
+<details>
+    <summary>
+        <span class="summary-title">History</span>
+        <div class="summary-chevron-up">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+		</div>
+    </summary>
+    <div class="lexart-wa__cnt summary-content">
+        <section ng-show="history && history.length">
+            <!-- <h1>History</h1> -->
+            <div ng-repeat="item in history" class="history-item">
+                <div class="history-item__title_container">
+                    <div class="history-item__title_tracked_time">
+                        <span>{{item.startTimeDisplay}} - {{item.endTimeDisplay === 'Invalid date' ? 'Current': item.endTimeDisplay}} ({{item.timeTracked}} hrs)</span>
+                    </div>
+                    <div class="history-item__title__tabs">
+                        <ul class="lexart-tabs" ng-init="itemTab = 1" style='width: 100%; margin: 0px; border-bottom:0px'>
+                            <li class="lexart-tabs__item text-center" ng-click="itemTab = 1" ng-class="{'lexart-tabs__item--selected' : itemTab == 1}"><i class="ri-play-line"></i></li>
+                            <li class="lexart-tabs__item text-center" ng-click="itemTab = 2" ng-class="{'lexart-tabs__item--selected' : itemTab == 2}"><i class="ri-time-line"></i></li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="history-item__title__tabs">
-                    <ul class="lexart-tabs" ng-init="itemTab = 1" style='width: 100%; margin: 0px; border-bottom:0px'>
-                        <li class="lexart-tabs__item text-center" ng-click="itemTab = 1" ng-class="{'lexart-tabs__item--selected' : itemTab == 1}"><i class="ri-play-line"></i></li>
-                        <li class="lexart-tabs__item text-center" ng-click="itemTab = 2" ng-class="{'lexart-tabs__item--selected' : itemTab == 2}"><i class="ri-time-line"></i></li>
-                    </ul>
+                <!-- <hr> -->
+                <div class="history-item__data_container">
+                    <div class="history-item__duration">
+                        <span class="lexart_select_conatiner_proyect">{{item.projectName}}</span>
+                        <span>{{item.name}}</span>
+                    </div>
+                    
+                    <div class="history-item__datepicker" ng-show="itemTab == 2" moment-picker="trackDates.start" format="DD/MM/YYYY HH:mm" change='changeSelect()'>
+                        <span ng-show="itemTab == 2">Desde</span>
+                        <input type='text' ng-model='trackDates.start'>
+                    </div>
+                    <div class="history-item__datepicker" ng-show="itemTab == 2" moment-picker="trackDates.end" format="DD/MM/YYYY HH:mm" change='changeSelect()'>
+                        <span ng-show="itemTab == 2">Hasta</span>
+                        <input type='text' ng-model='trackDates.end'>
+                    </div>
+                    <div ng-show="itemTab == 1">
+                        <h2>{{currentTrack.id}}</h2>
+                        <a ng-if="!timerRunning" class="btn_tracker_container" ng-click="handleTrack(item, true)"><i class="ri-play-line"></i></a>
+                        <a ng-if="timerRunning && currentTrack.idTask == item.idTask && currentTrack.id == item.id" class="btn_tracker_container tracking" ng-click="handleTrack()"><i class="ri-pause-line"></i></a>
+                    </div>
+                    <div ng-show="itemTab == 2">
+                        <a class="btn_tracker_container" ng-click="createTrackDirectly(item)"><i class="ri-save-line"></i></a>
+                    </div>
                 </div>
             </div>
-            <!-- <hr> -->
-            <div class="history-item__data_container">
-                <div class="history-item__duration">
-                    <span class="lexart_select_conatiner_proyect">{{item.projectName}}</span>
-                    <span>{{item.name}}</span>
-                </div>
-                
-                <div class="history-item__datepicker" ng-show="itemTab == 2" moment-picker="trackDates.start" format="DD/MM/YYYY HH:mm" change='changeSelect()'>
-                    <span ng-show="itemTab == 2">Desde</span>
-                    <input type='text' ng-model='trackDates.start'>
-                </div>
-                <div class="history-item__datepicker" ng-show="itemTab == 2" moment-picker="trackDates.end" format="DD/MM/YYYY HH:mm" change='changeSelect()'>
-                    <span ng-show="itemTab == 2">Hasta</span>
-                    <input type='text' ng-model='trackDates.end'>
-                </div>
-                <div ng-show="itemTab == 1">
-                    <h2>{{currentTrack.id}}</h2>
-                    <a ng-if="!timerRunning" class="btn_tracker_container" ng-click="handleTrack(item, true)"><i class="ri-play-line"></i></a>
-                    <a ng-if="timerRunning && currentTrack.idTask == item.idTask && currentTrack.id == item.id" class="btn_tracker_container tracking" ng-click="handleTrack()"><i class="ri-pause-line"></i></a>
-                </div>
-                <div ng-show="itemTab == 2">
-                    <a class="btn_tracker_container" ng-click="createTrackDirectly(item)"><i class="ri-save-line"></i></a>
-                </div>
-            </div>
-        </div>
-
-    </section>
-    <br><br>
-    <h1 ng-if="userRole != 'developer' && tracks.length">{{ 'dashboard.current_tracks' | translate }}</h1>
-    <table ng-if="userRole != 'developer' && tracks.length">
-        <thead>
-            <tr>
-                <th>{{ 'dashboard.user' | translate }}</th>
-            	<th>{{ 'dashboard.project' | translate }}</th>
-                <th>{{ 'dashboard.task' | translate }}</th>
-                <th>{{ 'dashboard.start_time' | translate }}</th>
-                <th class="lexart-cstm__grid-5"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="track in tracks" ng-if="!track.endTime || track.endTime == '0000-00-00 00:00:00'">
-                <td>{{track.userName}}</td>
-                <td><a ng-if="userRole == 'admin' || userRole == 'pm'"  style="color: #4a90e2; text-decoration: underline" ui-sref="app.projectEdit({id: track.idProyecto})" target="_blank">{{track.projectName | truncateTail:true:30:'...'}}</a></td>
-            	<td ng-if="userRole != 'admin'">{{track.projectName}}</td>
-                <td>{{track.taskName}}</td>
-                <td>{{track.startTime | date:'dd/MM/yyyy HH:mm' }}</td>
-                <td></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+    
+        </section>
+    </div>
+    <div class="summary-chevron-down">
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-up"><polyline points="18 15 12 9 6 15"></polyline></svg>
+    </div>
+</details>
+<br><br>
+<details ng-if="userRole != 'developer' && tracks.length">
+    <summary>
+        <span class="summary-title">{{ 'dashboard.current_tracks' | translate }}</span>
+        <div class="summary-chevron-up">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+		</div>
+    </summary>
+    <div class="lexart-wa__cnt summary-content">    
+        <!-- <h1 ng-if="userRole != 'developer' && tracks.length">{{ 'dashboard.current_tracks' | translate }}</h1> -->
+        <table>
+            <thead>
+                <tr>
+                    <th>{{ 'dashboard.user' | translate }}</th>
+                    <th>{{ 'dashboard.project' | translate }}</th>
+                    <th>{{ 'dashboard.task' | translate }}</th>
+                    <th>{{ 'dashboard.start_time' | translate }}</th>
+                    <th class="lexart-cstm__grid-5"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="track in tracks" ng-if="!track.endTime || track.endTime == '0000-00-00 00:00:00'">
+                    <td>{{track.userName}}</td>
+                    <td><a ng-if="userRole == 'admin' || userRole == 'pm'"  style="color: #4a90e2; text-decoration: underline" ui-sref="app.projectEdit({id: track.idProyecto})" target="_blank">{{track.projectName | truncateTail:true:30:'...'}}</a></td>
+                    <td ng-if="userRole != 'admin'">{{track.projectName}}</td>
+                    <td>{{track.taskName}}</td>
+                    <td>{{track.startTime | date:'dd/MM/yyyy HH:mm' }}</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="summary-chevron-down">
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-up"><polyline points="18 15 12 9 6 15"></polyline></svg>
+    </div>
+</details>
 <div
     class="preload"
     ng-show="loading" 
@@ -82,3 +106,60 @@
 >
   <img style=" width: 3%" src="assets/images/spinner.svg"></i>
 </div>
+
+<style>
+    details {
+        padding: 2rem;
+        font-size: 1rem;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        width: 100%;
+        background: #f9f9f9;
+        border-radius: 8px;
+        position: relative;
+    }
+    details .summary-title {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        font-size: 1.5rem;
+    }
+    details:hover {
+        cursor: pointer;
+    }
+    details .summary-content {
+        border-top: 1px solid #e2e8f0;
+        cursor: default;
+        padding: 1em;
+        font-weight: 300;
+        line-height: 1.5;
+    }
+    details summary {
+        list-style: none;
+        padding: 1em;
+    }
+    details summary:focus {
+        outline: none;
+    }
+    details summary:hover .summary-chevron-up svg {
+        opacity: 1;
+    }
+    details .summary-chevron-up svg {
+        opacity: 0.5;
+    }
+    details .summary-chevron-up,
+    details .summary-chevron-down {
+        pointer-events: none;
+        position: absolute;
+        top: 0.75em;
+        right: 1em;
+        background: #f9f9f9;
+    }
+    details .summary-chevron-up svg,
+    details .summary-chevron-down svg {
+        display: block;
+    }
+    details summary::-webkit-details-marker {
+        display: none;
+    }
+</style>
