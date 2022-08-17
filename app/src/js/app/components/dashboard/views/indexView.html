@@ -47,7 +47,6 @@
                         <input type='text' ng-model='trackDates.end'>
                     </div>
                     <div ng-show="itemTab == 1">
-                        <h2>{{currentTrack.id}}</h2>
                         <a ng-if="!timerRunning" class="btn_tracker_container" ng-click="handleTrack(item, true)"><i class="ri-play-line"></i></a>
                         <a ng-if="timerRunning && currentTrack.idTask == item.idTask && currentTrack.id == item.id" class="btn_tracker_container tracking" ng-click="handleTrack()"><i class="ri-pause-line"></i></a>
                     </div>
