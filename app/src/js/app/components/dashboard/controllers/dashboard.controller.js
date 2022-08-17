@@ -33,7 +33,7 @@
     }
 
     function toSQLFormat(d) {
-      return new Date(d).toISOString().slice(0, 19).replace('T', ' ');
+      return moment(d, 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
     }
 
     $scope.findHistory = function () {
@@ -61,7 +61,6 @@
     }
 
     $scope.createTrackDirectly = function(task) {
-      console.log('Lucas ->', $scope.trackDates);
       const payload = {
         idUser: $rootScope.userId,
         idTask: task.idTask,
@@ -77,13 +76,13 @@
       console.log('Lucas ->', payload);
 
       // Criar task
-      // TracksServices.create(payload, function (err, result) {
-      //   if (!err) {
-      //       console.log("🚀  Lucas --> result", result);
-      //       result = result[0];
-      //       console.log('saved task', result);
-      //   }
-      // });
+      TracksServices.create(payload, function (err, result) {
+        if (!err) {
+            console.log("🚀  Lucas --> result", result);
+            result = result[0];
+            console.log('saved task', result);
+        }
+      });
     }
 
 

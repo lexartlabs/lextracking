@@ -112,10 +112,10 @@
 					idProyecto: obj.idProyecto,
 					currency  : obj.currency
 				}
-					RestClient.post(model + "/new", track, function(err, result) {
-				console.log("result::", result);
-							cb(err, result);
-					})
+				RestClient.post(model + "/new", track, function(err, result) {
+						console.log("result::", result);
+						cb(err, result);
+				})
 			},
 			
 			createAutoTask: function(obj, cb) {
