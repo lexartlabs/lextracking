@@ -15,7 +15,7 @@
         <div ng-repeat="item in history" class="history-item">
             <div class="history-item__title_container">
                 <div class="history-item__title_tracked_time">
-                    <span>{{item.startTimeDisplay}} - {{item.endTimeDisplay}} ({{item.timeTracked}} hrs)</span>
+                    <span>{{item.startTimeDisplay}} - {{item.endTimeDisplay === 'Invalid date' ? 'Current': item.endTimeDisplay}} ({{item.timeTracked}} hrs)</span>
                 </div>
                 <div class="history-item__title__tabs">
                     <ul class="lexart-tabs" ng-init="itemTab = 1" style='width: 100%; margin: 0px; border-bottom:0px'>
@@ -41,8 +41,8 @@
                 </div>
                 <div ng-show="itemTab == 1">
                     <h2>{{currentTrack.id}}</h2>
-                    <a ng-if="!timerRunning" class="btn_tracker_container" ng-click="startDashboardTrack(item, true)"><i class="ri-play-line"></i></a>
-                    <a ng-if="timerRunning && currentTrack.idTask == item.idTask && currentTrack.id == item.id" class="btn_tracker_container tracking" ng-click="stopTrack()"><i class="ri-pause-line"></i></a>
+                    <a ng-if="!timerRunning" class="btn_tracker_container" ng-click="handleTrack(item, true)"><i class="ri-play-line"></i></a>
+                    <a ng-if="timerRunning && currentTrack.idTask == item.idTask && currentTrack.id == item.id" class="btn_tracker_container tracking" ng-click="handleTrack()"><i class="ri-pause-line"></i></a>
                 </div>
                 <div ng-show="itemTab == 2">
                     <a class="btn_tracker_container" ng-click="createTrackDirectly(item)"><i class="ri-save-line"></i></a>
