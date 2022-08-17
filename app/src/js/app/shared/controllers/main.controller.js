@@ -190,12 +190,9 @@
                         };
                         console.log("🚀  --> $rootScope.currentTrack ", $rootScope.currentTrack)
                         TracksServices.create($rootScope.currentTrack, function (err, result) {
-                            console.log("🚀  --> result", result)
                             if (!err) {
                                 result = result[0];
                                 $rootScope.currentTrack.id = result.id;
-                                let myCopy = angular.copy($rootScope.currentTrack)
-                                console.log("🚀  --> myCopy", myCopy)
                                 $scope.toggleTimer();
                                 if (!$rootScope.topBar.filterTask) {
                                     $rootScope.topBar.filterTask = $rootScope.currentTrack;

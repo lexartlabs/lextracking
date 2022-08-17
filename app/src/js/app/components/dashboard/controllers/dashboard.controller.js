@@ -39,7 +39,7 @@
     $scope.findHistory = function () {
       TracksServices.findHistory(function (err, tracks) {
         if (!err) {
-          console.table(tracks)
+          // console.table(tracks)
           $scope.history = tracks;
           $scope.history.forEach(function (item) { 
             item.startTimeDisplay = moment(item.startTime).format("ddd DD MMMM YYYY HH:mm");
@@ -50,13 +50,14 @@
       });
     }
 
-    $scope.handleTrack = function(item) {
+    $scope.handleTrack = async function(item, fromDashboard = false) {
       if($rootScope.timerRunning) {
         $scope.stopTrack();
-        findHistory();
       } else {
-        $scope.startTrack(item);
+        await $scope.startTrack(item, fromDashboard);
       }
+
+      $scope.findHistory();
     }
 
     $scope.createTrackDirectly = function(task) {
@@ -99,10 +100,11 @@
       });
     }
 
-    $scope.startDashboardTrack = async function (item) {
-      await $rootScope.startTrack(item, true);
-      $scope.findHistory();
-    };
+    //Lucas, revisar
+    // $scope.startDashboardTrack = async function (item) {
+    //   await $rootScope.startTrack(item, true);
+    //   $scope.findHistory();
+    // };
 
     $scope.findDataForAdmin = () => {
       TracksServices.findActives(function (err, tracks) {
