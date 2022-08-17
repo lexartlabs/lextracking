@@ -10,28 +10,7 @@
     </div>
 </div>
 <div class="lexart-wa__cnt">
-    <table ng-if="userRole != 'developer' && tracks.length">
-        <thead>
-            <tr>
-                <th>{{ 'dashboard.user' | translate }}</th>
-            	<th>{{ 'dashboard.project' | translate }}</th>
-                <th>{{ 'dashboard.task' | translate }}</th>
-                <th>{{ 'dashboard.start_time' | translate }}</th>
-                <th class="lexart-cstm__grid-5"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="track in tracks" ng-if="!track.endTime || track.endTime == '0000-00-00 00:00:00'">
-                <td>{{track.userName}}</td>
-                <td><a ng-if="userRole == 'admin' || userRole == 'pm'"  style="color: #4a90e2; text-decoration: underline" ui-sref="app.projectEdit({id: track.idProyecto})" target="_blank">{{track.projectName | truncateTail:true:30:'...'}}</a></td>
-            	<td ng-if="userRole != 'admin'">{{track.projectName}}</td>
-                <td>{{track.taskName}}</td>
-                <td>{{track.startTime | date:'dd/MM/yyyy HH:mm' }}</td>
-                <td></td>
-            </tr>
-        </tbody>
-    </table>
-    <section ng-show="userRole == 'developer'">
+    <section ng-show="history && history.length">
         <h1>History</h1>
         <div ng-repeat="item in history" class="history-item">
             <div class="history-item__title_container">
@@ -61,8 +40,9 @@
                     <input type='text' ng-model='trackDates.end'>
                 </div>
                 <div ng-show="itemTab == 1">
-                    <a ng-if="!timerRunning || currentTrack.idTask !== item.idTask" class="btn_tracker_container" ng-click="handleTrack(item)"><i class="ri-play-line"></i></a>
-                    <a ng-if="timerRunning && currentTrack.idTask == item.idTask" class="btn_tracker_container tracking" ng-click="handleTrack()"><i class="ri-pause-line"></i></a>
+                    <h2>{{currentTrack.id}}</h2>
+                    <a ng-if="!timerRunning" class="btn_tracker_container" ng-click="startDashboardTrack(item, true)"><i class="ri-play-line"></i></a>
+                    <a ng-if="timerRunning && currentTrack.idTask == item.idTask && currentTrack.id == item.id" class="btn_tracker_container tracking" ng-click="stopTrack()"><i class="ri-pause-line"></i></a>
                 </div>
                 <div ng-show="itemTab == 2">
                     <a class="btn_tracker_container" ng-click="createTrackDirectly(item)"><i class="ri-save-line"></i></a>
@@ -71,4 +51,27 @@
         </div>
 
     </section>
+    <br><br>
+    <h1 ng-if="userRole != 'developer' && tracks.length">{{ 'dashboard.current_tracks' | translate }}</h1>
+    <table ng-if="userRole != 'developer' && tracks.length">
+        <thead>
+            <tr>
+                <th>{{ 'dashboard.user' | translate }}</th>
+            	<th>{{ 'dashboard.project' | translate }}</th>
+                <th>{{ 'dashboard.task' | translate }}</th>
+                <th>{{ 'dashboard.start_time' | translate }}</th>
+                <th class="lexart-cstm__grid-5"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="track in tracks" ng-if="!track.endTime || track.endTime == '0000-00-00 00:00:00'">
+                <td>{{track.userName}}</td>
+                <td><a ng-if="userRole == 'admin' || userRole == 'pm'"  style="color: #4a90e2; text-decoration: underline" ui-sref="app.projectEdit({id: track.idProyecto})" target="_blank">{{track.projectName | truncateTail:true:30:'...'}}</a></td>
+            	<td ng-if="userRole != 'admin'">{{track.projectName}}</td>
+                <td>{{track.taskName}}</td>
+                <td>{{track.startTime | date:'dd/MM/yyyy HH:mm' }}</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
 </div>

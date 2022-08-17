@@ -32,7 +32,11 @@
       return h + ":" + m + ":" + s;
     }
 
-    function getUserHistory () {
+    function toSQLFormat(d) {
+      return new Date(d).toISOString().slice(0, 19).replace('T', ' ');
+    }
+
+    $scope.findHistory = function () {
       TracksServices.findHistory(function (err, tracks) {
         if (!err) {
           console.table(tracks)
@@ -46,14 +50,10 @@
       });
     }
 
-    function toSQLFormat(d) {
-      return new Date(d).toISOString().slice(0, 19).replace('T', ' ');
-    }
-
     $scope.handleTrack = function(item) {
       if($rootScope.timerRunning) {
         $scope.stopTrack();
-        getUserHistory();
+        findHistory();
       } else {
         $scope.startTrack(item);
       }
@@ -61,7 +61,6 @@
 
     $scope.createTrackDirectly = function(task) {
       console.log('Lucas ->', $scope.trackDates);
-      // criar validação
       const payload = {
         idUser: $rootScope.userId,
         idTask: task.idTask,
@@ -90,37 +89,51 @@
     if (userRole=='client') {
       TasksServices.findByIdClient($rootScope.userIdClient,function (err,tasks) {
         if (!err) {
-          $scope.allTasks = angular.copy(tasks);
-
-          console.log('tasksClient',$scope.allTasks);
-        }
-
-      });
-
-    }
-
-
-    if (userRole == 'admin' || userRole == 'pm') {
-      TracksServices.findActives( function (err, tracks) {
-        if (!err) {
-          console.log('tracks', tracks);
-          $scope.tracks = tracks;
-          _.each(tracks, function (track){
-            track.startTime = new Date(track.startTime).getTime();
+          $scope.history = tracks;
+          $scope.history.forEach(function (item) {
+            item.startTimeDisplay = moment(item.startTime).format("ddd DD MMMM YYYY HH:mm");
+            item.endTimeDisplay = moment(item.endTime).format("HH:mm");
+            item.timeTracked = moment.duration(moment(item.endTime).diff(moment(item.startTime))).asHours().toFixed(2);
           });
         }
       });
-    }else if (userRole=='client') {
-      TracksServices.findActives( function (err, tracks) {
+    }
+
+    $scope.startDashboardTrack = async function (item) {
+      await $rootScope.startTrack(item, true);
+      $scope.findHistory();
+    };
+
+    $scope.findDataForAdmin = () => {
+      TracksServices.findActives(function (err, tracks) {
+        if (!err) {
+          console.log('tracks', tracks);
+          $scope.tracks = tracks;
+          _.each(tracks, function (track) {
+            track.startTime = new Date(track.startTime).getTime();
+          });
+        }
+      });  
+    }
+
+    $scope.findDataForClient = () => {
+      TasksServices.findByIdClient($rootScope.userIdClient, function (err, tasks) {
+        if (!err) {
+          $scope.allTasks = angular.copy(tasks);
+
+          console.log('tasksClient', $scope.allTasks);
+        }
+
+      });
+      TracksServices.findActives(function (err, tracks) {
         if (!err) {
           console.log('tracks', tracks);
           $scope.tracks = [];
-          _.each(tracks, function (track,index){
+          _.each(tracks, function (track, index) {
             console.log(track);
             track.startTime = new Date(track.startTime).getTime();
-
-            $scope.allTasks.forEach(function (task,index) {
-              if (task.id== track.idTask) {
+            $scope.allTasks.forEach(function (task, index) {
+              if (task.id == track.idTask) {
                 $scope.tracks.push(track);
                 return false;
               }
@@ -129,40 +142,15 @@
           });
         }
       });
+    }
 
-    }else if (userRole=='developer') {
-      //Tomar nueva Api.
-      TracksServices.findHistory(function (err, tracks) {
-        if (!err) {
-          console.table(tracks)
-          $scope.history = tracks;
-          $scope.history.forEach(function (item) { 
-            item.startTimeDisplay = moment(item.startTime).format("ddd DD MMMM YYYY HH:mm");
-            item.endTimeDisplay = moment(item.endTime).format("HH:mm");
-            item.timeTracked = moment.duration(moment(item.endTime).diff(moment(item.startTime))).asHours().toFixed(2);
-          });
-          // $scope.tracks = [];
-          // _.each(tracks, function (track, index) {
-          //   track.startTime = new Date(track.startTime).getTime();
-
-          //   $scope.allTasks.forEach(function (task, index) {
-          //     if (task.id == track.idTask) {
-          //       $scope.tracks.push(track);
-          //       return false;
-          //     }
-          //   })
-
-          // });
-        }
-      });
-
-    }else {
-      TracksServices.getUserTracks(userId, function (err, tracks){
+    $scope.findDataForUser = () => {
+      TracksServices.getUserTracks(userId, function (err, tracks) {
         if (!err) {
           console.log('tracks', tracks);
           $scope.tracks = tracks;
           var ms = 0;
-          _.each(tracks, function (track){
+          _.each(tracks, function (track) {
             track.startTime = new Date(track.startTime).getTime();
             track.endTime = new Date(track.endTime).getTime();
             if (track.duration.indexOf('-') !== -1) {
@@ -172,9 +160,21 @@
               console.log('ms: ' + ms);
             }
           });
-          $scope.total = getTotalTime(ms/1000);
+          $scope.total = getTotalTime(ms / 1000);
         }
       });
+    }
+    
+
+    if (userRole == 'admin' || userRole == 'pm') {
+      $scope.findHistory();
+      $scope.findDataForAdmin();
+    } else if (userRole == 'client') {
+      $scope.findDataForClient();
+    }else if (userRole=='developer') {
+      $scope.findHistory();
+    }else {
+      findDataForUser();
     }
 
   }]);
