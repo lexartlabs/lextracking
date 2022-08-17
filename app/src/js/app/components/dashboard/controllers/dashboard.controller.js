@@ -10,6 +10,7 @@
     $scope.allTasks = [];
     $scope.developerTracks = [];
     $scope.total    = '';
+    $scope.loading = false;
     $scope.trackDates = {
       start: '',
       end: '',
@@ -39,7 +40,8 @@
     $scope.findHistory = function () {
       TracksServices.findHistory(function (err, tracks) {
         if (!err) {
-          // console.table(tracks)
+          console.table(tracks);
+          $scope.loading = false;
           $scope.history = tracks;
           $scope.history.forEach(function (item) { 
             item.startTimeDisplay = moment(item.startTime).format("ddd DD MMMM YYYY HH:mm");
@@ -50,7 +52,8 @@
       });
     }
 
-    $scope.handleTrack = async function(item, fromDashboard = false) {
+    $rootScope.handleTrack = async function(item, fromDashboard = false) {
+      $scope.loading = true;
       if($rootScope.timerRunning) {
         $scope.stopTrack();
       } else {
