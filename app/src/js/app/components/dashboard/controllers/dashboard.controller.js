@@ -61,6 +61,17 @@
     }
 
     $scope.createTrackDirectly = function(task) {
+      if(!$scope.trackDates.start || !$scope.trackDates.end) return $rootScope.showToast(
+        'Error', 'Please, set a start and an ending date', 'error'
+      );
+
+      const start = moment($scope.trackDates.start, 'DD/MM/YYYY HH:mm:ss');
+      const end = moment($scope.trackDates.end, 'DD/MM/YYYY HH:mm:ss');
+
+      if(end.diff(start) < 0) return $rootScope.showToast(
+        'Error', 'Ending date must be bigger than start date', 'error'
+      );
+
       const payload = {
         idUser: $rootScope.userId,
         idTask: task.idTask,
@@ -73,14 +84,10 @@
         currency: task.currency,
       };
 
-      console.log('Lucas ->', payload);
-
-      // Criar task
       TracksServices.create(payload, function (err, result) {
         if (!err) {
-            console.log("🚀  Lucas --> result", result);
-            result = result[0];
-            console.log('saved task', result);
+            console.log("🚀 --> result", result);
+            $scope.findHistory();
         }
       });
     }
@@ -98,12 +105,6 @@
         }
       });
     }
-
-    //Lucas, revisar
-    // $scope.startDashboardTrack = async function (item) {
-    //   await $rootScope.startTrack(item, true);
-    //   $scope.findHistory();
-    // };
 
     $scope.findDataForAdmin = () => {
       TracksServices.findActives(function (err, tracks) {
