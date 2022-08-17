@@ -101,22 +101,21 @@
 				})
 			},
 
-		    create: function(obj, cb) {
-		    	console.log(obj);
-		    	var track = {
-		    		idTask 	  : obj.idTask,
-		    		idUser 	  : obj.idUser,
-		    		name 	  : obj.taskName + ' - ' + obj.projectName,
-		    		startTime : obj.startTime,
+			create: function(obj, cb) {
+				var track = {
+					idTask 	  : obj.idTask,
+					idUser 	  : obj.idUser,
+					name 	  	: obj.taskName,
+					startTime : obj.startTime,
 					endTime	  : obj.endTime,
 					typeTrack : obj.typeTrack,
 					idProyecto: obj.idProyecto,
-					currency   : obj.currency
-		    	}
-	        	RestClient.post(model + "/new", track, function(err, result) {
-					console.log("result::", result);
-	          		cb(err, result);
-	        	})
+					currency  : obj.currency
+				}
+				RestClient.post(model + "/new", track, function(err, result) {
+						console.log("result::", result);
+						cb(err, result);
+				})
 			},
 			
 			createAutoTask: function(obj, cb) {

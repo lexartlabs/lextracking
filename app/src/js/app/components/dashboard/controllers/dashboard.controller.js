@@ -10,6 +10,11 @@
     $scope.allTasks = [];
     $scope.developerTracks = [];
     $scope.total    = '';
+    $scope.loading = false;
+    $scope.trackDates = {
+      start: '',
+      end: '',
+    }
     var userId      = $rootScope.userId;
     var userRole    = $rootScope.userRole;
 
@@ -28,8 +33,71 @@
       return h + ":" + m + ":" + s;
     }
 
+    function toSQLFormat(d) {
+      return moment(d, 'DD/MM/YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+    }
+
     $scope.findHistory = function () {
       TracksServices.findHistory(function (err, tracks) {
+        if (!err) {
+          console.table(tracks);
+          $scope.loading = false;
+          $scope.history = tracks;
+          $scope.history.forEach(function (item) { 
+            item.startTimeDisplay = moment(item.startTime).format("ddd DD MMMM YYYY HH:mm");
+            item.endTimeDisplay = moment(item.endTime).format("HH:mm");
+            item.timeTracked = moment.duration(moment(item.endTime).diff(moment(item.startTime))).asHours().toFixed(2);
+          });
+        }
+      });
+    }
+
+    $rootScope.handleTrack = async function(item, fromDashboard = false) {
+      $scope.loading = true;
+      if($rootScope.timerRunning) {
+        $scope.stopTrack();
+      } else {
+        await $scope.startTrack(item, fromDashboard);
+      }
+
+      $scope.findHistory();
+    }
+
+    $scope.createTrackDirectly = function(task) {
+      if(!$scope.trackDates.start || !$scope.trackDates.end) return $rootScope.showToast(
+        'Error', 'Please, set a start and an ending date', 'error'
+      );
+
+      const start = moment($scope.trackDates.start, 'DD/MM/YYYY HH:mm:ss');
+      const end = moment($scope.trackDates.end, 'DD/MM/YYYY HH:mm:ss');
+
+      if(end.diff(start) < 0) return $rootScope.showToast(
+        'Error', 'Ending date must be bigger than start date', 'error'
+      );
+
+      const payload = {
+        idUser: $rootScope.userId,
+        idTask: task.idTask,
+        taskName: task.name,
+        projectName: task.projectName,
+        startTime: toSQLFormat($scope.trackDates.start),
+        endTime: toSQLFormat($scope.trackDates.end),
+        idProyecto: task.projectId,
+        typeTrack: task.typeTrack,
+        currency: task.currency,
+      };
+
+      TracksServices.create(payload, function (err, result) {
+        if (!err) {
+            console.log("🚀 --> result", result);
+            $scope.findHistory();
+        }
+      });
+    }
+
+
+    if (userRole=='client') {
+      TasksServices.findByIdClient($rootScope.userIdClient,function (err,tasks) {
         if (!err) {
           $scope.history = tracks;
           $scope.history.forEach(function (item) {
@@ -40,11 +108,6 @@
         }
       });
     }
-
-    $scope.startDashboardTrack = async function (item) {
-      await $rootScope.startTrack(item, true);
-      $scope.findHistory();
-    };
 
     $scope.findDataForAdmin = () => {
       TracksServices.findActives(function (err, tracks) {

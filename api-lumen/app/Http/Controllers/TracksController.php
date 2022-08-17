@@ -167,6 +167,7 @@ class TracksController extends BaseController
         $idUser = $request->input("idUser");
         $name = $request->input("name");
         $startTime = $request->input("startTime");
+        $endTime = $request->input("endTime");
         $typeTrack = $request->input("typeTrack");
 
         try {
@@ -182,7 +183,7 @@ class TracksController extends BaseController
                 }
             }
 
-            $track = $this->arrayTracks($currency, $idProyecto, $idTask, $idUser, $name, $startTime, $typeTrack);
+            $track = $this->arrayTracks($currency, $idProyecto, $idTask, $idUser, $name, $startTime, $typeTrack, $endTime);
 
             return array("response" => array(Tracks::create($track)));
         } catch (Exception $e) {
@@ -242,9 +243,9 @@ class TracksController extends BaseController
         }
     }
 
-    public function arrayTracks($currency, $idProyecto, $idTask, $idUser, $name, $startTime, $typeTrack)
+    public function arrayTracks($currency, $idProyecto, $idTask, $idUser, $name, $startTime, $typeTrack, $endTime)
     {
-        return array(
+        $result = array(
             "currency" => $currency,
             "idProyecto" => $idProyecto,
             "idTask" => $idTask,
@@ -253,6 +254,12 @@ class TracksController extends BaseController
             "startTime" => $startTime,
             "typeTrack" => $typeTrack
         );
+
+        if($endTime) {
+            $result['endTime'] = $endTime;
+        }
+
+        return $result;
     }
 
     public function currentUserLastTrack()
