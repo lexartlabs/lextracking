@@ -71,9 +71,12 @@
     <!-- NG VIEW -->
     <ui-view></ui-view>
     <script>
-    var lextrackingDebug = function() { window.onerror = function (msg, url, lineNo, columnNo, error) { var captureOrigin = document.title + " - " + window.location.origin; console.log("msg:: ", msg); console.log("url:: ", url); console.log("lineNo:: ", lineNo); console.log("columnNo:: ", columnNo); console.log("error:: ", error); console.log("Origin:: ", captureOrigin); var cfile = url.split("/"); var file = cfile[7]; console.log("file:: ", file); var obj = { error: msg, url: url, origin: captureOrigin, line: lineNo, column: columnNo, file: file }; Jobj = JSON.stringify(obj); console.log("xhr:: ", Jobj); var xhr = new XMLHttpRequest(); xhr.open("POST", "https://api.lexart.com.uy/lextracking-dev/taskAutomatic/new", true); xhr.setRequestHeader("Content-Type", "application/json"); xhr.send(Jobj); return false; } }; lextrackingDebug();
+        var lextrackingDebug = function() { window.onerror = function (msg, url, lineNo, columnNo, error) { var captureOrigin = document.title + " - " + window.location.origin; console.log("msg:: ", msg); console.log("url:: ", url); console.log("lineNo:: ", lineNo); console.log("columnNo:: ", columnNo); console.log("error:: ", error); console.log("Origin:: ", captureOrigin); var cfile = url.split("/"); var file = cfile[7]; console.log("file:: ", file); var obj = { error: msg, url: url, origin: captureOrigin, line: lineNo, column: columnNo, file: file }; Jobj = JSON.stringify(obj); console.log("xhr:: ", Jobj); var xhr = new XMLHttpRequest(); xhr.open("POST", "https://api.lexart.com.uy/lextracking-dev/taskAutomatic/new", true); xhr.setRequestHeader("Content-Type", "application/json"); xhr.send(Jobj); return false; } }; lextrackingDebug();
     </script>
-    </body>
+    <toaster-container
+      toaster-options="{'body-output-type': 'directive', 'close-button': true}"
+    ></toaster-container>
+</body>
 
 <!-- build:template
 

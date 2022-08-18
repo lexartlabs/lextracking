@@ -33,8 +33,9 @@
                     if (typeof callback === 'function') {
                         callback(err, result);
                     }
-
-                    $scope.error = $filter('translate')('session.error_email_password');
+                    $rootScope.showToaster($filter('translate')('session.error_email_password'), 'error');
+                    // $rootScope.showToaster($filter('translate')('session.error_email_password'), 'error');
+                    // $scope.error = $filter('translate')('session.error_email_password');
                 }
                 else {
                     // LOCAL STORAGE
