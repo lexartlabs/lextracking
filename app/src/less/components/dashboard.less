@@ -1,11 +1,11 @@
 // Acordeons
 
 details {
-  padding: 2rem;
-  font-size: 1rem;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  padding: 1rem;
+  // font-size: 1rem;
+  // box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   width: 100%;
-  background: #f9f9f9;
+  background: @color-white;
   border-radius: 8px;
   position: relative;
 }
@@ -14,21 +14,14 @@ details .summary-title {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
+  margin-left: 2rem;
 }
 details:hover {
   cursor: pointer;
 }
-details .summary-content {
-  border-top: 1px solid #e2e8f0;
-  cursor: default;
-  padding: 1em;
-  font-weight: 300;
-  line-height: 1.5;
-}
 details summary {
   list-style: none;
-  padding: 1em;
 }
 details summary:focus {
   outline: none;
@@ -44,8 +37,9 @@ details .summary-chevron-down {
   pointer-events: none;
   position: absolute;
   top: 0.75em;
-  right: 1em;
+  left: 1em;
   background: #f9f9f9;
+  font-size: 1.3rem;
 }
 details .summary-chevron-up svg,
 details .summary-chevron-down svg {
@@ -53,4 +47,20 @@ details .summary-chevron-down svg {
 }
 details summary::-webkit-details-marker {
   display: none;
+}
+
+details[open] summary~* {
+  animation: sweep .5s ease-in-out;
+}
+
+@keyframes sweep {
+  0% {
+    opacity: 0;
+    transform: translateX(-10px)
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0)
+  }
 }
