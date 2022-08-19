@@ -52,7 +52,7 @@
                 </td>
                 <td>
                   <a ng-click="deleteTask(task_automatic.id)" ng-if="userRole == 'admin'">
-                    <img src="assets/images/icons/delete_entry-ico.svg">
+                    <i class="ri-close-line"></i>
                   </a>
               </td>
                 <td ng-if="task_automatic.status != 'Done' && task_automatic.status != 'In-Review' && isClient=='false' ">

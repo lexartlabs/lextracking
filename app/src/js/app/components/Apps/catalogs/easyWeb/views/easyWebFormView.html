@@ -102,7 +102,7 @@
                                         <td>{{menu.name}}</td>
                                         <td>{{menu.link}}</td>
                                         <td>{{menu.attr}}</td>
-                                        <td><a ng-click="menuTable.splice($index,1);"><img src="assets/images/icons/delete_entry-ico.svg"></a></td>
+                                        <td><a ng-click="menuTable.splice($index,1);"><i class="ri-close-line"></i></a></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -174,7 +174,7 @@
                                         <td>{{slider.name}}</td>
                                         <td><img ng-src="{{slider.img}}" width="120px"></td>
                                         <td>{{slider.html}}</td>
-                                        <td><a href="javascript:void(0);" ng-click="sliderTable.splice($index);"><img src="assets/images/icons/delete_entry-ico.svg"></a></td>
+                                        <td><a href="javascript:void(0);" ng-click="sliderTable.splice($index);"><i class="ri-close-line"></i></a></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -247,7 +247,7 @@
                                         <td>{{section.name}}</td>
                                         <td><img ng-src="{{section.img}}" width="50px"></td>
                                         <td>{{ (section.html | limitTo:150) + "..." }}</td>
-                                        <td><a href="javascript:void(0);" ng-click="sectionTable.splice($index, 1);"><img src="assets/images/icons/delete_entry-ico.svg"></a></td>
+                                        <td><a href="javascript:void(0);" ng-click="sectionTable.splice($index, 1);"><i class="ri-close-line"></i></a></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -329,7 +329,7 @@
                                         <td>{{contact.name}}</td>
                                         <td>{{contact.type}}</td>
                                         <td>{{contact.validate ? 'SI' : 'NO'}}</td>
-                                        <td><a href="javascript:void(0);" ng-click="contactTable.splice($index, 1);"><img src="assets/images/icons/delete_entry-ico.svg"></a></td>
+                                        <td><a href="javascript:void(0);" ng-click="contactTable.splice($index, 1);"><i class="ri-close-line"></i></a></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -402,7 +402,7 @@
                                         <td>{{footer.name}}</td>
                                         <td><img ng-src="{{footer.img}}" width="50px"></td>
                                         <td>{{ (footer.html | limitTo:150) + "..." }}</td>
-                                        <td><a href="javascript:void(0);" ng-click="footerTable.splice($index, 1);"><img src="assets/images/icons/delete_entry-ico.svg"></a></td>
+                                        <td><a href="javascript:void(0);" ng-click="footerTable.splice($index, 1);"><i class="ri-close-line"></i></a></td>
                                     </tr>
                                 </tbody>
                             </table>

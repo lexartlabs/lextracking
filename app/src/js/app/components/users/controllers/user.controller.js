@@ -44,12 +44,12 @@
             console.log('user to save', $scope.user);
 
             if (!$scope.user.name || !$scope.user.email || !$scope.user.role) {
-                $rootScope.showToast('Error', 'Please fill all fields', 'error');
+                $rootScope.showToaster('Please fill all fields', 'error');
                 return;
             }
 
             if($scope.user.password.length < 8){
-                $rootScope.showToast('Error', 'The password must be at least 8 characters', 'error');
+                $rootScope.showToaster('The password must be at least 8 characters', 'error');
                 return;
             }
 

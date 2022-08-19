@@ -13,6 +13,8 @@
         $scope.$evalAsync(function () {
             $log.info("Async calls..");
         });
+
+        $rootScope.darkMode = 0;
         
         $rootScope.showToast = function(title, subTitle, type){
             toastr[type](subTitle, title, { timeOut: 0 });
@@ -56,8 +58,6 @@
         $rootScope.closeToaster = function () {
             toastr.clear()
         };
-
-        $rootScope.darkMode = 0;
 
         $rootScope.logout = function () {
             $window.localStorage.clear();

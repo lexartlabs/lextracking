@@ -11,6 +11,7 @@
 </div>
 <details>
     <summary>
+        
         <span class="summary-title">History</span>
         <div class="summary-chevron-up">
             <i class="ri-arrow-right-s-line feather feather-chevron-down"></i>
@@ -18,16 +19,22 @@
     </summary>
     <div class="lexart-wa__cnt summary-content">
         <section ng-show="history && history.length">
-            <!-- <h1>History</h1> -->
-            <div ng-repeat="item in history" class="history-item">
-                <div class="history-item__title_container">
+            <!-- History -->
+            <div ng-repeat="item in history track by $index" class="history-item">
+                <div class="history-item__title_container tooltip-container">
                     <div class="history-item__title_tracked_time">
                         <span>{{item.startTimeDisplay}} - {{item.endTimeDisplay === 'Invalid date' ? 'Current': item.endTimeDisplay}} ({{item.timeTracked}} hrs)</span>
                     </div>
                     <div class="history-item__title__tabs">
                         <ul class="lexart-tabs" ng-init="itemTab = 1" style='width: 100%; margin: 0px; border-bottom:0px'>
                             <li class="lexart-tabs__item text-center" ng-click="itemTab = 1" ng-class="{'lexart-tabs__item--selected' : itemTab == 1}"><i class="ri-play-line"></i></li>
-                            <li class="lexart-tabs__item text-center" ng-click="itemTab = 2" ng-class="{'lexart-tabs__item--selected' : itemTab == 2}"><i class="ri-time-line"></i></li>
+                            <li class="lexart-tabs__item text-center tooltip-container" ng-click="itemTab = 2" ng-class="{'lexart-tabs__item--selected' : itemTab == 2}" ng-mouseover="showManualTrackTooltip = true" ng-mouseleave="showManualTrackTooltip = false">
+                                <i class="ri-time-line"></i>
+                                <span ng-show="showManualTrackTooltip" class="tooltip-box-top-left">
+                                    Nuevo trackeo manual!<br>
+                                    Puedes marcar desde y hasta cuando has trabajado!
+                                </span>
+                            </li>
                         </ul>
                     </div>
                 </div>
