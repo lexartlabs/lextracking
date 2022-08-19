@@ -160,6 +160,6 @@
 
 <div class="form_btn_container">
     <p ng-if="error" class="err-display">{{error}}</p>
-    <button class="lexart-btn lexart-btn--alt" ui-sref="app.tasks">{{ 'general.back' | translate }}</button>
+    <button class="lexart-btn lexart-btn--alt" ui-sref="app.projectEdit({id: task.idProject})">{{ 'general.back' | translate }}</button>
     <button class="lexart-btn " ng-disabled="sendingData" ng-click="save()">{{ 'general.save' | translate }}</button>
 </div>

@@ -145,8 +145,9 @@
 					ProjectsServices.saveProjectTask($scope.task, function (err, result) {
 						console.log("result:: ", result);
 						if (!err) {
-							$scope.tasks[index] = angular.copy($scope.task);
+							//$scope.tasks[index] = angular.copy($scope.task);
 							$scope.task = {};
+							$state.go('app.projectEdit', {id: result.idProject});
 						}
 					});
 				} else {
@@ -166,8 +167,9 @@
 						ProjectsServices.saveProjectTask($scope.task, function (err, result) {
 							console.log("result:: ", result);
 							if (!err) {
-								$scope.tasks[index] = angular.copy($scope.task);
+								//$scope.tasks[index] = angular.copy($scope.task);
 								$scope.task = {};
+								$state.go('app.projectEdit', {id: result.idProject});
 							}
 						});
 					} else {
@@ -186,8 +188,9 @@
 						ProjectsServices.saveProjectTask($scope.task, function (err, result) {
 							console.log("result:: ", result);
 							if (!err) {
-								$scope.tasks[index] = angular.copy($scope.task);
+								//$scope.tasks[index] = angular.copy($scope.task);
 								$scope.task = {};
+								$state.go('app.projectEdit', {id: result.idProject});
 							}
 						});
 					}
