@@ -4,7 +4,7 @@
 
     var Module = ng.module('LexTracking');
 
-    Module.controller('AppCtrl', ['$scope', '$log', '$window', '$rootScope', '$state', '$translate', 'RestClient', 'ngDialog', 'toastr', function ($scope, $log, $window, $rootScope, $state, $translate, RestClient, ngDialog, toastr) {
+    Module.controller('AppCtrl', ['$scope', '$log', '$window', '$rootScope', '$state', '$translate', '$timeout', 'RestClient', 'ngDialog', 'toastr', function ($scope, $log, $window, $rootScope, $state, $translate, $timeout, RestClient, ngDialog, toastr) {
         // ---- Initialization
 
         $log.info('%cLEXTRACKING %cAPP STARTUP ', 'background: #203678; color: #F9F9F9; font-weight:bold; padding: 4px;', 'background: #666; color: #F9F9F9; padding: 4px;');
@@ -15,8 +15,47 @@
         });
         
         $rootScope.showToast = function(title, subTitle, type){
-            toastr[type](subTitle, title);
+            toastr[type](subTitle, title, { timeOut: 0 });
         }
+
+        $rootScope.showToaster = function (title, type, subtitle) {
+            //Title is bold and big
+            //Show toaster accept as type: info, success, warning, error.
+            //Subtitle is normal and small
+            $timeout(function () {
+                var count = jQuery('#toast-container > div').length;
+                if (count > 1) {
+                    for (var index = 1; index < count; index++) {
+                        if (jQuery('#toast-container > div')[index]) {
+                            jQuery('#toast-container > div')[index].remove();
+                        }
+                    };
+                };
+                jQuery('div[toast]').css("bottom", "0");
+            }, 50);
+
+            switch (type) {
+                case 'info':
+                    toastr.info(subtitle, title);
+                    break;
+                case 'error':
+                    toastr.error(subtitle, title);
+                    break;
+                case 'warning':
+                    toastr.warning(subtitle, title);
+                    break;
+                case 'success':
+                    toastr.success(subtitle, title);
+                    break;
+                default:
+                    toastr.info(subtitle, title);
+                    break;
+            }
+        };
+
+        $rootScope.closeToaster = function () {
+            toastr.clear()
+        };
 
         $rootScope.darkMode = 0;
 
