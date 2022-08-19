@@ -194,13 +194,11 @@
                                 result = result[0];
                                 $rootScope.currentTrack.id = result.id;
                                 $scope.toggleTimer();
-                                if (!$rootScope.topBar.filterTask) {
-                                    $rootScope.topBar.filterTask = $rootScope.currentTrack;
-                                    $rootScope.topBar.filterTask.name = $rootScope.topBar.filterTask.taskName;
-                                    $rootScope.topBar.filterTask.id = $rootScope.topBar.filterTask.idTask;
-                                    if (!$rootScope.topBar.taskscondition || $rootScope.topBar.taskscondition.lenght == 0) {
-                                        $rootScope.topBar.taskscondition = [$rootScope.topBar.filterTask];
-                                    }
+                                $rootScope.topBar.filterTask = angular.copy($rootScope.currentTrack);
+                                $rootScope.topBar.filterTask.name = $rootScope.topBar.filterTask.taskName;
+                                $rootScope.topBar.filterTask.id = $rootScope.topBar.filterTask.idTask;
+                                if (!$rootScope.topBar.taskscondition || $rootScope.topBar.taskscondition.lenght == 0) {
+                                    $rootScope.topBar.taskscondition = [$rootScope.topBar.filterTask];
                                 }
                             }
                         });
@@ -307,12 +305,12 @@
                 if (!err) {
                     angular.forEach(weeklyHours, function (value, index) {
                         if (value.idUser == $rootScope.userId) {
-                            console.log(value)
                             if (value.currency == null || value.currency == '') {
                                 value.currency = '$'
                             }
                             $scope.currency = value.currency
 
+                            return
                         }
                     })
                     // Already tracking, stop and then start
@@ -321,7 +319,6 @@
                         $rootScope.currentTrack.endTime = getCurrentDate();
                         TracksServices.update($rootScope.currentTrack, function (err, result) {
                             if (!err) {
-                                console.log('saved trello task', result);
                                 $scope.toggleTimer();
                             }
                         });
@@ -336,19 +333,24 @@
                             startTime: getCurrentDate(),
                             endTime: undefined,
                             typeTrack: "trello",
-                            currency: $scope.currency
-
+                            currency: $scope.currency,
+                            projectName: tasks_trello.project
                         };
 
                         console.log("TrelloTrack::", $rootScope.currentTrack);
                         TracksServices.createTrelloTask($rootScope.currentTrack, function (err, result) {
-                            console.log("resultx::", result);
-                            console.log($rootScope.currentTrack)
                             if (!err) {
                                 $rootScope.currentTrack.id = result[0].id;
                                 $scope.toggleTimer();
                                 $rootScope.inprogress = false;
-                                console.log('saved id task', $rootScope.currentTrack.id);
+                                $rootScope.topBar.filterTask = angular.copy($rootScope.currentTrack);
+                                $rootScope.topBar.filterTask.name = $rootScope.topBar.filterTask.taskName;
+                                $rootScope.topBar.filterTask.id = $rootScope.topBar.filterTask.idTask;
+                                if (!$rootScope.topBar.taskscondition || $rootScope.topBar.taskscondition.lenght == 0) {
+                                    $rootScope.topBar.taskscondition = [$rootScope.topBar.filterTask];
+                                }
+                                console.log(result[0]);
+                                //$rootScope.topBar.filterTask.projectName = "test"
                             }
                         });
                     }
@@ -478,14 +480,14 @@
                                 if (exist === false) {
                                     TracksServices.update($rootScope.currentTrack, function (err, result) {
                                         console.log($rootScope.currentTrack)
-                                        console.log("Track actualizado con exito");
+                                        console.log("Track actualizado con exito 1");
                                         $rootScope.timerRunning = false;
                                         $scope.stopTimer();
                                     });
                                 }
                             } else {
                                 TracksServices.update($rootScope.currentTrack, function (err, result) {
-                                    console.log("Track actualizado con exito");
+                                    console.log("Track actualizado con exito 2");
                                     console.log($rootScope.currentTrack)
                                     $rootScope.timerRunning = false;
                                     $scope.stopTimer();
@@ -506,7 +508,7 @@
                             $rootScope.currentTrack.projCost = Number(proj.totalCost) + Number($rootScope.currentTrack.trackCost);
                             console.log("PROJECT BY ID", proj.totalCost, $rootScope.currentTrack.trackCost);
                             TracksServices.update($rootScope.currentTrack, function (err, result) {
-                                console.log("Track actualizado con exito");
+                                console.log("Track actualizado con exito 3");
                                 $rootScope.timerRunning = false;
                                 console.log($rootScope.currentTrack)
 
@@ -515,7 +517,7 @@
                         })
                     } else {
                         TracksServices.update($rootScope.currentTrack, function (err, result) {
-                            console.log("Track actualizado con exito");
+                            console.log("Track actualizado con exito 4");
                             $rootScope.timerRunning = false;
                             console.log($rootScope.currentTrack)
                             $scope.stopTimer();
@@ -550,7 +552,7 @@
 
                             //Update current track
                             $rootScope.currentTrack = track;
-                            $rootScope.topBar.filterTask = $rootScope.currentTrack;
+                            $rootScope.topBar.filterTask = angular.copy($rootScope.currentTrack);
                             var now = new Date().getTime(); //Fecha actual millisegundos
                             var start = new Date(track.startTime).getTime(); //Fecha de track en millisegundos
                             var ms = now - start;
