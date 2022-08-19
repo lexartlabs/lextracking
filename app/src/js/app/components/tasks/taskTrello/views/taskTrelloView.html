@@ -22,7 +22,6 @@
                 <th class="lexart-cstm__grid-5"></th>
                 <th class="lexart-cstm__grid-5"></th>
                 <th class="lexart-cstm__grid-5"></th>
-
             </tr>
         </thead>
         <tbody>
@@ -40,7 +39,7 @@
                 <td>{{task_trello.url}}</td>
                 <td>                        
                     <a href="" ui-sref="app.tasks_trelloEdit({id: task_trello.id})">
-                        <i class="far fa-eye" style="font-size: 13px;color: #4a90e2;"></i>                    
+                        <i class="ri-search-2-line"></i>                    
                     </a>
                 </td>
                 <td>
@@ -50,8 +49,8 @@
                 </td>
                 <td>
                     <a ng-click="deleteBoard(task_trello)">
-                        <i class="fas fa-window-close" style="color:red;font-size: 13px; margin-left:10px;cursor: pointer;"></i>                  
-                      </a>
+                        <i class="ri-close-line"></i>
+                    </a>
                 </td>
             </tr>
         </tbody>

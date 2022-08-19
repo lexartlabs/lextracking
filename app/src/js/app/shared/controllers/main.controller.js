@@ -533,6 +533,7 @@
             $state.go('login');
         } else {
             $rootScope.showTrackTooltip = true;
+            $rootScope.showManualTrackTooltip = false;
             $log.info('Welcome back', $window.localStorage["userName"]);
             $rootScope.userId = $window.localStorage["userId"];
             $rootScope.userName = $window.localStorage["userName"];
