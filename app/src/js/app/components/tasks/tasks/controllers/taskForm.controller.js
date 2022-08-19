@@ -91,12 +91,12 @@
 		$scope.save = function () {
 			if ($scope.task.description === undefined) {
 				var msg = "El campo Descripción no puede estar vacio."
-				return $rootScope.showToast('Error', msg, 'error');
+				return $rootScope.showToaster(msg, 'error');
 			}
 
 			if ($scope.task.name === undefined) {
 				var msg = "El campo Nombre no puede estar vacio."
-				$rootScope.showToast('Error', msg, 'error');
+				$rootScope.showToaster(msg, 'error');
 			} else {
 				if ($scope.task.hour == undefined || $scope.task.hour == null) {
 					$scope.task.hour = "00";
@@ -145,8 +145,9 @@
 					ProjectsServices.saveProjectTask($scope.task, function (err, result) {
 						console.log("result:: ", result);
 						if (!err) {
-							$scope.tasks[index] = angular.copy($scope.task);
+							//$scope.tasks[index] = angular.copy($scope.task);
 							$scope.task = {};
+							$state.go('app.projectEdit', {id: result.idProject});
 						}
 					});
 				} else {
@@ -166,8 +167,9 @@
 						ProjectsServices.saveProjectTask($scope.task, function (err, result) {
 							console.log("result:: ", result);
 							if (!err) {
-								$scope.tasks[index] = angular.copy($scope.task);
+								//$scope.tasks[index] = angular.copy($scope.task);
 								$scope.task = {};
+								$state.go('app.projectEdit', {id: result.idProject});
 							}
 						});
 					} else {
@@ -186,8 +188,9 @@
 						ProjectsServices.saveProjectTask($scope.task, function (err, result) {
 							console.log("result:: ", result);
 							if (!err) {
-								$scope.tasks[index] = angular.copy($scope.task);
+								//$scope.tasks[index] = angular.copy($scope.task);
 								$scope.task = {};
+								$state.go('app.projectEdit', {id: result.idProject});
 							}
 						});
 					}

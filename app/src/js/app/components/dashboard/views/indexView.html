@@ -11,23 +11,30 @@
 </div>
 <details>
     <summary>
+        
         <span class="summary-title">History</span>
         <div class="summary-chevron-up">
-			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            <i class="ri-arrow-right-s-line feather feather-chevron-down"></i>
 		</div>
     </summary>
     <div class="lexart-wa__cnt summary-content">
         <section ng-show="history && history.length">
-            <!-- <h1>History</h1> -->
-            <div ng-repeat="item in history" class="history-item">
-                <div class="history-item__title_container">
+            <!-- History -->
+            <div ng-repeat="item in history track by $index" class="history-item">
+                <div class="history-item__title_container tooltip-container">
                     <div class="history-item__title_tracked_time">
                         <span>{{item.startTimeDisplay}} - {{item.endTimeDisplay === 'Invalid date' ? 'Current': item.endTimeDisplay}} ({{item.timeTracked}} hrs)</span>
                     </div>
                     <div class="history-item__title__tabs">
                         <ul class="lexart-tabs" ng-init="itemTab = 1" style='width: 100%; margin: 0px; border-bottom:0px'>
                             <li class="lexart-tabs__item text-center" ng-click="itemTab = 1" ng-class="{'lexart-tabs__item--selected' : itemTab == 1}"><i class="ri-play-line"></i></li>
-                            <li class="lexart-tabs__item text-center" ng-click="itemTab = 2" ng-class="{'lexart-tabs__item--selected' : itemTab == 2}"><i class="ri-time-line"></i></li>
+                            <li class="lexart-tabs__item text-center tooltip-container" ng-click="itemTab = 2" ng-class="{'lexart-tabs__item--selected' : itemTab == 2}" ng-mouseover="showManualTrackTooltip = true" ng-mouseleave="showManualTrackTooltip = false">
+                                <i class="ri-time-line"></i>
+                                <span ng-show="showManualTrackTooltip" class="tooltip-box-top-left">
+                                    Nuevo trackeo manual!<br>
+                                    Puedes marcar desde y hasta cuando has trabajado!
+                                </span>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -59,7 +66,7 @@
         </section>
     </div>
     <div class="summary-chevron-down">
-		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-up"><polyline points="18 15 12 9 6 15"></polyline></svg>
+        <i class="ri-arrow-down-s-line feather feather-chevron-up"></i>
     </div>
 </details>
 <br><br>
@@ -67,7 +74,7 @@
     <summary>
         <span class="summary-title">{{ 'dashboard.current_tracks' | translate }}</span>
         <div class="summary-chevron-up">
-			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+			<i class="ri-arrow-right-s-line feather feather-chevron-down"></i>
 		</div>
     </summary>
     <div class="lexart-wa__cnt summary-content">    
@@ -95,7 +102,7 @@
         </table>
     </div>
     <div class="summary-chevron-down">
-		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-up"><polyline points="18 15 12 9 6 15"></polyline></svg>
+        <i class="ri-arrow-down-s-line feather feather-chevron-up"></i>
     </div>
 </details>
 <div

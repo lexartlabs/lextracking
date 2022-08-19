@@ -12,8 +12,8 @@
     $scope.total    = '';
     $scope.loading = false;
     $scope.trackDates = {
-      start: '',
-      end: '',
+      start: moment(),
+      end: moment(),
     }
     var userId      = $rootScope.userId;
     var userRole    = $rootScope.userRole;
@@ -64,15 +64,15 @@
     }
 
     $scope.createTrackDirectly = function(task) {
-      if(!$scope.trackDates.start || !$scope.trackDates.end) return $rootScope.showToast(
-        'Error', 'Please, set a start and an ending date', 'error'
+      if(!$scope.trackDates.start || !$scope.trackDates.end) return $rootScope.showToaster(
+        'Please, set a start and an ending date', 'error'
       );
 
       const start = moment($scope.trackDates.start, 'DD/MM/YYYY HH:mm:ss');
       const end = moment($scope.trackDates.end, 'DD/MM/YYYY HH:mm:ss');
 
-      if(end.diff(start) < 0) return $rootScope.showToast(
-        'Error', 'Ending date must be bigger than start date', 'error'
+      if(end.diff(start) < 0) return $rootScope.showToaster(
+        'Ending date must be bigger than start date', 'error'
       );
 
       const payload = {
@@ -89,8 +89,9 @@
 
       TracksServices.create(payload, function (err, result) {
         if (!err) {
-            console.log("🚀 --> result", result);
-            $scope.findHistory();
+          console.log("🚀 --> result", result);
+          $rootScope.showToaster('Track created succesfully', 'success')
+          $scope.findHistory();
         }
       });
     }

@@ -54,6 +54,22 @@ var LexTracking = LexTracking || {};
             format: 'DD/MM/YYYY',
             minutesStep:   1
         });
-    }]);
+    }]).config(function (toastrConfig) {
+        angular.extend(toastrConfig, {
+            autoDismiss: false,
+            containerId: 'toast-container',
+            maxOpened: 0,
+            newestOnTop: true,
+            positionClass: 'toast-bottom-center',
+            preventDuplicates: false,
+            preventOpenDuplicates: false,
+            target: 'body',
+            timeOut: 10000000,
+            closeButton: true,
+            extendedTimeOut: 10000000,
+            tapToDismiss: true,
+            toastClass: 'toast'
+        });
+    });
 
 }(angular));

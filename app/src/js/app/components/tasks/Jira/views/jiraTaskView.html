@@ -58,7 +58,7 @@
                     </a>
                 </td>
                 <td ng-click="delete(jira.idTask)">
-                    <img src="assets/images/icons/delete_entry-ico.svg">
+                    <i class="ri-close-line"></i>
                 </td>
                 <td ng-if="task.status != 'Done' && task.status != 'In-Review' && isClient=='false' ">
                     <a href ng-click="stopTrack()" ng-if="currentTrack.idTask == jira.idTask"><i class="ri-pause-line"></i></a>

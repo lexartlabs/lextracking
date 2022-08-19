@@ -197,10 +197,7 @@
             <div ng-repeat="byProject in tracks.byProject" class="flex-column">
               <div ng-repeat="track in byProject.tracks track by $index" class="flex-column-wrap" id="datatable">
                 <div class="flex-column-wrap">
-                  <div ng-if="$index == byProject.tracks.length - 1 && !filter.idTask" class="flex-row" style="
-                      background-color: rgb(255, 243, 115);
-                      font-weight: bold;
-                    ">
+                  <div ng-if="$index == byProject.tracks.length - 1 && !filter.idTask" class="flex-row" ng-class="{'subtotal-proyect' : $index == byProject.tracks.length - 1 && !filter.idTask}" >
                     <div class="flex-item"></div>
                     <div class="flex-item"></div>
                     <div class="flex-item"></div>

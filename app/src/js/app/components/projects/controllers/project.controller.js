@@ -508,7 +508,7 @@
           var msg = "El campo Description no puede estar vacio."
         }
 
-        $rootScope.showToast('Error', msg, 'error');
+        $rootScope.showToaster(msg, 'error');
     } else {
 
       if ($scope.duration.hours == undefined || $scope.duration.hours == null) {

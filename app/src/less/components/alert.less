@@ -1,0 +1,215 @@
+.imm-alert{
+    position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    text-align: left;
+    font-size: 12px;
+}
+.imm-alert--info{
+    color: #004085;
+    background-color: #cce5ff;
+    border-color: #b8daff;
+}
+.toast-title {
+    font-weight: bold;
+  }
+  .toast-message {
+    word-wrap: break-word;
+  }
+  .toast-message a,
+  .toast-message label {
+    color: #FFFFFF;
+  }
+  .toast-message a:hover {
+    color: #CCCCCC;
+    text-decoration: none;
+  }
+  .toast-close-button {
+    position: relative;
+    right: -0.5em;
+    top: -0.8em;
+    float: right;
+    font-size: 20px;
+    font-weight: 200;
+    color: #FFFFFF;
+  }
+  .toast-close-button:hover,
+  .toast-close-button:focus {
+    // color: #000000;
+    text-decoration: none;
+    cursor: pointer;
+    opacity: 0.4;
+  }
+  /*Additional properties for button version
+   iOS requires the button element instead of an anchor tag.
+   If you want the anchor version, it requires `href="#"`.*/
+  button.toast-close-button {
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    -webkit-appearance: none;
+  }
+  .toast-top-center {
+    top: 0;
+    right: 0;
+    width: 100%;
+  }
+  .toast-bottom-center {
+    bottom: 0;
+    right: 0;
+    width: 100%;
+  }
+  .toast-top-full-width {
+    top: 0;
+    right: 0;
+    width: 100%;
+  }
+  .toast-bottom-full-width {
+    bottom: 0;
+    right: 0;
+    width: 100%;
+  }
+  #toast-container {
+    position: fixed;
+    z-index: 999999;
+    bottom: 20px !important;
+    /*overrides*/
+  }
+  #toast-container * {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  #toast-container .toast {
+    position: relative;
+    overflow: hidden;
+    margin: 0 0 6px;
+    padding: 15px 15px 15px 50px;
+    width: 500px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    border-radius: 3px 3px 3px 3px;
+    background-position: 15px center;
+    background-repeat: no-repeat;
+    // -moz-box-shadow: 0 0 12px #999999;
+    // -webkit-box-shadow: 0 0 12px #999999;
+    // box-shadow: 0 0 12px #999999;
+    color: #FFFFFF;
+    opacity: 0.9;
+  }
+  #toast-container .toast:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+  #toast-container .toast.toast-info {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYEAQAAAAa7ikwAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAAAGAAAABgAPBrQs8AAAAHdElNRQflBhILLCIfCY+OAAACiUlEQVRIx61Wu1IqQRA9szFoIg9BSiz5BQwsP0CR4lFIRK5Vih9jJpYaaWIgrLhfoInyBYBgoGgqEiJzbtDigrDgLZ1kd6bP9ON0b/cqTFjUoRCQTEJtboLhMBAKieTpCXh8hLIs0DSV8fyM/1lkMEgWCmS3y6mr16O+uKBeXBynS40qTySAszPA7ZaTeh0oFsFKBer1VUCBABCNQqXTQCQiuE4HzOWUUS5P8Hx/n+z1xLNqlUynJ0eqFJnJkLWaHU0+7wDe2CA/PgRoWdQzMz+mVLtc5OXllxEmEmM4f38XQLFIGsaoA34/eXtL3txQ+3yjcsMgSyXR0W6T8/MDwuPjL1q0yzXey50dO7Hb2+MxbjdZrwumUPg8DIVsapw5J8Nh4bpadaoY0be1Jbq6XTIYBHU+bydVKfxySeL7UezuGkAsJhLTVIr8rQGlSNA0ZReLGVCfdazu7qZ7dnpKfXIyNVJ1fy8vkQjITkfCWV2daEB7PF851h7PZOzamgA7HQPo0zKN/8HSHS3j70TJU2sDGPz8/2ipvq5WywAbDdmsrPyZAfZ1NZsGlGWJ1VTqr8oUSCZlZ1mgXliw23Im43hR+3x2kkdbhY3LZoc+NDk8OpLDWs25VXi9tgGvdzzG7aZ+eBDQ4eFAWIGA3exKpfHNzjDI62uyXHaWm6boeHsj/f5vgPX14XY9O/tj3rXLJV24PxPicQdgPm8PnHpdGpdz4kmlqLNZm5Zej9zbG8SMjkwdj0OdnwOfA4eNBlAsQlUq4MuL3AoGwWgUSKWglpflZrsN5HKqX5WTQ56bIw8Ofjb0u135QRgYMJMiGKYgGAQSCSAeB5aWhn9bmk3AsoCrK6VaLScd/wBdwIYlhOtolwAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMS0wNi0xOFQxMTo0NDozNCswMDowMPG2ldYAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjEtMDYtMThUMTE6NDQ6MzQrMDA6MDCA6y1qAAAAAElFTkSuQmCC") !important;
+  }
+  #toast-container .toast.toast-error {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYEAQAAAAa7ikwAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAAAGAAAABgAPBrQs8AAAAHdElNRQflBhILLgmBgxRMAAACm0lEQVRIx62Vy04qQRCGaxBYKHhJXBgDLDS6cK3yDODtPby+goA+hMoLGC+JQdkr+goaTXShRsCd6Mph+juLQgfOjOPRnFp1urv+v+qv6mpLAgyTSom1sCCSzYqMjgrDwyIiYj09idzeipTLwtGRFbq/l58YJpWCYhFsm09rNuHpCapVXX+YbUOxiEkm/w2c+XloNNS5VoNcDjM5CaGQeycUwkxNQT4P9brebTRgfv6byFdXwXE0wvV16On5PttYDAoF9XEcWFsLiNxx4OUFMpkfaSoikMmor+N4MsEkEppis/kb8E6SZhMajY6aaEEBcrnfgrtY+TwAZmenFX0qpazVqp/mmLEx6O727kciMDHhX5N6HWwbk0wKrKxo9Pm8N5r+fm3Dy0sYGuoEOTtTPx8SCgU9W1oSTLmsKU1O+qe8t6eXlaQT/PwcE416s5ie1vPjY4GbG5Woq8uXwEQimIMDl6RSccHjcX+fcFgxr68FXl+hWg0snIlE4PDQfb0XF1+Bu5nXatBotF6nZQW2hhWNCgMD7sbgoFjBBIoJAtfX0GxiwmH/6ONxOD/XyCuVT7nM1VV74b0SOY5KFFBkleZD80oFE4/r3v6+S+LX2um0+pRKglleDmxT8/YGp6ftmivJ7q5mPj7u9fto08XF1kOzbajVMLGYN5reXvCvEaavz1/Seh3e3z/HBWZn56ssfmqwsaFYW1ttrP9r2GWznxPZJBJ/HbaP62z2d+CtcW3m5vwvdXw4hYJfTfw139xUv4APx3WYndVIAJ6fYWMDk063vxNMOKytuLmpd0Bl+SJyL0kigdne7vz0jdGRXqvpuv3T39ryaN4yK5gomRRrbk5kZkYYGRGrBcLjo1h3dyInJ0KpZIUeHr7C+AMOVR9ClIGg4AAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMS0wNi0xOFQxMTo0NjowOCswMDowMLxsKHwAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjEtMDYtMThUMTE6NDY6MDgrMDA6MDDNMZDAAAAAAElFTkSuQmCC") !important;
+  }
+  #toast-container .toast.toast-success {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYEAQAAAAa7ikwAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAAAGAAAABgAPBrQs8AAAAHdElNRQflBhILMRwhBP45AAAChElEQVRIx62Wu05qQRSGZ06ilYUCjYiohULpe+CtMcagRAsLDeI7+ADGFpXeViOxNaIJaGKrhluhtQiUstd3ioUHEQ9uiZPsZtbe379us2Zb02UhwaCx8/PGRCLGjI8bAgG1PD0ZUy4bm04bTk7sn+dn85OFBAJIKgWNBgC8vUE+D5mMPvm87jVtcnAAfr87OAsLUK8DINkssrICQ0Od73k8yOoq5HIqVKshs7PfwHd2wHHg5QVZXARrv3fIWlhagkoFHAeJx7t47jiQzyOTkz/KqTEGmZpCCgUV+RQJEghoWl5eeoG3nAyFNJJqFYaHPwikUprzxcWewNLfj/T1qcjystYkmWwag0FoNJBs1k3OO+FjY0ixCGdnrZrc3GiXjYwYJJFQxWi0JzjlMoggGxut/VhMmVtbBs7PVa2zFbvDg0H1XARJJNpr4fUq8+zM6KHJ538L3nqnWISHB6Pdc3n5m3CNIpOBer0pkMm0G4+P4eICBgf/m3O2t7s6wvU1VKsGHh+RQqHduLurRbq5eRf5CVwZ5TJyf/+hyB5Py2gt7O/r2bi7g+lpN2lpRerz6aBMpw0SjytodbXdgw8iiLj1XL9dX9fvNjcNMjqqarnc54MG1iJ7e2p3C7cWub3VMd68P+DoSBWXlr4OeWDADVxZ0WjbqNDNkRGo1XRQhUJuYZ3wcBheXzuGnRrn5nTUFgq9iEA4rI3wxbhupSKR0DuhUtGp6PbCiUbVc8f5tlYaSa327xxILAZeb6czPh+srWlBAapVZGbGZbh+P3J42HbpS7Gox//qCkql9h+CZLIj583VNQVIIGDs/LwhEjFmYsLY97Z7fja2VDImnTacnnb7bfkLte70LeyRAVgAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjEtMDYtMThUMTE6NDk6MjgrMDA6MDAPQnSMAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIxLTA2LTE4VDExOjQ5OjI4KzAwOjAwfh/MMAAAAABJRU5ErkJggg==") !important;
+  }
+  #toast-container .toast.toast-warning {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYEAQAAAAa7ikwAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAAAGAAAABgAPBrQs8AAAAHdElNRQflBhILMA1Sr++KAAACZ0lEQVRIx61VwUpyURD+zvUHb5guWpXepBa9QZH1CGreXiRb1RPINR9BzFat2iVJYC8iBBEkgVqJuim8d74WR3+N8GrWwNnMnPnmm485cxR8jBKPQ9k2kEoBGxugZQEAVKMBPD6CNzfA9bUynp7wE6NYFqVcJl2XkybtNqXd/uKj65Ln52QsNh84Dw/Jfl8nN5sUx6Hs7lKCwTGBYJBMJMh8nmw29d1ej8xkZoAfH5Oep1nlcpTl5dndhsMUx9F5nkfJZn2Ye55mn0r9SFMAlHRa53ret04olqWDrrsI+NcinqflikYnAuWy1jGX85fw8pJydeVfxHH0QJRKQ0c8rpk3m5Rw2L9Ap0N2Ov4FIhGy1SJdl2JZhp7zQAAsl5XR7y8qz8iU0esBFxdAIABl2waQTOpIpfJb8LGNsJJJkPf3pMjknP9GIn3PNEkRsl43gNVV8PVVGR8ff8Vfqfd34O0NiMWMoUf9nTzjMoDIP+D5GdjaIk1TV/azWg2Y3Sm5tASsrID1OsjbW/0GEom/4k7u72vMatUAq1Xttm3/pFCIcndHqdXIUMi/xAirWgVlfX2eh0bZ2Rmv7e3t6fdGD20woAz/D73PSYrjTO9AKfL0lHJyQk4fCrJQ0CyKxQlnLKYXlOdR0unFtc9k9LLrdsm1tSnBfn+RIjp/uK7l4GCKftns/4+D+TwlEpkJLJGIlmWUd3Q0B5NeT+vYapFnZ+TeHmma4zumqUexUBj/0d3u3J2T0SilVPr26fPlRZ9JGwzIYvGb5kPzXREUy4KybTCVAjY3oUZj12hAPTzoOa9UlNFoTMP4BCWmYl0u62b1AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIxLTA2LTE4VDExOjQ4OjEzKzAwOjAwbAhMqwAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMS0wNi0xOFQxMTo0ODoxMyswMDowMB1V9BcAAAAASUVORK5CYII=") !important;
+  }
+  #toast-container.toast-top-center .toast,
+  #toast-container.toast-bottom-center .toast {
+    width: 500px;
+    margin-left: 33vw;
+    // margin-right: auto;
+    text-align: center;
+  }
+  #toast-container.toast-top-full-width .toast,
+  #toast-container.toast-bottom-full-width .toast {
+    width: 96%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .toast {
+    background-color: #181818;
+  }
+  .toast-success {
+    background-color: #06BA63;
+      // background-color: #181818;
+      // background-color: #195ABD;
+    // background-color: #51A351;
+  }
+  .toast-error {
+    // background-color: #BD362F;
+    // background-color: #030303;
+    // background-color: #181818;
+    // background-color: #195ABD;
+    background-color: #E34949;
+    
+  }
+  .toast-info {
+    // background-color: #2F96B4;
+    // background-color: #181818;
+    background-color: #195ABD;
+  }
+  .toast-warning {
+    background-color: #F5BF36;
+    // background-color: #181818;
+    // background-color: #195ABD;
+    
+  }
+  progress-bar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 4px;
+    background-color: #000000;
+    opacity: 0.4;
+  }
+  /*Animations*/
+  div[toast] {
+    opacity: 1 !important;
+    position: absolute !important;
+    bottom : -100px;
+  }
+  div[toast].ng-enter {
+    opacity: 0 !important;
+    transition: opacity .3s linear;
+  }
+  div[toast].ng-enter.ng-enter-active {
+    opacity: 1 !important;
+  }
+  div[toast].ng-leave {
+    opacity: 1;
+    transition: opacity .3s linear;
+  }
+  div[toast].ng-leave.ng-leave-active {
+    opacity: 0 !important;
+  }
+  /*Responsive Design*/
+  @media all and (max-width: 240px) {
+    #toast-container .toast.div {
+      padding: 8px 8px 8px 50px;
+      width: 11em;
+    }
+    #toast-container .toast-close-button {
+      right: -0.2em;
+      top: -0.2em;
+    }
+  }
+  @media all and (min-width: 241px) and (max-width: 480px) {
+    #toast-container .toast.div {
+      padding: 8px 8px 8px 50px;
+      width: 18em;
+    }
+    #toast-container .toast-close-button {
+      right: -0.2em;
+      top: -0.2em;
+    }
+  }
+  @media all and (min-width: 481px) and (max-width: 768px) {
+    #toast-container .toast.div {
+      padding: 15px 15px 15px 50px;
+      width: 25em;
+    }
+  }
+  

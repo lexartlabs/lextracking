@@ -26,7 +26,7 @@
 
             $scope.sendingData = true;
             if (!$scope.client.company || !$scope.client.name) {
-                $rootScope.showToast('Error', 'Please fill all fields', 'error');
+                $rootScope.showToaster('Please fill all fields', 'error');
                 $scope.sendingData = false;
                 return;
             }
@@ -34,7 +34,8 @@
             ClientServices.save($scope.client, function (err, result) {
                 if (err) {
                     console.log("error", err);
-                    $scope.error = err.message || err.error.message || err.error || err;
+                    $rootScope.showToaster(err.message || err.error.message || err.error || err, 'error');
+                    // $scope.error = err.message || err.error.message || err.error || err;
                     $sendingData = false;
                 } else {
                     $state.go('app.clients');
