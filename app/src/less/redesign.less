@@ -1014,7 +1014,6 @@ tbody {
   border-radius: 5px;
   transition: all 1s ease;
 }
-
 .tooltip-box::after {
   content: '';
   display: block;
@@ -1025,6 +1024,36 @@ tbody {
   top: -7px;
   left: calc(20% - 7px);
 }
+
+.tooltip-box-top-left {
+  position: absolute;
+  bottom: 45px;
+  right: -25%;
+  left: -600%;
+  background-color: @color-active-text;
+  color: @color-white;
+  z-index: 999;
+  text-align: center;
+  font-size: 1rem;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: all 1s ease;
+  font-weight: 400;
+}
+
+
+.tooltip-box-top-left::after {
+  content: '';
+  display: block;
+  border-top: 7px solid @color-active-text;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  position: absolute;
+  top: 68px;
+  right: calc(15% - 7px);
+}
+
+
 
 .lexart-button--loading .lexart-btn__text {
   visibility: hidden;

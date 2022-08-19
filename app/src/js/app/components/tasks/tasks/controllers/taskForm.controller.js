@@ -91,12 +91,12 @@
 		$scope.save = function () {
 			if ($scope.task.description === undefined) {
 				var msg = "El campo Descripción no puede estar vacio."
-				return $rootScope.showToast('Error', msg, 'error');
+				return $rootScope.showToaster(msg, 'error');
 			}
 
 			if ($scope.task.name === undefined) {
 				var msg = "El campo Nombre no puede estar vacio."
-				$rootScope.showToast('Error', msg, 'error');
+				$rootScope.showToaster(msg, 'error');
 			} else {
 				if ($scope.task.hour == undefined || $scope.task.hour == null) {
 					$scope.task.hour = "00";
