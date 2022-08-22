@@ -509,6 +509,12 @@ class TracksController extends BaseController
     public function endlessTracks(Request $request)
     {
         try {
+            $endTime = date('Y-m-d H:i:s');
+            $limitTime = date('Y-m-d H:i:s', strtotime('-24 hours'));
+            Tracks::whereRaw("Tracks.endTime = ?", ["0000-00-00 00:00:00"])
+            ->whereRaw("Tracks.startTime < ?", [$limitTime])
+            ->update(['endTime'=>$endTime]);
+
             $endlessManual = Tracks::select(
                     "Tracks.*",
                     DB::raw("Projects.name AS projectName"),
