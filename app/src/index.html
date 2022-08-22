@@ -59,7 +59,11 @@
     <link rel="stylesheet" href="/bower_components/textAngular/dist/textAngular.css">
 </head>
 
-<body ng-controller="AppCtrl" ng-class="{'dark-mode' : darkMode == 1, 'light-mode' : darkMode != 1}" ng-cloak>
+<body 
+    ng-controller="AppCtrl" 
+    ng-class="{'dark-mode' : darkMode == 1, 'light-mode' : darkMode != 1}" 
+    ng-style="{'background-color': darkMode != 1 ? '#F9F9F9' : '#14161e'}"
+    ng-cloak>
 <!-- <body ng-controller="AppCtrl" class="dark-mode" ng-cloak></body> -->
 
 <!--div style="position:absolute;width:0;height:0;visibility:hidden">
