@@ -146,14 +146,14 @@
 					typeTrack  : obj.typeTrack,
 					currency : obj.currency
 				}
-				RestClient.post(model + "/track-trello-new", track, function(err, result) {
+				RestClient.post(model + "/new", track, function(err, result) {
 					console.log("resultTrello::", err, result);
 					cb(err, result);
 				})
 			},
 				
 			createJiraTask: function(obj, cb){
-				var track = {
+		    	var track = {
 					idTask 	   : obj.idTask,
 					idUser 	   : obj.idUser,
 					idProyecto : obj.idProyecto,
