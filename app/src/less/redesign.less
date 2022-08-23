@@ -125,7 +125,7 @@ tbody {
   tbody,
   tr,
   td {
-    background: @color-bk-dark-mode-secondary;
+    background: transparent;
   }
 
   tr:nth-child(odd) {
@@ -420,6 +420,9 @@ tbody {
     color: @color-dark-white;
     border-bottom: 2px solid @color-bk-dark-mode-third;
   }
+  table.lexart-table tr:hover{
+    background-color: @color-bk-dark-mode  !important;
+  }
 
   // tbody tr:hover {
   //   background-color: @color-light-gray;
@@ -692,8 +695,82 @@ tbody {
     color: @color-dark-mode;
     // background-color: @navbar-body-color;
   }
+  details{
+    background-color: @color-bk-dark-mode-secondary;
+    color: @color-dark-mode;
+  }
+  details .summary-chevron-up,
+  details .summary-chevron-down{
+    background-color: @color-bk-dark-mode-secondary;
+  }
 
+  .history-item{
+    border: 1px solid @color-bk-dark-mode;
+  }
+  .history-item__title_container{
+    background-color: @color-bk-dark-mode;
+  }
+  .flex-head{
+    background-color: @color-bk-dark-mode !important;
+  }
+  .flex-row:nth-child(odd):hover{
+    background-color: @color-bk-dark-mode  !important;
+  }
+  .flex-row:nth-child(even):hover {
+    background-color: @color-bk-dark-mode  !important;
+  }
+  .flex-row:nth-child(odd){
+    background-color: transparent !important;
+    color: @color-dark-mode;
+  }
+  .flex-row:nth-child(even){
+    background-color: transparent !important;
+    color: @color-dark-mode;
+  }
+  .project-subtotal {
+    background-color: @color-bk-dark-mode;
+    color: @color-dark-mode;
+  }
+  .task-subtotal {
+    color: @color-dark-mode;
+  }
+  .moment-picker-input{
+    background-color: transparent;
+    border: 1px solid @color-active-text;
+  }
+  .navbar{
+    box-shadow: 1px 1px 2px 1px rgb(255, 255, 255, 5%)
+  }
+  .lexart-select .ui-select-dropdown{
+    background-color: @color-bk-dark-mode-secondary;
+    color: @color-dark-white;
+    border: 1px solid @color-dark-mode;
+  }
+  .lexart-select .ui-select-dropdown .active{
+    background-color: @color-bk-dark-mode;
+    color: @color-dark-white;
+  }
+  .ui-select-choices-row-inner{
+    color: @color-dark-white;
+  }
+  .navbar-dropdown {
+    .dropdown {
+      background-color: @color-bk-dark-mode-secondary !important;
+    }
+    .dropdown li a{
+      color: @color-dark-white !important;
+    }
+  }
 
+}
+
+.project-subtotal{
+  background-color: #f9f9f9;
+}
+
+.task-subtotal{
+  background-color: rgba(225, 56, 107, 0.1);
+  font-weight: bold;
 }
 
 .collapse-icon-container {
