@@ -50,6 +50,7 @@
 
         $scope.hideItems = function () {
             $scope.thisHide = !$scope.thisHide;
+            $rootScope.shohSwitchTooltip = false;
             console.log('$scope.thisHide', $scope.thisHide);
         };
 

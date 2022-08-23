@@ -70,7 +70,7 @@
             <i ng-if="!thisHide" class="ri-arrow-left-s-line"></i>
             <i ng-if="thisHide" class="ri-arrow-right-s-line"></i>
         </button> -->
-        <div class="switch-wrapper">
+        <div class="switch-wrapper tooltip-container">
             <input type="checkbox" id="check" class="toggle" ng-click="toggleMode()" ng-model="darkModeBool">
                 <label for="check" class="label">
                     <i class="ri-sun-line sun"></i>
@@ -78,7 +78,12 @@
                     <i class="ri-moon-line"></i>
                     <div class="circle"></div>
             </label>
+            <span ng-show="shohSwitchTooltip" class="tooltip-box-switch" ng-mouseleave="shohSwitchTooltip = false; ">
+                Nueva funcionalidad!<br>
+                Cambia entre Light and Dark Theme!
+            </span>
         </div>
+        
         
     </div>
     
