@@ -37,7 +37,7 @@
         if (!err) {
           $scope.allTasks_trello = tasks_trello;
           if (tasks_trello) {
-            $scope.tasks_trello = tasks_trello.slice(0, PAGE_SIZE - 1);
+            $scope.tasks_trello = tasks_trello.slice(0, PAGE_SIZE);
             $scope.total = tasks_trello.length;
           }
         }
@@ -48,7 +48,7 @@
       tasks_trelloServices.findByIdClient($rootScope.userIdClient,function (err,tasks_trello) {
         if (!err) {
           $scope.tasks_trello = tasks_trello;
-          $scope.tasks_trello = tasks_trello.slice(0, PAGE_SIZE - 1);
+          $scope.tasks_trello = tasks_trello.slice(0, PAGE_SIZE);
           $scope.total = tasks_trello.length;
 
         }
@@ -63,7 +63,7 @@
         if (!err) {
           $scope.allTasks_trello = tasks_trello;
           if (tasks_trello) {
-            $scope.tasks_trello = tasks_trello.slice(0, PAGE_SIZE - 1);
+            $scope.tasks_trello = tasks_trello.slice(0, PAGE_SIZE);
             $scope.total = tasks_trello.length;
           }
         }
@@ -166,13 +166,13 @@
       $scope.tasks_trello = ($filter('filter')($scope.allTasks_trello, $scope.filter));
       if ($scope.tasks_trello) {
         $scope.total = $scope.tasks_trello.length;
-        $scope.tasks_trello = $scope.tasks_trello.slice(0,  PAGE_SIZE - 1);
+        $scope.tasks_trello = $scope.tasks_trello.slice(0,  PAGE_SIZE );
       }
     };
 
     $scope.pager = function(page) {
       var offset = PAGE_SIZE * (page - 1);
-      $scope.tasks_trello = $scope.allTasks_trello.slice(offset, offset + PAGE_SIZE - 1);
+      $scope.tasks_trello = $scope.allTasks_trello.slice(offset, offset + PAGE_SIZE );
     };
 
 
@@ -274,7 +274,7 @@
           if (!err) {
             $scope.allTasks_trello = tasks_trello;
             if (tasks_trello) {
-              $scope.tasks_trello = tasks_trello.slice(0, PAGE_SIZE - 1);
+              $scope.tasks_trello = tasks_trello.slice(0, PAGE_SIZE );
               $scope.total = tasks_trello.length;
             }
           }
