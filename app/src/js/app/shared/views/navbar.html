@@ -62,12 +62,24 @@
             <i class="ri-google-play-line"></i> <span ng-show="!thisHide">{{ 'APP’s'}}</span>
         </a>
 
+        
+
     </nav>
-        <!-- <div class="navbar_btn_container">
-            <button class="lexart-btn collapse-btn" ng-init="collapseSideBar = true" ng-click="hideItems();">
+    <div class="navbar_btn_container">
+        <!-- <button class="lexart-btn collapse-btn" ng-init="collapseSideBar = true" ng-click="hideItems();">
             <i ng-if="!thisHide" class="ri-arrow-left-s-line"></i>
             <i ng-if="thisHide" class="ri-arrow-right-s-line"></i>
         </button> -->
+        <div class="switch-wrapper">
+            <input type="checkbox" id="check" class="toggle" ng-click="toggleMode()" ng-model="darkModeBool">
+                <label for="check" class="label">
+                    <i class="ri-sun-line sun"></i>
+                    <!-- <img src="https://iili.io/S04awl.png" alt="" class="sun">  -->
+                    <i class="ri-moon-line"></i>
+                    <div class="circle"></div>
+            </label>
+        </div>
+        
     </div>
     
     <!-- <div class="lexart-user" ng-class="{'active': userToolsActive == true , 'lexart-menu__collapsed': thisHide == true}" ng-show="!thisHide">

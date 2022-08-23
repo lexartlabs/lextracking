@@ -40,7 +40,6 @@
     $scope.findHistory = function () {
       TracksServices.findHistory(function (err, tracks) {
         if (!err) {
-          console.table(tracks);
           $scope.loading = false;
           $scope.history = tracks;
           $scope.history.forEach(function (item) { 
