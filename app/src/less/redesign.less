@@ -739,7 +739,9 @@ tbody {
     border: 1px solid @color-active-text;
   }
   .navbar{
-    box-shadow: 1px 1px 2px 1px rgb(255, 255, 255, 5%)
+    box-shadow: 1px 2px 4px -1px rgba(36, 36, 36, 0.75);
+      -webkit-box-shadow: 1px 2px 4px -1px rgba(36, 36, 36, 0.75);
+      -moz-box-shadow: 1px 2px 4px -1px rgba(36, 36, 36, 0.75);
   }
   .lexart-select .ui-select-dropdown{
     background-color: @color-bk-dark-mode-secondary;
@@ -761,6 +763,23 @@ tbody {
       color: @color-dark-white !important;
     }
   }
+
+  /*Switch toggle*/
+  .switch-wrapper{
+    border: 2px solid @color-dark-mode;
+  }
+  input[type="checkbox"].toggle:checked~.label .circle{
+    border: 1px solid @color-dark-mode;
+    background-color: @color-dark-mode;
+  }
+  .circle{
+    border: 1px solid @color-dark-mode;
+    background-color: @color-dark-mode;;
+  }
+  .sun{
+    color: @color-dark-mode;;
+  }
+
 
 }
 
@@ -994,11 +1013,19 @@ tbody {
 }
 
 .navbar_btn_container{
-  // position:absolute; 
-  // bottom: 30px; 
-  // left: 0; 
-  // width:100%; 
-  // display: block;
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  width: 33%;
+  display: block;
+  left: 33%;
+  text-align: center;
+  transition: left ease .5s;
+}
+
+.lexart-menu__collapsed .navbar_btn_container {
+  left: 15px;
+  transition: left ease .5s;
 }
 
 .collapse-btn {
@@ -1176,4 +1203,68 @@ tbody {
 
 .toast-error{
   background-color: @color-red;
+}
+
+.switch-wrapper{
+  position: relative;
+  border: 2px solid @color-active-text;
+  height: 2rem;
+  width: 4rem;
+  display: flex;
+  border-radius: 10em;
+  background-color: transparent;
+}
+
+input[type="checkbox"].toggle {
+  position: absolute;
+  top: -10000px;
+  left: -10000px;
+}
+
+input[type="checkbox"].toggle+label {
+  /*   border: 2px solid blue; */
+  cursor: pointer;
+  width: 100%;
+  height: auto;
+  border-radius: 10em;
+
+}
+
+input[type="checkbox"].toggle:checked+label {
+  color: @color-active-text;
+}
+
+.circle {
+  position: absolute;
+  border: 1px solid @color-active-text;
+  height: 1.6rem;
+  width: 1.6rem;
+  background-color: @color-active-text;
+  border-radius: 50%;
+  top: .5px;
+  left: 2px;
+  transition: all 0.3s ease-in-out;
+}
+
+input[type="checkbox"].toggle:checked~.label .circle {
+  transform: translateX(1.8rem);
+  border: 1px solid @color-active-text;
+  background-color: @color-active-text;
+}
+
+.ri-moon-line {
+  position: absolute;
+  top: 0.2rem;
+  right: 0.3rem;
+  color: @color-active-text;
+  font-size: 1.2rem;
+}
+
+.sun {
+  height: 2.1rem;
+  position: absolute;
+  top: 0.2rem;
+  left: 0.3rem;
+  color: @color-active-text;
+  font-size: 1.2rem;
 }
