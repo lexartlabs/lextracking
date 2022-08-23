@@ -16,6 +16,7 @@
 
         $rootScope.darkMode = $window.sessionStorage["darkMode"] || 0;
         $rootScope.darkMode == 1 ? $rootScope.darkModeBool = true : $rootScope.darkModeBool = false;
+        $rootScope.shohSwitchTooltip = true;
         
         $rootScope.showToast = function(title, subTitle, type){
             toastr[type](subTitle, title, { timeOut: 0 });
