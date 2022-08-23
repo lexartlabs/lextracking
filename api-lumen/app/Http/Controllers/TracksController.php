@@ -511,7 +511,7 @@ class TracksController extends BaseController
         try {
             $endTime = date('Y-m-d H:i:s');
             $limitTime = date('Y-m-d H:i:s', strtotime('-24 hours'));
-            Tracks::whereRaw("Tracks.endTime = ?", ["0000-00-00 00:00:00"])
+            $tracks = Tracks::whereRaw("Tracks.endTime IS NULL")
             ->whereRaw("Tracks.startTime < ?", [$limitTime])
             ->update(['endTime'=>$endTime]);
 
@@ -525,7 +525,7 @@ class TracksController extends BaseController
                 ->join("Users", "Tracks.idUser", "=", "Users.id")
                 ->join("Projects", "Projects.id", "=", "Tasks.idProject")
                 ->whereRaw("endTime IS NULL")
-                ->orWhereRaw("Tracks.endTime = ?", ["0000-00-00 00:00:00"])
+                #->orWhereRaw("Tracks.endTime = ?", ["0000-00-00 00:00:00"])
                 ->whereRaw("Tasks.active = ?", [1])
                 ->whereRaw("Tracks.typeTrack = ?", ["manual"])
             ->get();
@@ -541,7 +541,7 @@ class TracksController extends BaseController
                 ->join("Users", "Tracks.idUser", "=", "Users.id")
                 ->join("Projects", "Projects.id", "=", "TrelloTask.id_project")
                 ->whereRaw("endTime IS NULL")
-                ->orWhereRaw("Tracks.endTime = ?", ["0000-00-00 00:00:00"])
+                #->orWhereRaw("Tracks.endTime = ?", ["0000-00-00 00:00:00"])
                 ->whereRaw("TrelloTask.active = ?", [1])
                 ->whereRaw("Tracks.typeTrack = ?", ["trello"])
             ->get();
