@@ -25,6 +25,9 @@ The Lumen framework is open-sourced software licensed under the [MIT license](ht
 
 ## Create Symlink
 ### Mac/Linux Example
-ln -s /Users/{{user}}/Documents/www/lextracking/api-lumen/storage/app /Users/{{User}}/Documents/www/lextracking/api-lumen/public/
+ln -s /Users/{{user}}/Documents/www/lextracking/api-lumen/storage/app/files /Users/{{User}}/Documents/www/lextracking/api-lumen/public/
 ### Windows Example
-mklink /J C:\LinkToFolder/lextracking/api-lumen/storage/app C:\LinkToFolder/lextracking/api-lumen/public/
+mklink /J C:\LinkToFolder/lextracking/api-lumen/storage/app/files C:\LinkToFolder/lextracking/api-lumen/public/
+
+# Composer
+composer dump-autoload
