@@ -68,3 +68,4 @@ api-lumen/Homestead.json
 api-lumen/Homestead.yaml
 api-lumen/.env
 api-lumen/.phpunit.result.cache
+api-lumen/public/app
