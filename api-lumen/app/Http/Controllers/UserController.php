@@ -15,6 +15,7 @@ use Laravel\Ui\Presets\React;
 use Illuminate\Support\Facades\DB;
 use WeeklyHour;
 use Illuminate\Validation\Rule;
+use App\Helpers\FileHelper;
 
 class UserController extends BaseController
 {
@@ -192,7 +193,7 @@ class UserController extends BaseController
             "role" => "string",
             "name" => "string"
         ]);
-
+        
         $update = $request->only(['email', 'password', 'name']);
 
         if($this->role == "admin") {
@@ -203,6 +204,12 @@ class UserController extends BaseController
             $user = User::where('id', $request->id)->first();
             if($user->password != $request->input('password')) {
                 $update['password'] = md5($request->input('password'));
+            }
+
+            $photo= $request->input('photo');
+            if(!empty($photo)){
+                $photoSaved = FileHelper::saveFile($photo);
+                $update['photo'] = $photoSaved;
             }
 
             $user = User::where("id", $id)->update($update);
