@@ -160,7 +160,7 @@
                             return
                         }
                     })
-                    if (task.status.toLowerCase() === 'to-do') {
+                    if (task.status && task.status.toLowerCase() === 'to-do') {
                         task.status = 'In-Progress';
                         ProjectsServices.saveProjectTask(task, function (err, result) {
                             console.log('Update Status::', err, result);
@@ -179,12 +179,12 @@
                         $rootScope.currentTrack = {
                             idUser: $rootScope.userId,
                             idTask: fromDashboard ? task.idTask : task.id,
-                            taskName: task.name,
+                            taskName: task.name || task.taskName,
                             projectName: task.projectName,
                             startTime: getCurrentDate(),
                             endTime: undefined,
                             idProyecto: task.idProject || task.projectId,
-                            typeTrack: "manual",
+                            typeTrack: task.typeTrack,
                             currency: $scope.currency
 
                         };
