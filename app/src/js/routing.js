@@ -46,11 +46,6 @@
                 controller: 'AuthCtrl'
             })
 
-            .state('app.CRM', {
-                url: '/crm',
-                templateUrl: 'app/components/CRM/views/dashboardView.html'
-            })
-
             // USERS
             .state('app.users', {
                 url: '/users',
@@ -328,13 +323,6 @@
                 controller: 'EvalFormCtrl'
             })
 
-
-            //APPS
-            .state('app.apps', {
-                url: '/apps',
-                templateUrl: 'app/components/Apps/views/appsView.html'
-            })
-
             // APPS BOTS
             .state('app.bots', {
                 url: '/bots',
@@ -469,12 +457,6 @@
             .state('app.tasks_trelloEdit', {
                 url: '/taskTrello/edit/:id',
                 templateUrl: 'app/components/tasks/taskTrello/views/taskTrelloFormView.html',
-                controller: 'task_trelloCtrl'
-            })
-
-            .state('app.dashboardTasks', {
-                url: '/dashboard/tareas',
-                templateUrl: 'app/components/tasks/views/dashboardView.html',
                 controller: 'task_trelloCtrl'
             })
 
