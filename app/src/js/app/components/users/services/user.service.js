@@ -22,11 +22,11 @@
 		      	})
 		    },
 
-			currentUser: function(cb) {
-				RestClient.get(model + "/current", function(err, result) {
-		    		cb(err, result);
-		    	})
-			},
+				currentUser: function(cb) {
+					RestClient.get(model + "/current", function(err, result) {
+							cb(err, result);
+						})
+				},
 
 		    findById: function(id, cb) {
 				console.log(id);
@@ -39,7 +39,7 @@
 				RestClient.get(model + "?sort[name]=1" + q, function(err, result) {
 					cb(err, result);
 				})
-			},
+				},
 
 		    save: function(obj, cb) {
 		    	if (obj.id) {
@@ -65,7 +65,7 @@
 		    	})
 		    },
 
-			saveCurrentPerformance: function(obj, cb){
+				saveCurrentPerformance: function(obj, cb){
 		    	RestClient.post(model + "/performance/current/save", obj, function(err, result){
 		    		cb(err, result);
 		    	})
@@ -78,7 +78,7 @@
 		    	})
 		    },
 
-			getPerformanceCurrent: function(obj, cb){
+				getPerformanceCurrent: function(obj, cb){
 		    	RestClient.post(model + "/performance/current", obj, function(err, result){
 		    		cb(err, result);
 		    	})
@@ -95,7 +95,7 @@
 		    	RestClient.get("user/current", function(err, result) {
 		        	cb(err, result);
 		        })
-		    }
+		    },
 	  	};
 
 	  	return factory;

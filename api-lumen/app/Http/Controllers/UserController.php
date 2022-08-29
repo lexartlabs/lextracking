@@ -193,7 +193,7 @@ class UserController extends BaseController
             "role" => "string",
             "name" => "string"
         ]);
-        
+
         $update = $request->only(['email', 'password', 'name']);
 
         if($this->role == "admin") {
@@ -206,9 +206,9 @@ class UserController extends BaseController
                 $update['password'] = md5($request->input('password'));
             }
 
-            $photo= $request->input('photo');
-            if(!empty($photo)){
-                $photoSaved = FileHelper::saveFile($photo);
+            $image_base= $request->input('image_base');
+            if(!empty($image_base)){
+                $photoSaved = FileHelper::saveFile($image_base);
                 $update['photo'] = $photoSaved;
             }
 

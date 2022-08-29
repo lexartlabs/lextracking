@@ -1302,3 +1302,42 @@ input[type="checkbox"].toggle:checked~.label .circle {
   color: @color-active-text;
   font-size: 1.2rem;
 }
+
+/* Image Visualizer */
+.visualizer > img {
+  margin-top: 1rem;
+  height: 200px;
+  width: 200px;
+  background-image: url('https://www.seekpng.com/png/detail/966-9665317_placeholder-image-person-jpg.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  position: relative;
+  object-fit:cover;
+}
+.loader {
+  position: relative;
+  top: calc(-200px - 1.5rem);
+  left:0;
+  background-color:rgba(0, 0, 0, 0.543);
+  margin-top: 1rem;
+  height: 200px;
+  width: 200px;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loader > div {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #7076fe;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

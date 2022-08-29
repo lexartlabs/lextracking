@@ -43,7 +43,6 @@
           <b class="lexart-frm__lbl-name">{{ 'Password' }}</b>
         </label>
       </div>
-
       <div class="lexart-frm__fld" ng-if="isAdmin == 'true'">
         <label class="lexart-frm__lbl">
           <select name="mySelect" id="mySelect"
@@ -57,6 +56,16 @@
           <input ng-model="user.role" readonly="">
           <b class="lexart-frm__lbl-name">{{'Rol'}}</b>
         </label>
+      </div>
+    </div>
+    <div class="lexart-frm__fld visualizer">
+      <label class="lexart-frm__lbl">
+          <input type="file" file-model="imageSrc">
+          <b class="lexart-frm__lbl-name">Imagen de perfil</b>
+      </label>
+      <img ng-src="{{dataURL}}" />
+      <div ng-show="imageLoading" class="loader">
+        <div></div>
       </div>
     </div>
     <div class="lexart-frm__fldgrp" ng-if="user.role=='client'">
