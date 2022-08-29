@@ -15,18 +15,26 @@
         $rootScope.jiraUser = {};
         $scope.vinculate    = false;
         $scope.tabUser      = 1;
-        
+        $scope.imageLoading = false;
+        $scope.imageSrc     = "";
+        $scope.dataURL      = "";        
         
 
         if(idUser) {
             if(window.localStorage.isDeveloper == "true") {
                 UserServices.currentUser(function(err, result) {
+                    $scope.dataURL = result.photo
+                        ? `${FILES_BASE}${result.photo}`
+                        : '';
                     $scope.user = result;
                 });
                 
                 
             }  else {
                 UserServices.findById(idUser, function (err, result) {
+                    $scope.dataURL = result.photo
+                        ? `${FILES_BASE}${result.photo}`
+                        : '';
                     $scope.user = result;
                 });
             }
@@ -55,7 +63,6 @@
 
 
             $scope.sendingData = true;
-            console.log("RES: ", $scope.user);
 
             UserServices.save($scope.user, function (err, result) {
                 if (err) {
@@ -245,34 +252,27 @@
             }
         }
 
-        // $scope.tab3 = function(){
+        $scope.toBase64 = function() {
+            if(!$scope.imageSrc) return;
 
-        //     EvaluateServices.find(idUser, function(err, result){
-        //         $scope.evaluacion = result;
-        //     })
-            
-        //     $scope.showEval = function(value){
-        //        ngDialog.open({
-        //           template: '/app/shared/views/alert.modal.html',
-        //           showClose: true,
-        //           scope: $scope,
-        //           disableAnimation: true,
-        //           data: {
-        //             titleRequired: "Evaluación",
-        //             evaluate: value,
-        //             confirm: function() {
-        //               ngDialog.close(windowIDs[1]);
-        //             },
-        //             cancel: function() {
-        //               var windowIDs = ngDialog.getOpenDialogs();
+            $scope.imageLoading = true;
+            const reader = new FileReader($scope.imageSrc);
+            reader.onloadend = () => {
+                $scope.dataURL = reader.result;
+                // const base64String = $scope.dataURL.replace('data:', '').replace(/^.+,/, '');
+                
+                $scope.user.image_base = $scope.dataURL;
+                $scope.imageLoading = false;
+            };
 
-        //               ngDialog.close(windowIDs[1]);
-        //             }
-        //           }
-        //         });     
-        //     }
-        // }
+            reader.readAsDataURL($scope.imageSrc);
+        }
 
+
+        // ---------- Watchers ------------
+        $scope.$watch('imageSrc', function(nw, od) {
+            $scope.toBase64();
+        });
     }]);
 
 }(angular));

@@ -193,7 +193,7 @@ class UserController extends BaseController
             "role" => "string",
             "name" => "string"
         ]);
-        
+
         $update = $request->only(['email', 'password', 'name']);
 
         if($this->role == "admin") {
