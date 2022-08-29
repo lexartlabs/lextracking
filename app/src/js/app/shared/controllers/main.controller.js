@@ -185,7 +185,7 @@
                             startTime: getCurrentDate(),
                             endTime: undefined,
                             idProyecto: task.idProject || task.projectId,
-                            typeTrack: task.typeTrack,
+                            typeTrack: task.typeTrack || task.type,
                             currency: $scope.currency
 
                         };
