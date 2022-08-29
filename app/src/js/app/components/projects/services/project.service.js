@@ -63,7 +63,7 @@
 				obj.idProject = Number(obj.idProject)
 				console.log(obj)
 
-				if (obj.users.length) {
+				if (obj.users && obj.users.length) {
 					if (!obj.users[0].idUser) {
 						obj.users = JSON.parse(obj.users);
 					}

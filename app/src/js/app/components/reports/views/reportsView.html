@@ -174,10 +174,7 @@
                   </div>
                 </div>
                 <!-- ADD FEATURE: SUBTOTAL POR TAREAS -->
-                <div class="flex-row" ng-if="$index == byTask.tracks.length - 1 && !filter.idTask" style="
-                    background-color: rgba(225, 56, 107, 0.1);
-                    font-weight: bold;
-                  ">
+                <div class="flex-row task-subtotal" ng-if="$index == byTask.tracks.length - 1 && !filter.idTask">
                   <div class="flex-item"></div>
                   <div class="flex-item"></div>
                   <div class="flex-item"></div>
@@ -402,7 +399,7 @@
               </div>
               <!-- SUBTOTAL POR PROYECTO -->
               <div class="flex-row" ng-if="$index == byProject.tracks.length - 1 && !filter.idProject"
-                style="background-color: #f9f9f9; font-weight: bold">
+                style="font-weight: bold" class="project-subtotal">
                 <div class="flex-item"></div>
                 <div class="flex-item"></div>
                 <div class="flex-item"></div>
@@ -565,8 +562,7 @@
                 </div>
               </div>
               <!-- SUBTOTAL POR PROYECTO -->
-              <div class="flex-row" ng-if="$index == byProject.tracks.length - 1 && !filter.idProject"
-                style="background-color: #F9F9F9; font-weight: bold">
+              <div class="flex-row project-subtotal" ng-if="$index == byProject.tracks.length - 1 && !filter.idProject">
                 <div class="flex-item"></div>
                 <div class="flex-item"></div>
                 <div class="flex-item"></div>

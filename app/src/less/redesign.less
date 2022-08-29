@@ -125,7 +125,7 @@ tbody {
   tbody,
   tr,
   td {
-    background: @color-bk-dark-mode-secondary;
+    background: transparent;
   }
 
   tr:nth-child(odd) {
@@ -150,6 +150,7 @@ tbody {
 
   .lexart-menu__nav-item {
     color: @color-dark-mode;
+    cursor: pointer;
   }
 
   .lexart-menu__nav-item:hover {
@@ -419,6 +420,9 @@ tbody {
     background: @color-bk-dark-mode-secondary;
     color: @color-dark-white;
     border-bottom: 2px solid @color-bk-dark-mode-third;
+  }
+  table.lexart-table tr:hover{
+    background-color: @color-bk-dark-mode  !important;
   }
 
   // tbody tr:hover {
@@ -692,8 +696,110 @@ tbody {
     color: @color-dark-mode;
     // background-color: @navbar-body-color;
   }
+  details{
+    background-color: @color-bk-dark-mode-secondary;
+    color: @color-dark-mode;
+  }
+  details .summary-chevron-up,
+  details .summary-chevron-down{
+    background-color: @color-bk-dark-mode-secondary;
+  }
 
+  .history-item{
+    border: 1px solid @color-bk-dark-mode;
+  }
+  .history-item__title_container{
+    background-color: @color-bk-dark-mode;
+  }
+  .flex-head{
+    background-color: @color-bk-dark-mode !important;
+  }
+  .flex-row:nth-child(odd):hover{
+    background-color: @color-bk-dark-mode  !important;
+  }
+  .flex-row:nth-child(even):hover {
+    background-color: @color-bk-dark-mode  !important;
+  }
+  .flex-row:nth-child(odd){
+    background-color: transparent !important;
+    color: @color-dark-mode;
+  }
+  .flex-row:nth-child(even){
+    background-color: transparent !important;
+    color: @color-dark-mode;
+  }
+  .project-subtotal {
+    background-color: @color-bk-dark-mode;
+    color: @color-dark-mode;
+  }
+  .task-subtotal {
+    color: @color-dark-mode;
+  }
+  .moment-picker-input{
+    background-color: transparent;
+    border: 1px solid @color-active-text;
+  }
+  .navbar{
+    box-shadow: 1px 2px 4px -1px rgba(36, 36, 36, 0.75);
+      -webkit-box-shadow: 1px 2px 4px -1px rgba(36, 36, 36, 0.75);
+      -moz-box-shadow: 1px 2px 4px -1px rgba(36, 36, 36, 0.75);
+  }
+  .lexart-select .ui-select-dropdown{
+    background-color: @color-bk-dark-mode-secondary;
+    color: @color-dark-white;
+    border: 1px solid @color-dark-mode;
+  }
+  .lexart-select .ui-select-dropdown .active{
+    background-color: @color-bk-dark-mode;
+    color: @color-dark-white;
+  }
+  .ui-select-choices-row-inner{
+    color: @color-dark-white;
+  }
+  .navbar-dropdown {
+    .dropdown {
+      background-color: @color-bk-dark-mode-secondary !important;
+    }
+    .dropdown li a{
+      color: @color-dark-white !important;
+    }
+  }
 
+  /*Switch toggle*/
+  .switch-wrapper{
+    border: 2px solid @color-dark-mode;
+  }
+  input[type="checkbox"].toggle:checked~.label .circle{
+    border: 1px solid @color-dark-mode;
+    background-color: @color-dark-mode;
+  }
+  .circle{
+    border: 1px solid @color-dark-mode;
+    background-color: @color-dark-mode;;
+  }
+  .sun{
+    color: @color-dark-mode;;
+  }
+  .lexart-hover_menu{
+    background-color: @color-bk-dark-mode-secondary;
+  }
+  .lexart-hover_menu-item{
+    padding: 10px 20px 10px 10px;
+    background-color: @color-bk-dark-mode-secondary;
+    color: @color-dark-white;
+  }
+  .lexart-hover_menu-item:hover{
+    color: @color-active-text;
+  }
+}
+
+.project-subtotal{
+  background-color: #f9f9f9;
+}
+
+.task-subtotal{
+  background-color: rgba(225, 56, 107, 0.1);
+  font-weight: bold;
 }
 
 .collapse-icon-container {
@@ -917,11 +1023,19 @@ tbody {
 }
 
 .navbar_btn_container{
-  // position:absolute; 
-  // bottom: 30px; 
-  // left: 0; 
-  // width:100%; 
-  // display: block;
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  width: 33%;
+  display: block;
+  left: 33%;
+  text-align: center;
+  transition: left ease .5s;
+}
+
+.lexart-menu__collapsed .navbar_btn_container {
+  left: 15px;
+  transition: left ease .5s;
 }
 
 .collapse-btn {
@@ -999,7 +1113,31 @@ tbody {
 .tooltip-container {
   position: relative;
 }
-
+.tooltip-box-switch{
+  position: absolute;
+  left: -40px;
+  bottom: 40px;
+  background-color: #7076FE;
+  color: #F9F9F9;
+  z-index: 999;
+  text-align: center;
+  font-size: 1rem;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: all 1s ease;
+  z-index: 99999;
+  width: 300%;
+}
+.tooltip-box-switch::after {
+  content: '';
+  display: block;
+  border-top: 7px solid #7076FE;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  position: absolute;
+  top: 64px;
+  left: calc(40%);
+}
 .tooltip-box {
   position: absolute;
   left: 250px;
@@ -1099,4 +1237,68 @@ tbody {
 
 .toast-error{
   background-color: @color-red;
+}
+
+.switch-wrapper{
+  position: relative;
+  border: 2px solid @color-active-text;
+  height: 2rem;
+  width: 4rem;
+  display: flex;
+  border-radius: 10em;
+  background-color: transparent;
+}
+
+input[type="checkbox"].toggle {
+  position: absolute;
+  top: -10000px;
+  left: -10000px;
+}
+
+input[type="checkbox"].toggle+label {
+  /*   border: 2px solid blue; */
+  cursor: pointer;
+  width: 100%;
+  height: auto;
+  border-radius: 10em;
+
+}
+
+input[type="checkbox"].toggle:checked+label {
+  color: @color-active-text;
+}
+
+.circle {
+  position: absolute;
+  border: 1px solid @color-active-text;
+  height: 1.6rem;
+  width: 1.6rem;
+  background-color: @color-active-text;
+  border-radius: 50%;
+  top: .5px;
+  left: 2px;
+  transition: all 0.3s ease-in-out;
+}
+
+input[type="checkbox"].toggle:checked~.label .circle {
+  transform: translateX(1.8rem);
+  border: 1px solid @color-active-text;
+  background-color: @color-active-text;
+}
+
+.ri-moon-line {
+  position: absolute;
+  top: 0.2rem;
+  right: 0.3rem;
+  color: @color-active-text;
+  font-size: 1.2rem;
+}
+
+.sun {
+  height: 2.1rem;
+  position: absolute;
+  top: 0.2rem;
+  left: 0.3rem;
+  color: @color-active-text;
+  font-size: 1.2rem;
 }
