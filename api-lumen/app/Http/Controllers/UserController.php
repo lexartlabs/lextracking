@@ -64,7 +64,7 @@ class UserController extends BaseController
         $password = md5($request->input('password')); //REVER O METODO DE ENCRYPT
         $role = $request->input('role');
 
-        $user = $request->only(["name", "email", "password", "role"]);
+        $user = $request->only(["name", "email", "password", "role", "idSlack"]);
 
         try {
             $user["password"] = $password;
@@ -194,7 +194,7 @@ class UserController extends BaseController
             "name" => "string"
         ]);
 
-        $update = $request->only(['email', 'password', 'name']);
+        $update = $request->only(['email', 'password', 'name', 'idSlack']);
 
         if($this->role == "admin") {
             $update["role"] = $request->input('role');
