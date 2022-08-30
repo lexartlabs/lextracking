@@ -148,6 +148,8 @@
       <div class="navbar-menu" id="open-navbar1">
       </div>
       <div class="navbar-menu">
+        <img ng-if="!userPhoto.endsWith('null')" ng-src="{{ userPhoto }}" alt="profile picture" class="usr-photo">
+        <img ng-if="userPhoto.endsWith('null')" src="/assets/images/user-placeholder.png" alt="profile picture" class="usr-photo">
         <ul class="navbar-nav">
           <li class="navbar-dropdown">
             <a class="dropdown-toggler" data-dropdown="profile">
@@ -186,3 +188,12 @@
     </div>
   </nav>
 </div>
+
+<style>
+  .usr-photo {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+</style>

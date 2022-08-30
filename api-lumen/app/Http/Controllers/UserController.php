@@ -216,7 +216,7 @@ class UserController extends BaseController
 
             return array("response" => $user);
         }catch(Exception $e) {
-            return array('response' => 'Update User');
+            return array('response' => 'Update User', "error" => $e->getMessage());
         }
     }
 
