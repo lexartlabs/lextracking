@@ -37,7 +37,7 @@
                 <td></td>
 
             </tr>
-            <tr ng-repeat="(index,task) in tasks" ng-class="{'active-task': currentTrack.idTask == task.id}" ng-style="task.status == 'Done' && {'background-color':'#a9e892'}  || task.status == 'In-Review' && {'background-color':'#f08b8b'} || task.status == 'In-Progress' && {'background-color':'#f2ecb8'}">
+            <tr ng-repeat="(index,task) in tasks" ng-class="{'active-task': currentTrack.idTask == task.id}" ng-style="task.status == 'Done' && {'background-color':'#a9e892'}  || task.status == 'In-Review' && {'background-color':'#f08b8b'} || task.status == 'In-Progress' && {'background-color':'#b2b5f9'}">
                 <td ng-if="userRole != 'admin'" title="{{task.projectName}}">{{task.projectName | truncateTail:true:30:'...'}}</td>
                 <td><a ng-if="userRole == 'admin'" style="color: #4a90e2; text-decoration: underline" ui-sref="app.projectEdit({id: task.idProject})" target="_blank">{{task.projectName | truncateTail:true:30:'...'}}</a></td>
                 <td title="{{task.name}}">{{task.name | truncateTail:true:30:'...'}}</td>

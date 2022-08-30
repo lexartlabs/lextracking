@@ -74,7 +74,7 @@
         $rootScope.toggleMode = function () {
             $rootScope.darkMode == 0 ? $rootScope.darkMode = 1 : $rootScope.darkMode = 0;
             $rootScope.darkModeBool = !$rootScope.darkModeBool;
-            $window.sessionStorage["darkMode"] == 0 ? $window.sessionStorage["darkMode"] = 1 : $window.sessionStorage["darkMode"] = 0;
+            $window.sessionStorage["darkMode"] == '0' ? $window.sessionStorage["darkMode"] = '1' : $window.sessionStorage["darkMode"] = '0';
         }
 
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
