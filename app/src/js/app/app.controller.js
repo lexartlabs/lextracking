@@ -15,6 +15,7 @@
         });
 
         $rootScope.darkMode = $window.sessionStorage["darkMode"] || 0;
+        $rootScope.userPhoto = window.localStorage.getItem("photo");
         $rootScope.darkMode == 1 ? $rootScope.darkModeBool = true : $rootScope.darkModeBool = false;
         $rootScope.shohSwitchTooltip = true;
         
