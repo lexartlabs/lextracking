@@ -1,0 +1,1 @@
+ALTER TABLE `Users` ADD `idSlack` VARCHAR(50) NULL DEFAULT NULL AFTER `jiraToken`;
