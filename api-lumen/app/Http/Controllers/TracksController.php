@@ -396,6 +396,7 @@ class TracksController extends BaseController
                 "Tracks.endTime",
                 DB::raw("WeeklyHours.costHour AS costHour"),
                 DB::raw("Users.name AS usersName"),
+                DB::raw("Users.photo"),
                 DB::raw("TrelloTask.name AS taskName"),
                 DB::raw("TrelloTask.project AS projectName"),
                 DB::raw("Clients.name AS client"),

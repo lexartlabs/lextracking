@@ -524,6 +524,7 @@
     <div class="lexart-flex" ng-if="itemTab == 1">
       <div class="flex-table" ng-if="tableTrackTrello.length > 0">
         <div class="flex-head">
+          <div class="flex-item">{{ '' }}</div>
           <div class="flex-item">{{ 'reports.user' | translate }}</div>
           <div class="flex-item">{{ 'reports.client' | translate }}</div>
           <div class="flex-item">{{ 'reports.project' | translate }}</div>
@@ -542,6 +543,10 @@
             <div ng-repeat="track in byProject.tracks track by $index" class="flex-column-wrap">
               
               <div class="flex-row">
+                <div class="flex-item">
+                  <img ng-if="track.photo" ng-src="{{ FILES_BASE+track.photo }}" alt="profile picture" class="usr-photo"></img>
+                  <img ng-if="!track.photo" src="/assets/images/user-placeholder.png" alt="profile picture" class="usr-photo">
+                </div>
                 <div class="flex-item">{{track.usersName}}</div>
                 <div class="flex-item">{{track.client}}</div>
                 <div class="flex-item">{{track.projectName}}</div>
