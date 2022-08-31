@@ -44,6 +44,7 @@ class TracksController extends BaseController
                 DB::raw("WeeklyHours.costHour"),
                 DB::raw("Tasks.name AS taskName"),
                 DB::raw("Users.name AS userName"),
+                DB::raw("Users.photo"),
                 DB::raw("Clients.name AS clientName"),
                 DB::raw("TIMEDIFF(Tracks.endTime, Tracks.startTime) AS duration")
             )
@@ -282,6 +283,7 @@ class TracksController extends BaseController
                         DB::raw("Projects.name AS projectName"),
                         DB::raw("TrelloTask.name AS taskName"),
                         DB::raw("Users.name AS userName"),
+                        DB::raw("Users.photo"),
                         DB::raw("TIMEDIFF( Tracks.endTime, Tracks.startTime ) AS duration")
                     )
                         ->join("TrelloTask", "Tracks.idTask", "=", "TrelloTask.id")
@@ -299,6 +301,7 @@ class TracksController extends BaseController
                         DB::raw("Projects.name AS projectName"),
                         DB::raw("Tasks.name AS taskName"),
                         DB::raw("Users.name AS userName"),
+                        DB::raw("Users.photo"),
                         DB::raw("TIMEDIFF( Tracks.endTime, Tracks.startTime ) AS duration")
                     )
                         ->join("Tasks", "Tracks.idTask", "=", "Tasks.id")
@@ -520,6 +523,7 @@ class TracksController extends BaseController
                     DB::raw("Projects.name AS projectName"),
                     DB::raw("Tasks.name AS taskName"),
                     DB::raw("Users.name AS userName"),
+                    DB::raw("Users.photo"),
                     DB::raw("TIMEDIFF( Tracks.endTime, Tracks.startTime ) AS duration")
                 )->join("Tasks", "Tracks.idTask", "=", "Tasks.id")
                 ->join("Users", "Tracks.idUser", "=", "Users.id")
@@ -536,6 +540,7 @@ class TracksController extends BaseController
                     DB::raw("TrelloTask.id_project AS TrelloProyect"),
                     DB::raw("TrelloTask.name AS taskName"),
                     DB::raw("Users.name AS userName"),
+                    DB::raw("Users.photo"),
                     DB::raw("TIMEDIFF( Tracks.endTime, Tracks.startTime ) AS duration")
                 )->join("TrelloTask", "Tracks.idTask", "=", "TrelloTask.id")
                 ->join("Users", "Tracks.idUser", "=", "Users.id")
@@ -580,6 +585,7 @@ class TracksController extends BaseController
             // DB::raw("Tasks.status AS taskStatus"),
             DB::raw("Tasks.status AS status"),
             DB::raw("Users.name AS userName"),
+            DB::raw("Users.photo"),
             DB::raw("TIMEDIFF( Tracks.endTime, Tracks.startTime ) AS duration")
         )->join("Tasks", "Tracks.idTask", "=", "Tasks.id")
         ->join("Users", "Tracks.idUser", "=", "Users.id")
