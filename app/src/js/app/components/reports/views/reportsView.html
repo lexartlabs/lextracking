@@ -145,8 +145,8 @@
               <div ng-repeat="track in byTask.tracks track by $index" class="flex-column-wrap" id="datatable">
                 <div class="flex-row">
                   <div class="flex-item">
-                    <img ng-if="track.photo" ng-src="{{ FILES_BASE+track.photo }}" alt="profile picture" class="usr-photo"></img>
-                    <img ng-if="!track.photo" src="/assets/images/user-placeholder.png" alt="profile picture" class="usr-photo">
+                    <img ng-if="track.photo" ng-src="{{ FILES_BASE+track.photo }}" alt="profile picture" class="usr-photo-table"></img>
+                    <img ng-if="!track.photo" src="/assets/images/user-placeholder.png" alt="profile picture" class="usr-photo-table">
                   </div>
                   <div class="flex-item">{{track.userName}}</div>
                   <div class="flex-item">{{track.clientName}}</div>
@@ -544,8 +544,8 @@
               
               <div class="flex-row">
                 <div class="flex-item">
-                  <img ng-if="track.photo" ng-src="{{ FILES_BASE+track.photo }}" alt="profile picture" class="usr-photo"></img>
-                  <img ng-if="!track.photo" src="/assets/images/user-placeholder.png" alt="profile picture" class="usr-photo">
+                  <img ng-if="track.photo" ng-src="{{ FILES_BASE+track.photo }}" alt="profile picture" class="usr-photo-table"></img>
+                  <img ng-if="!track.photo" src="/assets/images/user-placeholder.png" alt="profile picture" class="usr-photo-table">
                 </div>
                 <div class="flex-item">{{track.usersName}}</div>
                 <div class="flex-item">{{track.client}}</div>
