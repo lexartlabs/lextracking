@@ -93,8 +93,8 @@
             <tbody>
                 <tr ng-repeat="track in tracks" ng-if="!track.endTime || track.endTime == '0000-00-00 00:00:00'">
                     <td style="position:relative;">
-                        <img ng-if="track.photo" style="top: 3px;" ng-src="{{ FILES_BASE+track.photo }}" alt="profile picture" class="usr-photo-table"></img>
-                        <img ng-if="!track.photo" style="top: 3px;" src="/assets/images/user-placeholder.png" alt="profile picture" class="usr-photo-table">
+                        <img ng-if="track.photo" ng-src="{{ FILES_BASE+track.photo }}" alt="profile picture" class="usr-photo-table"></img>
+                        <img ng-if="!track.photo" src="/assets/images/user-placeholder.png" alt="profile picture" class="usr-photo-table">
                     </td>
                     <td>{{track.userName}}</td>
                     <td><a ng-if="userRole == 'admin' || userRole == 'pm'"  style="color: #4a90e2; text-decoration: underline" ui-sref="app.projectEdit({id: track.idProyecto})" target="_blank">{{track.projectName | truncateTail:true:30:'...'}}</a></td>
