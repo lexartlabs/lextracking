@@ -37,7 +37,8 @@ Route::group(['prefix' => 'api'], function () {
             Route::get('current/exceptions/{date}', 'UserController@currentExceptions');
             Route::post('exceptions/{id}/{date}', 'UserController@createException');
             Route::post('/fixeds/{id}', 'UserController@upsertFixed');
-
+            Route::put('update/{id}', 'UserController@update');
+            
             //Performances
             Route::group(['prefix' => 'performance'], function() {
                 Route::post('current', 'PerformanceController@current');
@@ -50,7 +51,6 @@ Route::group(['prefix' => 'api'], function () {
             //Route::delete('delete', 'UserController@delete');
             //Route::post('undelete', 'UserController@undelete');
             Route::get('all-admin', 'UserController@allAdmin');
-            Route::put('update/{id}', 'UserController@update');
             Route::get('{id}', 'UserController@userById');
 
 
