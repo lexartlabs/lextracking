@@ -12,6 +12,7 @@
     <table class="lexart-table">
         <thead>
             <tr>
+                <th></th>
                 <th>{{ 'users.id' | translate }}</th>
                 <th ng-if="userRole != 'admin'"></th>
                 <th>{{ 'users.name' | translate }}</th>
@@ -22,6 +23,7 @@
         </thead>
         <tbody>
             <tr>
+                <td></td>
                 <td><input class="field-filter" ng-model="filter.id"></td>
                 <td ng-if="userRole != 'admin'"></td>
                 <td><input class="field-filter" ng-model="filter.name"></td>
@@ -30,6 +32,10 @@
                 <td></td>
             </tr>
             <tr ng-repeat="user in users | filter: filter">
+                <td style="position:relative;">
+                    <img ng-if="user.photo" ng-src="{{ FILES_BASE+user.photo }}" alt="profile picture" class="usr-photo-table"></img>
+                    <img ng-if="!user.photo" src="/assets/images/user-placeholder.png" alt="profile picture" class="usr-photo-table">
+                </td>
                 <td>{{user.id}}</td>
                 <td><a ng-if="userRole == 'admin'" style="color: #4a90e2; text-decoration: underline" ui-sref="app.tasks-user({id: user.id})" >{{user.name | truncateTail:true:30:'...'}}</a></td>
                 <td ng-if="userRole != 'admin'">{{user.name}}</td>

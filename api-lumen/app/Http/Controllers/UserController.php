@@ -64,7 +64,7 @@ class UserController extends BaseController
         $password = md5($request->input('password')); //REVER O METODO DE ENCRYPT
         $role = $request->input('role');
 
-        $user = $request->only(["name", "email", "password", "role"]);
+        $user = $request->only(["name", "email", "password", "role", "idSlack"]);
 
         try {
             $user["password"] = $password;
@@ -193,8 +193,8 @@ class UserController extends BaseController
             "role" => "string",
             "name" => "string"
         ]);
-        
-        $update = $request->only(['email', 'password', 'name']);
+
+        $update = $request->only(['email', 'password', 'name', 'idSlack']);
 
         if($this->role == "admin") {
             $update["role"] = $request->input('role');
@@ -206,9 +206,9 @@ class UserController extends BaseController
                 $update['password'] = md5($request->input('password'));
             }
 
-            $photo= $request->input('photo');
-            if(!empty($photo)){
-                $photoSaved = FileHelper::saveFile($photo);
+            $image_base= $request->input('image_base');
+            if(!empty($image_base)){
+                $photoSaved = FileHelper::saveFile($image_base);
                 $update['photo'] = $photoSaved;
             }
 
@@ -216,7 +216,7 @@ class UserController extends BaseController
 
             return array("response" => $user);
         }catch(Exception $e) {
-            return array('response' => 'Update User');
+            return array('response' => 'Update User', "error" => $e->getMessage());
         }
     }
 

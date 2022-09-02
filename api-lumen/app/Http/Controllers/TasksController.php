@@ -42,7 +42,8 @@ class TasksController extends BaseController
                     'Projects.name as projectName'
                 )
                 ->selectRaw('IFNULL(Tasks.users, "[]") AS users')
-                ->whereRaw('Projects.active = ?', 1);
+                ->whereRaw('Projects.active = ?', 1)
+                ->orderBy("Tasks.id", "DESC");
 
             $count = Tasks::select("*");
 
@@ -75,7 +76,7 @@ class TasksController extends BaseController
                 $this->validate($request, ["id" => "numeric|exists:Tasks,id"]);
                 $tasks = $tasks->whereRaw("Tasks.id = ?", $id);
                 $count = $count->whereRaw("Tasks.id = ?", $id);
-                $task = $tasks-> first();
+                $task = $tasks->first();
                 return array("response" => $task);
             }
 
