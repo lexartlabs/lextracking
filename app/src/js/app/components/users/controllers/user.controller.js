@@ -4,7 +4,7 @@
 
     var Module = ng.module('LexTracking');
 
-    Module.controller('UserCtrl', ['$scope', '$state', '$stateParams', '$filter', 'UserServices','ClientServices', 'ngDialog', 'EvaluateServices','TracksServices', 'WeeklyHourServices', '$rootScope', '$http', function($scope, $state, $stateParams, $filter, UserServices, ClientServices,ngDialog, EvaluateServices, TracksServices, WeeklyHourServices, $rootScope, $http) {
+    Module.controller('UserCtrl', ['$scope', '$state', '$stateParams', '$filter', 'UserServices','ClientServices', 'ngDialog', 'EvaluateServices','TracksServices', 'WeeklyHourServices', '$rootScope', '$http', '$timeout', function($scope, $state, $stateParams, $filter, UserServices, ClientServices,ngDialog, EvaluateServices, TracksServices, WeeklyHourServices, $rootScope, $http, $timeout) {
 
         $scope.user         = {};
         $scope.sendingData  = false;
@@ -15,18 +15,28 @@
         $rootScope.jiraUser = {};
         $scope.vinculate    = false;
         $scope.tabUser      = 1;
-        
+        $scope.imageLoading = false;
+        $scope.imageSrc     = '';
+        $scope.imageHandler = {
+          dataURL: "",
+        };
         
 
         if(idUser) {
             if(window.localStorage.isDeveloper == "true") {
                 UserServices.currentUser(function(err, result) {
+                    $scope.imageHandler.dataURL = result.photo
+                        ? `${FILES_BASE}${result.photo}`
+                        : '';
                     $scope.user = result;
                 });
                 
                 
             }  else {
                 UserServices.findById(idUser, function (err, result) {
+                    $scope.imageHandler.dataURL = result.photo
+                        ? `${FILES_BASE}${result.photo}`
+                        : '';
                     $scope.user = result;
                 });
             }
@@ -55,7 +65,6 @@
 
 
             $scope.sendingData = true;
-            console.log("RES: ", $scope.user);
 
             UserServices.save($scope.user, function (err, result) {
                 if (err) {
@@ -68,7 +77,12 @@
                         if (result.status != 'Successfully registered') {
                             $state.go('app.users');
                         }else{
+                            $rootScope.userPhoto = $scope.imageHandler.dataURL;
                             $state.go('app.users');
+                        }
+
+                        if($scope.imageHandler.dataURL && $scope.user.id == $rootScope.userId) {
+                          $rootScope.userPhoto = $scope.imageHandler.dataURL;
                         }
                     }catch(error) {
                         $state.go('app.users');
@@ -245,34 +259,33 @@
             }
         }
 
-        // $scope.tab3 = function(){
+        $scope.cleanFile = function(){
+          angular.forEach(angular.element("input[type='file']"),function(inputElem) {
+              angular.element(inputElem).val(null);
+          });
+        };
 
-        //     EvaluateServices.find(idUser, function(err, result){
-        //         $scope.evaluacion = result;
-        //     })
-            
-        //     $scope.showEval = function(value){
-        //        ngDialog.open({
-        //           template: '/app/shared/views/alert.modal.html',
-        //           showClose: true,
-        //           scope: $scope,
-        //           disableAnimation: true,
-        //           data: {
-        //             titleRequired: "Evaluación",
-        //             evaluate: value,
-        //             confirm: function() {
-        //               ngDialog.close(windowIDs[1]);
-        //             },
-        //             cancel: function() {
-        //               var windowIDs = ngDialog.getOpenDialogs();
+        $scope.toBase64 = function() {
+            if(!$scope.imageSrc) return;
 
-        //               ngDialog.close(windowIDs[1]);
-        //             }
-        //           }
-        //         });     
-        //     }
-        // }
+            $scope.imageLoading = true;
+            const reader = new FileReader($scope.imageSrc);
+            reader.onloadend = () => {
+                $scope.imageHandler.dataURL = reader.result;                
+                $scope.user.image_base = $scope.imageHandler.dataURL;
 
+                $timeout(() => $scope.imageLoading = false, 0);
+                $scope.cleanFile();
+            };
+
+            reader.readAsDataURL($scope.imageSrc);
+        }
+
+
+        // ---------- Watchers ------------
+        $scope.$watch('imageSrc', function(nw, od) {
+            $scope.toBase64();
+        });
     }]);
 
 }(angular));

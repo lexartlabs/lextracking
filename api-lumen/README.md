@@ -22,3 +22,15 @@ If you discover a security vulnerability within Lumen, please send an e-mail to 
 ## License
 
 The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Create Symlink
+Create folder "files" in api-lumen/storage/app/
+
+Mac/Linux Example:
+ln -s /Users/{{user}}/Documents/www/lextracking/api-lumen/storage/app/files /Users/{{User}}/Documents/www/lextracking/api-lumen/public/
+
+Windows Example:
+mklink /J C:\LinkToFolder/lextracking/api-lumen/storage/app/files C:\LinkToFolder/lextracking/api-lumen/public/
+
+# Composer
+composer dump-autoload

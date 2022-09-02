@@ -50,6 +50,7 @@
                     $window.localStorage["isClient"] = user.role == 'client';
                     $window.localStorage["isDeveloper"] = user.role == 'developer';
                     $window.localStorage["idUserClient"] = user.idClient;
+                    $window.localStorage["photo"] = FILES_BASE + user.photo;
 
                     $rootScope.userId = $window.localStorage["userId"];
                     $rootScope.userName = $window.localStorage["userName"];
@@ -58,6 +59,7 @@
                     $rootScope.isAdmin = $window.localStorage["isAdmin"];
                     $rootScope.isClient = $window.localStorage["isClient"];
                     $rootScope.isDeveloper = $window.localStorage["isDeveloper"];
+                    $rootScope.userPhoto = $window.localStorage["photo"];
                     if ($rootScope.isClient == 'true') {
                         $rootScope.userIdClient = $window.localStorage["idUserClient"];
                     }
