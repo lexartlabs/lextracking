@@ -10,7 +10,7 @@ services:
       - .:/app
     ports:
       - 9090:8000
-    command: [sh, -c, "cd application/app && npm install -g bower && bower install --allow-root && npm run dev"]
+    command: [sh, -c, "cd application/app && npm install && npm install -g bower && bower install --allow-root && npm run dev"]
     environment:
       - NODE_ENV=development
     # depends_on:
