@@ -1,0 +1,36 @@
+<wizard class="lexart-modal lexart-modal--medium" hide-indicators="true" on-finish="finishedWizard()" on-cancel="cancelledWizard()" style="background-color: white; border: 1px solid gray; border-radius: 5px; padding: 10px; width: 100%;"> 
+    <wz-step class="lexart-modal__header" style="text-align: center; padding-top: 10px; width: 100%; margin-bottom: 0%;">
+        <h1 style=" margin-bottom: 0%; border: black 1px solid; border-bottom: none; text-align: center; background-color: steelblue; height: 40px; padding-top: 8px; color: white; width: 102%">Añadir Bot a Trello</h1>
+        <img style="margin-bottom: 0%; width: 102%; border-left: 1px black solid; border-right: 1px black solid;" src="https://i.ibb.co/1ML1Bn7/Captura-de-pantalla-de-2020-03-19-10-23-42.png" alt="paso1"><br>
+        <p style="background-color: #000000d6;padding: 10px;color: #e2e2e2;width: 102%; margin-top: -2%;">Ingresar con usuario personal a Trello, y clickear en Boards</p>
+        <input type="submit" class="lexart-btn" style="margin-top: 10px;" wz-next value="Siguiente" />
+    </wz-step>
+    <wz-step class="lexart-modal__header" style="text-align: center;">
+        <h1 style=" margin-bottom: 0%; border: black 1px solid; border-bottom: none; text-align: center; background-color: steelblue; height: 40px; padding-top: 8px; color: white; width: 102%">Añadir Bot a Trello</h1>
+        <img style="margin-bottom: 0%; width: 102%; border-left: 1px black solid; border-right: 1px black solid;" src="https://i.ibb.co/yprXs0b/Captura-de-pantalla-de-2020-03-19-10-23-20.png" alt="paso2"><br>
+        <p style="background-color: #000000d6;padding: 10px;color: #e2e2e2;width: 102%; margin-top: -2%;">Click en Create new board (o crear nuevo tablero) e ingresar el nombre elegido para el tablero</p>
+        <input type="submit" class="lexart-btn" style="margin-top: 10px;" wz-previous value="Volver" />
+        <input type="submit" class="lexart-btn" style="margin-top: 10px;" wz-next value="Siguiente" />
+    </wz-step>
+    <wz-step class="lexart-modal__header" style="text-align: center;">
+        <h1 style=" margin-bottom: 0%; border: black 1px solid; border-bottom: none; text-align: center; background-color: steelblue; height: 40px; padding-top: 8px; color: white; width: 102%">Añadir Bot a Trello</h1>
+        <img style="margin-bottom: 0%; width: 102%; border-left: 1px black solid; border-right: 1px black solid;" src="https://i.ibb.co/g3NLZBK/Captura-de-pantalla-de-2020-03-19-10-22-57.png" alt="paso3"><br>
+        <div style="background-color: #000000d6;padding: 10px;color: #e2e2e2;width: 102%; margin-top: -2%;">
+        <p>Once created, you have to invite the Lexart bot to appear in the tracking</p>
+        <p>Click on invite. Invite with the name: lexartbrain.</p>
+        <p>Email: lexart.brain@gmail.com (not allways required)</p>
+        </div>
+        <input type="submit" class="lexart-btn" style="margin-top: 10px;" wz-previous value="Volver" />
+        <input type="submit" class="lexart-btn" style="margin-top: 10px;" wz-next value="Siguiente" />
+    </wz-step>
+    <wz-step class="lexart-modal__header" style="text-align: center;">
+        <h1 style=" margin-bottom: 0%; border: black 1px solid; border-bottom: none; text-align: center; background-color: steelblue; height: 40px; padding-top: 8px; color: white; width: 102%">Añadir Bot a Trello</h1>
+        <img style="margin-bottom: 0%; width: 102%; border-left: 1px black solid; border-right: 1px black solid;" src="https://i.ibb.co/LryDvKC/Captura-de-pantalla-de-2020-03-19-10-22-37.png" alt="paso4"><br>
+        <div style="background-color: #000000d6;padding: 10px;color: #e2e2e2;width: 102%; margin-top: -2%;">
+        <p>If the predictor shows lexart.brain(as in the image) select and confirm.</p>
+        <p>Once invited, the board will already be selectable in the Lexart tracking</p>
+        </div>
+        <input type="submit" class="lexart-btn" style="margin-top: 10px;" wz-previous value="Volver" />
+    </wz-step>
+    <input class="lexart-btn lexart-btn--alt" style="margin-top: 10px; float: right;" type="submit" ng-click="ngDialogData.cancel()" value="Cerrar" />
+</wizard>

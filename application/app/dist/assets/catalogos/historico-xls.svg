@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="110px" height="110px" viewBox="0 0 110 110" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40 (33762) - http://www.bohemiancoding.com/sketch -->
+    <title>catalogos/historico-xls</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="55" cy="55" r="55"></circle>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="110" height="110" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="IMM-desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="catalogos/historico-xls">
+            <use id="Oval-4" stroke="#CCCCCC" mask="url(#mask-2)" stroke-width="4" fill="#F9F9F9" xlink:href="#path-1"></use>
+            <circle id="Oval-4-Copy" fill="#1BBC9C" cx="55" cy="55" r="50"></circle>
+            <g id="Group-28" transform="translate(56.000000, 55.000000) scale(-1, 1) rotate(-90.000000) translate(-56.000000, -55.000000) translate(32.000000, 22.000000)">
+                <polygon id="Rectangle-36" fill="#F5F5F5" points="0 0 38 0 48 10 48 66 0 66"></polygon>
+                <polygon id="Rectangle-39" fill="#D8D8D8" points="38 0 48 10 38 10"></polygon>
+            </g>
+            <polygon id="Path" fill="#0F735F" points="43.3801993 37 39.3510775 37 36.5001489 41.1317969 33.6488034 37 29.6198007 37 34.4491362 44.1034375 29 52 36.8097515 52 36.8097515 49.3171094 35.0063374 49.3171094 36.5000298 47.1200195 39.8175064 52 44 52 38.5508043 44.1034375"></polygon>
+            <g id="Group-36" transform="translate(29.000000, 55.000000)" fill="#B5D1CB">
+                <rect id="Rectangle-50" x="0" y="0" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy-6" x="0" y="4" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy" x="9" y="0" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy-7" x="9" y="4" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy-2" x="18" y="0" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy-8" x="18" y="4" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy-3" x="27" y="0" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy-9" x="27" y="4" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy-4" x="36" y="0" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy-10" x="36" y="4" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy-5" x="45" y="0" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy-11" x="45" y="4" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy-17" x="0" y="8" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy-16" x="9" y="8" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy-15" x="18" y="8" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy-14" x="27" y="8" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy-13" x="36" y="8" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy-12" x="45" y="8" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy-23" x="0" y="12" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy-22" x="9" y="12" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy-21" x="18" y="12" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy-20" x="27" y="12" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy-19" x="36" y="12" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy-18" x="45" y="12" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy-29" x="0" y="16" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy-28" x="9" y="16" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy-27" x="18" y="16" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy-26" x="27" y="16" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy-25" x="36" y="16" width="8" height="3"></rect>
+                <rect id="Rectangle-50-Copy-24" x="45" y="16" width="8" height="3"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

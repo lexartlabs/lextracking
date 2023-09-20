@@ -1,0 +1,133 @@
+<div class="lexart-modal lexart-modal--medium">
+
+  <div class="lexart-modal__header">
+    <div class="lexart-modal__title" style="margin-bottom: 1%;">Agregar horario especial </div>
+
+
+  </div>
+  <div class="lexart-modal__cnt">
+
+    <div>
+      <form>
+        <div class="lexart-frm__fldgrp">
+          <div class="lexart-frm__fld">
+            <label style="float: left;">{{selectedDay}}</label>
+            <button ng-if="diaAnterior==true" type="button" class="lexart-btn ng-binding"
+              style="float: right; font-size:15px" ng-click="addEvent()"> + </button>
+            <!-- <label style="float: right;">Hoy {{todayIs}}</label> -->
+            <br>
+            <br>
+
+          </div>
+        </div>
+        <a style="float: center; text-align:center; color:rgb(192, 190, 190); font-size:12px"> El horario fijo para el
+          día seleccionado se borrará automáticamente si ingresas un horario especial</a>
+        <br>
+
+        <!-- MOSTRAR TODOS LOS EVENTOS DENTRO DE UN DIA -->
+        <ul>
+          <div ng-repeat="e in events"
+          ng-if="e.day == checkDate && e.id_track || e.dayCheck == checkDate && e.id_track">
+
+          <div style='border:1px solid #DDDDDD; padding:10px; border-radius:3px'>
+            <div class="lexart-frm__fldgrp" style="float: right">
+              <div size=10% class="lexart-frm__fld" moment-picker='e.hourStart' format="HH:mm"
+                change='selectedDates(e, e.start, e.start)'>
+                <input type='text' ng-model='e.hourStart' placeholder="Hora Inicial" ng-disabled='e.hourStart'>
+              </div>
+
+              <div class="lexart-frm__fld" moment-picker="e.hourEnd" format="HH:mm"
+                change='selectedDates(e, e.end, e.end)'>
+                <input type='text' ng-model='e.hourEnd' placeholder="Hora Final" ng-disabled='e.hourEnd'>
+              </div>
+            </div>
+            </br>
+            </br>
+            </br>
+            <b style="float: left; "> <input size="65%" ng-model="e.title"></b>
+            </br>
+            </br>
+
+          </div>
+        </div>
+
+          <div ng-repeat="e in events"
+            ng-if="e.day == checkDate && e.title =='Horario Fijo'|| e.dayCheck == checkDate && e.title =='Horario Fijo'">
+
+            <div style='border:1px solid #DDDDDD; padding:10px; border-radius:3px'>
+              <div class="lexart-frm__fldgrp" style="float: right">
+                <div size=10% class="lexart-frm__fld" moment-picker='e.hourStart' format="HH:mm"
+                  change='selectedDates(e, e.start, e.start)'>
+                  <input type='text' ng-model='e.hourStart' placeholder="Hora Inicial" ng-disabled='e.hourStart'>
+                </div>
+
+                <div class="lexart-frm__fld" moment-picker="e.hourEnd" format="HH:mm"
+                  change='selectedDates(e, e.end, e.end)'>
+                  <input type='text' ng-model='e.hourEnd' placeholder="Hora Final" ng-disabled='e.hourEnd'>
+                </div>
+              </div>
+              </br>
+              </br>
+              </br>
+              <b style="float: left; "> <input size="65%" ng-model="e.title"></b>
+              </br>
+              </br>
+
+            </div>
+          </div>
+
+
+
+          <div ng-repeat="e in events" ng-style='{"border":e.error ? "1px dashed red":""}'
+            ng-if="e.day == checkDate && e.title != 'Horario Fijo' && !e.id_track|| e.dayCheck == checkDate && e.title != 'Horario Fijo' && !e.id_track">
+
+            <div style='border:1px solid #DDDDDD; padding:10px; border-radius:3px'>
+              <div class="lexart-frm__fldgrp" style="float: left">
+
+
+                <div size=10% class="lexart-frm__fld" moment-picker='e.hourStart' format="HH:mm"
+                  change='selectedDates(e, e.start, e.start); btwDatesE(e.start, e.hourStart, e.hourEnd, $index, "exc")'>
+                  <input type='text' ng-model='e.hourStart' placeholder="Hora Inicial">
+                </div>
+
+                <div class="lexart-frm__fld" moment-picker="e.hourEnd" format="HH:mm"
+                  change='selectedDates(e, e.end, e.end);btwDatesE(e.start, e.hourStart, e.hourEnd, $index, "exc")'>
+                  <input type='text' ng-model='e.hourEnd' placeholder="Hora Final">
+
+
+                </div>
+
+              </div>
+
+              <a ng-if="!e.trackedEvent" style="float: right" class="close" ng-click="remove($index)"><img
+                  src="assets/images/icons/delete_entry-ico.svg"></i></a>
+
+
+              </br>
+              </br>
+              </br>
+
+
+              <b style="float: left; "> <input placeholder='Agregar descripción ' size="65%" ng-model="e.title"></b>
+
+
+
+
+              </br>
+              </br>
+
+            </div>
+          </div>
+        </ul>
+      </form>
+    </div>
+  </div>
+
+
+  <div class="lexart-modal__actions">
+
+    <p class="err-display">{{error}}</p>
+    <a class="lexart-btn lexart-btn--alt" ng-click="ngDialogData.cancel()">{{ 'shared.modal.cancel' | translate }}</a>
+    <a class="lexart-btn" ng-click="ngDialogData.confirm()">{{ 'shared.modal.accept' | translate }}</a>
+  </div>
+</div>

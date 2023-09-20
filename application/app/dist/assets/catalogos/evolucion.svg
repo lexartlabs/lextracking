@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="110px" height="110px" viewBox="0 0 110 110" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40 (33762) - http://www.bohemiancoding.com/sketch -->
+    <title>catalogos/evolucion</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="55" cy="55" r="55"></circle>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="110" height="110" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="IMM-desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="catalogos/evolucion">
+            <use id="Oval-4" stroke="#CCCCCC" mask="url(#mask-2)" stroke-width="4" fill="#F9F9F9" xlink:href="#path-1"></use>
+            <circle id="Oval-4-Copy" fill="#F2F2F2" cx="55" cy="55" r="50"></circle>
+            <g id="Group-35" transform="translate(19.000000, 33.000000)">
+                <polygon id="Rectangle-49" fill="#1BBC9C" points="0 16 13 16 13 44 0 44"></polygon>
+                <polygon id="Rectangle-49-Copy" fill="#F6C35B" points="15 29 28 29 28 44 15 44"></polygon>
+                <rect id="Rectangle-49-Copy-2" fill="#6EBEC5" x="30" y="3" width="13" height="41"></rect>
+                <rect id="Rectangle-49-Copy-3" fill="#50667E" x="45" y="12" width="13" height="32"></rect>
+                <rect id="Rectangle-49-Copy-4" fill="#F05B30" x="60" y="0" width="13" height="44"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

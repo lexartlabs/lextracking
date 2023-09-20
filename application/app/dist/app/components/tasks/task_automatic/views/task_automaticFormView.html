@@ -1,0 +1,98 @@
+<div class="lexart-wa__hdr lexart-flex">
+    <div class="lexart-flex-5">
+        <h1 class="lexart-wa__tit">
+            <a class="lexart-bc-item" ui-sref="app.tasks_automatic">{{ 'tasks_automatic.title' | translate }}</a>
+        </h1>
+        <div class="lexart-bc">
+            <a class="lexart-bc-item">{{ 'tasks_automatic.task_automatic' | translate }}</a>
+        </div>
+        <div class="lexart-bc" ng-if="task_automatic.name">
+            <span class="lexart-bc-item lexart-bc--head">{{task_automatic.name}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="lexart-wa__cnt">
+    <form class="lexart-frm lexart-frm--center">
+        <div class="lexart-frm__fldgrp">
+            <div class="lexart-frm__fld" ng-if="task_automatic.id">
+                <label class="lexart-frm__lbl">
+                    <input type="text" ng-value="task_automatic.id" readonly/>
+                    <b class="lexart-frm__lbl-name">{{ 'tasks_automatic.id' | translate }}</b>
+                </label>
+            </div>
+        
+            <div class="lexart-frm__fld">
+                <label class="lexart-frm__lbl">
+                    <input type="text" ng-model="task_automatic.name"/>
+                    <b class="lexart-frm__lbl-name">{{ 'tasks_automatic.name' | translate }} <span class="required">*</span></b>
+                </label>
+            </div>
+        </div>
+
+        <div class="lexart-frm__fldgrp">
+            <div class="lexart-frm__fld">
+                <label class="lexart-frm__lbl">
+                    <input type="text" ng-model="field.name" placeholder="{{ 'tasks_automatic.field_name' | translate }}">
+                    <b class="lexart-frm__lbl-name">{{ 'tasks_automatic.field_name' | translate }} <span class="required">*</span></b>
+                </label>
+            </div>
+
+            <div class="lexart-frm__fld">
+                <label class="lexart-frm__lbl">
+                    <ui-select 
+                                ng-model="field.type" 
+                                class="lexart-select lexart-select--input" 
+                                theme="selectize" 
+                                append-to-body="true"
+                    >
+                        <ui-select-match placeholder="{{ 'tasks_automatic.select_type' | translate }}">
+                            {{$select.selected.name}}
+                        </ui-select-match>
+                        <ui-select-choices repeat="type.key as type in types | filter: $select.search">
+                            <div ng-bind-html="type.name"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                    <b class="lexart-frm__lbl-name">{{ 'tasks_automatic.field_type' | translate }} <span class="required">*</span></b>
+                </label>
+            </div>
+
+            <div class="lexart-frm__fld">
+                <label class="lexart-frm__lbl">
+                    <button class="lexart-btn" ng-click="addField()">{{ 'tasks_automatic.add_field' | translate }}</button>
+                </label>
+            </div>
+
+            <div class="lexart-frm__fld">
+                <label class="lexart-frm__lbl"></label>
+            </div>
+        </div>
+
+        <div class="lexart-frm__fldgrp" ng-if="task_automatic.fields.length">
+            <table class="lexart-table">
+                <thead>
+                    <tr>
+                        <th>{{ 'tasks_automatic.field_name' | translate }}</th>
+                        <th>{{ 'tasks_automatic.field_type' | translate }}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody data-ng-model="task_automatic.fields" as-sortable>
+                    <tr ng-repeat="field in task_automatic.fields" as-sortable-item="">
+                        <td as-sortable-item-handle="" style="cursor: pointer;">{{ field.name }}</td>
+                        <td as-sortable-item-handle="" style="cursor: pointer;">{{ field.type }}</td>
+                        <td>
+                            <a class="lexart-link__delete" ng-click="removeField($index)"></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>
+
+<div class="lexart-wa__actions">
+    <p ng-if="error" class="err-display">{{error}} {{ 'general.cant_be_empty' | translate }}</p>
+    <button class="lexart-btn lexart-btn--alt" ui-sref="app.tasks_automatic">{{ 'tasks_automatic.back' | translate }}</button>
+    <button class="lexart-btn" ng-disabled="sendingData" ng-click="save()">{{ 'tasks_automatic.save' | translate }}</button>
+</div>

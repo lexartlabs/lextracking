@@ -1,7 +1,6 @@
 version: '3.1'
 
 services:
-
   angular-app:
     restart: always
     container_name: angular
@@ -14,8 +13,19 @@ services:
     command: [sh, -c, "cd application/app && npm install -g bower && bower install --allow-root && npm run dev"]
     environment:
       - NODE_ENV=development
+    # depends_on:
+    #   - bower
     expose:
       - 9090
+
+  # bower:
+  #   restart: always
+  #   container_name: bower
+  #   image: node:14.16.1
+  #   working_dir: /frontend
+  #   volumes:
+  #     - .:/frontend
+  #   command: npm install -g bower && bower install --allow-root 
 
   nginx:
     container_name: nginx

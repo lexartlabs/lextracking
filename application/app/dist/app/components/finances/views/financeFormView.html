@@ -1,0 +1,152 @@
+<div class="lexart-wa__hdr lexart-flex">
+  <div class="lexart-flex-5">
+    <h1 class="lexart-wa__tit">
+      <a class="lexart-bc-item" ui-sref="app.finances">{{ 'finances.title' | translate }}</a>
+    </h1>
+    <div class="lexart-bc">
+      <a class="lexart-bc-item">{{ 'finances.finance' | translate }}</a>
+    </div>
+    <div class="lexart-bc" ng-if="finance.name">
+      <span class="lexart-bc-item lexart-bc--head">{{finance.name}}</span>
+    </div>
+  </div>
+</div>
+
+<div class="lexart-wa__cnt">
+  <form class="lexart-frm lexart-frm--center">
+
+    <div class="lexart-frm__fldgrp">
+      <div class="lexart-frm__fld" ng-if="finance.id">
+        <label class="lexart-frm__lbl">
+          <input type="text" ng-value="finance.id" readonly/>
+          <b class="lexart-frm__lbl-name">{{ 'ID' }}</b>
+        </label>
+      </div>
+
+      <div class="lexart-frm__fld">
+        <label class="lexart-frm__lbl">
+          <b class="lexart-frm__lbl-name">{{ 'finances.user' | translate }} <span class="required">*</span></b>
+          <ui-select
+          ng-model="select.user"
+          class="lexart-select lexart-select--input"
+          theme="selectize"
+          append-to-body="true"
+          >
+          <ui-select-match>
+            {{$select.selected.name}}
+          </ui-select-match>
+          <ui-select-choices repeat="user in users | filter: { name: $select.search }">
+            <div ng-bind-html="user.name | highlight: $select.selected.name"></div>
+          </ui-select-choices>
+        </ui-select>
+      </label>
+    </div>
+
+    <div class="lexart-frm__fld">
+      <label class="lexart-frm__lbl">
+
+        <b class="lexart-frm__lbl-name">{{ 'finances.type' | translate }} <span class="required">*</span></b>
+
+        <ui-select
+        ng-model="select.type"
+        class="lexart-select lexart-select--input"
+        theme="selectize"
+        append-to-body="true"
+        >
+        <ui-select-match>
+          {{$select.selected.name}}
+        </ui-select-match>
+        <ui-select-choices repeat="type in types | filter: { name: $select.search }">
+          <div ng-bind-html="type.name | highlight: $select.selected.name"></div>
+        </ui-select-choices>
+      </label>
+    </div>
+
+
+  </div>
+  <div class="lexart-frm__fldgrp">
+    <div class="lexart-frm__fld">
+      <label class="lexart-frm__lbl">
+        <input type="number" ng-model="finance.amount" min="0"/>
+        <b class="lexart-frm__lbl-name">{{ 'finances.amount' | translate }} <span class="required">*</span></b>
+      </label>
+    </div>
+    <div class="lexart-frm__fld">
+      <label class="lexart-frm__lbl">
+        <select ng-model="finance.currency">
+          <option ng-show="select.type.type=='DEUDA' || select.type.type=='COBROS_EST' ">USD</option>
+          <option>$</option>
+        </select>
+        <b class="lexart-frm__lbl-name">{{ 'finances.currency' | translate }} <span class="required">*</span></b>
+      </label>
+    </div>
+  </div>
+  <div class="lexart-frm__fldgrp">
+
+
+    <div class="lexart-frm__fld">
+      <label class="lexart-frm__lbl">
+
+         <select class="" ng-model="finance.status">
+        <option ng-repeat="i in statuses">{{i.status}}</option>
+      </select> 
+
+    <b class="lexart-frm__lbl-name">{{ 'finances.status' | translate }} <span class="required">*</span></b>
+  </label>
+</div>
+
+
+<div class="lexart-frm__fld">
+  <label class="lexart-frm__lbl">
+
+    <!-- <select class="" ng-model="finance.concept">
+    <option ng-repeat="i in concepts">{{i.concept}}</option>
+  </select> -->
+
+  <ui-select
+  ng-model="finance.concept"
+  class="lexart-select lexart-select--input"
+  theme="selectize"
+  append-to-body="true"
+  >
+  <ui-select-match>
+    {{$select.selected.concept}}
+  </ui-select-match>
+  <ui-select-choices repeat="concept in concepts | filter: { concept: $select.search }">
+    <div ng-bind-html="concept.concept | highlight: $select.selected.concept"></div>
+  </ui-select-choices>
+</ui-select>
+<b class="lexart-frm__lbl-name">{{ 'finances.concept' | translate }} <span class="required">*</span></b>
+</label>
+</div>
+
+
+<div class="lexart-frm__fld">
+  <label class="lexart-frm__lbl">
+    <input type="date" name=""  ng-model="finance.date" class="form-control">
+    <b class="lexart-frm__lbl-name">{{ 'finances.date' | translate }} <span class="required">*</span></b>
+  </label>
+
+
+</div>
+</div>
+
+
+<div class="lexart-frm__fldgrp">
+  <div class="lexart-frm__fld">
+    <label class="lexart-frm__lbl">
+      <textarea name="name"  ng-model="finance.description"rows="8" cols="80"></textarea>
+      <b class="lexart-frm__lbl-name">{{ 'finances.description' | translate }} <span class="required">*</span></b>
+    </label>
+  </div>
+</div>
+
+
+</form>
+</div>
+
+<div class="lexart-wa__actions">
+  <p ng-if="error" class="err-display">{{error}} {{ 'general.cant_be_empty' | translate }}</p>
+  <button class="lexart-btn lexart-btn--alt" ui-sref="app.finances">{{ 'finances.back' | translate }}</button>
+  <button class="lexart-btn" ng-disabled="sendingData" ng-click="save()">{{ 'finances.save' | translate }}</button>
+</div>

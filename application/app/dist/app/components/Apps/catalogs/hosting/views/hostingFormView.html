@@ -1,0 +1,524 @@
+<div class="lexart-wa__hdr lexart-flex">
+  <div class="lexart-flex-5">
+    <h1 class="lexart-wa__tit">
+      <a class="lexart-bc-item" ui-sref="app.hosting">{{ 'hosting.title' | translate }}</a>
+    </h1>
+    <div class="lexart-bc">
+      <a class="lexart-bc-item">{{ 'hosting.title' | translate }}</a>
+    </div>
+    <div class="lexart-bc" ng-if="hosting.name">
+      <span class="lexart-bc-item lexart-bc--head">{{hosting.name}}</span>
+    </div>
+  </div>
+</div>
+
+<div class="lexart-wa__cnt">
+
+
+  <form class="lexart-frm lexart-frm--center">
+
+    <div class="lexart-frm__fldgrp">
+      <div class="lexart-frm__fld">
+        <ul class="lexart-tabs" ng-init="itemTab = 1" style='width: 100%;'>
+            <li class="lexart-tabs__item text-center" ng-click="itemTab = 1" ng-class="{'lexart-tabs__item--selected' : itemTab == 1}">DATOS DE LA CUENTA</li>
+            <li class="lexart-tabs__item text-center" ng-click="itemTab = 2" ng-class="{'lexart-tabs__item--selected' : itemTab == 2}">DATOS DE FACTURACION</li>
+            <li class="lexart-tabs__item text-center" ng-click="itemTab = 3" ng-class="{'lexart-tabs__item--selected' : itemTab == 3}">PRODUCTOS ASOCIADOS</li>
+        </ul>
+      </div>
+    </div>
+    <div ng-if="itemTab == 1">
+      <div class="lexart-frm__fldgrp" >
+        <div class="lexart-frm__fld" ng-if='hosting.id'>
+          <label class="lexart-frm__lbl">
+            <input type="text" ng-model="hosting.serviceNumber" readonly />
+            <b class="lexart-frm__lbl-name">{{ 'Numero de servicios' }}</b>
+          </label>
+        </div>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <input type="text" ng-model="hosting.fullName" />
+            <b class="lexart-frm__lbl-name">{{ 'Nombre completo' }}</b>
+          </label>
+        </div>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <ui-select
+              ng-model="hosting.accountStatus"
+              class="lexart-select lexart-select--input"
+              theme="selectize"
+              append-to-body="true"
+              >
+              <ui-select-match>
+                {{$select.selected.name}}
+              </ui-select-match>
+              <ui-select-choices repeat="status in accountStatus | filter: { name: $select.search }">
+                <div ng-bind-html="status.name | highlight: $select.selected.name"></div>
+              </ui-select-choices>
+            </ui-select>
+            <b class="lexart-frm__lbl-name">{{ 'Estado de cuenta' }}</b>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div ng-if="itemTab == 2">
+      <div class="lexart-frm__fldgrp" >
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <ui-select
+              ng-model="client"
+              class="lexart-select lexart-select--input"
+              theme="selectize"
+              append-to-body="true"
+              on-select="clientSelect($item)"
+              >
+              <ui-select-match>
+                {{$select.selected.name}}
+              </ui-select-match>
+              <ui-select-choices repeat="type in clientType | filter: { name: $select.search }">
+                <div ng-bind-html="type.name | highlight: $select.selected.name"></div>
+              </ui-select-choices>
+            </ui-select>
+            <b class="lexart-frm__lbl-name">{{ 'Seleccionar tipo' }}</b>
+          </label>
+        </div>
+        <div class="lexart-frm__fld"></div>
+        <div class="lexart-frm__fld"></div>
+      </div>
+      <div class="lexart-frm__fldgrp" ng-if='hosting.company == 1'>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <input type="text" ng-model="hosting.businessName" />
+            <b class="lexart-frm__lbl-name">{{ 'Nombre de empresa' }}</b>
+          </label>
+        </div>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <input type="text" ng-model="hosting.rut" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" />
+            <b class="lexart-frm__lbl-name">{{ 'Rut' }}</b>
+          </label>
+        </div>
+      </div>
+      <div class="lexart-frm__fldgrp" ng-if='hosting.company == 0'>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <input type="text" ng-model="hosting.document" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" />
+            <b class="lexart-frm__lbl-name">{{ 'Documento' }}</b>
+          </label>
+        </div>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <input type="text" ng-model="hosting.phone" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
+            <b class="lexart-frm__lbl-name">{{ 'Telefono' }}</b>
+          </label>
+        </div>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <input type="text" ng-model="hosting.email" />
+            <b class="lexart-frm__lbl-name">{{ 'Email' }}</b>
+          </label>
+        </div>
+      </div>
+      <div class="lexart-frm__fldgrp" ng-if='hosting.company === 1 || hosting.company === 0'>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <input type="text" ng-model="hosting.serviceDescription" />
+            <b class="lexart-frm__lbl-name">{{ 'Descripcion del servicio' }}</b>
+          </label>
+        </div>
+        <!-- <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <ui-select
+              ng-model="hosting.contractType"
+              class="lexart-select lexart-select--input"
+              theme="selectize"
+              append-to-body="true"
+              on-select="contractSelect($item)"
+              >
+              <ui-select-match>
+                {{$select.selected.name}}
+              </ui-select-match>
+              <ui-select-choices repeat="type in contractType | filter: { name: $select.search }">
+                <div ng-bind-html="type.name | highlight: $select.selected.name"></div>
+              </ui-select-choices>
+            </ui-select>
+            <b class="lexart-frm__lbl-name">{{ 'Tipo de contrato' }}</b>
+          </label>
+        </div> -->
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <input type="text" ng-model="hosting.billingAddress" />
+            <b class="lexart-frm__lbl-name">{{ 'Direccion de facturacion' }}</b>
+          </label>
+        </div>
+      </div>
+      <div class="lexart-frm__fldgrp" ng-if='hosting.company == 1'>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <input type="text" ng-model="contact.name" />
+            <b class="lexart-frm__lbl-name">{{ 'Nombre de contacto' }}</b>
+          </label>
+        </div>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <input type="text" ng-model="contact.email" />
+            <b class="lexart-frm__lbl-name">{{ 'Email de contacto' }}</b>
+          </label>
+        </div>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <input type="text" ng-model="contact.phone" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" />
+            <b class="lexart-frm__lbl-name">{{ 'Telefono de contacto' }}</b>
+          </label>
+        </div>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <ui-select
+              ng-model="contact.type"
+              class="lexart-select lexart-select--input"
+              theme="selectize"
+              append-to-body="true"
+              >
+              <ui-select-match>
+                {{$select.selected.name}}
+              </ui-select-match>
+              <ui-select-choices repeat="type in contactType | filter: { name: $select.search }">
+                <div ng-bind-html="type.name | highlight: $select.selected.name"></div>
+              </ui-select-choices>
+            </ui-select>
+            <b class="lexart-frm__lbl-name">{{ 'Tipo de contacto' }}</b>
+          </label>
+        </div>
+      </div>
+      <div class="lexart-frm__fldgrp" ng-if='hosting.company == 1'>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <button class="lexart-btn" ng-click="addContact()">{{ 'Añadir' }}</button>
+          </label>
+        </div>
+        <div class="lexart-frm__fld"></div>
+        <div class="lexart-frm__fld"></div>
+      </div>
+      <div class="lexart-frm__fldgrp" ng-if='hosting.company == 1 && hosting.contact.length > 0'>
+        <table class="lexart-table">
+          <thead>
+            <tr>
+              <th>{{ 'Nombre' }}</th>
+              <th>{{ 'Email' }}</th>
+              <th>{{ 'Telefono' }}</th>
+              <th>{{ 'Tipo' }}</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat='contact in hosting.contact'>
+              <td>{{contact.name}}</td>
+              <td>{{contact.email}}</td>
+              <td>{{contact.phone}}</td>
+              <td>{{contact.type.name}}</td>
+              <td><a href="javascript:void(0);" ng-click="hosting.contact.splice($index,1);"><i class="ri-close-line"></i></a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+    <div ng-if="itemTab == 3">
+      <div class="lexart-frm__fldgrp" >
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <ui-select
+              ng-model="modelProduct.type"
+              class="lexart-select lexart-select--input"
+              theme="selectize"
+              append-to-body="true"
+              on-select="typeProductSelect($item)"
+              >
+              <ui-select-match>
+                {{$select.selected.name}}
+              </ui-select-match>
+              <ui-select-choices repeat="product in productsType | filter: { name: $select.search }">
+                <div ng-bind-html="product.name | highlight: $select.selected.name"></div>
+              </ui-select-choices>
+            </ui-select>
+            <b class="lexart-frm__lbl-name">{{ 'Seleccionar tipo de producto' }}</b>
+          </label>
+        </div>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl" ng-if='modelProduct.type.name'>
+            <ui-select
+              ng-model="modelProduct.description"
+              class="lexart-select lexart-select--input"
+              theme="selectize"
+              append-to-body="true"
+              on-select="ProductDescription($item)"
+              >
+              <ui-select-match>
+                {{$select.selected.name}}
+              </ui-select-match>
+              <ui-select-choices repeat="product in products | filter: { name: $select.search }">
+                <div ng-bind-html="product.name | highlight: $select.selected.name"></div>
+              </ui-select-choices>
+            </ui-select>
+            <b class="lexart-frm__lbl-name">{{ 'Seleccionar producto' }}</b>
+          </label>
+        </div>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl" ng-if='modelProduct.type.name && productDescription != ""'>
+            <ui-select
+              ng-model="modelProduct.state"
+              class="lexart-select lexart-select--input"
+              theme="selectize"
+              append-to-body="true"
+              >
+              <ui-select-match>
+                {{$select.selected.name}}
+              </ui-select-match>
+              <ui-select-choices repeat="product in productState | filter: { name: $select.search }">
+                <div ng-bind-html="product.name | highlight: $select.selected.name"></div>
+              </ui-select-choices>
+            </ui-select>
+            <b class="lexart-frm__lbl-name">{{ 'Estado del producto' }}</b>
+          </label>
+        </div>
+      </div>
+      <div class="lexart-frm__fldgrp" ng-if='productDescription != ""'>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <textarea name="description" style="width:100%;height: 8em;" >{{productDescription}}</textarea>
+            <b class="lexart-frm__lbl-name">{{ 'Descripcion del producto' }}</b>
+          </label>
+        </div>
+      </div>
+      <div class="lexart-frm__fldgrp" ng-if='modelProduct.type.name == "Servidor virtual" && productDescription != ""'>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <input type="text" ng-model="modelProduct.passRoot" />
+            <b class="lexart-frm__lbl-name">{{ 'Pass Root' }}</b>
+          </label>
+        </div>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <input type="text" ng-model="modelProduct.ip" />
+            <b class="lexart-frm__lbl-name">{{ 'IP' }}</b>
+          </label>
+        </div>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <input type="text" ng-model="modelProduct.user" />
+            <b class="lexart-frm__lbl-name">{{ 'Usuario' }}</b>
+          </label>
+        </div>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <input type="text" ng-model="modelProduct.pass" />
+            <b class="lexart-frm__lbl-name">{{ 'Contraseña' }}</b>
+          </label>
+        </div>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <input type="text" ng-model="modelProduct.link" />
+            <b class="lexart-frm__lbl-name">{{ 'Link' }}</b>
+          </label>
+        </div>
+      </div>
+      <div class="lexart-frm__fldgrp" ng-if='modelProduct.type.name == "Hosting" && productDescription != ""'>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <input type="text" ng-model="modelProduct.user" />
+            <b class="lexart-frm__lbl-name">{{ 'Usuario' }}</b>
+          </label>
+        </div>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <input type="text" ng-model="modelProduct.pass" />
+            <b class="lexart-frm__lbl-name">{{ 'Contraseña' }}</b>
+          </label>
+        </div>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <input type="text" ng-model="modelProduct.link" />
+            <b class="lexart-frm__lbl-name">{{ 'Link' }}</b>
+          </label>
+        </div>
+      </div>
+      <div class="lexart-frm__fldgrp" ng-if='modelProduct.type.name == "Administracion productos externos" && productDescription != ""'>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <input type="text" ng-model="modelProduct.user" />
+            <b class="lexart-frm__lbl-name">{{ 'Usuario' }}</b>
+          </label>
+        </div>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <input type="text" ng-model="modelProduct.pass" />
+            <b class="lexart-frm__lbl-name">{{ 'Contraseña' }}</b>
+          </label>
+        </div>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <input type="text" ng-model="modelProduct.link" />
+            <b class="lexart-frm__lbl-name">{{ 'Link' }}</b>
+          </label>
+        </div>
+      </div>
+      <div class="lexart-frm__fldgrp" ng-if='modelProduct.type.name == "Dominio" && productDescription != ""'>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <input type="text" ng-model="modelProduct.user" />
+            <b class="lexart-frm__lbl-name">{{ 'Usuario' }}</b>
+          </label>
+        </div>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <input type="text" ng-model="modelProduct.pass" />
+            <b class="lexart-frm__lbl-name">{{ 'Contraseña' }}</b>
+          </label>
+        </div>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <input type="text" ng-model="modelProduct.link" />
+            <b class="lexart-frm__lbl-name">{{ 'Link' }}</b>
+          </label>
+        </div>
+      </div>
+      <div class="lexart-frm__fldgrp" ng-if='modelProduct.type.name == "Extra" && productDescription != ""'>
+        <div class="lexart-frm__fld" style='margin-top: 20px;'>
+          <label class="lexart-frm__lbl">
+            <textarea ng-model="modelProduct.note"></textarea>
+            <b class="lexart-frm__lbl-name">{{ 'Nota' }}</b>
+          </label>
+        </div>
+      </div>
+      <div class="lexart-frm__fldgrp" ng-if='productDescription != ""'>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <ui-select
+              ng-model="modelProduct.contractType"
+              class="lexart-select lexart-select--input"
+              theme="selectize"
+              append-to-body="true"
+              on-select="contractSelect($item)"
+              >
+              <ui-select-match>
+                {{$select.selected.name}}
+              </ui-select-match>
+              <ui-select-choices repeat="type in contractType | filter: { name: $select.search }">
+                <div ng-bind-html="type.name | highlight: $select.selected.name"></div>
+              </ui-select-choices>
+            </ui-select>
+            <b class="lexart-frm__lbl-name">{{ 'Tipo de contrato' }}</b>
+          </label>
+        </div>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <input type="number" ng-model="modelProduct.price" />
+            <b class="lexart-frm__lbl-name">{{ 'Precio (USD)' }}</b>
+          </label>
+        </div>
+        <div class="lexart-frm__fld"></div>
+        <div class="lexart-frm__fld"></div>
+      </div>
+      <div class="lexart-frm__fldgrp" ng-if='productDescription != ""'>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <div moment-picker="modelProduct.hireDate" format="DD/MM/YYYY" change='changeSelect()'>
+              <input type='text' ng-model='modelProduct.hireDate'>
+            </div>
+            <b class="lexart-frm__lbl-name">{{ 'Fecha de alquiler' }}</b>
+          </label>
+        </div>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <input type="text" ng-value="modelProduct.nextExpiration" readonly />
+            <b class="lexart-frm__lbl-name">{{ 'Fecha de vencimiento' }}</b>
+          </label>
+        </div>
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <input type="text" ng-model="modelProduct.timeRemaining" readonly />
+            <b class="lexart-frm__lbl-name">{{ 'Dias restante' }}</b>
+          </label>
+        </div>
+      </div>
+      <div class="lexart-frm__fldgrp">
+        <div class="lexart-frm__fld">
+          <label class="lexart-frm__lbl">
+            <button class="lexart-btn" ng-click='addProduct()'>{{' Agregar producto '}}</button>
+          </label>
+        </div>
+        <div class="lexart-frm__fld"></div>
+        <div class="lexart-frm__fld"></div>
+      </div>
+      <div class="lexart-frm__fldgrp" ng-if='hosting.products.length > 0'>
+        <table class="lexart-table">
+          <thead>
+            <tr>
+              <th>{{ 'Tipo' }}</th>
+              <th>{{ 'Producto' }}</th>
+              <th>{{ 'Usuario' }}</th>
+              <th>{{ 'Contraseña' }}</th>
+              <th>{{ 'Link' }}</th>
+              <th>{{ 'Pass Root' }}</th>
+              <th>{{ 'IP' }}</th>
+              <th>{{ 'Dias restantes' }}</th>
+              <th>{{ 'Contract type' }}</th>
+              <th>{{ 'Nota' }}</th>
+              <th>{{ 'Precio' }}</th>
+              <th>{{ 'ESTADO' }}</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat='product in hosting.products'>
+              <td>{{product.type.name}}</td>
+              <td>{{product.description.name}}</td>
+              <td>{{product.user ? product.user : '---' }}</td>
+              <td>{{product.pass ? product.pass : '---' }}</td>
+              <td>{{product.link ? product.link : '---' }}</td>
+              <td>{{product.passRoot ? product.passRoot : '---' }}</td>
+              <td>{{product.ip ? product.ip : '---' }}</td>
+              <td>{{product.timeRemaining}}</td>
+              <td>{{product.contractType.name}}</td>
+              <td>{{product.note ? product.note : '---' }}</td>
+              <td>USD {{product.price}}</td>
+              <td>{{product.state.name}}</td>
+              <td>
+                <a ng-click='openModal(product,$index);' style='cursor: pointer;'>
+                  <i class="ri-edit-line"></i>
+                </a>
+              </td>
+              <td>
+                <a href="javascript:void(0);" ng-click="hosting.products.splice($index,1);discountPrice();"><i class="ri-close-line"></i></a>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class='text-right'>TOTAL:</td>
+              <td>USD {{hosting.serviceCost}}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="lexart-wa__actions" style='bottom:0;'>
+  <button class="lexart-btn lexart-btn--alt" ui-sref="app.hosting">{{ 'hosting.back' | translate }}</button>
+  <button class="lexart-btn" ng-disabled="sendingData" ng-click="save()">{{ 'hosting.save' | translate }}</button>
+  <button class="lexart-btn" ng-click="deleteModal()" ng-if='$stateParams.id'>{{ 'hosting.delete' | translate }}</button>
+  <p ng-if="error" class="err-display">{{error}}</p>
+</div>

@@ -1,0 +1,61 @@
+
+<div class="lexart-modal lexart-modal--medium" id='modalHorarioFijo'>
+
+    <div class="lexart-modal__header">
+        <div class="lexart-modal__title" style="margin-bottom: 1%;">Asignar horario fijo
+        </div>
+
+    </div>
+    <div class="lexart-modal__cnt">
+        <div>
+            <form>
+
+                <div class="lexart-frm__fldgrp" >
+                    <div class="lexart-frm__fld">
+                        <ui-select ng-model="diaSeleccionado.selected" class="lexart-select lexart-select--input"
+                            theme="selectize" title="{{'Dias'}}" append-to-body="true">
+                            <ui-select-match> {{$select.selected.name}} </ui-select-match>
+                            <ui-select-choices repeat="day in horariosFijos | filter: $select.search">
+                                <div ng-bind-html="day.name | highlight: $select.selected.name"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+
+
+                    <div class="lexart-frm__fld" moment-picker='t.hourStart' format="HH:mm" change='selectedTime(t)'>
+                        <input type='text' ng-model='t.hourStart' placeholder="Hora Inicial">
+                    </div>
+                    <div class="lexart-frm__fld" moment-picker="t.hourEnd" format="HH:mm" change='selectedTime(t)'>
+                        <input type='text' ng-model='t.hourEnd' placeholder="Hora Final">
+                    </div>
+                    <button type="button" class="btn btn-primary" style="float: right;"
+                        ng-click="addHorarioFijo(diaSeleccionado.selected.name, t)"> Agregar Horario
+                    </button>
+                </div>
+                <table class="lexart-table">
+                    <thead>
+                        <th>Dia</th>
+                        <th>Horarios Elegidos</th>
+                        <th></th>
+
+                    </thead>
+                    <tbody>
+                        <tr ng-if='diaSeleccionado.selected.name.toLowerCase() == h.name.toLowerCase() && !h.exception && !h.trackedEvent' ng-repeat= '(index, h) in mostrarInfo'>
+                            <td title='{{h.name}}'>{{h.name}}</td>
+                            <td title='{{h.desde}}{{h.hasta}}'>{{h.desde}}-{{h.hasta}}</td>
+                            <td> <a class="close" ng-click="eliminarRegistro(index)">
+                                    <i class="ri-close-line"></i></i></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="lexart-modal__actions">
+        <p class="err-display">{{error}}</p>
+        <a class="lexart-btn lexart-btn--alt" ng-click="ngDialogData.cancel()">{{ 'shared.modal.cancel' | translate }}</a>
+        <a class="lexart-btn" ng-click="ngDialogData.confirm(); ">{{ 'shared.modal.accept' | translate }}</a>
+    </div>
+</div>

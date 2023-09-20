@@ -1,0 +1,132 @@
+<div class="lexart-wa__hdr lexart-flex">
+  <div class="lexart-flex-5">
+    <h1 class="lexart-wa__tit">
+      <a class="lexart-bc-item" ui-sref="app.hours-cost">{{ 'hours-cost.title' | translate }}</a>
+    </h1>
+    <div class="lexart-bc">
+      <a class="lexart-bc-item">{{ 'hours-cost.hour-cost' | translate }}</a>
+    </div>
+    <div class="lexart-bc" ng-if="hourCost.name">
+      <span class="lexart-bc-item lexart-bc--head">{{hourCost.name}}</span>
+    </div>
+  </div>
+</div>
+
+<div class="lexart-wa__cnt">
+  <form class="lexart-frm lexart-frm--center">
+
+    <div class="lexart-frm__fldgrp">
+      <div class="lexart-frm__fld" ng-if="hourCost.id">
+        <label class="lexart-frm__lbl">
+          <input type="text" ng-value="hourCost.id" readonly/>
+          <b class="lexart-frm__lbl-name">{{ 'ID' }}</b>
+        </label>
+      </div>
+
+      <div class="lexart-frm__fld">
+        <label class="lexart-frm__lbl">
+          <b class="lexart-frm__lbl-name">{{ 'hours-cost.client' | translate }} <span class="required">*</span></b>
+          <ui-select
+          ng-model="select.client"
+          class="lexart-select lexart-select--input"
+          theme="selectize"
+          append-to-body="true"
+          >
+          <ui-select-match>
+            {{$select.selected.name}}
+          </ui-select-match>
+          <ui-select-choices repeat="client in clients | filter: { name: $select.search }">
+            <div ng-bind-html="client.name | highlight: $select.selected.name"></div>
+          </ui-select-choices>
+        </ui-select>
+
+        </label>
+      </div>
+
+      <div class="lexart-frm__fld">
+
+        <label class="lexart-frm__lbl">
+          <b class="lexart-frm__lbl-name">{{ 'hours-cost.user' | translate }} <span class="required">*</span></b>
+          <ui-select
+          ng-model="select.user"
+          class="lexart-select lexart-select--input"
+          theme="selectize"
+          append-to-body="true"
+          >
+          <ui-select-match>
+            {{$select.selected.name}}
+          </ui-select-match>
+          <ui-select-choices repeat="user in users | filter: { name: $select.search }">
+            <div ng-bind-html="user.name | highlight: $select.selected.name"></div>
+          </ui-select-choices>
+        </ui-select>
+        </label>
+
+      </div>
+
+
+    </div>
+
+
+    <div class="lexart-frm__fldgrp">
+      <div class="lexart-frm__fld">
+        <label class="lexart-frm__lbl">
+          <input type="number" ng-model="hourCost.costClient" min="0"/>
+          <b class="lexart-frm__lbl-name">{{ 'hours-cost.costClient' | translate }} <span class="required">*</span></b>
+        </label>
+      </div>
+      <div class="lexart-frm__fld">
+        <label class="lexart-frm__lbl">
+          <select ng-model="hourCost.currencyClient">
+            <option>USD</option>
+            <option>$</option>
+          </select>
+          <b class="lexart-frm__lbl-name">{{ 'hours-cost.currencyClient' | translate }} <span class="required">*</span></b>
+        </label>
+      </div>
+
+
+    </div>
+
+    <div class="lexart-frm__fldgrp">
+      <div class="lexart-frm__fld">
+        <label class="lexart-frm__lbl">
+          <input type="number" ng-model="hourCost.costUser" min="0"/>
+          <b class="lexart-frm__lbl-name">{{ 'hours-cost.costUser' | translate }} <span class="required">*</span></b>
+        </label>
+      </div>
+      <div class="lexart-frm__fld">
+        <label class="lexart-frm__lbl">
+          <select ng-model="hourCost.currencyUser">
+            <option>USD</option>
+            <option>$</option>
+          </select>
+          <b class="lexart-frm__lbl-name">{{ 'hours-cost.currencyUser' | translate }} <span class="required">*</span></b>
+        </label>
+      </div>
+
+
+    </div>
+    <div class="lexart-frm__fldgrp">
+
+      <div class="lexart-frm__fld">
+        <label class="lexart-frm__lbl">
+          <input type="date" name=""  ng-model="hourCost.date" class="form-control">
+          <b class="lexart-frm__lbl-name">{{ 'hours-cost.date' | translate }} <span class="required">*</span></b>
+        </label>
+      </div>
+      <div class="lexart-frm__fld">
+
+      </div>
+
+    </div>
+
+
+  </form>
+</div>
+
+<div class="lexart-wa__actions">
+  <p ng-if="error" class="err-display">{{error}} {{ 'general.cant_be_empty' | translate }}</p>
+  <button class="lexart-btn lexart-btn--alt" ui-sref="app.hoursCost">{{ 'hours-cost.back' | translate }}</button>
+  <button class="lexart-btn" ng-disabled="sendingData" ng-click="save()">{{ 'hours-cost.save' | translate }}</button>
+</div>

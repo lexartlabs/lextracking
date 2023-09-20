@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="110px" height="110px" viewBox="0 0 110 110" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40 (33762) - http://www.bohemiancoding.com/sketch -->
+    <title>catalogos/presupuestos</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="55" cy="55" r="55"></circle>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="110" height="110" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="IMM-desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="catalogos/presupuestos">
+            <use id="Oval-4" stroke="#CCCCCC" mask="url(#mask-2)" stroke-width="4" fill="#F9F9F9" xlink:href="#path-1"></use>
+            <circle id="Oval-4-Copy" fill="#E46A5D" cx="55" cy="55" r="50"></circle>
+            <g id="Group-28" transform="translate(32.000000, 22.000000)">
+                <polygon id="Rectangle-36" fill="#F5F5F5" points="0 0 38 0 48 10 48 66 0 66"></polygon>
+                <polygon id="Rectangle-39" fill="#D8D8D8" points="38 0 48 10 38 10"></polygon>
+                <rect id="Rectangle-40" fill="#505463" x="7" y="22" width="14" height="2"></rect>
+                <rect id="Rectangle-40-Copy" fill="#505463" x="7" y="28" width="34" height="2"></rect>
+                <rect id="Rectangle-40-Copy-2" fill="#505463" x="7" y="34" width="34" height="2"></rect>
+                <rect id="Rectangle-40-Copy-3" fill="#505463" x="7" y="40" width="34" height="2"></rect>
+                <rect id="Rectangle-40-Copy-4" fill="#505463" x="7" y="46" width="34" height="2"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

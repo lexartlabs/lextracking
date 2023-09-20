@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg viewBox="0 0 165 75" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs></defs>
+    <g id="IMM-desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.100000001">
+        <g id="d.dashboard-c" transform="translate(-15.000000, -693.000000)" fill="#F9F9F9">
+            <g id="Group-9">
+                <path d="M15,738 L30,738 L30,753 L15,753 L15,738 Z M45,753 L60,753 L60,768 L45,768 L45,753 Z M45,723 L60,723 L60,738 L45,738 L45,723 Z M75,738 L90,738 L90,753 L75,753 L75,738 Z M75,708 L90,708 L90,723 L75,723 L75,708 Z M105,723 L120,723 L120,738 L105,738 L105,723 Z M135,723 L150,723 L150,768 L135,768 L135,723 Z M165,708 L180,708 L180,768 L165,768 L165,708 Z M105,753 L120,753 L120,768 L105,768 L105,753 Z M105,693 L120,693 L120,708 L105,708 L105,693 Z M150,693 L165,693 L165,708 L150,708 L150,693 Z" id="Combined-Shape" transform="translate(97.500000, 730.500000) scale(-1, 1) translate(-97.500000, -730.500000) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

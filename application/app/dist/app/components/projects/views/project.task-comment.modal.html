@@ -1,0 +1,32 @@
+<div class="lexart-modal lexart-modal--medium">
+
+  <div class="lexart-modal__header">
+    <h1 class="lexart-modal__title">{{ 'Agreagar Comentario'  }}</h1>
+    <a class="lexart-modal__close-btn" ng-click="closeThisDialog()">
+      <i class="lexart-icon lexart-icon--modal-close"></i>
+    </a>
+  </div>
+
+  <div class="lexart-modal__cnt">
+    <ng-form>
+      <form class="lexart-frm">
+        <div class="lexart-frm__fld">
+          <div class="lexart-frm__fld">
+            <label class="lexart-frm__lbl">
+              <textarea rows="7" cols="50" ng-model="comment.comment" >
+              </textarea>
+              <b class="lexart-frm__lbl-name">{{ 'projects.comments' | translate }} <span class="required">*</span></b>
+            </label>
+          </div>
+
+        </div>
+    </form>
+  </ng-form>
+</div>
+
+<div class="lexart-modal__actions">
+  <p class="err-display">{{error}}</p>
+  <a class="lexart-btn lexart-btn--alt" ng-click="ngDialogData.cancel()">{{ 'shared.modal.cancel' | translate }}</a>
+  <a class="lexart-btn" ng-disabled="sendingData || !task.name" ng-click="ngDialogData.confirm()">{{ 'Agregar Comentario'  }}</a>
+</div>
+</div>

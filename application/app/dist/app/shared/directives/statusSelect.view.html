@@ -1,0 +1,21 @@
+<div class="lexart-select-status" ng-class="{'active': active}" ng-click="setActive()">
+    <div class="lexart-select-status__selected lexart-status">
+        <span ng-if="model == undefined" class="lexart-status__text lexart-status__text--other">Elija uno</span>
+        <span ng-if="model == 0" class="lexart-status__text lexart-status__text--other">Status 0</span>
+        <span ng-if="model == 1" class="lexart-status__text lexart-status__text--pending">Pendiente</span>
+        <span ng-if="model == 2" class="lexart-status__text lexart-status__text--authorized">Autorizado</span>
+        <span ng-if="model == 3" class="lexart-status__text lexart-status__text--denied">Denegado</span>
+        <span ng-if="model == 4" class="lexart-status__text lexart-status__text--created">Creado</span>
+        <span ng-if="model == 5" class="lexart-status__text lexart-status__text--pending">Pendiente</span>
+        <span ng-if="model == 6" class="lexart-status__text lexart-status__text--other">TODO 6</span>
+    </div>
+    <div class="lexart-select-status__dropdown lexart-status">
+        <div ng-click="setValue(0)" class="lexart-status__text lexart-status__text--other">Status 0</div>
+        <div ng-click="setValue(1)" class="lexart-status__text lexart-status__text--pending">Pendiente</div>
+        <div ng-click="setValue(2)" class="lexart-status__text lexart-status__text--authorized">Autorizado</div>
+        <div ng-click="setValue(3)" class="lexart-status__text lexart-status__text--denied">Denegado</div>
+        <div ng-click="setValue(4)" class="lexart-status__text lexart-status__text--created">Creado</div>
+        <div ng-click="setValue(5)" class="lexart-status__text lexart-status__text--pending">Pendiente</div>
+        <div ng-click="setValue(6)" class="lexart-status__text lexart-status__text--other">TODO 6</div>
+    </div>
+</div>

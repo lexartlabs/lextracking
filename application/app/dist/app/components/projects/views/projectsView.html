@@ -1,0 +1,67 @@
+<div class="lexart-wa__hdr lexart-flex">
+    <div class="lexart-flex-5">
+        <h1 class="lexart-wa__tit">
+            <a class="lexart-bc-item" ui-sref="app.projects">{{ 'projects.title' | translate }}</a>
+        </h1>
+        <div class="lexart-btn__right">
+            <a ui-sref="app.projectNew" class="lexart-btn lexart-btn--round" ng-if="isClient=='false'">&#43; {{ 'projects.project' | translate }}</a>
+        </div>
+    </div>
+</div>
+<div class="lexart-wa__cnt">
+    <table class="lexart-table">
+        <thead>
+            <tr>
+                <th>{{ 'projects.client'      | translate }}</th>
+                <th>{{ 'projects.project'     | translate }}</th>
+                <th>{{ 'projects.description' | translate }}</th>
+                <th>{{ 'projects.comments'    | translate }}</th>
+                <th>{{ 'projects.duration'    | translate }}</th>
+                <th>{{ 'projects.tracked'     | translate }}</th>
+                <th>{{ 'projects.totalCost'   | translate }}</th>
+                <th>{{ 'projects.presupuesto' | translate }}</th>
+                <th class="lexart-cstm__grid-5"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input class="field-filter" ng-model="filter.clientName"></td>
+                <td><input class="field-filter" ng-model="filter.name"></td>
+                <td><input class="field-filter" ng-model="filter.description"></td>
+                <td><input class="field-filter" ng-model="filter.comments"></td>
+                <td><input class="field-filter" ng-model="filter.duration"></td>
+                <td><input class="field-filter" ng-model="filter.tracked"></td>
+                <td><input class="field-filter" ng-model="filter.totalCost"></td>
+                <td><input class="field-filter" ng-model="filter.presupuesto"></td>
+                <td></td>
+            </tr>
+            <tr ng-repeat="project in projects">
+                <td title="{{project.clientName}}">{{ project.clientName   | truncateTail:true:30:'...' }}</td>
+                <td title="{{project.name}}">{{ project.name               | truncateTail:true:30:'...' }}</td>
+                <td title="{{project.description}}">{{ project.description | truncateTail:true:15:'...' }}</td>
+                <td title="{{project.comments}}">{{ project.comments       | truncateTail:true:15:'...'}}</td>
+                <td>{{ project.duration }}</td>
+                <td title="{{project.presupuesto}}">{{ project.tracked | truncateTail:true:12:'...'}}</td>
+                <td title="{{project.presupuesto}}">$ {{ project.totalCost | truncateTail:true:4:'...'}}</td>
+                <td title="{{project.presupuesto}}">$ {{ project.presupuesto | truncateTail:true:4:'...'}}</td>
+                <td >
+                    <a ui-sref="app.projectEdit({id: project.id})">
+                        <i class="ri-edit-line"></i>
+                    </a>
+                </td>
+                <td ng-if="isAdmin=='false' &&  isClient=='false' "></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<paging
+    ng-show="total>pageSize"
+    page="currentPage"
+    page-size="pageSize"
+    total="total"
+    hide-if-empty="true"
+    show-prev-next="true"
+    show-first-last="true"
+    scroll-top="true"
+    paging-action="pager(page)">
+</paging>

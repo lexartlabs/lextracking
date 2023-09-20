@@ -1,0 +1,31 @@
+<div class="lexart-modal lexart-modal--medium">
+    <div class="lexart-modal__header">
+        <h1 class="lexart-modal__title">{{ ngDialogData.titleRequired }}</h1>
+        <a class="lexart-modal__close-btn" ng-click="closeThisDialog()"><i class="lexart-icon lexart-icon--modal-close"></i></a>
+    </div>
+
+    <div class="lexart-modal__cnt">
+        <p ng-if="ngDialogData.msg">{{ ngDialogData.msg }}</p>
+        <div ng-if="ngDialogData.prj">
+          <label>Proyecto:</label><br>
+          <ui-select ng-click="ngDialogData.prj.getProj" append-to-body="true" class="lexart-select lexart-select--input" theme="selectize" ng-model="selected.value">
+           <ui-select-match placeholder="Seleccionar Proyecto">
+               {{$select.selected.name}}
+           </ui-select-match>
+           <ui-select-choices repeat="item in getProjects  track by $index">
+               <span ng-bind="item.name"></span>
+           </ui-select-choices>
+          </ui-select>
+          <p ng-if="selected.value.id == undefined" style="color:red; font-size: 10px;">La tarea automatica necesita asociarse a un proyecto.</p>
+        </div>
+        <textarea ng-if="ngDialogData.evaluate" style="padding:10px; width: 100%;" readonly>{{ngDialogData.evaluate}}</textarea>
+        <p ng-if="ngDialogData.jiraIntegrate">{{ngDialogData.jiraIntegrate}}<a style="color:red" href="https://id.atlassian.com/manage-profile/security/api-tokens">{{ngDialogData.linkJira}}</a>{{ngDialogData.jiraSecondP}}</p>
+        <input ng-if="ngDialogData.jiraIntegrate" type="text" ng-model="jiraUser.jiraToken">
+    </div>
+
+    <div class="lexart-modal__actions">
+        <a class="lexart-btn" ng-click="ngDialogData.cancel();closeThisDialog()">{{ 'shared.modal.cancel' | translate }}</a>
+        <a class="lexart-btn" ng-if="ngDialogData.jiraIntegrate" ng-click="ngDialogData.confirm();closeThisDialog()">{{ 'shared.modal.accept' | translate }}</a>
+        <a class="lexart-btn" ng-if="!ngDialogData.jiraIntegrate" ng-click="ngDialogData.confirm();closeThisDialog()">{{ 'shared.modal.accept' | translate }}</a>
+    </div>
+</div>

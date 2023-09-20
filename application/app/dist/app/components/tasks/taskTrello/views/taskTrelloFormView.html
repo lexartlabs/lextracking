@@ -1,0 +1,108 @@
+<div class="lexart-wa__hdr lexart-flex">
+    <div class="lexart-flex-5">
+        <h1 class="lexart-wa__tit">
+            <a class="lexart-bc-item" ui-sref="app.tasks_trello">{{ 'tasks_trello.title' | translate }}</a>
+        </h1>
+        <div class="lexart-bc" ng-if="trelloname">
+            <span class="lexart-bc-item lexart-bc--head">{{trelloname}}</span>
+        </div>
+    </div>
+</div>
+
+<div style="float: right;">
+    <button class="lexart-btn"
+        ng-click="tutorial()">¿Como agregar un estado de tarea a Trello?</button>
+    <button
+        class="lexart-btn"
+        ng-click="tutorialBot()">¿Como agregar lexart.brain al tablero de Trello?</button>
+</div>
+<a style="text-align: left; margin-left: 3px; color: blue; text-decoration: underline;" target="_blank"
+    ng-href="{{urlBoard}}">Ver Tablero</a>
+<div class="lexart-wa__cnt" style="margin-top:10px;">
+    <form class="lexart-frm lexart-frm--center">
+
+        <div class="lexart-frm__fldgrp">
+            <table class="lexart-table">
+                <thead>
+                    <tr>
+                        <th colspan="5" style="text-align:center">Lista Cards</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <th>{{ 'tasks_trello.id' | translate }}</th>
+                        <th>{{ 'tasks_trello.task' | translate }}</th>
+                        <th style="width: 30px;" >{{ 'tasks_trello.status' | translate }} </th>
+                        <th style="width: 120px">
+                         <ui-select 
+                            ng-model="labels.selected"
+                            class="lexart-selectFilter lexart-selectFilter--input"
+                            theme="selectize"
+                            append-to-body="true" 
+                            ng-disabled="disabled" 
+                            
+                            >
+                            <ui-select-match>
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices
+                                repeat="label.name as label in boardLabels | filter: { name: $select.search }">
+                                <div ng-bind-html="label.name | highlight: $select.selected.name"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                        </th>
+                        <th style="width: 30px;">Lista</th>
+                        <th style="width: 120px">
+                        <ui-select 
+                            ng-model="selectedList.selected"
+                            class="lexart-selectFilter lexart-selectFilter--input"
+                            theme="selectize"
+                            append-to-body="true" 
+                            ng-disabled="disabled" 
+                            >
+                            <ui-select-match>
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices
+                                repeat="lista in userList | filter: { name: $select.search }">
+                                <div ng-bind-html="lista.name | highlight: $select.selected.name"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                        </th>
+                        <th class="lexart-cstm__grid-5"></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="tasks_trello in tasks | filter:{statusAll: labels.selected, listaId: selectedList.selected.id} track by tasks_trello.id" >
+                        <!-- <tr ng-repeat="(index,tasks_trello) in tasks track by $index "> -->
+                        <td title="{{tasks_trello.id}}">{{tasks_trello.id| truncateTail:true:50:'...'}}</td>
+                        <td title="{{tasks_trello.name}}">{{tasks_trello.name | truncateTail:true:50:'...'}}</td>
+                        <td title="{{tasks_trello.status}}">{{tasks_trello.status}}</td>
+                        <td></td>
+                        <td title="{{tasks_trello.listaName}}">{{tasks_trello.listaName}}</td>
+                        <td></td>
+                        <td>
+                            <a href="" ng-click="editTrello(tasks_trello)">
+                                <i class="ri-edit-line"></i>
+                            </a>
+                        </td>
+                        <td></td>
+                        <td></td>
+
+                        <td>
+                            <div ng-if="tasks_trello.isPlayable">
+                                <div ng-if="!tasks_trello.status.includes('Done') && !tasks_trello.includes('In-Review') && isClient=='false' ">
+                                    <a href ng-click="stopTrack()" ng-if="currentTrack.idTask == tasks_trello.id"><i class="ri-pause-line"></i></a>
+                                    <a href ng-click="startTrackTrello(tasks_trello)" ng-disabled="inprogress" ng-if="currentTrack.idTask != tasks_trello.id"><i class="ri-play-line"></i></a>    
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>

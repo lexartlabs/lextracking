@@ -1,0 +1,127 @@
+<div class="lexart-wa__hdr">
+  <div class="lexart-flex">
+    <div class="lexart-flex-5 lexart-flex">
+      <div class="lexart-flex-1">
+        <h1 class="lexart-wa__tit">
+          <div class="lexart-flex">
+            <a class="lexart-bc-item">{{ 'budgets.title' | translate }}</a>
+          </div>
+        </h1>
+      </div>
+      <div class="lexart-flex-2">
+
+      </div>
+      <div class="lexart-flex-6">
+        <div class="lexart-btn__right">
+          <a ui-sref="app.budgetNew" class="lexart-btn lexart-btn--round">&#43; {{ 'budgets.budget' | translate }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lexart-flex" style="margin-top: 1em;">
+    <div class="lexart-flex-2">
+      <select ng-options="option.year for option in years track by option.id"
+      ng-model="fill.year"
+      ng-change="changeYear()"
+      ></select>
+    </div>
+    <div class="lexart-flex-2">
+      <select ng-options="option.month for option in months track by option.id"
+      ng-model="fill.month"
+      ng-change="changeMonth()"
+      ></select>
+    </div>
+
+    <div class="lexart-flex-2">
+        <ui-select
+        ng-model="select.user"
+        class="lexart-select lexart-select--input"
+        theme="selectize"
+        append-to-body="true"
+        ng-change="filterUsuario()"
+
+        >
+        <ui-select-match placeholder="Seleccionar Usuario">
+          {{$select.selected.name}}
+        </ui-select-match>
+        <ui-select-choices repeat="user in users | filter: { name: $select.search }">
+          <div ng-bind-html="user.name | highlight: $select.selected.name"></div>
+        </ui-select-choices>
+      </ui-select>
+    </div>
+    <div class="lexart-flex-6">
+
+    </div>
+  </div>
+</div>
+
+<div class="lexart-wa__cnt">
+  <table class="lexart-table">
+    <thead>
+      <tr>
+        <th>{{ 'budgets.clientName' | translate }}</th>
+        <th>{{ 'budgets.description' | translate }}</th>
+        <th>{{ 'Concepto' }}</th>
+        <th>{{ 'Monto Pesos' }}</th>
+        <th>{{ 'Monto Dolares' }}</th>
+
+        <th>{{ 'Fecha de presupuesto' }}</th>
+        <th>{{ 'Estado' }}</th>
+        <th class="lexart-cstm__grid-5"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input class="field-filter" ng-model="filter.clientName"></td>
+        <td><input class="field-filter" ng-model="filter.description"></td>
+        <td><input class="field-filter" ng-model="filter.concept"></td>
+        <td><input class="field-filter" ng-model="filter.amount"></td>
+        <td><input class="field-filter" ng-model="filter.date"></td>
+
+        <td><input class="field-filter" ng-model="filter.date"></td>
+        <td><input class="field-filter" ng-model="filter.status"></td>
+        <td></td>
+      </tr>
+      <tr ng-repeat="budget in budgets | filter: filter">
+        <td>{{budget.clientName}}</td>
+        <td>{{budget.description}}</td>
+        <td>{{budget.concept}}</td>
+        <td>
+          <b ng-show="budget.currency == 'Pesos'">{{budget.amount | currency:(budget.currency == 'Dolares' ? ' USD' : ' $')}}</b>
+          <span ng-show="budget.currency != 'Pesos' " style="opacity: 0.5">{{ cotizacion ?  (budget.amount*cotizacion | currency:"≈ $" )  : "Calculando ..." }}</span>
+
+        </td>
+        <td>
+          <b ng-show="budget.currency == 'Dolares' ">{{budget.amount | currency:(budget.currency == 'Dolares' ? ' USD' : ' $')}}</b>
+          <span ng-show="budget.currency != 'Dolares' " style="opacity: 0.5">{{ cotizacion ?  (budget.amount/cotizacion | currency:"≈ USD" )  : "Calculando ..." }}</span>
+
+        </td>
+
+        <td>{{ humanDate(budget.date) | date:'dd/MM/yyyy' }}</td>
+        <td><b>{{budget.status}}</b></td>
+        <td>
+          <a ui-sref="app.budgetEdit({id: budget.id})">
+            <i class="ri-edit-line"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td><b>TOTAL:</b> </td>
+        <td></td>
+        <td></td>
+        <td><b>{{  totalAmount.pesos | currency:" $"}}</b></td>
+        <td><b>{{  totalAmount.usd | currency:" USD"}}</b></td>
+
+        <td></td>
+
+        <td></td>
+        <td></td>
+      </tr>
+    </tfoot>
+  </table>
+
+</div>
+<!-- End Bar Graph -->
