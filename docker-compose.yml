@@ -74,6 +74,9 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
     ports:
       - "3306:3306"
+    volumes:
+      - ./db_init_scripts:/docker-entrypoint-initdb.d
+      - mysql_data:/var/lib/mysql
     expose:
       - 3306
 
@@ -89,3 +92,7 @@ services:
   cache:
     container_name: cache
     image: memcached:1.6-alpine
+
+volumes:
+  mysql_data:
+    name: lextracking_db
