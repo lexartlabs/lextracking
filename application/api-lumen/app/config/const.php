@@ -10,3 +10,5 @@ define("TASK_INVALID", "Task id invalid");
 define("MAX_BANKS_ENABLED", "Maximo de bancos ativados");
 define("BANK_ENABLED", "Esse banco esta ativo");
 define("BANK_NOT_ASSOCIED", "Esse id nao esta associado ao usuario logado ou não existe !!!");
+define("INVALID_NUMERIC_ID", "The ID must be a valid number");
+define("INTERNAL_SERVER_ERROR", "Internal error");

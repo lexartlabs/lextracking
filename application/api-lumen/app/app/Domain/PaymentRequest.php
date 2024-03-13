@@ -36,4 +36,9 @@ class PaymentRequest
     {
         return new PaymentRequest($user_id, PaymentRequestStatus::Pending, $reply);
     }
+
+    function addPaymentRequestDetail()
+    {
+        return PaymentRequestDetail.create()
+    }
 }

@@ -13,15 +13,19 @@ class PaymentRequestDetail extends Model
     protected $table = 'PaymentRequestDetail';
     public $timestamps = false;
 
-    protected $fillable = ['id', 'payment_request_id', 'status', 'reply', 'created_at', 'updated_at'];
+    protected $fillable = [
+        'id',
+        'payment_request_id',
+        'concept',
+        'concept_description',
+        'amount'
+    ];
 
     protected $casts = [
         'id' => 'string',
         'payment_request_id' => 'string',
         'concept' => PaymentRequestDetailConcepts::class,
         'concept_description' => 'string',
-        'amount' => 'double',
-        'created_at' => 'timestamp',
-        'updated_at' => 'timestamp',
+        'amount' => 'double'
     ];
 }

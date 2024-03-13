@@ -317,6 +317,6 @@ Route::group(['prefix' => 'api'], function () {
     Route::group(['prefix' => 'payment_request', 'middleware' => 'auth:api'], function () {
 
         Route::get('closure/{user_id}', 'PaymentRequestController@getUserInfosSinceLastClosure');
-        Route::post('closure/create', 'PaymentRequestController@create');
+        Route::post('create', 'PaymentRequestController@create');
     });
 });

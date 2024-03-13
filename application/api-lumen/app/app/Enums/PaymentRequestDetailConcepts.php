@@ -2,9 +2,9 @@
 
 namespace App\Enums;
 
-enum PaymentRequestDetailConcepts
+enum PaymentRequestDetailConcepts: string
 {
-    case Benefits;
-    case Compensation;
-    case Closure;
+    case Benefits = 'Benefits';
+    case Compensation = 'Compensation';
+    case Closure = 'Closure';
 }
