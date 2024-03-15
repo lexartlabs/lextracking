@@ -2,7 +2,6 @@
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
-use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,9 +39,9 @@ Route::group(['prefix' => 'api'], function () {
             Route::post('exceptions/{id}/{date}', 'UserController@createException');
             Route::post('/fixeds/{id}', 'UserController@upsertFixed');
             Route::put('update/{id}', 'UserController@update');
-
+            
             //Performances
-            Route::group(['prefix' => 'performance'], function () {
+            Route::group(['prefix' => 'performance'], function() {
                 Route::post('current', 'PerformanceController@current');
                 Route::post('current/save', 'PerformanceController@saveCurrent');
             });
@@ -65,7 +64,7 @@ Route::group(['prefix' => 'api'], function () {
             //Performances
             Route::post('{id}/performance', 'PerformanceController@userId');
 
-            Route::group(['prefix' => 'performance'], function () {
+            Route::group(['prefix' => 'performance'], function() {
                 Route::get('all', 'PerformanceController@all');
                 Route::post('{id}/save', 'PerformanceController@save');
             });
@@ -73,19 +72,19 @@ Route::group(['prefix' => 'api'], function () {
     });
 
     //Projects
-    Route::group(['prefix' => 'projects', 'middleware' => 'auth:api'], function () {
+    Route::group(['prefix' => 'projects', 'middleware' => 'auth:api'], function() {
         Route::get('all', 'ProjectsController@all');
         Route::get('{id}', 'ProjectsController@all');
 
         Route::get('client/{id}', 'ProjectsController@client');
 
-        Route::group(['middleware' => 'pm:api'], function () {
+        Route::group(['middleware' => 'pm:api'], function() {
             Route::post('new', 'ProjectsController@new');
             Route::put('update', ["middleware" => "pm:api", "uses" => 'ProjectsController@update']);
         });
 
         //Tasks
-        Route::group(['prefix' => 'tasks', 'middleware' => 'pm:api'], function () {
+        Route::group(['prefix' => 'tasks', 'middleware' => 'pm:api'], function() {
             Route::post('all', 'TasksController@all');
             Route::get('{id}', 'TasksController@all');
             Route::delete('delete', 'TasksController@delete');
@@ -97,13 +96,13 @@ Route::group(['prefix' => 'api'], function () {
             Route::post('id-user/{idUser}', 'TasksController@getTasksByUserFilter');
 
             //User
-            Route::group(['prefix' => 'user'], function () {
+            Route::group(['prefix' => 'user'], function(){
                 Route::post('current', 'TasksController@currentUser'); //POST POR CAUSA DA API ANTIGA
                 Route::get('{id}', 'TasksController@userId');
             });
 
             //Tasks trello
-            Route::group(['prefix' => 'trello'], function () {
+            Route::group(['prefix' => 'trello'], function (){
                 Route::get('all', 'TrelloTasksController@all');
                 Route::get('allOld', 'TrelloTasksController@allOld');
                 Route::get('{id}', 'TrelloTasksController@all');
@@ -114,7 +113,7 @@ Route::group(['prefix' => 'api'], function () {
 
                 Route::put('update', 'TrelloTasksController@update');
 
-                Route::group(['prefix' => 'boards'], function () {
+                Route::group(['prefix' => 'boards'], function (){
                     Route::get('all', 'BoardTrelloController@all');
                     Route::get('{id}', 'BoardTrelloController@all');
 
@@ -123,15 +122,15 @@ Route::group(['prefix' => 'api'], function () {
             });
         });
 
-        Route::group(['prefix' => 'tasks'], function () {
+        Route::group(['prefix' => 'tasks'], function() {
             Route::post('all', 'TasksController@all');
 
-            Route::group(['prefix' => 'user'], function () {
+            Route::group(['prefix' => 'user'], function(){
                 Route::post('current', 'TasksController@currentUser'); //POST POR CAUSA DA API ANTIGA
                 Route::get('{id}', 'TasksController@userId');
             });
 
-            Route::group(['prefix' => 'trello'], function () {
+            Route::group(['prefix' => 'trello'], function (){
                 Route::get('all', 'TrelloTasksController@all');
                 Route::get('allOld', 'TrelloTasksController@allOld');
                 Route::get('{id}', 'TrelloTasksController@all');
@@ -140,7 +139,7 @@ Route::group(['prefix' => 'api'], function () {
 
                 Route::post('newOld', 'TrelloTasksController@taskNewFrontOld');
 
-                Route::group(['prefix' => 'boards'], function () {
+                Route::group(['prefix' => 'boards'], function (){
                     Route::get('all', 'BoardTrelloController@all');
                     Route::get('{id}', 'BoardTrelloController@all');
 
@@ -151,11 +150,11 @@ Route::group(['prefix' => 'api'], function () {
     });
 
     //Tracks
-    Route::group(['prefix' => 'tracks', 'middleware' => 'auth:api'], function () {
+    Route::group(['prefix' => 'tracks', 'middleware' => 'auth:api'], function() {
 
         Route::post('new', 'TracksController@new');
 
-        Route::group(['middleware' => 'pm:api'], function () {
+        Route::group(['middleware' => 'pm:api'], function(){
             Route::get('tracking', 'TracksController@endlessTracks');
             Route::post('{id}/month', 'TracksController@month');
 
@@ -169,7 +168,7 @@ Route::group(['prefix' => 'api'], function () {
             Route::put('update', 'TracksController@update');
         });
 
-        Route::group(['prefix' => 'user'], function () {
+        Route::group(['prefix' => 'user'], function(){
             Route::post('current', 'TracksController@current');
             Route::get('current/last', 'TracksController@currentUserLastTrack');
             Route::post('current/date', 'TracksController@currentUserDate');
@@ -181,11 +180,11 @@ Route::group(['prefix' => 'api'], function () {
             Route::put('current/update', 'TracksController@currentUpdate');
 
             //Tracks - reportes
-            Route::post('current/all', 'TracksController@cuEasyWebControllerrrent');
+            Route::post('current/all', 'TracksController@current');
             Route::post('current/trello', 'TracksController@trelloTracksCurrent');
         });
 
-        Route::group(['prefix' => 'user', 'middleware' => 'pm:api'], function () {
+        Route::group(['prefix' => 'user', 'middleware' => 'pm:api'], function() {
 
             //Calendario
             Route::get('{id}/calendar/{fecha}', 'TracksController@calendar');
@@ -195,13 +194,14 @@ Route::group(['prefix' => 'api'], function () {
 
             Route::post('trello/all', 'TracksController@trelloTracks');
             Route::post('trello/{id}', 'TracksController@trelloTracks');
+
         });
     });
 
     //Weeklyhours
-    Route::group(['prefix' => 'weeklyhours', 'middleware' => 'auth:api'], function () {
+    Route::group(['prefix' => 'weeklyhours', 'middleware' => 'auth:api'], function(){
         //User weeklyhours
-        Route::group(['prefix' => 'user'], function () {
+        Route::group(['prefix' => 'user'], function(){
             Route::get('current', 'WeeklyhoursController@current');
         });
 
@@ -213,7 +213,7 @@ Route::group(['prefix' => 'api'], function () {
             Route::post('new', 'WeeklyhoursController@new');
 
             //User weeklyhours admin
-            Route::group(['prefix' => 'user'], function () {
+            Route::group(['prefix' => 'user'], function(){
 
                 Route::get('{id}', 'WeeklyhoursController@user');
             });
@@ -221,11 +221,11 @@ Route::group(['prefix' => 'api'], function () {
     });
 
     //Clients
-    Route::group(['prefix' => 'clients'], function () {
+    Route::group(['prefix' => 'clients'], function(){
 
         Route::get('current', 'ClientsController@current');
 
-        Route::group(['middleware' => 'pm:api'], function () {
+        Route::group(['middleware' => 'pm:api'], function(){
             Route::get('all', 'ClientsController@all');
             Route::get('{id}', 'ClientsController@all');
 
@@ -236,7 +236,7 @@ Route::group(['prefix' => 'api'], function () {
     });
 
     // Sales
-    Route::group(['prefix' => 'sales', 'middleware' => 'pm:api'], function () {
+    Route::group(['prefix' => 'sales', 'middleware' => 'pm:api'], function(){
         Route::get('all', 'SalesController@all');
         Route::get('{id}', 'SalesController@all');
 
@@ -250,14 +250,14 @@ Route::group(['prefix' => 'api'], function () {
     });
 
     //Banks
-    Route::group(['prefix' => 'Banks', 'middleware' => 'auth:api'], function () {
+    Route::group(['prefix' => 'Banks', 'middleware' => 'auth:api'], function(){
 
-        Route::group(['prefix' => 'user'], function () {
+        Route::group(['prefix' => 'user'], function(){
             Route::get('current', 'BanksController@current');
 
             Route::post('new', 'BanksController@new');
 
-            Route::group(['prefix' => 'current'], function () {
+            Route::group(['prefix' => 'current'], function(){
                 Route::delete('delete/{id}', 'BanksController@currentDelete');
                 Route::get('undelete/{id}', 'BanksController@currentUndelete');
 
@@ -268,12 +268,12 @@ Route::group(['prefix' => 'api'], function () {
             });
         });
 
-        Route::group(['middleware' => 'admin:api'], function () {
+        Route::group(['middleware' => 'admin:api'], function(){
             Route::get('all', 'BanksController@all');
             Route::get('{id}', 'BanksController@all');
         });
 
-        Route::group(['prefix' => 'user', 'middleware' => 'pm:api'], function () {
+        Route::group(['prefix' => 'user', 'middleware' => 'pm:api'], function(){
             Route::get('{id}', ["middleware" => "admin:api", "uses" => "BanksController@user"]);
             Route::put('update', ["middleware" => "admin:api", "uses" => "BanksController@update"]);
 
@@ -286,13 +286,13 @@ Route::group(['prefix' => 'api'], function () {
     });
 
     //Finanzas
-    Route::group(['prefix' => 'finances', 'middleware' => 'admin:api'], function () {
+    Route::group(['prefix' => 'finances', 'middleware' => 'admin:api'], function(){
 
         Route::get("all/date/{firstDate}/{lastDate}", 'FinancesController@all');
     });
 
     //Housting
-    Route::group(['prefix' => 'hosting', 'middleware' => 'admin:api'], function () {
+    Route::group(['prefix' => 'hosting', 'middleware' => 'admin:api'], function() {
 
         Route::get('all', 'HostingController@all');
         Route::put('update', 'HostingController@update');
@@ -300,7 +300,7 @@ Route::group(['prefix' => 'api'], function () {
     });
 
     //Productos
-    Route::group(['prefix' => 'products', 'middleware' => 'admin:api'], function () {
+    Route::group(['prefix' => 'products', 'middleware' => 'admin:api'], function(){
 
         Route::get('all', 'ProductsController@all');
         Route::get('{id}', 'ProductsController@all');
@@ -308,7 +308,7 @@ Route::group(['prefix' => 'api'], function () {
 
     //EasyWeb
 
-    Route::group(['prefix' => 'easy-web', 'middleware' => 'admin:api'], function () {
+    Route::group(['prefix' => 'easy-web', 'middleware' => 'admin:api'], function(){
 
         Route::get('all', 'EasyWebController@all');
         Route::get('{id}', 'EasyWebController@all');
