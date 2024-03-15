@@ -28,4 +28,9 @@ class PaymentRequestDetail extends Model
         'concept_description' => 'string',
         'amount' => 'double'
     ];
+
+    public function payment_request()
+    {
+        return $this->belongsTo(PaymentRequest::class);
+    }
 }

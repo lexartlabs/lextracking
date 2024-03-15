@@ -314,9 +314,10 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('{id}', 'EasyWebController@all');
     });
 
-    Route::group(['prefix' => 'payment_request', 'middleware' => 'auth:api'], function () {
-
-        Route::get('closure/{user_id}', 'PaymentRequestController@getUserInfosSinceLastClosure');
+    Route::group(['prefix' => 'payment_requests', 'middleware' => 'auth:api'], function () {
         Route::post('create', 'PaymentRequestController@create');
+        Route::put('{payment_request_id}/cancel', 'PaymentRequestController@cancelPaymentRequest');
+        Route::get('{user_id}', 'PaymentRequestController@getUserHistory');
+        Route::get('closure/{user_id}', 'PaymentRequestController@getBalanceSinceLastClosure');
     });
 });

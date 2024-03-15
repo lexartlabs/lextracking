@@ -11,8 +11,6 @@ class PaymentRequest extends Model
     use HasFactory;
 
     protected $table = 'PaymentRequest';
-    public $timestamps = false;
-
     protected $fillable = ['id', 'user_id', 'status', 'reply', 'created_at', 'updated_at'];
 
     protected $casts = [
@@ -23,4 +21,9 @@ class PaymentRequest extends Model
         'created_at' => 'timestamp',
         'updated_at' => 'timestamp',
     ];
+
+    public function payment_request_details()
+    {
+        return $this->hasMany(PaymentRequestDetail::class);
+    }
 }
