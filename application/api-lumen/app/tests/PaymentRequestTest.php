@@ -78,6 +78,25 @@ class PaymentRequestTest extends TestCase
         $response = $this->post('/api/payment_requests/create', $data);
 
         $response->seeStatusCode(201);
+        $response->seeJsonStructure(([
+            'response' => [
+                'user_id',
+                'status',
+                'reply',
+                'updated_at',
+                'created_at',
+                'id',
+                'details' => [
+                    '*' => [
+                        'payment_request_id',
+                        'concept',
+                        'concept_description',
+                        'amount',
+                        'id',
+                    ],
+                ],
+            ],
+        ]));
     }
 
     public function test_read_user_payment_request_history_should_return_invalid_id()
@@ -219,6 +238,7 @@ class PaymentRequestTest extends TestCase
         $response->seeJsonStructure([
             'response' => [
                 'amount',
+                'currency',
                 'tracks' => [
                     '*' => [
                         'taskName',

@@ -8,6 +8,7 @@ use App\Enums\PaymentRequestStatus;
 use App\Models\PaymentRequest;
 use App\Models\PaymentRequestDetail;
 use App\Models\Tracks;
+use App\Models\Weeklyhours;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -35,26 +36,26 @@ class PaymentRequestController extends BaseController
                 "reply" => null
             ];
 
-            $paymentRequest = PaymentRequest::create($attributes);
+            $payment_request = PaymentRequest::create($attributes);
 
-            $paymentRequestDetails = [];
+            $payment_request_details = [];
 
             foreach ($details as $detail) {
-                $attributes = [
-                    "payment_request_id" => $paymentRequest->id,
-                    "concept" => $detail["concept"],
-                    "concept_description" => $detail["concept_description"],
-                    "amount" => $detail["amount"],
-                ];
+                $concept = PaymentRequestDetailConcepts::from($detail["concept"]);
 
-                $paymentRequestDetail = PaymentRequestDetail::create($attributes);
+                $payment_request_detail = $this->createPaymentRequestDetail(
+                    $payment_request->id,
+                    $concept,
+                    $detail["concept_description"],
+                    $detail["amount"]
+                );
 
-                array_push($paymentRequestDetails, $paymentRequestDetail);
+                array_push($payment_request_details, $payment_request_detail);
             };
 
-            $paymentRequest->details = $paymentRequestDetails;
+            $payment_request->details = $payment_request_details;
 
-            return new Response($paymentRequest, 201);
+            return new Response(['response' => $payment_request], 201);
         } catch (Exception $e) {
             echo $e;
             return (new Response(array("Error" => INTERNAL_SERVER_ERROR, "Operation" => "Create payment request"), 500));
@@ -98,28 +99,30 @@ class PaymentRequestController extends BaseController
                 return new Response(["Error" => INVALID_NUMERIC_ID, "Operation" => $operation], 400);
             }
 
-            $lastClosure = PaymentRequest::latest()
+            $last_closure = PaymentRequest::latest()
                 ->whereHas('payment_request_details', function ($query) {
                     $query->where('concept', PaymentRequestDetailConcepts::Closure);
                 })
                 ->where('user_id', $user_id)
                 ->first();
 
-            if ($lastClosure == null) {
+            if ($last_closure == null) {
                 return new Response(['Error' => NO_CLOSURE_REGISTERED, "Operation" => $operation], 400);
             }
 
-            $start_date = $lastClosure->created_at;
+            $start_date = $last_closure->created_at;
 
             $tracks = Tracks::join("Tasks", "Tracks.idTask", "=", "Tasks.id")
-                ->where("Tracks.startTime", ">=", date('Y-m-d H:i:s', $start_date))
-                ->where("Tracks.endTime", ">=", date('Y-m-d H:i:s', $start_date))
                 ->where("Tracks.idUser", $user_id)
+                ->where("Tracks.startTime", ">=", date('Y-m-d H:i:s', $start_date))
+                ->whereNotNull("Tracks.endTime")
                 ->select(
                     "Tracks.trackCost",
                     "Tasks.name AS taskName",
                     "Tracks.duracion AS trackDuration"
                 )->get();
+
+            $weekly_hours = Weeklyhours::where('idUser', $user_id)->first();
 
             $amount = 0;
 
@@ -127,7 +130,11 @@ class PaymentRequestController extends BaseController
                 $amount += $track->trackCost;
             };
 
-            return new Response(['response' => ['tracks' => $tracks, 'amount' => $amount]], 200);
+            return new Response(['response' => [
+                'tracks' => $tracks,
+                'amount' => $amount,
+                'currency' => $weekly_hours->currency
+            ]], 200);
         } catch (Exception $e) {
             return new Response(["Error" => INTERNAL_SERVER_ERROR, "Operation" => $operation], 500);
         }
@@ -150,5 +157,23 @@ class PaymentRequestController extends BaseController
         } catch (Exception $e) {
             return new Response(["Error" => INTERNAL_SERVER_ERROR, "Operation" => $operation], 500);
         }
+    }
+
+    public function createPaymentRequestDetail(
+        int $payment_request_id,
+        PaymentRequestDetailConcepts $concept,
+        string $concept_description,
+        float $amount
+    ) {
+        $attributes = [
+            "payment_request_id" => $payment_request_id,
+            "concept" => $concept,
+            "concept_description" => $concept_description,
+            "amount" => $amount
+        ];
+
+        $payment_request_detail = PaymentRequestDetail::create($attributes);
+
+        return $payment_request_detail;
     }
 }
