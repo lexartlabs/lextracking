@@ -127,8 +127,6 @@ class PaymentRequestController extends BaseController
                 $amount += $track->trackCost;
             };
 
-            echo json_encode(['response' => ['tracks' => $tracks, 'amount' => $amount]]);
-
             return new Response(['response' => ['tracks' => $tracks, 'amount' => $amount]], 200);
         } catch (Exception $e) {
             return new Response(["Error" => INTERNAL_SERVER_ERROR, "Operation" => $operation], 500);
