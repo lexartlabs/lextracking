@@ -99,6 +99,10 @@ class PaymentRequestController extends BaseController
                 return new Response(["Error" => INVALID_NUMERIC_ID, "Operation" => $operation], 400);
             }
 
+            $weekly_hours = Weeklyhours::where('idUser', $user_id)->first();
+
+            if ($weekly_hours == null) return new Response(['Error' => MISSING_WEEKLY_HOURS, "Operation" => $operation], 422);
+
             $last_closure = PaymentRequest::latest()
                 ->whereHas('payment_request_details', function ($query) {
                     $query->where('concept', PaymentRequestDetailConcepts::Closure);
@@ -106,23 +110,18 @@ class PaymentRequestController extends BaseController
                 ->where('user_id', $user_id)
                 ->first();
 
-            if ($last_closure == null) {
-                return new Response(['Error' => NO_CLOSURE_REGISTERED, "Operation" => $operation], 400);
-            }
-
-            $start_date = $last_closure->created_at;
+            if ($last_closure != null) $start_date = date('Y-m-d H:i:s', $last_closure->created_at);
+            else $start_date = date("Y-m-01 00:00:00");
 
             $tracks = Tracks::join("Tasks", "Tracks.idTask", "=", "Tasks.id")
                 ->where("Tracks.idUser", $user_id)
-                ->where("Tracks.startTime", ">=", date('Y-m-d H:i:s', $start_date))
+                ->where("Tracks.startTime", ">=", $start_date)
                 ->whereNotNull("Tracks.endTime")
                 ->select(
                     "Tracks.trackCost",
                     "Tasks.name AS taskName",
                     "Tracks.duracion AS trackDuration"
                 )->get();
-
-            $weekly_hours = Weeklyhours::where('idUser', $user_id)->first();
 
             $amount = 0;
 
@@ -132,6 +131,7 @@ class PaymentRequestController extends BaseController
 
             return new Response(['response' => [
                 'tracks' => $tracks,
+                'start_date' => $start_date,
                 'amount' => $amount,
                 'currency' => $weekly_hours->currency
             ]], 200);

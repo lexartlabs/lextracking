@@ -198,17 +198,48 @@ class PaymentRequestTest extends TestCase
         ]);
     }
 
-    public function test_get_balance_since_last_closure_should_return_no_closure_registered()
+    public function test_get_balance_since_last_closure_should_return_missing_weekly_hours()
     {
         $user = User::factory()->count(1)->create(['role' => 'employee', 'status' => 1])->first();
 
         $this->actingAs($user);
 
-        $response = $this->get("/api/payment_requests/closure/1");
+        $response = $this->get("/api/payment_requests/closure/$user->id");
 
-        $response->seeStatusCode(400);
+        $response->seeStatusCode(422);
         $response->seeJsonContains([
-            "Error" => NO_CLOSURE_REGISTERED,
+            "Error" => MISSING_WEEKLY_HOURS,
+        ]);
+    }
+
+    public function test_get_balance_since_last_closure_should_return_the_first_month_day()
+    {
+        $user = User::factory()->count(1)->create(['role' => 'employee', 'status' => 1])->first();
+        Weeklyhours::factory()->count(1)->create(['idUser' => $user->id])->first();
+
+        $this->actingAs($user);
+
+        $response = $this->get("/api/payment_requests/closure/$user->id");
+
+        $response->seeStatusCode(200);
+        $response->seeJsonContains([
+            "start_date" => date("Y-m-01 00:00:00"),
+        ]);
+    }
+
+    public function test_get_balance_since_last_closure_should_return_empty_array_when_there_are_no_tracks()
+    {
+        $user = User::factory()->count(1)->create(['role' => 'employee', 'status' => 1])->first();
+        Weeklyhours::factory()->count(1)->create(['idUser' => $user->id])->first();
+
+        $this->actingAs($user);
+
+        $response = $this->get("/api/payment_requests/closure/$user->id");
+
+        $response->seeStatusCode(200);
+        $response->seeJsonContains([
+            "tracks" => [],
+            "amount" => 0
         ]);
     }
 
