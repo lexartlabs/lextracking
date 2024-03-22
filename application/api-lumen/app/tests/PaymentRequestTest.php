@@ -10,6 +10,7 @@ use App\Models\Tasks;
 use App\Models\Tracks;
 use App\Models\User;
 use App\Models\Weeklyhours;
+use Illuminate\Support\Facades\DB;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 
 class PaymentRequestTest extends TestCase
@@ -61,6 +62,29 @@ class PaymentRequestTest extends TestCase
         ]);
     }
 
+    public function test_create_payment_request_should_not_save_when_rollback_transaction() {
+        $this->actingAs(User::factory()->count(1)->create(['role' => 'employee', 'status' => 1])->first());
+
+        $data = [
+            "details" => [
+                [
+                    "concept" => "Closure",
+                    "concept_description" => "Some description",
+                    "amount" => 1
+                ]
+            ]
+        ];
+
+        // Here we modify the table to force error in database transaction
+        DB::statement('ALTER TABLE `PaymentRequestDetail` MODIFY COLUMN concept tinyint');
+
+        $response = $this->post('/api/payment_requests/create', $data);
+
+        $response->seeStatusCode(500);
+        $this->assertEquals(0, count(PaymentRequest::get()));
+        $this->assertEquals(0, count(PaymentRequestDetail::get()));
+    }
+
     public function test_create_payment_request_returns_success()
     {
         $this->actingAs(User::factory()->count(1)->create(['role' => 'employee', 'status' => 1])->first());
@@ -78,6 +102,8 @@ class PaymentRequestTest extends TestCase
         $response = $this->post('/api/payment_requests/create', $data);
 
         $response->seeStatusCode(201);
+        $this->assertEquals(1, count(PaymentRequest::get()));
+        $this->assertEquals(1, count(PaymentRequestDetail::get()));
         $response->seeJsonStructure(([
             'response' => [
                 'user_id',

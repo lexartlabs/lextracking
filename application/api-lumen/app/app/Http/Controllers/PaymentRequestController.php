@@ -19,6 +19,8 @@ class PaymentRequestController extends BaseController
 {
     public function create(Request $request)
     {
+        $operation = "Create payment request";
+
         $this->validate($request, [
             'details' => 'required|array',
             'details.*.concept' => ['required', new Enum(PaymentRequestDetailConcepts::class)],
@@ -30,35 +32,53 @@ class PaymentRequestController extends BaseController
             $user_id = $request->user()->id;
             $details = $request->input('details');
 
+            $payment_request_id = $this->persistNewPaymentRequest($user_id, $details);
+
+            if ($payment_request_id == null) {
+                return new Response(array("Error" => INTERNAL_SERVER_ERROR, "Operation" => $operation), 500);
+            }
+
+            $payment_request = PaymentRequest::where('id', $payment_request_id)->first();
+            $payment_request_details = PaymentRequestDetail::where('payment_request_id', $payment_request_id)->get();
+
+            $payment_request->details = $payment_request_details;
+
+            return new Response(['response' => $payment_request], 201);
+        } catch (Exception $e) {
+            return new Response(array("Error" => INTERNAL_SERVER_ERROR, "Operation" => $operation), 500);
+        }
+    }
+
+    public function persistNewPaymentRequest(int $user_id, $details): int|null
+    {
+        try {
             $attributes = [
                 "user_id" => $user_id,
                 "status" => PaymentRequestStatus::Pending,
                 "reply" => null
             ];
 
-            $payment_request = PaymentRequest::create($attributes);
+            DB::beginTransaction();
 
-            $payment_request_details = [];
+            $payment_request_id = DB::table('PaymentRequest')->insertGetId($attributes);
 
             foreach ($details as $detail) {
-                $concept = PaymentRequestDetailConcepts::from($detail["concept"]);
+                $attributes = [
+                    "payment_request_id" => $payment_request_id,
+                    "concept" => PaymentRequestDetailConcepts::from($detail["concept"]),
+                    "concept_description" => $detail["concept_description"],
+                    "amount" => $detail["amount"]
+                ];
 
-                $payment_request_detail = $this->createPaymentRequestDetail(
-                    $payment_request->id,
-                    $concept,
-                    $detail["concept_description"],
-                    $detail["amount"]
-                );
-
-                array_push($payment_request_details, $payment_request_detail);
+                DB::table('PaymentRequestDetail')->insert($attributes);
             };
 
-            $payment_request->details = $payment_request_details;
+            DB::commit();
 
-            return new Response(['response' => $payment_request], 201);
+            return $payment_request_id;
         } catch (Exception $e) {
-            echo $e;
-            return (new Response(array("Error" => INTERNAL_SERVER_ERROR, "Operation" => "Create payment request"), 500));
+            DB::rollBack();
+            return null;
         }
     }
 
