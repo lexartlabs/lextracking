@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
+use App\Models\Weeklyhours;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class UserFactory extends Factory
+class WeeklyhoursFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = User::class;
+    protected $model = Weeklyhours::class;
 
     /**
      * Define the model's default state.
@@ -22,9 +22,11 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
-            'email' => $this->faker->unique()->safeEmail,
-            'password' => md5('102030')
+            'userName' => $this->faker->name,
+            'costHour' => $this->faker->randomNumber(2),
+            'workLoad' => 40,
+            'currency' => 'USD',
+            'borrado' => 0
         ];
     }
 }
