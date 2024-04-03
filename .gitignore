@@ -2,6 +2,7 @@
 .env
 ./application/app/dist
 ./application/app/bower_components
+.vscode/
 
 # app/bower_components
 # app/dist
