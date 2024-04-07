@@ -21,7 +21,8 @@
     "my-profile"  : "My Profile",
     "logout"      : "Logout",
     "jira"        : "Jira Tasks",
-    "calendar"    : "Calendar"
+    "calendar"    : "Calendar",
+    "payment_requests": "Solicitud de pago"
   },
 
 
@@ -534,5 +535,33 @@
     "name"        : "Name",
     "projectKey"  : "KEY Project",
     "url"         : "URL"
+  },
+
+  "payment_requests": {
+    "title": "Solicitud de pago",
+    "form_accordion": {
+      "title": "Formulario",
+      "concept_input": {
+        "label": "Concepto",
+        "placeholder": "Elige un concepto"
+      },
+      "amount_input": {
+        "label": "Monto",
+        "placeholder": "Ingrese un monto"
+      },
+      "observation_input": {
+        "label": "Observación",
+        "placeholder": "Ingrese una observación si lo desea"
+      },
+      "submit_button_text": "Agregar concepto"
+    },
+    "concepts": {
+      "closure": "Cierre",
+      "benefit": "Beneficios",
+      "compensation": "Compensación"
+    },
+    "table_accordion": {
+      "title": "Lista"
+    }
   }
 }

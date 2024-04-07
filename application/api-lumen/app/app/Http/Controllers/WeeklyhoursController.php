@@ -95,7 +95,7 @@ class WeeklyhoursController extends BaseController
     public function new(Request $request)
     {
         $this->validate($request, [
-            "idUser" => "required|numeric|exists:Users,id|unique:weeklyhours",
+            "idUser" => "required|numeric|exists:Users,id|unique:WeeklyHours",
             "userName" => "required",
             "costHour" => "required|numeric",
             "workLoad" => "required|numeric",

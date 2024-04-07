@@ -179,7 +179,7 @@
     }else if (userRole=='developer') {
       $scope.findHistory();
     }else {
-      findDataForUser();
+      $scope.findDataForUser();
     }
 
   }]);
