@@ -9,7 +9,6 @@
         var factory = {
             getAmountSinceLastClosure: function (userId, cb) {
                 RestClient.get(model + "/closure/" + userId, function (err, result) {
-                    console.log("err", err, result);
                     cb(err, result);
                 });
             },
@@ -17,4 +16,4 @@
 
         return factory;
     }]);
-})(angular);
+}(angular));

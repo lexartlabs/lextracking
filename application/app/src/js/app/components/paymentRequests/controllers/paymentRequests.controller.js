@@ -3,51 +3,57 @@
 
 	var Module = ng.module("LexTracking");
 
-	Module.controller("PaymentRequestsCtrl", [
-		"$scope",
-		"$rootScope",
-		"$state",
-		"$translate",
-    "PaymentRequestsService",
-		function ($scope, $rootScope, $state, $translate, PaymentRequestsService) {
-			$scope.concepts = [
-				{ text: $translate.instant('payment_requests.concepts.closure'), value: "closure" },
-				{ text: $translate.instant('payment_requests.concepts.benefit'), value: "benefit" },,
-				{ text: $translate.instant('payment_requests.concepts.compensation'), value: "compensation" },,
-			];
+	Module.controller("PaymentRequestsCtrl", ["$scope", "$rootScope", "$translate", "PaymentRequestsService", function ($scope, $rootScope, $translate, PaymentRequestsService) {
+    const USER_ID = localStorage.getItem("userId");
+    const INITIAL_STATE_PAYMENT_REQUEST = {
+      concept: null,
+      amount: null,
+      observation: null
+    };
 
-      $scope.isAmountInputDisabled = false;
-      $scope.paymentRequest = {
-        concept: null,
-        amount: null,
-        observation: null
-      };
-			$scope.paymentRequests = [];
+    $scope.isAmountInputDisabled = false;
+    $scope.paymentRequests = [];
+    $scope.concepts = [
+      { text: $translate.instant('payment_requests.concepts.closure'), value: "closure" },
+      { text: $translate.instant('payment_requests.concepts.benefit'), value: "benefit" },
+      { text: $translate.instant('payment_requests.concepts.compensation'), value: "compensation" },
+    ];
+    $scope.paymentRequest = {...INITIAL_STATE_PAYMENT_REQUEST};
 
-      async function getClosureAmount() {
-        PaymentRequestsService.getAmountSinceLastClosure(1, function (err, result) {
-          console.log(err, result);
-          if(err) {
-            $rootScope.showToaster(err.Error, 'error')
-          }
-        })
+    function getClosureAmount() {
+      PaymentRequestsService.getAmountSinceLastClosure(USER_ID, function (err, result) {
+        if(err) return $rootScope.showToaster(err, 'error');
+        $scope.paymentRequest.amount = result.amount
+      })
+    }
+
+    $scope.changeConcept = function () {
+      if($scope.paymentRequest.concept != "closure") {
+        $scope.paymentRequest.amount = null;
+        $scope.isAmountInputDisabled = false;
+        return;
       }
 
-      $scope.changeConcept = async function () {
-        if($scope.paymentRequest.concept != "closure") return $scope.isAmountInputDisabled = false;
+      $scope.isAmountInputDisabled = true;
 
-        $scope.isAmountInputDisabled = true;
+      getClosureAmount();
 
-        getClosureAmount()
+      return;
+    }
+
+    $scope.addPaymentRequest = function () {
+      if($scope.paymentRequest.amount === null || $scope.paymentRequest.concept === null) {
+        $rootScope.showToaster($translate.instant('payment_requests.error_messages.null_values'), 'error');
+        return;
+      } else if($scope.paymentRequest.amount <= 0) {
+        $rootScope.showToaster($translate.instant('payment_requests.error_messages.amount_greater_than_zero'), 'error');
+        return;
       }
+      
+      $scope.paymentRequests.push({id: $scope.paymentRequests.length + 1, ...$scope.paymentRequest});
 
-      $scope.addPaymentRequest = function (event) {
-        event.preventDefault();
-
-        $scope.paymentRequests.push($scope.paymentRequest);
-
-        console.log($scope.paymentRequests)
-      }
-		},
-	]);
-})(angular);
+      $scope.paymentRequest = {...INITIAL_STATE_PAYMENT_REQUEST};
+    }
+    
+  }]);
+}(angular));

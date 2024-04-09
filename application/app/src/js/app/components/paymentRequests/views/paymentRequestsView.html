@@ -13,7 +13,7 @@
         </div>
     </summary>
     <div class="lexart-wa__cnt summary-content">
-        <form class="lexart-frm" ng-submit="addPaymentRequest($event)">
+        <form class="lexart-frm" ng-submit="addPaymentRequest()">
             <div class="lexart-frm__fld">
                 <label class="lexart-frm__lbl" for="concept-select">
                     <span class="lexart-frm__lbl-name">
@@ -73,5 +73,23 @@
                 </button>
             </div>
         </form>
+    </div>
+    <div class="lexart-wa__cnt summary-content">
+        <table class="lexart-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Concepto</th>
+                    <th>Monto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="paymentRequest in paymentRequests">
+                    <td>{{paymentRequest.id}}</td>
+                    <td>{{paymentRequest.concept}}</td>
+                    <td>{{paymentRequest.amount}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </details>

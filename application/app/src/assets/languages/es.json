@@ -539,6 +539,10 @@
 
   "payment_requests": {
     "title": "Solicitud de pago",
+    "error_messages": {
+      "null_values": "Los campos concepto y monto son obligatorios",
+      "amount_greater_than_zero": "El campo monto deve ser mayor que cero"
+    },
     "form_accordion": {
       "title": "Formulario",
       "concept_input": {
