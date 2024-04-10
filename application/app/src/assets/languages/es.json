@@ -572,7 +572,14 @@
       "total_table_footer": "Total"
     },
     "history_accordion": {
-      "title": "Historial"
+      "title": "Historial",
+      "id_table_header": "ID",
+      "date_table_header": "Fecha",
+      "total_table_header": "Monto",
+      "currency_table_header": "Moneda",
+      "actions_table_header": "Acciones",
+      "status_table_header": "Status",
+      "total_table_footer": "Total"
     },
     "concepts": {
       "closure": "Cierre",

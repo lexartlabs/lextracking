@@ -96,7 +96,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="paymentRequest in paymentRequests">
+                    <tr ng-repeat="paymentRequest in paymentRequestDetails">
                         <td>{{paymentRequest.id}}</td>
                         <td>{{conceptTexts[paymentRequest.concept]}}</td>
                         <td>{{paymentRequest.amount}}</td>
@@ -131,8 +131,8 @@
                 <tr>
                     <th>{{ 'payment_requests.history_accordion.id_table_header' | translate  }}</th>
                     <th>{{ 'payment_requests.history_accordion.date_table_header' | translate  }}</th>
-                    <th>{{ 'payment_requests.history_accordion.total_table_header' | translate  }}</th>
                     <th>{{ 'payment_requests.history_accordion.currency_table_header' | translate  }}</th>
+                    <th>{{ 'payment_requests.history_accordion.total_table_header' | translate  }}</th>
                     <th>{{ 'payment_requests.history_accordion.status_table_header' | translate  }}</th>
                     <th style="width: 100px;">{{ 'payment_requests.history_accordion.actions_table_header' | translate  }}</th>
                 </tr>

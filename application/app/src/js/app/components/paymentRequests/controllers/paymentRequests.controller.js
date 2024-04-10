@@ -17,14 +17,32 @@
     }
 
     $scope.isAmountInputDisabled = false;
+    $scope.paymentRequestDetails = [];
     $scope.paymentRequests = [];
     $scope.concepts = ["Closure", "Benefits", "Compensation"];
     $scope.paymentRequest = {...INITIAL_STATE_PAYMENT_REQUEST};
 
+    this.$onInit = function () {
+      getUserPaymentRequestHistory()
+    }
+
     function getClosureAmount() {
       PaymentRequestsService.getAmountSinceLastClosure(USER_ID, function (err, result) {
         if(err) return $rootScope.showToaster(err.Error, 'error');
-        $scope.paymentRequest.amount = result.amount
+        $scope.paymentRequest.amount = result.amount;
+      })
+    }
+
+    function getUserPaymentRequestHistory() {
+      PaymentRequestsService.getUserPaymentRequests(USER_ID, function (err, result) {
+        if(err) return $rootScope.showToaster(err.Error, 'error');
+        
+        const formattedResult = result.map(item => {
+          item.created_at = moment(item.created_at).format('YYYY-MM-DD HH:mm');
+          return item;
+        })
+
+        $scope.paymentRequests = formattedResult;
       })
     }
 
@@ -51,32 +69,34 @@
         return;
       }
       
-      $scope.paymentRequests.push({id: $scope.paymentRequests.length + 1, ...$scope.paymentRequest});
+      $scope.paymentRequestDetails.push({id: $scope.paymentRequestDetails.length + 1, ...$scope.paymentRequest});
       $scope.paymentRequest = {...INITIAL_STATE_PAYMENT_REQUEST};
       $scope.isAmountInputDisabled = false;
     }
 
     $scope.removePaymentRequestFromList = function (paymentRequestId) {
-      $scope.paymentRequests = $scope.paymentRequests.filter(request => request.id != paymentRequestId);
+      $scope.paymentRequestDetails = $scope.paymentRequestDetails.filter(request => request.id != paymentRequestId);
     }
 
     $scope.calcTotalAmount = function() {
-      return $scope.paymentRequests.reduce((acc, paymentRequest) => acc += paymentRequest.amount, 0).toFixed(2);
+      return $scope.paymentRequestDetails.reduce((acc, paymentRequest) => acc += paymentRequest.amount, 0).toFixed(2);
     }
 
     $scope.savePaymentRequest = function() {
-      PaymentRequestsService.save($scope.paymentRequests, function (err, result) {
+      PaymentRequestsService.save($scope.paymentRequestDetails, function (err, result) {
         if(err) {
           if(!err.Error) return $rootScope.showToaster($translate.instant('payment_requests.error_messages.error_to_save'), 'error');
 
           return $rootScope.showToaster(err.Error, 'error');
         }
         
-        $rootScope.showToaster($translate.instant('payment_requests.success_messages.payment_request_created'), 'success');
+        getUserPaymentRequestHistory();
 
-        $scope.paymentRequests = [];
+        $scope.paymentRequestDetails = [];
         $scope.paymentRequest = {...INITIAL_STATE_PAYMENT_REQUEST};
         $scope.isAmountInputDisabled = false;
+
+        $rootScope.showToaster($translate.instant('payment_requests.success_messages.payment_request_created'), 'success');
       })
     }
   }]);

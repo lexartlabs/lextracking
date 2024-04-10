@@ -24,6 +24,8 @@ class PaymentRequestFactory extends Factory
         return [
             'status' => 'Pending', 
             'reply' => null,
+            'created_at' => null,
+            'updated_at' => null
         ];
     }
 }
