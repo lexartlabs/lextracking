@@ -30,10 +30,10 @@
                         <ui-select-match 
                             placeholder="{{ 'payment_requests.form_accordion.concept_input.placeholder' | translate }}"
                         >
-                            {{$select.selected.text}}
+                            {{conceptTexts[$select.selected]}}
                         </ui-select-match>
-                        <ui-select-choices repeat="concept.value as concept in concepts | filter: $select.search">
-                            <div ng-bind-html="concept.text | highlight: $select.search"></div>
+                        <ui-select-choices repeat="concept in concepts | filter: $select.search">
+                            <div ng-bind-html="conceptTexts[concept] | highlight: $select.search"></div>
                         </ui-select-choices>
                     </ui-select>
                 </label>
@@ -45,6 +45,7 @@
                     </span>
                     <input 
                         type="number"
+                        step="0.01"
                         id="amount-input"
                         ng-model="paymentRequest.amount"
                         placeholder="{{ 'payment_requests.form_accordion.amount_input.placeholder' | translate }}"
@@ -53,43 +54,113 @@
                 </label>
             </div>
             <div class="lexart-frm__fld">
-                <label class="lexart-frm__lbl" for="observation-input">
+                <label class="lexart-frm__lbl" for="concept_description-input">
                     <span class="lexart-frm__lbl-name">
-                        <b>{{ 'payment_requests.form_accordion.observation_input.label' | translate }}</b>
+                        <b>{{ 'payment_requests.form_accordion.concept_description_input.label' | translate }}</b>
                     </span>
                     <textarea 
-                        id="observation-input"
+                        id="concept_description-input"
                         padding="true"
                         rows="4"
-                        ng-model="paymentRequest.observation"
-                        placeholder="{{ 'payment_requests.form_accordion.observation_input.placeholder' | translate }}"
+                        ng-model="paymentRequest.concept_description"
+                        placeholder="{{ 'payment_requests.form_accordion.concept_description_input.placeholder' | translate }}"
                     ></textarea>
                 </label>
             </div>
 
             <div class="lexart-frm__fld">
-                <button class="lexart-btn" style="float: right;" type="submit">
-                    {{ 'payment_requests.form_accordion.submit_button_text' | translate }}
+                <button class="lexart-btn lexart-btn--darkest lexart-btn__right" type="submit" style="margin-right: 0;">
+                    {{ 'payment_requests.form_accordion.add_concept_button_text' | translate }}
                 </button>
             </div>
         </form>
     </div>
     <div class="lexart-wa__cnt summary-content">
+        <header>
+            <h1><b>{{ 'payment_requests.form_accordion.request_table_title' | translate }}</b></h1>
+            <p>{{ 'payment_requests.form_accordion.request_table_subtitle' | translate }}</p>
+        </header>
+        <aside style="padding: 1rem 0; display: flex; justify-content: flex-end;">
+            <button class="lexart-btn lexart-btn--darkest" type="button" style="margin-right: 0;" ng-click="savePaymentRequest()">
+                {{ 'payment_requests.form_accordion.save_request_button_text' | translate }}
+            </button>
+        </aside>
+        <main>
+            <table class="lexart-table">
+                <thead>
+                    <tr>
+                        <th>{{ 'payment_requests.form_accordion.id_table_header' | translate  }}</th>
+                        <th>{{ 'payment_requests.form_accordion.concept_table_header' | translate  }}</th>
+                        <th>{{ 'payment_requests.form_accordion.amount_table_header' | translate  }}</th>
+                        <th style="width: 100px;">{{ 'payment_requests.form_accordion.actions_table_header' | translate  }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="paymentRequest in paymentRequests">
+                        <td>{{paymentRequest.id}}</td>
+                        <td>{{conceptTexts[paymentRequest.concept]}}</td>
+                        <td>{{paymentRequest.amount}}</td>
+                        <td>
+                            <i 
+                                class="ri-close-line lexart-remove-button" 
+                                ng-click="removePaymentRequestFromList(paymentRequest.id)">
+                            </i>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="2">{{ 'payment_requests.form_accordion.total_table_footer' | translate  }}</th>
+                        <td colspan="2">{{ calcTotalAmount() }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </main>
+    </div>
+</details>
+<details style="margin-top: 1rem;">
+    <summary>
+        <span class="summary-title">{{ 'payment_requests.history_accordion.title' | translate }}</span>
+        <div class="summary-chevron-up">
+            <i class="ri-arrow-right-s-line feather feather-chevron-down"></i>
+        </div>
+    </summary>
+    <div class="lexart-wa__cnt summary-content">
         <table class="lexart-table">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Concepto</th>
-                    <th>Monto</th>
+                    <th>{{ 'payment_requests.history_accordion.id_table_header' | translate  }}</th>
+                    <th>{{ 'payment_requests.history_accordion.date_table_header' | translate  }}</th>
+                    <th>{{ 'payment_requests.history_accordion.total_table_header' | translate  }}</th>
+                    <th>{{ 'payment_requests.history_accordion.currency_table_header' | translate  }}</th>
+                    <th>{{ 'payment_requests.history_accordion.status_table_header' | translate  }}</th>
+                    <th style="width: 100px;">{{ 'payment_requests.history_accordion.actions_table_header' | translate  }}</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="paymentRequest in paymentRequests">
                     <td>{{paymentRequest.id}}</td>
-                    <td>{{paymentRequest.concept}}</td>
+                    <td>{{paymentRequest.created_at}}</td>
                     <td>{{paymentRequest.amount}}</td>
+                    <td>{{paymentRequest.status}}</td>
+                    <td>
+                        <i 
+                            class="ri-edit-line" 
+                            ng-click="removePaymentRequestFromList(paymentRequest.id)">
+                        </i>
+                        <i 
+                            class="ri-close-line lexart-remove-button" 
+                            ng-click="removePaymentRequestFromList(paymentRequest.id)">
+                        </i>
+                    </td>
                 </tr>
             </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="2">{{ 'payment_requests.history_accordion.total_table_footer' | translate  }}</th>
+                    <td colspan="2">{{ calcTotalAmount() }}</td>
+                </tr>
+            </tfoot>
         </table>
     </div>
 </details>

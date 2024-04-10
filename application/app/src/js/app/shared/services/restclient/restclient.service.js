@@ -36,39 +36,56 @@ console.log('Reading BASE URL', BASE_URL);
                     progressbar.start();
 
                 $http.get(K.URL + url, getConfig()).then(function (response) {
-                        if (!progressFlag)
-                            progressbar.complete();
+                    if (!progressFlag)
+                        progressbar.complete();
 
-                        var countItems = response.headers()['x-count-items'];
+                    var countItems = response.headers()['x-count-items'];
 
-                        if(!response.data.response) {
-                            return callback(response.data.Error)
-                        }
+                    if(!response.data.response) {
+                        return callback(response.data)
+                    }
 
-                        callback(null, response.data.response, countItems);
-                    }).catch(function (response) {
-                        if (!progressFlag)
-                            progressbar.complete();
+                    callback(null, response.data.response, countItems);
+                }).catch(function (response) {
+                    if (!progressFlag)
+                        progressbar.complete();
 
-                        if (response.status == 401 && $state.current.name != "login" && $state.current.name != "recovery") { //Go to login
-                            $state.go('login', { reload: true });
-                            console.log($state.go('login'), response.status, $state.current.name);
-                        } else {
-                            callback(response.data);
-                        }
-                    });
+                    if (response.status == 401 && $state.current.name != "login" && $state.current.name != "recovery") { //Go to login
+                        $state.go('login', { reload: true });
+                        console.log($state.go('login'), response.status, $state.current.name);
+                    } else {
+                        callback(response.data);
+                    }
+                });
             },
             post: function(url, data, callback) {
                 progressbar.start();                  
-                    $http.post(K.URL + url, data, getConfig()).then(function (response) {
-                        progressbar.complete();
-                        if(response && response.data){
-                            callback(null,response.data.response)
-                        }else{
-                            callback(null,response)
+                $http.post(K.URL + url, data, getConfig()).then(function(response) {
+                    progressbar.complete();
 
-                        }                     
-                    })
+                    if(!response.data.response) {
+                        return callback(response.data)
+                    }
+
+                    callback(null, response.data.response);
+                }).catch(function(response) {
+                    progressbar.complete();
+                    console.log(data);
+                    if (response.status == 401 && $state.current.name != "login" && $state.current.name != "recovery") { //Go to login
+                        $state.go('login');
+                    } else {
+                        callback(response.data);
+                    }
+                });
+                // .then(function (response) {
+                //     progressbar.complete();
+                //     if(response && response.data){
+                //         callback(null,response.data.response)
+                //     }else{
+                //         callback(null,response)
+
+                //     }                     
+                // })
                     // .
                     // success(function(data, status, headers, config) {
                     //     progressbar.complete();

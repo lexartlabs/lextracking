@@ -541,7 +541,11 @@
     "title": "Solicitud de pago",
     "error_messages": {
       "null_values": "Los campos concepto y monto son obligatorios",
-      "amount_greater_than_zero": "El campo monto deve ser mayor que cero"
+      "amount_greater_than_zero": "El campo monto deve ser mayor que cero",
+      "error_to_save": "Hubo un error al crear la solicitud"
+    },
+    "success_messages": {
+      "payment_request_created": "Solicitud de pago creado con sucesso"
     },
     "form_accordion": {
       "title": "Formulario",
@@ -553,15 +557,26 @@
         "label": "Monto",
         "placeholder": "Ingrese un monto"
       },
-      "observation_input": {
+      "concept_description_input": {
         "label": "Observación",
         "placeholder": "Ingrese una observación si lo desea"
       },
-      "submit_button_text": "Agregar concepto"
+      "add_concept_button_text": "Agregar concepto",
+      "save_request_button_text": "Guardar Solicitud",
+      "request_table_title": "Solicitud",
+      "request_table_subtitle": "La solicitud será efectiva una vez que el equipo de finanzas apruebe el pago",
+      "id_table_header": "ID",
+      "concept_table_header": "Concepto",
+      "amount_table_header": "Monto",
+      "actions_table_header": "Acciones",
+      "total_table_footer": "Total"
+    },
+    "history_accordion": {
+      "title": "Historial"
     },
     "concepts": {
       "closure": "Cierre",
-      "benefit": "Beneficios",
+      "benefits": "Beneficios",
       "compensation": "Compensación"
     },
     "table_accordion": {

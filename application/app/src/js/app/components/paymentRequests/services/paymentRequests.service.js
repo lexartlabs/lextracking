@@ -12,6 +12,11 @@
                     cb(err, result);
                 });
             },
+            save: function (paymentRequests, cb) {
+                RestClient.post(model + "/create", { details: paymentRequests }, function (err, result) {
+                    cb(err, result);
+                });
+            }
         };
 
         return factory;
