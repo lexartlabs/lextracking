@@ -86,35 +86,14 @@
             </button>
         </aside>
         <main>
-            <table class="lexart-table">
-                <thead>
-                    <tr>
-                        <th>{{ 'payment_requests.form_accordion.id_table_header' | translate  }}</th>
-                        <th>{{ 'payment_requests.form_accordion.concept_table_header' | translate  }}</th>
-                        <th>{{ 'payment_requests.form_accordion.amount_table_header' | translate  }}</th>
-                        <th style="width: 100px;">{{ 'payment_requests.form_accordion.actions_table_header' | translate  }}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="paymentRequest in paymentRequestDetails">
-                        <td>{{paymentRequest.id}}</td>
-                        <td>{{conceptTexts[paymentRequest.concept]}}</td>
-                        <td>{{paymentRequest.amount}}</td>
-                        <td>
-                            <i 
-                                class="ri-close-line lexart-remove-button" 
-                                ng-click="removePaymentRequestFromList(paymentRequest.id)">
-                            </i>
-                        </td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th colspan="2">{{ 'payment_requests.form_accordion.total_table_footer' | translate  }}</th>
-                        <td colspan="2">{{ calcTotalAmount() }}</td>
-                    </tr>
-                </tfoot>
-            </table>
+            <payment-request-details-table 
+                details-to-show="paymentRequestDetails" 
+                concept-texts="conceptTexts"
+                total-amount="paymentRequestDetailsTotalAmount"
+                show-actions="true"
+                show-footer="true"
+            >
+            </payment-request-details-table>
         </main>
     </div>
 </details>
@@ -141,26 +120,22 @@
                 <tr ng-repeat="paymentRequest in paymentRequests">
                     <td>{{paymentRequest.id}}</td>
                     <td>{{paymentRequest.created_at}}</td>
+                    <td>USD</td>
                     <td>{{paymentRequest.amount}}</td>
-                    <td>{{paymentRequest.status}}</td>
-                    <td>
+                    <td>{{statusTexts[paymentRequest.status]}}</td>
+                    <td class="lexart-table__action-cell">
                         <i 
-                            class="ri-edit-line" 
-                            ng-click="removePaymentRequestFromList(paymentRequest.id)">
+                            class="ri-information-fill"
+                            ng-click="showPaymentRequestDetailsDialog($index)">
                         </i>
                         <i 
-                            class="ri-close-line lexart-remove-button" 
-                            ng-click="removePaymentRequestFromList(paymentRequest.id)">
+                            ng-if="paymentRequest.status == 'Pending'"
+                            class="ri-close-line lexart-remove-button"
+                            ng-click="showCancelPaymentRequestDialog(paymentRequest.id)">
                         </i>
                     </td>
                 </tr>
             </tbody>
-            <tfoot>
-                <tr>
-                    <th colspan="2">{{ 'payment_requests.history_accordion.total_table_footer' | translate  }}</th>
-                    <td colspan="2">{{ calcTotalAmount() }}</td>
-                </tr>
-            </tfoot>
         </table>
     </div>
 </details>

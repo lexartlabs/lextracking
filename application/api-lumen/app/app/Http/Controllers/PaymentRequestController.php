@@ -130,7 +130,7 @@ class PaymentRequestController extends BaseController
                 ->where('user_id', $user_id)
                 ->first();
 
-            if ($last_closure != null) $start_date = date('Y-m-d H:i:s', $last_closure->created_at);
+            if ($last_closure != null) $start_date = $last_closure->created_at;
             else $start_date = date("Y-m-01 00:00:00");
 
             $tracks = Tracks::join("Tasks", "Tracks.idTask", "=", "Tasks.id")

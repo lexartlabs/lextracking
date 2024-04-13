@@ -22,7 +22,7 @@
     "logout"      : "Logout",
     "jira"        : "Jira Tasks",
     "calendar"    : "Calendar",
-    "payment_requests": "Solicitud de pago"
+    "payment_requests": "Payment Requets"
   },
 
 
@@ -50,11 +50,12 @@
       "confirmation"  : "Confirm",
       "are_you_sure"  : "Are you sure?",
       "confirm_delete": "are you sure want delete this?",
+      "confirm_cancel": "Are you sure want cancel this?",
       "delete"        : "Delete",
       "cancel"        : "Cancel",
       "accept"        : "Accept",
       "remove"        : "Delete",
-      "close"         :  "Close"
+      "close"         : "Close"
     }
   },
 
@@ -538,56 +539,72 @@
   },
 
   "payment_requests": {
-    "title": "Solicitud de pago",
+    "title": "Payment Requests",
     "error_messages": {
-      "null_values": "Los campos concepto y monto son obligatorios",
-      "amount_greater_than_zero": "El campo monto deve ser mayor que cero",
-      "error_to_save": "Hubo un error al crear la solicitud"
+      "null_values": "All form fields are mandatory",
+      "amount_greater_than_zero": "The amount field must be greater than zero",
+      "error_to_save": "There was an error while creating the request"
     },
     "success_messages": {
-      "payment_request_created": "Solicitud de pago creado con sucesso"
+      "payment_request_created": "Payment request created successfully",
+      "payment_request_cancelled": "Payment request cancelled successfully"
+    },
+    "cancel_request_dialog": {
+      "title": "Cancel Request",
+      "text": "Are you sure you want to cancel the payment request?"
+    },
+    "show_request_details_dialog": {
+      "title": "Request Details"
     },
     "form_accordion": {
-      "title": "Formulario",
+      "title": "Form",
       "concept_input": {
-        "label": "Concepto",
-        "placeholder": "Elige un concepto"
+        "label": "Concept",
+        "placeholder": "Choose a concept"
       },
       "amount_input": {
-        "label": "Monto",
-        "placeholder": "Ingrese un monto"
+        "label": "Amount",
+        "placeholder": "Enter an amount"
       },
       "concept_description_input": {
-        "label": "Observación",
-        "placeholder": "Ingrese una observación si lo desea"
+        "label": "Observation",
+        "placeholder": "Enter an observation if desired"
       },
-      "add_concept_button_text": "Agregar concepto",
-      "save_request_button_text": "Guardar Solicitud",
-      "request_table_title": "Solicitud",
-      "request_table_subtitle": "La solicitud será efectiva una vez que el equipo de finanzas apruebe el pago",
+      "add_concept_button_text": "Add concept",
+      "save_request_button_text": "Save Request",
+      "request_table_title": "Request",
+      "request_table_subtitle": "The request will be effective once the finance team approves the payment",
       "id_table_header": "ID",
-      "concept_table_header": "Concepto",
-      "amount_table_header": "Monto",
-      "actions_table_header": "Acciones",
+      "concept_table_header": "Concept",
+      "amount_table_header": "Amount",
+      "observation_table_header": "Observation",
+      "actions_table_header": "Actions",
       "total_table_footer": "Total"
     },
     "history_accordion": {
-      "title": "Historial",
+      "title": "History",
       "id_table_header": "ID",
-      "date_table_header": "Fecha",
-      "total_table_header": "Monto",
-      "currency_table_header": "Moneda",
-      "actions_table_header": "Acciones",
+      "date_table_header": "Date",
+      "total_table_header": "Amount",
+      "currency_table_header": "Currency",
+      "actions_table_header": "Actions",
       "status_table_header": "Status",
       "total_table_footer": "Total"
     },
     "concepts": {
-      "closure": "Cierre",
-      "benefits": "Beneficios",
-      "compensation": "Compensación"
+      "closure": "Closure",
+      "benefits": "Benefits",
+      "compensation": "Compensation"
+    },
+    "status": {
+      "pending": "Pending",
+      "canceled": "Cancelled",
+      "approved": "Approved",
+      "rejected": "Rejected"
     },
     "table_accordion": {
-      "title": "Lista"
+      "title": "List"
     }
-  }
+}
+
 }

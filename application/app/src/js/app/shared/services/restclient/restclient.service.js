@@ -129,7 +129,26 @@ console.log('Reading BASE URL', BASE_URL);
                         }
                     });
             },
+            customPut: function (url, data, callback) {
+                progressbar.start();                  
+                $http.put(K.URL + url, data, getConfig()).then(function(response) {
+                    progressbar.complete();     
 
+                    if(response.status >= 400) {
+                        return callback(response.data)
+                    }
+
+                    callback(null, response.data);
+                }).catch(function(response) {
+                    progressbar.complete();
+                    console.log(data);
+                    if (response.status == 401 && $state.current.name != "login" && $state.current.name != "recovery") { //Go to login
+                        $state.go('login');
+                    } else {
+                        callback(response.data);
+                    }
+                });
+            },
             delete: function (url, callback) {
                 progressbar.start();
 

@@ -18,7 +18,12 @@
                 });
             },
             save: function (paymentRequests, cb) {
-                RestClient.customPost(model + "/create", { details: paymentRequests }, function (err, result) {
+                RestClient.customPost(`${model}/create`, { details: paymentRequests }, function (err, result) {
+                    cb(err, result);
+                });
+            },
+            cancel: function (paymentRequestId, cb) {
+                RestClient.customPut(`${model}/${paymentRequestId}/cancel`, null, function (err, result) {
                     cb(err, result);
                 });
             }
