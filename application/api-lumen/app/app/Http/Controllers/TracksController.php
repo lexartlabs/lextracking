@@ -240,7 +240,7 @@ class TracksController extends BaseController
 
             return array("response" => $track);
         } catch (Exception $e) {
-            return (new Response(array("Error" => BAD_REQUEST, "Other" => $e->getMessage(), "Operation" => "track update"), 500));
+            return (new Response(array("Error" => BAD_REQUEST, "Operation" => "track update"), 500));
         }
     }
 
