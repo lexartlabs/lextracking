@@ -120,7 +120,7 @@
                 <tr ng-repeat="paymentRequest in paymentRequests">
                     <td>{{paymentRequest.id}}</td>
                     <td>{{paymentRequest.created_at}}</td>
-                    <td>USD</td>
+                    <td>{{paymentRequest.currency}}</td>
                     <td>{{paymentRequest.amount}}</td>
                     <td>{{statusTexts[paymentRequest.status]}}</td>
                     <td class="lexart-table__action-cell">

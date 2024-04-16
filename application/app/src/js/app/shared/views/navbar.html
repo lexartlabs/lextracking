@@ -15,12 +15,6 @@
             <b></b> -->
             <i class="ri-home-line"></i> <span ng-show="!thisHide">{{ 'navigation.dashboard' | translate }}</span>
         </a>
-
-        <a href="#" class="lexart-menu__nav-item" ui-sref-active="lexart-menu__nav-item--selected" ui-sref="app.paymentRequests">
-            <!-- <b></b>
-            <b></b> -->
-            <i class="ri-home-line"></i> <span ng-show="!thisHide">{{ 'navigation.payment_requests' | translate }}</span>
-        </a>
         
         <a href="#" class="lexart-menu__nav-item" ui-sref-active="lexart-menu__nav-item--selected" ui-sref="app.calendar">
             <!-- <b></b>
@@ -111,7 +105,11 @@
                     <a ui-sref="app.hosting"><span>{{ 'Hosting' }}</span></a>
                 </div>
             </div>
-            </div>
+        </div>
+
+        <a href="#" class="lexart-menu__nav-item" ui-sref-active="lexart-menu__nav-item--selected" ui-sref="app.paymentRequests">
+            <i class="ri-refund-2-line"></i> <span ng-show="!thisHide">{{ 'navigation.payment_requests' | translate }}</span>
+        </a>
 
         
 

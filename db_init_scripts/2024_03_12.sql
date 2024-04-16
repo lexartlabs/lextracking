@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS `PaymentRequest` (
 `id` int NOT NULL,
 `user_id` int NOT NULL,
 `status` ENUM('Pending', 'Approved', 'Rejected', 'Canceled') NOT NULL DEFAULT 'Pending',
+`currency` varchar(10) NOT NULL,
 `reply` varchar(500),
 `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP

@@ -22,10 +22,11 @@ class PaymentRequestFactory extends Factory
     public function definition()
     {
         return [
-            'status' => 'Pending', 
+            'status' => 'Pending',
+            'currency' => 'USD',
             'reply' => null,
-            'created_at' => null,
-            'updated_at' => null
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
         ];
     }
 }
