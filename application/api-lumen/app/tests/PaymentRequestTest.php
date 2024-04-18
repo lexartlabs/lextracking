@@ -306,4 +306,156 @@ class PaymentRequestTest extends TestCase
             ],
         ]);
     }
+
+    // GET ALL ROUTE
+    public function test_get_all_payment_requests_should_return_unauthorized()
+    {
+        $response = $this->get('/api/payment_requests/all');
+
+        $response->seeStatusCode(401);
+        $response->seeJsonEquals(["message" => "Unauthorized"]);
+    }
+
+    public function test_get_all_payment_requests_should_return_no_data()
+    {
+        $attributes = ['role' => 'employee', 'status' => 1];
+        $user = User::factory()->count(1)->create($attributes)->first();
+        $response = $this->actingAs($user)->get('/api/payment_requests/all?user=9999');
+
+        $response->seeStatusCode(200);
+        $response->seeJsonEquals([ 'response' => []]);
+    }
+
+    public function test_get_all_payment_requests_should_return_data_with_no_filters()
+    {
+        $attributes = ['role' => 'employee', 'status' => 1];
+        $user = User::factory()->count(1)->create($attributes)->first();
+        $paymentRequests = PaymentRequest::factory()->count(5)->create(['user_id' => $user->id]);
+
+        foreach ($paymentRequests as $paymentRequest) {
+            $paymentRequestDetail = PaymentRequestDetail::factory()->create([
+                'payment_request_id' => $paymentRequest->id,
+                'concept' => PaymentRequestDetailConcepts::Closure
+            ]);
+            $paymentRequest->payment_request_details = [$paymentRequestDetail];
+            $paymentRequest->user = ['id' => $user->id, 'name' => $user->name];
+
+        }
+        $response = $this->actingAs($user)->get('/api/payment_requests/all');
+        $response->seeStatusCode(200);
+        $response->seeJsonEquals([ 'response' => $paymentRequests->toArray()]);
+    }
+
+    public function test_get_all_payment_requests_with_status_filter()
+    {
+        $attributes = ['role' => 'employee', 'status' => 1];
+        $user = User::factory()->count(1)->create($attributes)->first();
+        $paymentRequestsByStatus = [];
+
+        // create for all posssible status
+        $statuses = ['Rejected', 'Canceled', 'Approved', 'Pending'];
+        foreach ($statuses as $status) {
+            $paymentRequests = PaymentRequest::factory()->count(3)->create([
+                'user_id' => $user->id,
+                'status' => $status,
+            ]);
+            // create mock details
+            foreach ($paymentRequests as $paymentRequest) {
+                $paymentRequestDetail = PaymentRequestDetail::factory()->create([
+                    'payment_request_id' => $paymentRequest->id,
+                    'concept' => PaymentRequestDetailConcepts::Closure
+                ]);
+                $paymentRequest->payment_request_details = [$paymentRequestDetail];
+                $paymentRequest->user = ['id' => $user->id, 'name' => $user->name];
+            }
+            $paymentRequestsByStatus[$status] = $paymentRequests;
+        }
+
+        // tests all the possibles status filters
+        foreach ($statuses as $status) {
+            $response = $this->actingAs($user)->get("/api/payment_requests/all?status=$status");
+            $response->seeStatusCode(200);
+            foreach ($paymentRequestsByStatus[$status] as $paymentRequest) {
+                $response->seeJsonEquals([ 'response' => $paymentRequestsByStatus[$status]->toArray()]);
+            }
+        }
+    }
+
+    public function test_get_all_payment_requests_with_user_filter()
+    {
+        $attributes = ['role' => 'employee', 'status' => 1];
+        $users = User::factory()->count(2)->create($attributes);
+
+        $user1 = $users->first();
+        $user2 = $users->last();
+
+        //create for booth users
+        $paymentRequestsUser1 = PaymentRequest::factory()->count(3)->create(['user_id' => $user1->id]);
+        $paymentRequestsUser2 = PaymentRequest::factory()->count(2)->create(['user_id' => $user2->id]);
+
+        //details
+        foreach ($paymentRequestsUser1 as $paymentRequest) {
+            $details = PaymentRequestDetail::factory(1)->create([
+                'payment_request_id' => $paymentRequest->id,
+                'concept' => PaymentRequestDetailConcepts::Closure,
+            ])->first();
+            $paymentRequest->payment_request_details = [$details];
+            $paymentRequest->user = ['id' => $user1->id, 'name' => $user1->name];
+        }
+        foreach ($paymentRequestsUser2 as $paymentRequest) {
+            $details = PaymentRequestDetail::factory(1)->create([
+                'payment_request_id' => $paymentRequest->id,
+                'concept' => PaymentRequestDetailConcepts::Closure,
+            ])->first();
+            $paymentRequest->payment_request_details = [$details];
+            $paymentRequest->user = ['id' => $user2->id, 'name' => $user2->name];
+
+        }
+
+        // user 1
+        $responseUser1 = $this->actingAs($user1)->get("/api/payment_requests/all?user=$user1->id");
+        $responseUser1->seeStatusCode(200);
+        $responseUser1->seeJsonEquals([ 'response' => $paymentRequestsUser1->toArray()]);
+
+        // user 2
+        $responseUser2 = $this->actingAs($user2)->get("/api/payment_requests/all?user=$user2->id");
+        $responseUser2->seeStatusCode(200);
+        $responseUser2->seeJsonEquals([ 'response' => $paymentRequestsUser2->toArray()]);
+    }
+
+    public function test_get_all_payment_requests_with_concept_filter()
+    {
+        $attributes = ['role' => 'employee', 'status' => 1];
+        $user = User::factory()->count(1)->create($attributes)->first();
+        $paymentRequestsByConcept = [];
+
+        // create for all posssible concepts
+        $concepts = ['Benefits', 'Closure', 'Compensation'];
+        foreach ($concepts as $concept) {
+            $paymentRequests = PaymentRequest::factory()->count(3)->create([
+                'user_id' => $user->id,
+                'status' => "Pending",
+            ]);
+            // details
+            foreach ($paymentRequests as $paymentRequest) {
+                $paymentRequestDetail = PaymentRequestDetail::factory()->create([
+                    'payment_request_id' => $paymentRequest->id,
+                    'concept' => $concept,
+                ]);
+                $paymentRequest->payment_request_details = [$paymentRequestDetail];
+                $paymentRequest->user = ['id' => $user->id, 'name' => $user->name];
+
+            }
+            $paymentRequestsByConcept[$concept] = $paymentRequests;
+        }
+
+        // tests all the possibles concept filters
+        foreach ($concepts as $concept) {
+            $response = $this->actingAs($user)->get("/api/payment_requests/all?concept=$concept");
+            $response->seeStatusCode(200);
+            foreach ($paymentRequestsByConcept[$concept] as $paymentRequest) {
+                $response->seeJsonEquals([ 'response' => $paymentRequestsByConcept[$concept]->toArray()]);
+            }
+        }
+    }
 }
