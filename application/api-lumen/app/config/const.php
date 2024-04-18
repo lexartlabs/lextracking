@@ -16,3 +16,8 @@ define("FORBIDDEN", "You have not permission to do this operation");
 define("PAYMENT_REQUEST_NOT_FOUND", "Payment request not found");
 define("NO_CLOSURE_REGISTERED", "There are no registered closures yet");
 define("MISSING_WEEKLY_HOURS", "The user doesn't yet have a weekly hour registered, create it first and try again.");
+define("UPDATED", "Successfully updated");
+define("NOTHING_TO_UPDATE", "Nothing to Update");
+define("INVALID_DATA", "Invalid data");
+
+
