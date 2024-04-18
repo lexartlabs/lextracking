@@ -17,6 +17,12 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 
 class PaymentRequestController extends BaseController
 {
+
+    public function all(Request $request)
+    {
+        return new Response(PaymentRequest::all());
+    }
+
     public function create(Request $request)
     {
         $operation = "Create payment request";

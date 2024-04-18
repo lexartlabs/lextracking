@@ -33,7 +33,7 @@ class AuthController extends BaseController
         ], 401);
     }
 
-    public function current()
+    public static function current()
     {
         return Auth::user();
     }
