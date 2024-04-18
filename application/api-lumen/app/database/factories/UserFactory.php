@@ -23,6 +23,7 @@ class UserFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
+            'role' => $this->faker->randomElement(['admin', 'user']),
             'email' => $this->faker->unique()->safeEmail,
             'password' => md5('102030')
         ];
