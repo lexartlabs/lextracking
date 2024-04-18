@@ -9,6 +9,7 @@ use App\Models\PaymentRequest;
 use App\Models\PaymentRequestDetail;
 use App\Models\Tracks;
 use App\Models\Weeklyhours;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -17,11 +18,40 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 
 class PaymentRequestController extends BaseController
 {
+    private function applyFilters(Builder $query, Request $request)
+    {
+        $query->when($request->filled('concept'), function ($q) use ($request) {
+            $q->whereHas('payment_request_details', function ($q) use ($request) {
+                $q->where('concept', 'like', "%{$request->input('concept')}%");
+            });
+        })->when($request->filled('user'), function ($q) use ($request) {
+            $q->where('user_id', $request->input('user'));
+        })->when($request->filled('status'), function ($q) use ($request) {
+            $q->where('status', $request->input('status'));
+        });
+
+        return $query;
+    }
 
     public function all(Request $request)
     {
-        return new Response(PaymentRequest::all());
+        $operation = "Get payment Requests";
+        $query = PaymentRequest::query();
+
+        try {
+            $query = $this->applyFilters($query, $request);
+            $rows = $query->with([
+                'user' => function ($q) { $q->select('id', 'name');},
+                'payment_request_details'
+                ])->get();
+
+            return new Response([ 'response' => $rows ]);
+
+        } catch (Exception $e) {
+            return new Response(["Error" => INTERNAL_SERVER_ERROR, "Operation" => $operation], 500);
+        }
     }
+
 
     public function create(Request $request)
     {

@@ -22,6 +22,11 @@ class PaymentRequest extends Model
         'updated_at' => 'timestamp',
     ];
 
+    public function user()
+    {
+        return  $this->belongsTo(User::class);
+    }
+
     public function payment_request_details()
     {
         return $this->hasMany(PaymentRequestDetail::class);
