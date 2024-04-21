@@ -10,11 +10,14 @@ use App\Models\PaymentRequestDetail;
 use App\Models\Tracks;
 use App\Models\Weeklyhours;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rules\Enum;
+use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Routing\Controller as BaseController;
+use PDOException;
 
 class PaymentRequestController extends BaseController
 {
@@ -82,6 +85,32 @@ class PaymentRequestController extends BaseController
             return new Response(['response' => $payment_request], 201);
         } catch (Exception $e) {
             return new Response(array("Error" => INTERNAL_SERVER_ERROR, "Operation" => $operation), 500);
+        }
+    }
+
+    public function update(Request $request, $payment_request)
+    {
+        $operation = "Update Payment Request";
+        if (!is_numeric($payment_request)) return new Response(["Error" => INVALID_NUMERIC_ID], 422);
+        if (empty($request->all())) return new Response(null, 304);
+
+        try {
+            $this->validate($request, [
+                'status' => 'nullable|string|in:Pending,Canceled,Approved,Rejected',
+                'reply' => 'nullable|string',
+            ]);
+
+            $target = PaymentRequest::findOrFail($payment_request);
+            $target->fill($request->all());
+            $target->save();
+
+            return response()->json(['response' => UPDATED], 200);
+        } catch (ModelNotFoundException $ex) {
+            return new Response(['Error' => PAYMENT_REQUEST_NOT_FOUND], 404);
+        } catch (ValidationException $ex) {
+            return new Response(['Error' => INVALID_DATA, 'errors' => $ex->errors()], 422);
+        } catch (PDOException $ex) {
+            return new Response(['Error' => INTERNAL_SERVER_ERROR, 'Operation' => $operation], 500);
         }
     }
 

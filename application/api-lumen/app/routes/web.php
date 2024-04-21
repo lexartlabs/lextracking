@@ -316,6 +316,7 @@ Route::group(['prefix' => 'api'], function () {
 
     Route::group(['prefix' => 'payment_requests', 'middleware' => 'auth:api'], function () {
         Route::get('all', 'PaymentRequestController@all');
+        Route::put('update/{payment_request}', 'PaymentRequestController@update');
         Route::post('create', 'PaymentRequestController@create');
         Route::put('{payment_request_id}/cancel', 'PaymentRequestController@cancelPaymentRequest');
         Route::get('{user_id}', 'PaymentRequestController@getUserHistory');
