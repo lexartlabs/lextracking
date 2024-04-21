@@ -11,9 +11,15 @@
             </a>
         </div>
         <a href="#" class="lexart-menu__nav-item" ui-sref-active="lexart-menu__nav-item--selected" ui-sref="app.dashboard">
-            <!-- <b></b>
+            <!-- <b></b> 
             <b></b> -->
             <i class="ri-home-line"></i> <span ng-show="!thisHide">{{ 'navigation.dashboard' | translate }}</span>
+        </a>
+
+        <a ng-if="isAdmin = 'true'" href="#" class="lexart-menu__nav-item" ui-sref-active="lexart-menu__nav-item--selected" ui-sref="app.paymentRequestsAdmin">
+            <!-- <b></b> 
+            <b></b> -->
+            <i class="ri-bank-line"></i> <span ng-show="!thisHide">{{ 'navigation.payment_requests' | translate }}</span>
         </a>
         
         <a href="#" class="lexart-menu__nav-item" ui-sref-active="lexart-menu__nav-item--selected" ui-sref="app.calendar">
@@ -105,10 +111,7 @@
                     <a ui-sref="app.hosting"><span>{{ 'Hosting' }}</span></a>
                 </div>
             </div>
-            </div>
-
-        
-
+        </div>
     </nav>
     <div class="navbar_btn_container">
         <!-- <button class="lexart-btn collapse-btn" ng-init="collapseSideBar = true" ng-click="hideItems();">
