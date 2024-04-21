@@ -307,6 +307,101 @@ class PaymentRequestTest extends TestCase
         ]);
     }
 
+    // UPDATE ROUTE
+    public function test_update_payment_requests_should_return_unauthorized()
+    {
+        $response = $this->put('/api/payment_requests/update/1');
+        $response->seeStatusCode(401);
+        $response->seeJsonEquals(["message" => "Unauthorized"]);
+    }
+
+    public function test_update_payment_requests_should_return_not_modified()
+    {
+        $attributes = ['role' => 'employee', 'status' => 1];
+        $user = User::factory()->count(1)->create($attributes)->first();
+        $response = $this->actingAs($user)->put('/api/payment_requests/update/1');
+        $response->seeStatusCode(304);
+    }
+
+    public function test_update_payment_requests_should_return_not_found()
+    {
+        $attributes = ['role' => 'employee', 'status' => 1];
+        $user = User::factory()->count(1)->create($attributes)->first();
+
+        $response = $this->actingAs($user)->put(
+            '/api/payment_requests/update/99',
+            [
+              'status' => 'Approved',
+            ]
+         );
+        $response->seeStatusCode(404);
+    }
+
+    public function test_update_payment_requests_with_invalid_value_should_return_unprocessable()
+    {
+        $attributes = ['role' => 'employee', 'status' => 1];
+        $user = User::factory()->count(1)->create($attributes)->first();
+        PaymentRequest::factory()->count(1)->create(['id' => 1]);
+        $response = $this->actingAs($user)->put(
+            '/api/payment_requests/update/1',
+            [
+              'status' => 'mock',
+            ]
+         );
+        $response->seeStatusCode(422);
+        $response->seeJsonEquals([
+            'Error' => "Invalid data",
+            'errors' => ['status' => ['The selected status is invalid.']]
+        ]);
+    }
+
+    public function test_update_payment_requests_should_return_ok()
+    {
+        $attributes = ['role' => 'employee', 'status' => 1];
+        $user = User::factory()->count(1)->create($attributes)->first();
+        PaymentRequest::factory()->count(1)->create(['id' => 1]);
+        $response = $this->actingAs($user)->put(
+            '/api/payment_requests/update/1',
+            [
+              'status' => 'Approved',
+              'reply' => 'mock',
+            ]
+         );
+        $response->seeStatusCode(200);
+        $response->seeJsonEquals([
+            'response' => "Successfully updated",
+        ]);
+
+        $updated = PaymentRequest::find(1);
+
+        $this->assertEquals(PaymentRequestStatus::Approved, $updated->status);
+        $this->assertEquals('mock', $updated->reply);
+    }
+
+    public function it_returns_500_if_internal_server_error_occurs()
+    {
+        try {
+            // Error cause
+            DB::statement('ALTER TABLE `PaymentRequest` RENAME COLUMN `status` TO `make_error`;');
+            $attributes = ['role' => 'employee', 'status' => 1];
+            $user = User::factory()->count(1)->create($attributes)->first();
+
+            $response = $this->actingAs($user)->put(
+                "/api/payment_requests/1",
+                ['status' => 'Approved']
+            );
+            $response->seeStatusCode(500)
+                    ->seeJsonEquals(['Error' => INTERNAL_SERVER_ERROR]);
+
+            // undo error cause
+            DB::statement('ALTER TABLE `PaymentRequest` RENAME COLUMN `make_error` TO `status`;');
+
+        } catch (PDOException $e) {
+            $this->fail('QueryException thrown: ' . $e->getMessage());
+        }
+    }
+
+
     // GET ALL ROUTE
     public function test_get_all_payment_requests_should_return_unauthorized()
     {
