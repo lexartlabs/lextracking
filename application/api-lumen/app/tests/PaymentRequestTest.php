@@ -330,9 +330,7 @@ class PaymentRequestTest extends TestCase
 
         $response = $this->actingAs($user)->put(
             '/api/payment_requests/update/99',
-            [
-              'status' => 'Approved',
-            ]
+            ['status' => 'Approved']
          );
         $response->seeStatusCode(404);
     }
@@ -344,9 +342,7 @@ class PaymentRequestTest extends TestCase
         PaymentRequest::factory()->count(1)->create(['id' => 1]);
         $response = $this->actingAs($user)->put(
             '/api/payment_requests/update/1',
-            [
-              'status' => 'mock',
-            ]
+            ['status' => 'mock']
          );
         $response->seeStatusCode(422);
         $response->seeJsonEquals([
@@ -362,10 +358,7 @@ class PaymentRequestTest extends TestCase
         PaymentRequest::factory()->count(1)->create(['id' => 1]);
         $response = $this->actingAs($user)->put(
             '/api/payment_requests/update/1',
-            [
-              'status' => 'Approved',
-              'reply' => 'mock',
-            ]
+            ['status' => 'Approved']
          );
         $response->seeStatusCode(200);
         $response->seeJsonEquals([
@@ -373,9 +366,7 @@ class PaymentRequestTest extends TestCase
         ]);
 
         $updated = PaymentRequest::find(1);
-
         $this->assertEquals(PaymentRequestStatus::Approved, $updated->status);
-        $this->assertEquals('mock', $updated->reply);
     }
 
     public function it_returns_500_if_internal_server_error_occurs()

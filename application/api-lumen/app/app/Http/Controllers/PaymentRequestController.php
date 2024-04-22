@@ -44,12 +44,13 @@ class PaymentRequestController extends BaseController
         try {
             $query = $this->applyFilters($query, $request);
             $rows = $query->with([
-                'user' => function ($q) { $q->select('id', 'name');},
+                'user' => function ($q) {
+                    $q->select('id', 'name');
+                },
                 'payment_request_details'
-                ])->get();
+            ])->get();
 
-            return new Response([ 'response' => $rows ]);
-
+            return new Response(['response' => $rows]);
         } catch (Exception $e) {
             return new Response(["Error" => INTERNAL_SERVER_ERROR, "Operation" => $operation], 500);
         }
@@ -96,12 +97,11 @@ class PaymentRequestController extends BaseController
 
         try {
             $this->validate($request, [
-                'status' => 'nullable|string|in:Pending,Canceled,Approved,Rejected',
-                'reply' => 'nullable|string',
+                'status' => 'required|string|in:Pending,Canceled,Approved,Rejected',
             ]);
 
             $target = PaymentRequest::findOrFail($payment_request);
-            $target->fill($request->all());
+            $target->status = $request->status;
             $target->save();
 
             return response()->json(['response' => UPDATED], 200);
