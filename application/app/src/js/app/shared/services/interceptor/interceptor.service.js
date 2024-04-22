@@ -65,6 +65,8 @@
                 if (typeof $q !== 'undefined') {
                     return $q.reject(response);
                 }
+
+                return response;
             }
         };
     }]);

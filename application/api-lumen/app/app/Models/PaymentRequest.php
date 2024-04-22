@@ -11,15 +11,15 @@ class PaymentRequest extends Model
     use HasFactory;
 
     protected $table = 'PaymentRequest';
-    protected $fillable = ['id', 'user_id', 'status', 'reply', 'created_at', 'updated_at'];
+    public $timestamps = false;
+    protected $fillable = ['id', 'user_id', 'status', 'currency', 'reply'];
 
     protected $casts = [
         'id' => 'string',
         'user_id' => 'string',
         'status' => PaymentRequestStatus::class,
-        'reply' => 'string',
-        'created_at' => 'timestamp',
-        'updated_at' => 'timestamp',
+        'currency' => 'string',
+        'reply' => 'string'
     ];
 
     public function payment_request_details()

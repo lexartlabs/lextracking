@@ -63,7 +63,10 @@ class PaymentRequestTest extends TestCase
     }
 
     public function test_create_payment_request_should_not_save_when_rollback_transaction() {
-        $this->actingAs(User::factory()->count(1)->create(['role' => 'employee', 'status' => 1])->first());
+        $user = User::factory()->count(1)->create(['role' => 'employee', 'status' => 1])->first();
+        Weeklyhours::factory()->count(1)->create(['idUser' => $user->id])->first();
+
+        $this->actingAs($user);
 
         $data = [
             "details" => [
@@ -87,7 +90,11 @@ class PaymentRequestTest extends TestCase
 
     public function test_create_payment_request_returns_success()
     {
-        $this->actingAs(User::factory()->count(1)->create(['role' => 'employee', 'status' => 1])->first());
+        $user = User::factory()->count(1)->create(['role' => 'employee', 'status' => 1])->first();
+        Weeklyhours::factory()->count(1)->create(['idUser' => $user->id])->first();
+        Weeklyhours::factory()->count(1)->create(['idUser' => $user->id])->first();
+
+        $this->actingAs($user);
 
         $data = [
             "details" => [
@@ -108,6 +115,7 @@ class PaymentRequestTest extends TestCase
             'response' => [
                 'user_id',
                 'status',
+                'currency',
                 'reply',
                 'updated_at',
                 'created_at',

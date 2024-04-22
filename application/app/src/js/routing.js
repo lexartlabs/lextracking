@@ -39,6 +39,12 @@
                 controller: 'DashboardCtrl'
             })
 
+            .state('app.paymentRequests', {
+                url: '/payment-requests',
+                templateUrl: 'app/components/paymentRequests/views/paymentRequestsView.html',
+                controller: 'PaymentRequestsCtrl'
+            })
+
             // LOGIN
             .state('login', {
                 url: '/login',

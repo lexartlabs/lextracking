@@ -70,6 +70,25 @@
   border-color: darken(@color-btn-gray, 15%);
 }
 
+// BTN ALTERNATIVE COLOR
+.lexart-btn--darkest {
+  background-color: @color-darkest-gray !important;
+  color: @color-light-gray;
+  border-color: darken(@color-darkest-gray, 10%);
+  border-radius: 5px;
+}
+
+.lexart-btn--darkest:active,
+.lexart-btn--darkest:hover {
+  background-color: lighten(@color-darkest-gray, 5%);
+  border-color: darken(@color-darkest-gray, 5%);
+}
+
+.lexart-btn--darkest:active {
+  background-color: darken(@color-darkest-gray, 10%);
+  border-color: darken(@color-darkest-gray, 15%);
+}
+
 // BTN ROUND
 
 .lexart-btn--round {
