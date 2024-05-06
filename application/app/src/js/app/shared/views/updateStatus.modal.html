@@ -1,0 +1,9 @@
+<div class="lexart-modal lexart-modal--medium">
+  <div class="lexart-modal__header">
+    <h1 class="lexart-modal__title">{{ 'shared.modal.confirmation' | translate }}</h1>
+  </div>
+  <div class="lexart-modal__actions">
+      <a class="lexart-btn lexart-btn--alt" ng-click="closeThisDialog()">{{ 'shared.modal.cancel' | translate }}</a>
+      <a class="lexart-btn" ng-click="ngDialogData.confirm(ngDialogData.status)">{{ 'shared.modal.accept' | translate }}</a>
+  </div>
+</div>
