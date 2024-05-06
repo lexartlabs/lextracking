@@ -21,7 +21,8 @@
     "my-profile"  : "My Profile",
     "logout"      : "Logout",
     "jira"        : "Jira Tasks",
-    "calendar"    : "Calendar"
+    "calendar"    : "Calendar",
+    "payment_requests": "Payment Requets"
   },
 
 
@@ -49,11 +50,12 @@
       "confirmation"  : "Confirm",
       "are_you_sure"  : "Are you sure?",
       "confirm_delete": "are you sure want delete this?",
+      "confirm_cancel": "Are you sure want cancel this?",
       "delete"        : "Delete",
       "cancel"        : "Cancel",
       "accept"        : "Accept",
       "remove"        : "Delete",
-      "close"         :  "Close"
+      "close"         : "Close"
     }
   },
 
@@ -534,5 +536,75 @@
     "name"        : "Name",
     "projectKey"  : "KEY Project",
     "url"         : "URL"
-  }
+  },
+
+  "payment_requests": {
+    "title": "Payment Requests",
+    "error_messages": {
+      "null_values": "All form fields are mandatory",
+      "amount_greater_than_zero": "The amount field must be greater than zero",
+      "error_to_save": "There was an error while creating the request"
+    },
+    "success_messages": {
+      "payment_request_created": "Payment request created successfully",
+      "payment_request_cancelled": "Payment request cancelled successfully"
+    },
+    "cancel_request_dialog": {
+      "title": "Cancel Request",
+      "text": "Are you sure you want to cancel the payment request?"
+    },
+    "show_request_details_dialog": {
+      "title": "Request Details"
+    },
+    "form_accordion": {
+      "title": "Form",
+      "concept_input": {
+        "label": "Concept",
+        "placeholder": "Choose a concept"
+      },
+      "amount_input": {
+        "label": "Amount",
+        "placeholder": "Enter an amount"
+      },
+      "concept_description_input": {
+        "label": "Observation",
+        "placeholder": "Enter an observation if desired"
+      },
+      "add_concept_button_text": "Add concept",
+      "save_request_button_text": "Save Request",
+      "request_table_title": "Request",
+      "request_table_subtitle": "The request will be effective once the finance team approves the payment",
+      "id_table_header": "ID",
+      "concept_table_header": "Concept",
+      "amount_table_header": "Amount",
+      "observation_table_header": "Observation",
+      "actions_table_header": "Actions",
+      "total_table_footer": "Total"
+    },
+    "history_accordion": {
+      "title": "History",
+      "id_table_header": "ID",
+      "date_table_header": "Date",
+      "total_table_header": "Amount",
+      "currency_table_header": "Currency",
+      "actions_table_header": "Actions",
+      "status_table_header": "Status",
+      "total_table_footer": "Total"
+    },
+    "concepts": {
+      "closure": "Closure",
+      "benefits": "Benefits",
+      "compensation": "Compensation"
+    },
+    "status": {
+      "pending": "Pending",
+      "canceled": "Cancelled",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "table_accordion": {
+      "title": "List"
+    }
+}
+
 }

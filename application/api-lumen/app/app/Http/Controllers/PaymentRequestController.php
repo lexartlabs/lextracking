@@ -72,7 +72,11 @@ class PaymentRequestController extends BaseController
             $user_id = $request->user()->id;
             $details = $request->input('details');
 
-            $payment_request_id = $this->persistNewPaymentRequest($user_id, $details);
+            $weekly_hours = Weeklyhours::where('idUser', $user_id)->latest('id')->first();
+
+            if ($weekly_hours == null) return new Response(['Error' => MISSING_WEEKLY_HOURS, "Operation" => $operation], 422);
+
+            $payment_request_id = $this->persistNewPaymentRequest($user_id, $weekly_hours->currency, $details);
 
             if ($payment_request_id == null) {
                 return new Response(array("Error" => INTERNAL_SERVER_ERROR, "Operation" => $operation), 500);
@@ -114,12 +118,13 @@ class PaymentRequestController extends BaseController
         }
     }
 
-    public function persistNewPaymentRequest(int $user_id, $details): int|null
+    public function persistNewPaymentRequest(int|string $user_id, string $currency, $details): int|null
     {
-        try {
+        try {            
             $attributes = [
                 "user_id" => $user_id,
                 "status" => PaymentRequestStatus::Pending,
+                "currency" => $currency,
                 "reply" => null
             ];
 
@@ -176,15 +181,16 @@ class PaymentRequestController extends BaseController
 
     public function getBalanceSinceLastClosure(Request $request)
     {
+        $operation = "Get balance since last closure";
+
         try {
-            $operation = "Get balance since last closure";
             $user_id = $request->route('user_id');
 
             if (!is_numeric($user_id)) {
                 return new Response(["Error" => INVALID_NUMERIC_ID, "Operation" => $operation], 400);
             }
 
-            $weekly_hours = Weeklyhours::where('idUser', $user_id)->first();
+            $weekly_hours = Weeklyhours::where('idUser', $user_id)->latest('id')->first();
 
             if ($weekly_hours == null) return new Response(['Error' => MISSING_WEEKLY_HOURS, "Operation" => $operation], 422);
 
@@ -195,7 +201,7 @@ class PaymentRequestController extends BaseController
                 ->where('user_id', $user_id)
                 ->first();
 
-            if ($last_closure != null) $start_date = date('Y-m-d H:i:s', $last_closure->created_at);
+            if ($last_closure != null) $start_date = $last_closure->created_at;
             else $start_date = date("Y-m-01 00:00:00");
 
             $tracks = Tracks::join("Tasks", "Tracks.idTask", "=", "Tasks.id")
@@ -221,6 +227,7 @@ class PaymentRequestController extends BaseController
                 'currency' => $weekly_hours->currency
             ]], 200);
         } catch (Exception $e) {
+            // echo $e;
             return new Response(["Error" => INTERNAL_SERVER_ERROR, "Operation" => $operation], 500);
         }
     }

@@ -30,7 +30,10 @@ class PaymentRequestFactory extends Factory
                 'Rejected',
                 'Canceled',
                 ]),
+            'currency' => 'USD',
             'reply' => null,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
         ];
     }
 }

@@ -35,7 +35,8 @@ input[type=search],
 input[type=number],
 input[type=email],
 select,
-textarea {
+textarea,
+textarea[padding=true] {
   padding: 0.5rem 0.5rem;
   resize: none;
   min-width: 50%;
@@ -45,6 +46,10 @@ textarea {
   border-radius: 5px;
   border: 1px solid @color-hollow-input;
   color: @color-black;
+}
+
+textarea[padding=true] {
+  height: auto;
 }
 
 input[type=text]:focus,
