@@ -1,6 +1,5 @@
 {
   "navigation": {
-    "payment_requests": "Payment Requests",
     "dashboard"   : "Dashboard",
     "users"       : "Users",
     "clients"     : "Clients",
@@ -538,16 +537,15 @@
     "projectKey"  : "KEY Project",
     "url"         : "URL"
   },
+
   "payment_requests": {
     "title": "Payment Requests",
     "error_messages": {
-      "status_update": "Payment request update error",
       "null_values": "All form fields are mandatory",
       "amount_greater_than_zero": "The amount field must be greater than zero",
       "error_to_save": "There was an error while creating the request"
     },
     "success_messages": {
-      "status_updated": "Payment request updated successfully",
       "payment_request_created": "Payment request created successfully",
       "payment_request_cancelled": "Payment request cancelled successfully"
     },
@@ -560,20 +558,6 @@
     },
     "form_accordion": {
       "title": "Form",
-      "filters": {
-        "concept_input": {
-          "label": "Concept",
-          "placeholder": "Choose an Concept to filter"
-        },
-        "status_input": {
-          "label": "Status",
-          "placeholder": "Choose an Status to filter"
-        },
-        "user_input": {
-          "label": "User",
-          "placeholder": "Choose an User to filter"
-        }
-      },
       "concept_input": {
         "label": "Concept",
         "placeholder": "Choose a concept"
@@ -587,7 +571,6 @@
         "placeholder": "Enter an observation if desired"
       },
       "add_concept_button_text": "Add concept",
-      "add_filters_button_text": "Add filters",
       "save_request_button_text": "Save Request",
       "request_table_title": "Request",
       "request_table_subtitle": "The request will be effective once the finance team approves the payment",
@@ -608,23 +591,10 @@
       "status_table_header": "Status",
       "total_table_footer": "Total"
     },
-    "all-table": {
-      "user_table_header": "User",
-      "date_table_header": "Date",
-      "currency_table_header": "Currency",
-      "pay_table_header": "Pay",
-      "total_table_header": "Total",
-      "info_table_header": "Info",
-      "reject_table_header": "Reject",
-      "concept_table_header": "Concept",
-      "amount_table_header": "Amount",
-      "observation_table_header": "Description"
-    },
     "concepts": {
       "closure": "Closure",
       "benefits": "Benefits",
-      "compensation": "Compensation",
-      "request_concepts": "Request Concepts"
+      "compensation": "Compensation"
     },
     "status": {
       "pending": "Pending",
@@ -635,5 +605,6 @@
     "table_accordion": {
       "title": "List"
     }
-  }
+}
+
 }
