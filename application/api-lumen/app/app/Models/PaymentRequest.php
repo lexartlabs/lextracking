@@ -22,6 +22,11 @@ class PaymentRequest extends Model
         'reply' => 'string'
     ];
 
+    public function user()
+    {
+        return  $this->belongsTo(User::class);
+    }
+
     public function payment_request_details()
     {
         return $this->hasMany(PaymentRequestDetail::class);

@@ -9,14 +9,54 @@ use App\Models\PaymentRequest;
 use App\Models\PaymentRequestDetail;
 use App\Models\Tracks;
 use App\Models\Weeklyhours;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rules\Enum;
+use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Routing\Controller as BaseController;
+use PDOException;
 
 class PaymentRequestController extends BaseController
 {
+    private function applyFilters(Builder $query, Request $request)
+    {
+        $query->when($request->filled('concept'), function ($q) use ($request) {
+            $q->whereHas('payment_request_details', function ($q) use ($request) {
+                $q->where('concept', 'like', "%{$request->input('concept')}%");
+            });
+        })->when($request->filled('user'), function ($q) use ($request) {
+            $q->where('user_id', $request->input('user'));
+        })->when($request->filled('status'), function ($q) use ($request) {
+            $q->where('status', $request->input('status'));
+        });
+
+        return $query;
+    }
+
+    public function all(Request $request)
+    {
+        $operation = "Get payment Requests";
+        $query = PaymentRequest::query();
+
+        try {
+            $query = $this->applyFilters($query, $request);
+            $rows = $query->with([
+                'user' => function ($q) {
+                    $q->select('id', 'name');
+                },
+                'payment_request_details'
+            ])->get();
+
+            return new Response(['response' => $rows]);
+        } catch (Exception $e) {
+            return new Response(["Error" => INTERNAL_SERVER_ERROR, "Operation" => $operation], 500);
+        }
+    }
+
+
     public function create(Request $request)
     {
         $operation = "Create payment request";
@@ -50,6 +90,31 @@ class PaymentRequestController extends BaseController
             return new Response(['response' => $payment_request], 201);
         } catch (Exception $e) {
             return new Response(array("Error" => INTERNAL_SERVER_ERROR, "Operation" => $operation), 500);
+        }
+    }
+
+    public function update(Request $request, $payment_request)
+    {
+        $operation = "Update Payment Request";
+        if (!is_numeric($payment_request)) return new Response(["Error" => INVALID_NUMERIC_ID], 422);
+        if (empty($request->all())) return new Response(null, 304);
+
+        try {
+            $this->validate($request, [
+                'status' => 'required|string|in:Pending,Canceled,Approved,Rejected',
+            ]);
+
+            $target = PaymentRequest::findOrFail($payment_request);
+            $target->status = $request->status;
+            $target->save();
+
+            return response()->json(['response' => UPDATED], 200);
+        } catch (ModelNotFoundException $ex) {
+            return new Response(['Error' => PAYMENT_REQUEST_NOT_FOUND], 404);
+        } catch (ValidationException $ex) {
+            return new Response(['Error' => INVALID_DATA, 'errors' => $ex->errors()], 422);
+        } catch (PDOException $ex) {
+            return new Response(['Error' => INTERNAL_SERVER_ERROR, 'Operation' => $operation], 500);
         }
     }
 

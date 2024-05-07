@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\PaymentRequest;
 use App\Models\PaymentRequestDetail;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -23,6 +24,13 @@ class PaymentRequestDetailFactory extends Factory
     {
         return [
             'concept_description' => "mock",
+            'payment_request_id' => PaymentRequest::all()->random()->id,
+            'concept' => $this->faker->randomElement([
+                'Benefits',
+                'Compensation',
+                'Closure',
+                ]),
+            'concept_description' => $this->faker->paragraph(1),
             'amount' => 100,
         ];
     }
