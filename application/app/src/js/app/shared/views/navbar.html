@@ -16,7 +16,7 @@
             <i class="ri-home-line"></i> <span ng-show="!thisHide">{{ 'navigation.dashboard' | translate }}</span>
         </a>
 
-        <a ng-if="isAdmin = 'true'" href="#" class="lexart-menu__nav-item" ui-sref-active="lexart-menu__nav-item--selected" ui-sref="app.paymentRequestsAdmin">
+        <a ng-if="isAdmin == 'true'" href="#" class="lexart-menu__nav-item" ui-sref-active="lexart-menu__nav-item--selected" ui-sref="app.paymentRequestsAdmin">
             <!-- <b></b> 
             <b></b> -->
             <i class="ri-bank-line"></i> <span ng-show="!thisHide">{{ 'navigation.payment_requests' | translate }}</span>
