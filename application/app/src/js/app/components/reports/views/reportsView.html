@@ -13,6 +13,9 @@
     <!-- <li class="lexart-tabs__item" ng-click="tabReport = 2" ng-class="{'lexart-tabs__item--selected' : tabReport == 2}">
       Reportes Proyectos
     </li> -->
+    <li class="lexart-tabs__item" ng-click="tabReport = 3" ng-class="{'lexart-tabs__item--selected' : tabReport == 3}">
+      Petición de pago
+    </li>
   </ul>
 </div>
 <div ng-if="tabReport == 1">
@@ -391,8 +394,7 @@
                   {{track.startTime | date:'dd/MM/yyyy HH:mm' }}
                 </div>
                 <div class="flex-item">
-                  {{track.endTime ? track.endTime : '' | date:'dd/MM/yyyy
-                  HH:mm' }}
+                  {{track.endTime ? track.endTime : '' | date:'dd/MM/yyyyHH:mm' }}
                 </div>
                 <div class="flex-item">{{track.durations}}</div>
                 <div class="flex-item">$ {{track.trackCost}}</div>
@@ -721,8 +723,7 @@
                   {{track.startTime | date:'dd/MM/yyyy HH:mm' }}
                 </div>
                 <div class="flex-item">
-                  {{track.endTime ? track.endTime : '' | date:'dd/MM/yyyy
-                  HH:mm' }}
+                  {{track.endTime ? track.endTime : '' | date:'dd/MM/yyyy HH:mm' }}
                 </div>
                 <div class="flex-item">{{track.durations}}</div>
                 <div class="flex-item">$ {{track.trackCost}}</div>
@@ -983,6 +984,10 @@
   <paging ng-show="totalTab>pageSize" page="currentPage" page-size="pageSize" total="totalTab" hide-if-empty="true"
     show-prev-next="true" show-first-last="true" scroll-top="true" paging-action="pager(page)">
   </paging>
+</div>
+
+<div ng-if="tabReport == 3">
+  <div ng-include="'/app/components/paymentRequests/views/paymentRequestsView.html'" ng-controller="PaymentRequestsCtrl"></div>
 </div>
 
 <div ng-if="userRole == 'admin'">
