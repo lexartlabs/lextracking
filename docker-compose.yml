@@ -43,8 +43,8 @@ services:
     build: application/api-lumen
     volumes:
       - ./application/api-lumen:/var/www/html
-    command: php-fpm
-    working_dir: /var/www/html/app/public
+    working_dir: /var/www/html/app
+    command: sh -c "ls && composer install --no-dev --optimize-autoloader && php -S 0.0.0.0:9000 -t public"
     links:
       - db
       - cache
@@ -63,22 +63,32 @@ services:
       CACHE_DRIVER: memcached
     ports:
       - "9000:9000"
+    expose: 
+        - 9000
+
+  cors:
+    build: 
+        context: ./application/nginx
+        dockerfile: Dockerfile
+    container_name: cors
+    ports:
+      - "4545:80"      
 
   db:
     container_name: db
-    image: mysql
+    image: mysql:8.0.36
     restart: always
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
     ports:
-      - "3306:3306"
+      - ${DB_EXTERNAL_PORT}:33006
     volumes:
       - ./db_init_scripts:/docker-entrypoint-initdb.d
       - mysql_data:/var/lib/mysql
-    expose:
-      - 3306
+    expose: 
+        - 33006
 
   adminer:
     container_name: adminer
@@ -87,7 +97,7 @@ services:
     depends_on:
       - db
     ports:
-      - 8080:8080
+      - ${ADMINER_PORT}:8080
 
   cache:
     container_name: cache
