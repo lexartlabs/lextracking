@@ -404,7 +404,7 @@
     "status"              : "Status",
     "price"               : "Price",
     "note"                : "Nota",
-   
+
 
 
     "save"                : "Save",
@@ -501,12 +501,12 @@
     "origin"           : "Origin",
     "dateCapture"      : "Capture Date",
     "dateCreate"       : "Created Date",
-    "dateUpdate"       : "Updated Date",      
+    "dateUpdate"       : "Updated Date",
     "url"              : "URL",
     "status"           : "Status",
     "comments"         : "Comments",
     "task"             : "Task",
-    
+
     "delete_task"   : "Delete Task?",
     "confirm_delete": "Are you sure?",
 
@@ -618,7 +618,9 @@
       "reject_table_header": "Reject",
       "concept_table_header": "Concept",
       "amount_table_header": "Amount",
-      "observation_table_header": "Description"
+      "observation_table_header": "Description",
+			"button_approved": "Approved",
+			"button_rejected": "Rejected"
     },
     "concepts": {
       "closure": "Closure",
