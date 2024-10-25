@@ -20,20 +20,19 @@
                         <b>{{ 'payment_requests.form_accordion.filters.concept_input.label' | translate }}</b>
                     </span>
                     <ui-select
-                        ng-change="getAllUserPaymentREquests(concept='')"
+                        ng-change="updateFilters()"
                         id="concept-select"
                         ng-model="paymentRequestFilters.concept"
                         class="lexart-select lexart-select--input"
                         theme="selectize"
                         append-to-body="true"
-                        ng-change="changeConcept($select.selected)"
                     >
-                        <ui-select-match 
+                        <ui-select-match
                             placeholder="{{ 'payment_requests.form_accordion.filters.concept_input.placeholder' | translate }}"
                         >
                             {{conceptTexts[$select.selected]}}
                         </ui-select-match>
-                        
+
 
                         <ui-select-choices repeat="concept in concepts | filter: $select.search">
                             <div ng-bind-html="conceptTexts[concept] | highlight: $select.search"></div>
@@ -48,14 +47,13 @@
                     </span>
                     <ui-select
                         id="status-select"
-                        ng-change="getAllUserPaymentREquests(status='')"
+                        ng-change="updateFilters()"
                         ng-model="paymentRequestFilters.status"
                         class="lexart-select lexart-select--input"
                         theme="selectize"
                         append-to-body="true"
-                        ng-change="changeConcept($select.selected)"
                     >
-                        <ui-select-match 
+                        <ui-select-match
                             placeholder="{{ 'payment_requests.form_accordion.filters.status_input.placeholder' | translate }}"
                         >
                             {{statusTexts[$select.selected]}}
@@ -72,15 +70,14 @@
                     <span class="lexart-frm__lbl-name">
                         <b>{{ 'payment_requests.form_accordion.filters.user_input.label' | translate }}</b>
                     </span>
-                    <ui-select 
+                    <ui-select
                     id="user-select"
                     ng-model="paymentRequestFilters.user"
                     class="lexart-select lexart-select--input"
                     theme="selectize"
                     append-to-body="true"
-                    ng-change="changeConcept($select.selected)"
                     >
-                    <ui-select-match 
+                    <ui-select-match
                             placeholder="{{ 'payment_requests.form_accordion.filters.user_input.placeholder' | translate }}"
                         >
                         {{$select.selected.name}}
@@ -100,7 +97,7 @@
 
         </form>
     </div>
-    
+
 </details>
 <details style="margin-top: 1rem;">
     <summary>
@@ -118,8 +115,6 @@
                     <th>{{ 'payment_requests.all-table.total_table_header' | translate  }}</th>
                     <th>{{ 'payment_requests.all-table.currency_table_header' | translate  }}</th>
                     <th>{{ 'payment_requests.all-table.info_table_header' | translate  }}</th>
-                    <th>{{ 'payment_requests.all-table.pay_table_header' | translate  }}</th>
-                    <th>{{ 'payment_requests.all-table.reject_table_header' | translate  }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -129,24 +124,7 @@
                     <td>{{paymentRequest.total}}</td>
                     <td>{{ paymentRequest.currency }}</td>
                     <td class="lexart-table__action-cell">
-                      <i 
-                          class="ri-information-line"
-                          ng-click="showPaymentRequestDetailsDialog(paymentRequest)">
-                      </i>
-                    </td>
-                    <td class="lexart-table__action-cell">
-                      <i 
-                          ng-if="paymentRequest.status == 'Pending'"
-                          class="ri-money-dollar-circle-line"
-                          ng-click="showUpdateStatusDialog(paymentRequest.id, 'Approved')">
-                      </i>
-                    </td>
-                    <td class="lexart-table__action-cell">
-                        <i 
-                            ng-if="paymentRequest.status == 'Pending'"
-                            class="ri-close-line lexart-remove-button"
-                            ng-click="showUpdateStatusDialog(paymentRequest.id, 'Rejected')">
-                        </i>
+                            <i class="ri-information-line" ng-click="showPaymentRequestDetailsDialog(paymentRequest)"></i>
                     </td>
                 </tr>
             </tbody>
