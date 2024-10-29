@@ -36,39 +36,6 @@
 					getAllPaymentRequests();
 					getAllUsers();
 			};
-			
-			$scope.updatePaymentRequestStatus = function(paymentRequestId, newStatus) {
-				PaymentRequestsServiceAdmin.updateStatus(paymentRequestId, newStatus, function(err, result) {
-						if (err) {
-								$rootScope.showToaster(
-										$translate.instant("payment_requests.error_messages.error_to_update_status"),
-										"error"
-								);
-						} else {
-							  getAllPaymentRequests();
-								$rootScope.showToaster(
-										$translate.instant("payment_requests.success_messages.status_updated"),
-										"success"
-								);
-						}
-				});
-		  };
-		
-		  $scope.showUpdateStatusDialog = function(paymentRequest, status) {
-		
-				ngDialog.open({
-						template: '/app/shared/views/updateStatus.modal.html',
-						scope: $scope,
-						disableAnimation: true,
-						data: {
-							  status: status,
-								confirm: function(newStatus) {
-										$scope.updatePaymentRequestStatus(paymentRequest, newStatus);
-										ngDialog.close();
-								},
-						}
-				});
-		  };
 
 			$scope.submitForm = function() {
 				getAllPaymentRequests($scope.paymentRequestFilters);
@@ -84,10 +51,48 @@
 					} else {
 						$scope.users = result;
 					}
-			});
-	  };
+				});
+	  	};
 
-		    
+			$scope.showPaymentRequestDetailsDialog = function(paymentRequests) {
+				ngDialog.open({
+					template: '/app/components/paymentRequestsAdmin/views/showPaymentRequestDetailsAdmin.modal.html',
+					scope: $scope,
+					disableAnimation: true,
+					data: {
+						paymentRequests
+					},
+					controller: ['$scope', function ($scope) {
+            $scope.updatePaymentRequestStatus = function (status) {
+							const paymentRequest = $scope.ngDialogData.paymentRequests;
+							PaymentRequestsServiceAdmin.updateStatus(paymentRequest.id, status, function(err, result) {
+								if (err) {
+										$rootScope.showToaster(
+												$translate.instant("payment_requests.error_messages.error_to_update_status"),
+												"error"
+										);
+								} else {
+									getAllPaymentRequests();
+									$rootScope.showToaster(
+											$translate.instant("payment_requests.success_messages.status_updated"),
+											"success"
+									);
+								}
+							});
+            };
+        	}]
+				});
+			};
+
+			$scope.updateFilters = function() {
+				const query = {
+						concept: $scope.paymentRequestFilters.concept,
+						status: $scope.paymentRequestFilters.status,
+						user: $scope.paymentRequestFilters.user ? $scope.paymentRequestFilters.user.id : null
+				};
+
+				getAllPaymentRequests(query);
+			};
 
 			function getAllPaymentRequests(query) {
 				PaymentRequestsServiceAdmin.find(query, function (err, result) {
@@ -109,17 +114,6 @@
 						}
 				});
 		  };
-		
-			$scope.showPaymentRequestDetailsDialog = function(paymentRequestIndex) {
-				ngDialog.open({
-					template: '/app/components/paymentRequestsAdmin/views/showPaymentRequestDetailsAdmin.modal.html',
-					scope: $scope,
-					disableAnimation: true,
-					data: {
-						paymentRequests: paymentRequestIndex
-					}
-				});
-			};
 		},
 	]);
 })(angular);
