@@ -7,7 +7,7 @@
     Module.controller('AuthCtrl', ['$scope', '$rootScope', '$window', 'RestClient', '$log', '$state', '$filter', 'WeeklyHourServices', function ($scope, $rootScope, $window, RestClient, $log, $state, $filter, WeeklyHourServices) {
 
         $scope.user = {
-            user: '',
+            email: '',
             password: ''
         };
         $scope.sendingData = false;
@@ -29,10 +29,7 @@
             $scope.error = "";
             RestClient.post('user/login', $scope.user, function (err, result) {
                 $scope.sendingData = false;
-                if (result == null) {
-                    if (typeof callback === 'function') {
-                        callback(err, result);
-                    }
+                if (result && !result.token) {
                     $rootScope.showToaster($filter('translate')('session.error_email_password'), 'error');
                     // $rootScope.showToaster($filter('translate')('session.error_email_password'), 'error');
                     // $scope.error = $filter('translate')('session.error_email_password');
@@ -62,10 +59,6 @@
                     $rootScope.userPhoto = $window.localStorage["photo"];
                     if ($rootScope.isClient == 'true') {
                         $rootScope.userIdClient = $window.localStorage["idUserClient"];
-                    }
-
-                    if (typeof callback === 'function') {
-                        callback(err, result);
                     }
                     $state.go('app.dashboard');
                 }

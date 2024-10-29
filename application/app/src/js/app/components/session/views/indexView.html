@@ -16,7 +16,7 @@
                         </header>
                         <div class="lexart-session-blk__cnt">
                             <ng-form name="login-frm">
-                                <form class="lexart-form lexart-form--hollow" ng-submit="authenticate(user.email, user.password)">
+                                <form class="lexart-form lexart-form--hollow" ng-submit="authenticate()">
                                     <fieldset>
                                         <div class="lexart-frm__fld">
                                             <label class="lexart-frm__lbl">
@@ -33,10 +33,9 @@
                                         </div>
                                         <br>
                                         <div class="lexart-frm__fld" style="margin: 0px">
-                                            <button 
-                                                class="lexart-btn lexart-btn__login" 
-                                                ng-disabled="!user.email || !user.password || sendingData" 
-                                                ng-click="authenticate()"
+                                            <button
+                                                class="lexart-btn lexart-btn__login"
+                                                ng-disabled="!user.email || !user.password || sendingData"
                                                 ng-class="{'lexart-button--loading' : sendingData }"
                                             >
                                             <span class="lexart-btn__text">{{ 'session.enter' | translate }}</span>
@@ -45,7 +44,7 @@
                                         <p class="err-display">{{error}}</p>
 
                                         <!-- <div class="lexart-frm__actions">
-                                            
+
                                         </div> -->
                                     </fieldset>
                                 </form>
