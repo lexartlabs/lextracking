@@ -24,13 +24,25 @@ class PaymentRequestController extends BaseController
     private function applyFilters(Builder $query, Request $request)
     {
         $query->when($request->filled('concept'), function ($q) use ($request) {
-            $q->whereHas('payment_request_details', function ($q) use ($request) {
-                $q->where('concept', 'like', "%{$request->input('concept')}%");
-            });
-        })->when($request->filled('user'), function ($q) use ($request) {
-            $q->where('user_id', $request->input('user'));
-        })->when($request->filled('status'), function ($q) use ($request) {
+            $concept = $request->input('concept');
+            $q->whereHas('payment_request_details', function ($q) use ($concept) {
+            $q->where(DB::raw('BINARY concept'), '=', $concept);
+        });
+        })
+        ->when($request->filled('user.id'), function ($q) use ($request) {
+            $q->where('user_id', (int)$request->input('user.id'));
+        })
+        ->when($request->filled('status'), function ($q) use ($request) {
             $q->where('status', $request->input('status'));
+        })
+        ->when($request->filled('currency'), function ($q) use ($request) {
+            $q->where('currency', $request->input('currency'));
+        })
+        ->when($request->filled('startDate'), function ($q) use ($request) {
+            $q->whereDate('created_at', '>=', $request->input('startDate'));
+        })
+        ->when($request->filled('endDate'), function ($q) use ($request) {
+            $q->whereDate('created_at', '<=', $request->input('endDate'));
         });
 
         return $query;
@@ -120,7 +132,7 @@ class PaymentRequestController extends BaseController
 
     public function persistNewPaymentRequest(int|string $user_id, string $currency, $details): int|null
     {
-        try {            
+        try {
             $attributes = [
                 "user_id" => $user_id,
                 "status" => PaymentRequestStatus::Pending,
