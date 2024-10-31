@@ -11,15 +11,13 @@
 									<th>{{ 'payment_requests.all-table.user_table_header' | translate  }}</th>
 									<th>{{ 'payment_requests.all-table.date_table_header' | translate  }}</th>
 									<th>{{ 'payment_requests.all-table.total_table_header' | translate  }}</th>
-									<th>{{ 'payment_requests.all-table.currency_table_header' | translate  }}</th>
 							</tr>
 					</thead>
 					<tbody>
 							<tr>
 									<td>{{ngDialogData.paymentRequests.user.name}}</td>
 									<td>{{ngDialogData.paymentRequests.created_at}}</td>
-									<td>{{ngDialogData.paymentRequests.total}}</td>
-									<td>{{ ngDialogData.paymentRequests.currency }}</td>
+									<td>{{ngDialogData.paymentRequests.currency}} {{ngDialogData.paymentRequests.total}}</td>
 							</tr>
 					</tbody>
 			</table>
