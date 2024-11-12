@@ -14,6 +14,9 @@
 				concept: null,
 				status: "Pending",
 				user: null,
+				currency: null,
+				startDate: null,
+				endDate: null
 			};
 			$scope.paymentRequestFilters = { ...INITIAL_STATE_FILTERS };
 			$scope.allPaymentRequests = [];
@@ -23,6 +26,30 @@
 				Benefits: $translate.instant("payment_requests.concepts.benefits"),
 				Compensation: $translate.instant("payment_requests.concepts.compensation"),
 			};
+			$scope.currencyTexts = {
+				CLP: $translate.instant("payment_requests.currency.clp"),
+				USD: $translate.instant("payment_requests.currency.usd"),
+				EUR: $translate.instant("payment_requests.currency.eur"),
+				BRL: $translate.instant("payment_requests.currency.brl"),
+				JPY: $translate.instant("payment_requests.currency.jpy"),
+				GBP: $translate.instant("payment_requests.currency.gbp"),
+				CAD: $translate.instant("payment_requests.currency.cad"),
+				AUD: $translate.instant("payment_requests.currency.aud"),
+				CNY: $translate.instant("payment_requests.currency.cny"),
+				INR: $translate.instant("payment_requests.currency.inr"),
+				MXN: $translate.instant("payment_requests.currency.mxn"),
+				RUB: $translate.instant("payment_requests.currency.rub"),
+				ZAR: $translate.instant("payment_requests.currency.zar"),
+				CHF: $translate.instant("payment_requests.currency.chf"),
+				KRW: $translate.instant("payment_requests.currency.krw"),
+				SEK: $translate.instant("payment_requests.currency.sek"),
+				NZD: $translate.instant("payment_requests.currency.nzd"),
+				SGD: $translate.instant("payment_requests.currency.sgd"),
+				HKD: $translate.instant("payment_requests.currency.hkd"),
+				ARS: $translate.instant("payment_requests.currency.ars"),
+				PYG: $translate.instant("payment_requests.currency.pyg"),
+				UYU: $translate.instant("payment_requests.currency.uyu")
+			};
 			$scope.statusTexts = {
 				Pending: $translate.instant("payment_requests.status.pending"),
 				Canceled: $translate.instant("payment_requests.status.canceled"),
@@ -31,6 +58,7 @@
 			};
 			$scope.concepts = Object.keys($scope.conceptTexts);
 			$scope.statuses = Object.keys($scope.statusTexts);
+			$scope.currencies = Object.keys($scope.currencyTexts);
 
 			this.$onInit = function () {
 					getAllPaymentRequests();
@@ -84,16 +112,6 @@
 				});
 			};
 
-			$scope.updateFilters = function() {
-				const query = {
-						concept: $scope.paymentRequestFilters.concept,
-						status: $scope.paymentRequestFilters.status,
-						user: $scope.paymentRequestFilters.user ? $scope.paymentRequestFilters.user.id : null
-				};
-
-				getAllPaymentRequests(query);
-			};
-
 			function getAllPaymentRequests(query) {
 				PaymentRequestsServiceAdmin.find(query, function (err, result) {
 						if (err) {
@@ -107,7 +125,7 @@
 									  r.created_at = new Date(date).toLocaleDateString('en-US', { timeZone: 'UTC' });
 									  r.total = r.payment_request_details.reduce((acc, curr) => {
 										return acc += curr.amount;
-									}, 0).toLocaleString('pt-BR', { style: 'currency', currency: r.currency});
+									}, 0);
 									return r;
 								})
 								$scope.allPaymentRequests = allPaymentRequests;
