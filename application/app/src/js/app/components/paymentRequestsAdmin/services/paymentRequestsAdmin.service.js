@@ -42,7 +42,13 @@
                 RestClient.put(endpoint, { status: status }, function (err, result) {
                     cb(err, result);
                 });
-            }
+            },
+						updateConcept: function (paymentRequestId, data, cb) {
+							var endpoint = `${model}/${paymentRequestId}/update_detail`;
+							RestClient.put(endpoint, data, function (err, result) {
+								cb(err, result);
+							});
+						}
         };
 
         return factory;
