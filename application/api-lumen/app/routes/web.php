@@ -321,5 +321,6 @@ Route::group(['prefix' => 'api'], function () {
         Route::put('{payment_request_id}/cancel', 'PaymentRequestController@cancelPaymentRequest');
         Route::get('{user_id}', 'PaymentRequestController@getUserHistory');
         Route::get('closure/{user_id}', 'PaymentRequestController@getBalanceSinceLastClosure');
+        Route::put('{payment_request_id}/update_detail', 'PaymentRequestController@updateConceptDescription');
     });
 });
