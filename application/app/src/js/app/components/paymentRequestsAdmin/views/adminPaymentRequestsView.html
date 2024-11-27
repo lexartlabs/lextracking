@@ -120,9 +120,14 @@
 							<td>{{paymentRequest.user.name}}</td>
 							<td>{{paymentRequest.created_at}}</td>
 							<td>{{paymentRequest.currency}} {{paymentRequest.total}}</td>
-							<td class="lexart-table__action-cell">
+							<div class="lexart-table__action-cell">
+								<td>
 									<i class="ri-information-line" ng-click="showPaymentRequestDetailsDialog(paymentRequest)"></i>
-							</td>
+								</td>
+								<td>
+										<i class="ri-pencil-line" ng-click="editPaymentRequest(paymentRequest)"></i>
+								</td>
+							</div>
 						</tr>
 					</tbody>
 			</table>
