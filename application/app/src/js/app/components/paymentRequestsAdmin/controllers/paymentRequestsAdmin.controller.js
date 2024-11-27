@@ -112,6 +112,43 @@
 				});
 			};
 
+			$scope.editPaymentRequest = function(paymentRequest) {
+				$scope.editableRequest = angular.copy(paymentRequest);
+				console.log($scope.editableRequest);
+
+
+				ngDialog.open({
+					template: '/app/components/paymentRequestsAdmin/views/editPaymentRequestModalTemplate.modal.html',
+					disableAnimation: true,
+					scope: $scope,
+					data: { editableRequest: $scope.editableRequest }
+				});
+			};
+
+			$scope.savePaymentRequest = function() {
+				const paymentRequestData = {
+					user: $scope.editableRequest.user,
+					amount: $scope.editableRequest.payment_request_details[0].amount,
+					concept_description: $scope.editableRequest.payment_request_details[0].concept_description
+				};
+
+				PaymentRequestsServiceAdmin.updateConcept($scope.editableRequest.id, paymentRequestData, function(err, result) {
+					if (err) {
+						$rootScope.showToaster(
+							$translate.instant("payment_requests.error_messages.error_to_update"),
+							"error"
+						);
+					} else {
+						getAllPaymentRequests();
+						ngDialog.close();
+						$rootScope.showToaster(
+							$translate.instant("payment_requests.success_messages.status_updated"),
+							"success"
+						);
+					}
+				});
+			};
+
 			function getAllPaymentRequests(query) {
 				PaymentRequestsServiceAdmin.find(query, function (err, result) {
 						if (err) {
