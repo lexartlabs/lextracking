@@ -28,4 +28,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     {
         return [];
     }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
 }

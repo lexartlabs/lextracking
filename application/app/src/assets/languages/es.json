@@ -539,6 +539,9 @@
     "url"         : "URL"
   },
   "payment_requests": {
+		"amount" : "Amount",
+		"concept_description": "Description",
+		"save":"Save",
     "title": "Payment Requests",
     "error_messages": {
       "status_update": "Payment request update error",
@@ -557,6 +560,9 @@
     },
     "show_request_details_dialog": {
       "title": "Request Details"
+    },
+		"show_request_edit_dialog": {
+      "title": "Request Edit"
     },
     "form_accordion": {
       "title": "Form",

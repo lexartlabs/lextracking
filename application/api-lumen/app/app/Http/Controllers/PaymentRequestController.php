@@ -18,6 +18,7 @@ use Illuminate\Validation\Rules\Enum;
 use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use PDOException;
+use App\Models\User;
 
 class PaymentRequestController extends BaseController
 {
@@ -65,6 +66,42 @@ class PaymentRequestController extends BaseController
             return new Response(['response' => $rows]);
         } catch (Exception $e) {
             return new Response(["Error" => INTERNAL_SERVER_ERROR, "Operation" => $operation], 500);
+        }
+    }
+
+    public function updateConceptDescription(Request $request, $payment_request_id)
+    {
+        $operation = "Update Payment Request Detail";
+
+        $user = User::find($request->user()->id);
+
+        if (!$user || !$user->isAdmin()) {
+            return new Response(["Error" => ACCESSES_FAILED, "Operation" => $operation], 403);
+        }
+
+        if (!is_numeric($payment_request_id)) {
+            return new Response(["Error" => INVALID_NUMERIC_ID, "Operation" => $operation], 422);
+        }
+
+        $this->validate($request, [
+            'concept_description' => 'required|string',
+            'amount' => 'required|numeric|min:0'
+        ]);
+
+        try {
+            $paymentRequestDetail = PaymentRequestDetail::where('payment_request_id', $payment_request_id)->firstOrFail();
+
+            $paymentRequestDetail->concept_description = $request->input('concept_description');
+            $paymentRequestDetail->amount = $request->input('amount');
+            $paymentRequestDetail->save();
+
+            return new Response(['response' => UPDATED], 201);
+        } catch (ModelNotFoundException $ex) {
+            return new Response(['Error' => PAYMENT_REQUEST_NOT_FOUND], 404);
+        } catch (ValidationException $ex) {
+            return new Response(['Error' => INVALID_DATA, 'errors' => $ex->errors()], 422);
+        } catch (PDOException $ex) {
+            return new Response(['Error' => INTERNAL_SERVER_ERROR, 'Operation' => $operation], 500);
         }
     }
 
