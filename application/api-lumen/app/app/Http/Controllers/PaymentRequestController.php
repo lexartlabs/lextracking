@@ -123,9 +123,9 @@ class PaymentRequestController extends BaseController
         try {
             $user_id = $request->user()->id;
             $details = $request->input('details');
-            
+
             $weekly_hours = Weeklyhours::where('idUser', $user_id)->latest('id')->first();
-            if ($weekly_hours == null) return response()->json(["Error" => MISSING_WEEKLY_HOURS, "Operation" => $operation], 422);
+            if ($weekly_hours == null) return response()->json(["Error" => MISSING_WEEKLY_HOURS, "Operation" => $operation], 200);
 
             $payment_request_id = $this->persistNewPaymentRequest($user_id, $weekly_hours->currency, $details);
 
