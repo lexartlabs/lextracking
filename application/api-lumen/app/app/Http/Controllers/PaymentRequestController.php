@@ -108,7 +108,10 @@ class PaymentRequestController extends BaseController
 
     public function create(Request $request)
     {
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
         $operation = "Create payment request";
+
 
         $this->validate($request, [
             'details' => 'required|array',
@@ -122,13 +125,12 @@ class PaymentRequestController extends BaseController
             $details = $request->input('details');
 
             $weekly_hours = Weeklyhours::where('idUser', $user_id)->latest('id')->first();
-
-            if ($weekly_hours == null) return new Response(['Error' => MISSING_WEEKLY_HOURS, "Operation" => $operation], 422);
+            if ($weekly_hours == null) return response()->json(["Error" => MISSING_WEEKLY_HOURS, "Operation" => $operation], 200);
 
             $payment_request_id = $this->persistNewPaymentRequest($user_id, $weekly_hours->currency, $details);
 
             if ($payment_request_id == null) {
-                return new Response(array("Error" => INTERNAL_SERVER_ERROR, "Operation" => $operation), 500);
+                return response()->json(["Error" => INTERNAL_SERVER_ERROR, "Operation" => $operation], 500);
             }
 
             $payment_request = PaymentRequest::where('id', $payment_request_id)->first();
@@ -136,11 +138,13 @@ class PaymentRequestController extends BaseController
 
             $payment_request->details = $payment_request_details;
 
-            return new Response(['response' => $payment_request], 201);
+            return response()->json(['response' => $payment_request], 201);
         } catch (Exception $e) {
-            return new Response(array("Error" => INTERNAL_SERVER_ERROR, "Operation" => $operation), 500);
+            return response()->json(["Error" => INTERNAL_SERVER_ERROR, "Operation" => $operation], 500);
         }
     }
+
+
 
     public function update(Request $request, $payment_request)
     {

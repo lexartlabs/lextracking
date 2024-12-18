@@ -547,7 +547,8 @@
       "status_update": "Payment request update error",
       "null_values": "All form fields are mandatory",
       "amount_greater_than_zero": "The amount field must be greater than zero",
-      "error_to_save": "There was an error while creating the request"
+      "error_to_save": "There was an error while creating the request",
+			"error_to_hours": "The user does not have an associated hourly cost."
     },
     "success_messages": {
       "status_updated": "Payment request updated successfully",
