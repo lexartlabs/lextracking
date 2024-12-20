@@ -404,7 +404,7 @@
     "status"              : "Status",
     "price"               : "Price",
     "note"                : "Nota",
-   
+
 
 
     "save"                : "Save",
@@ -501,12 +501,12 @@
     "origin"           : "Origin",
     "dateCapture"      : "Capture Date",
     "dateCreate"       : "Created Date",
-    "dateUpdate"       : "Updated Date",      
+    "dateUpdate"       : "Updated Date",
     "url"              : "URL",
     "status"           : "Status",
     "comments"         : "Comments",
     "task"             : "Task",
-    
+
     "delete_task"   : "Delete Task?",
     "confirm_delete": "Are you sure?",
 
@@ -539,12 +539,16 @@
     "url"         : "URL"
   },
   "payment_requests": {
+		"amount" : "Amount",
+		"concept_description": "Description",
+		"save":"Save",
     "title": "Payment Requests",
     "error_messages": {
       "status_update": "Payment request update error",
       "null_values": "All form fields are mandatory",
       "amount_greater_than_zero": "The amount field must be greater than zero",
-      "error_to_save": "There was an error while creating the request"
+      "error_to_save": "There was an error while creating the request",
+			"error_to_hours": "The user does not have an associated hourly cost."
     },
     "success_messages": {
       "status_updated": "Payment request updated successfully",
@@ -557,6 +561,9 @@
     },
     "show_request_details_dialog": {
       "title": "Request Details"
+    },
+		"show_request_edit_dialog": {
+      "title": "Request Edit"
     },
     "form_accordion": {
       "title": "Form",
@@ -618,7 +625,9 @@
       "reject_table_header": "Reject",
       "concept_table_header": "Concept",
       "amount_table_header": "Amount",
-      "observation_table_header": "Description"
+      "observation_table_header": "Description",
+			"button_approved": "Approved",
+			"button_rejected": "Rejected"
     },
     "concepts": {
       "closure": "Closure",
@@ -626,6 +635,34 @@
       "compensation": "Compensation",
       "request_concepts": "Request Concepts"
     },
+		"currency": {
+			"clp": "CLP",
+			"usd": "USD",
+			"eur": "EUR",
+			"brl": "BRL",
+			"jpy": "JPY",
+			"gbp": "GBP",
+			"cad": "CAD",
+			"aud": "AUD",
+			"cny": "CNY",
+			"inr": "INR",
+			"mxn": "MXN",
+			"rub": "RUB",
+			"zar": "ZAR",
+			"chf": "CHF",
+			"krw": "KRW",
+			"sek": "SEK",
+			"nzd": "NZD",
+			"sgd": "SGD",
+			"hkd": "HKD",
+			"ars": "ARS",
+			"pyg": "PYG",
+			"uyu": "UYU"
+		},
+		"currency-label": "Currency",
+		"start-date": "Start Date",
+		"end-date": "End Date",
+		"filter": "Filter",
     "status": {
       "pending": "Pending",
       "canceled": "Cancelled",

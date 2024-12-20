@@ -141,6 +141,14 @@
 
 							return $rootScope.showToaster(err.Error, "error");
 						}
+						if (err == null && result == null) {
+							return $rootScope.showToaster(
+								$translate.instant(
+									"payment_requests.error_messages.error_to_hours"
+								),
+								"error"
+							);
+						}
 
 						getUserPaymentRequestHistory();
 

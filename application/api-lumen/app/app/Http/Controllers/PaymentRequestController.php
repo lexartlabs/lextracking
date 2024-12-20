@@ -18,19 +18,32 @@ use Illuminate\Validation\Rules\Enum;
 use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use PDOException;
+use App\Models\User;
 
 class PaymentRequestController extends BaseController
 {
     private function applyFilters(Builder $query, Request $request)
     {
         $query->when($request->filled('concept'), function ($q) use ($request) {
-            $q->whereHas('payment_request_details', function ($q) use ($request) {
-                $q->where('concept', 'like', "%{$request->input('concept')}%");
-            });
-        })->when($request->filled('user'), function ($q) use ($request) {
-            $q->where('user_id', $request->input('user'));
-        })->when($request->filled('status'), function ($q) use ($request) {
+            $concept = $request->input('concept');
+            $q->whereHas('payment_request_details', function ($q) use ($concept) {
+            $q->where(DB::raw('BINARY concept'), '=', $concept);
+        });
+        })
+        ->when($request->filled('user.id'), function ($q) use ($request) {
+            $q->where('user_id', (int)$request->input('user.id'));
+        })
+        ->when($request->filled('status'), function ($q) use ($request) {
             $q->where('status', $request->input('status'));
+        })
+        ->when($request->filled('currency'), function ($q) use ($request) {
+            $q->where('currency', $request->input('currency'));
+        })
+        ->when($request->filled('startDate'), function ($q) use ($request) {
+            $q->whereDate('created_at', '>=', $request->input('startDate'));
+        })
+        ->when($request->filled('endDate'), function ($q) use ($request) {
+            $q->whereDate('created_at', '<=', $request->input('endDate'));
         });
 
         return $query;
@@ -56,10 +69,49 @@ class PaymentRequestController extends BaseController
         }
     }
 
+    public function updateConceptDescription(Request $request, $payment_request_id)
+    {
+        $operation = "Update Payment Request Detail";
+
+        $user = User::find($request->user()->id);
+
+        if (!$user || !$user->isAdmin()) {
+            return new Response(["Error" => ACCESSES_FAILED, "Operation" => $operation], 403);
+        }
+
+        if (!is_numeric($payment_request_id)) {
+            return new Response(["Error" => INVALID_NUMERIC_ID, "Operation" => $operation], 422);
+        }
+
+        $this->validate($request, [
+            'concept_description' => 'required|string',
+            'amount' => 'required|numeric|min:0'
+        ]);
+
+        try {
+            $paymentRequestDetail = PaymentRequestDetail::where('payment_request_id', $payment_request_id)->firstOrFail();
+
+            $paymentRequestDetail->concept_description = $request->input('concept_description');
+            $paymentRequestDetail->amount = $request->input('amount');
+            $paymentRequestDetail->save();
+
+            return new Response(['response' => UPDATED], 201);
+        } catch (ModelNotFoundException $ex) {
+            return new Response(['Error' => PAYMENT_REQUEST_NOT_FOUND], 404);
+        } catch (ValidationException $ex) {
+            return new Response(['Error' => INVALID_DATA, 'errors' => $ex->errors()], 422);
+        } catch (PDOException $ex) {
+            return new Response(['Error' => INTERNAL_SERVER_ERROR, 'Operation' => $operation], 500);
+        }
+    }
+
 
     public function create(Request $request)
     {
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
         $operation = "Create payment request";
+
 
         $this->validate($request, [
             'details' => 'required|array',
@@ -73,13 +125,12 @@ class PaymentRequestController extends BaseController
             $details = $request->input('details');
 
             $weekly_hours = Weeklyhours::where('idUser', $user_id)->latest('id')->first();
-
-            if ($weekly_hours == null) return new Response(['Error' => MISSING_WEEKLY_HOURS, "Operation" => $operation], 422);
+            if ($weekly_hours == null) return response()->json(["Error" => MISSING_WEEKLY_HOURS, "Operation" => $operation], 200);
 
             $payment_request_id = $this->persistNewPaymentRequest($user_id, $weekly_hours->currency, $details);
 
             if ($payment_request_id == null) {
-                return new Response(array("Error" => INTERNAL_SERVER_ERROR, "Operation" => $operation), 500);
+                return response()->json(["Error" => INTERNAL_SERVER_ERROR, "Operation" => $operation], 500);
             }
 
             $payment_request = PaymentRequest::where('id', $payment_request_id)->first();
@@ -87,11 +138,13 @@ class PaymentRequestController extends BaseController
 
             $payment_request->details = $payment_request_details;
 
-            return new Response(['response' => $payment_request], 201);
+            return response()->json(['response' => $payment_request], 201);
         } catch (Exception $e) {
-            return new Response(array("Error" => INTERNAL_SERVER_ERROR, "Operation" => $operation), 500);
+            return response()->json(["Error" => INTERNAL_SERVER_ERROR, "Operation" => $operation], 500);
         }
     }
+
+
 
     public function update(Request $request, $payment_request)
     {
@@ -120,7 +173,7 @@ class PaymentRequestController extends BaseController
 
     public function persistNewPaymentRequest(int|string $user_id, string $currency, $details): int|null
     {
-        try {            
+        try {
             $attributes = [
                 "user_id" => $user_id,
                 "status" => PaymentRequestStatus::Pending,
